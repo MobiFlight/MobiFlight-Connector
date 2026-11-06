@@ -1,13 +1,18 @@
 import ComboBox from "@/components/ComboBox"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import { useAppMessage } from "@/lib/hooks/appMessage"
 import messageExchange from "@/lib/messageExchange"
 
 import { useControllerStore } from "@/stores/controllerStore"
 import { CommandScanForInput } from "@/types/commands"
 import { IConfigItem } from "@/types/config"
-import { DeviceReference, Controller, InputDeviceType } from "@/types/controller"
+import {
+  DeviceReference,
+  Controller,
+  InputDeviceType,
+} from "@/types/controller"
 import { ScanForInputResult } from "@/types/messages"
 import { InputDeviceTypes } from "@/types/typesOptions"
 import { IconLoader2, IconTrash } from "@tabler/icons-react"
@@ -23,7 +28,7 @@ export const ControllerComboBox = ({
   completeControllers,
   selectedController,
   onChange,
-  variant = "default"
+  variant = "default",
 }: {
   completeControllers: Partial<Controller>[]
   selectedController: Partial<Controller> | undefined
@@ -63,7 +68,7 @@ export const DeviceComboBox = ({
   selectedDevice,
   selectedController,
   onChange,
-  variant = "default"
+  variant = "default",
 }: {
   devices: DeviceReference[]
   selectedDevice: DeviceReference | undefined
@@ -147,9 +152,9 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
         }
       : undefined
 
-  const [selectedDevice, setSelectedDevice] = useState<DeviceReference | undefined>(
-    configuredDevice,
-  )
+  const [selectedDevice, setSelectedDevice] = useState<
+    DeviceReference | undefined
+  >(configuredDevice)
 
   if (
     selectedMatchesConfigController &&
@@ -209,14 +214,10 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
       className="border-primary transition-shadow hover:shadow-md"
     >
       <CardContent className="flex flex-col gap-4 pt-4">
-        <div className="flex flex-col gap-2">
-          <div className="text-lg font-semibold">
-            {t("Dialog.InputConfigWizard.ConfigTrigger.Title")}
-          </div>
-          <div className="text-muted-foreground text-sm">
-            {t("Dialog.InputConfigWizard.ConfigTrigger.Description")}
-          </div>
-        </div>
+        <SectionHeadline
+          title={t("Dialog.InputConfigWizard.ConfigTrigger.Title")}
+          description={t("Dialog.InputConfigWizard.ConfigTrigger.Description")}
+        />
         <div className="flex flex-row items-center gap-2">
           <Button onClick={scanForInput} className="px-5" size="sm">
             {scanning ? (

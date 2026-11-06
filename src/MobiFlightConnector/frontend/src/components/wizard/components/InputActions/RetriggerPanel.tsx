@@ -1,5 +1,6 @@
-import { Card, CardContent } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
+import WizardSection from "@/components/wizard/common/WizardSection"
+import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import { useTranslation } from "react-i18next"
 
 export type RetriggerPanelProps = {
@@ -23,27 +24,17 @@ const RetriggerPanel = ({ variant }: RetriggerPanelProps) => {
   }
 
   return (
-    <Card>
-      <CardContent className="flex flex-col gap-4 pt-4">
-        <div className="flex flex-col gap-4">
-          <div className="flex flex-col">
-            <div className="text-lg font-semibold">
-              {t("Dialog.InputConfigWizard.InputActions.Retrigger.Title")}
-            </div>
-            <div className="text-muted-foreground text-sm">
-              {t(
-                "Dialog.InputConfigWizard.InputActions.Retrigger.Description1",
-              )}
-            </div>
-            <div className="text-muted-foreground text-sm">
-              {t(
-                "Dialog.InputConfigWizard.InputActions.Retrigger.Description2",
-              )}
-            </div>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
+    <WizardSection>
+      <SectionHeadline
+        title={t("Dialog.InputConfigWizard.InputActions.Retrigger.Title")}
+        description={t(
+          "Dialog.InputConfigWizard.InputActions.Retrigger.Description1",
+        )}
+        description2={t(
+          "Dialog.InputConfigWizard.InputActions.Retrigger.Description2",
+        )}
+      />
+    </WizardSection>
   )
 }
 export default RetriggerPanel

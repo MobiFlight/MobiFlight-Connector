@@ -3,9 +3,10 @@ import { LcdDisplayConfig } from "@/types/config"
 import { DeviceReference, Controller } from "@/types/controller"
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
-import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import OutputDeviceComboBox from "@/components/wizard/OutputConfig/OutputDevices/OutputDeviceComboBox"
+import SectionHeadline from "@/components/wizard/common/SectionHeadline"
+import WizardSection from "@/components/wizard/common/WizardSection"
 
 export interface LcdDisplayPanelProps {
   variant: "summary" | "details"
@@ -23,7 +24,9 @@ const LcdDisplayPanel = ({
   onChange,
 }: LcdDisplayPanelProps) => {
   if (variant == "details") {
-    const selectedDevice = devices.find((device) => device.Name === config.Address)
+    const selectedDevice = devices.find(
+      (device) => device.Name === config.Address,
+    )
     const LCD_ROWS = selectedDevice?.Capabilities?.Rows ?? 1
     const LCD_COLS = selectedDevice?.Capabilities?.Columns ?? 8
 
@@ -39,43 +42,37 @@ const LcdDisplayPanel = ({
     }
 
     return (
-      <Card>
-        <CardContent className="flex flex-col gap-4 pt-4">
-          <div className="flex flex-col gap-1">
-            <div className="text-lg font-semibold">
-              Step 2 - LCD Display settings
-            </div>
-            <div className="text-muted-foreground text-sm">
-              Select the display and define the text for each line.
-            </div>
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label>Display</Label>
-            <OutputDeviceComboBox
-              devices={devices}
-              deviceType="LcdDisplay"
-              selectedName={config.Address}
-              onChange={(address) =>
-                onChange?.({ ...config, Address: address, Name: address })
-              }
+      <WizardSection>
+        <SectionHeadline
+          title="Step 2 - LCD Display settings"
+          description="Select the display and define the text for each line."
+        />
+        <div className="flex flex-col gap-2">
+          <Label>Display</Label>
+          <OutputDeviceComboBox
+            devices={devices}
+            deviceType="LcdDisplay"
+            selectedName={config.Address}
+            onChange={(address) =>
+              onChange?.({ ...config, Address: address, Name: address })
+            }
+          />
+        </div>
+        <div className="flex flex-col gap-2">
+          <Label>Lines</Label>
+          {lines.map((line, index) => (
+            <Input
+              key={index}
+              aria-label={`Line ${index + 1}`}
+              className={`w-auto font-mono`}
+              size={LCD_COLS}
+              maxLength={LCD_COLS}
+              value={line}
+              onChange={(e) => updateLine(index, e.target.value)}
             />
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label>Lines</Label>
-            {lines.map((line, index) => (
-              <Input
-                key={index}
-                aria-label={`Line ${index + 1}`}
-                className={`w-auto font-mono`}
-                size={LCD_COLS}
-                maxLength={LCD_COLS}
-                value={line}
-                onChange={(e) => updateLine(index, e.target.value)}
-              />
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+          ))}
+        </div>
+      </WizardSection>
     )
   }
 

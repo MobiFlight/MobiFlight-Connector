@@ -8,7 +8,8 @@ import { Separator } from "@/components/ui/separator"
 import { useEffect } from "react"
 import { Badge } from "@/components/ui/badge"
 import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
-import { Card, CardContent } from "@/components/ui/card"
+import SectionHeadline from "@/components/wizard/common/SectionHeadline"
+import WizardSection from "@/components/wizard/common/WizardSection"
 export type VariablePanelProps = {
   variant: "summary" | "details"
   triggerType: "input" | "output"
@@ -78,123 +79,117 @@ export const VariablePanel = ({
   }
 
   return (
-    <Card>
-      <CardContent className="flex flex-col gap-4 pt-4">
-        <div className="flex flex-col">
-          <div className="text-lg font-semibold">
-            {t("Dialog.InputConfigWizard.InputActions.Variable.Title")}
-          </div>
-          <div className="text-muted-foreground text-sm">
-            {t("Dialog.InputConfigWizard.InputActions.Variable.Description")}
-          </div>
-        </div>
-        <div className="flex flex-col gap-4">
-          <Label>
-            {t(
-              "Dialog.InputConfigWizard.InputActions.Variable.ExistingVariable",
-            )}
-          </Label>
-          <ComboBox
-            items={availableVariables}
-            getLabel={(item) => `${item.Name} (${item.TYPE})`}
-            getValue={(item) => item.Name}
-            selected={variable ?? undefined}
-            isSelected={(item) =>
-              item.Name === variable?.Name && item.TYPE === variable?.TYPE
+    <WizardSection>
+      <SectionHeadline
+        title={t("Dialog.InputConfigWizard.InputActions.Variable.Title")}
+        description={t(
+          "Dialog.InputConfigWizard.InputActions.Variable.Description",
+        )}
+      />
+      <div className="flex flex-col gap-4">
+        <Label>
+          {t("Dialog.InputConfigWizard.InputActions.Variable.ExistingVariable")}
+        </Label>
+        <ComboBox
+          items={availableVariables}
+          getLabel={(item) => `${item.Name} (${item.TYPE})`}
+          getValue={(item) => item.Name}
+          selected={variable ?? undefined}
+          isSelected={(item) =>
+            item.Name === variable?.Name && item.TYPE === variable?.TYPE
+          }
+          setSelected={(item) => {
+            if (item) {
+              onVariableChange(item)
             }
-            setSelected={(item) => {
-              if (item) {
-                onVariableChange(item)
+          }}
+        />
+        <Separator />
+        <div className="flex flex-row gap-2">
+          <div className="flex flex-col gap-2">
+            <Label>
+              {t(
+                "Dialog.InputConfigWizard.InputActions.Variable.VariableTypeLabel",
+              )}
+            </Label>
+            <ComboBox
+              widthClass="w-26"
+              align="start"
+              items={variableTypeOptions}
+              getLabel={(item) => item.label}
+              getValue={(item) => item.value}
+              selected={
+                variableTypeOptions.find(
+                  (option) => option.value === variable?.TYPE,
+                ) ?? undefined
               }
-            }}
-          />
-          <Separator />
-          <div className="flex flex-row gap-2">
-            <div className="flex flex-col gap-2">
-              <Label>
-                {t(
-                  "Dialog.InputConfigWizard.InputActions.Variable.VariableTypeLabel",
-                )}
-              </Label>
-              <ComboBox
-                widthClass="w-26"
-                align="start"
-                items={variableTypeOptions}
-                getLabel={(item) => item.label}
-                getValue={(item) => item.value}
-                selected={
-                  variableTypeOptions.find(
-                    (option) => option.value === variable?.TYPE,
-                  ) ?? undefined
+              isSelected={(item) => item.value === variable?.TYPE}
+              setSelected={(item) => {
+                if (item) {
+                  const updated = {
+                    ...variable,
+                    TYPE: item.value,
+                  } as MobiFlightVariable
+                  onVariableChange(updated)
                 }
-                isSelected={(item) => item.value === variable?.TYPE}
-                setSelected={(item) => {
-                  if (item) {
-                    const updated = {
-                      ...variable,
-                      TYPE: item.value,
-                    } as MobiFlightVariable
-                    onVariableChange(updated)
-                  }
-                }}
-                variant="nofilter"
-              />
-            </div>
+              }}
+              variant="nofilter"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label>
+              {t(
+                "Dialog.InputConfigWizard.InputActions.Variable.VariableNameLabel",
+              )}
+            </Label>
+            <Input
+              className="max-w-50 truncate"
+              value={variable?.Name ?? ""}
+              onChange={(e) => {
+                onVariableChange({
+                  ...variable,
+                  Name: e.target.value,
+                } as MobiFlightVariable)
+              }}
+              placeholder={t(
+                "Dialog.InputConfigWizard.InputActions.Variable.VariableNamePlaceholder",
+              )}
+            />
+          </div>
+          {triggerType === "input" && variable && (
             <div className="flex flex-col gap-2">
               <Label>
                 {t(
-                  "Dialog.InputConfigWizard.InputActions.Variable.VariableNameLabel",
+                  "Dialog.InputConfigWizard.InputActions.Variable.ExpressionLabel",
                 )}
               </Label>
               <Input
-                className="max-w-50 truncate"
-                value={variable?.Name ?? ""}
-                onChange={(e) => {
+                className="font-mono text-sm whitespace-nowrap"
+                value={variable.Expression}
+                onKeyDown={(e) => {
+                  e.stopPropagation()
+                }}
+                onChange={(e) =>
                   onVariableChange({
                     ...variable,
-                    Name: e.target.value,
+                    Expression: e.target.value,
                   } as MobiFlightVariable)
-                }}
+                }
                 placeholder={t(
-                  "Dialog.InputConfigWizard.InputActions.Variable.VariableNamePlaceholder",
+                  "Dialog.InputConfigWizard.InputActions.Variable.ExpressionPlaceholder",
                 )}
               />
-            </div>
-            {triggerType === "input" && variable && (
-              <div className="flex flex-col gap-2">
-                <Label>
-                  {t(
-                    "Dialog.InputConfigWizard.InputActions.Variable.ExpressionLabel",
-                  )}
-                </Label>
-                <Input
-                  className="font-mono text-sm whitespace-nowrap"
-                  value={variable.Expression}
-                  onKeyDown={(e) => {
-                    e.stopPropagation()
-                  }}
-                  onChange={(e) =>
-                    onVariableChange({
-                      ...variable,
-                      Expression: e.target.value,
-                    } as MobiFlightVariable)
-                  }
-                  placeholder={t(
-                    "Dialog.InputConfigWizard.InputActions.Variable.ExpressionPlaceholder",
-                  )}
-                />
-                <div className="text-muted-foreground text-sm">
-                  <Trans i18nKey="Dialog.InputConfigWizard.InputActions.Variable.ExpressionHelp">
-                    Use <code>$</code> to represent the variable value in
-                    expressions, e.g. <code>$ * 2</code> to double a number
-                    variable.
-                  </Trans>
-                </div>
+              <div className="text-muted-foreground text-sm">
+                <Trans i18nKey="Dialog.InputConfigWizard.InputActions.Variable.ExpressionHelp">
+                  Use <code>$</code> to represent the variable value in
+                  expressions, e.g. <code>$ * 2</code> to double a number
+                  variable.
+                </Trans>
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </WizardSection>
   )
 }

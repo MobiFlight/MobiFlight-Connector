@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import ConfigWizardTestPanel from "@/components/wizard/components/ConfigWizardTestPanel"
 import ModifierEditor from "@/components/wizard/Modifier/ModifierEditor"
 import ModifierSummary from "@/components/wizard/Modifier/ModifierSummary"
@@ -43,14 +44,10 @@ const ModifiersPanel = ({
     >
       <CardContent className="flex flex-col gap-4 pt-4">
         <div className="flex flex-row items-start justify-between gap-4">
-          <div className="flex flex-col gap-2">
-            <div className="text-lg font-semibold">
-              {t("Dialog.Modifiers.Title")}
-            </div>
-            <div className="text-muted-foreground text-sm">
-              {t("Dialog.Modifiers.Description")}
-            </div>
-          </div>
+          <SectionHeadline
+            title={t("Dialog.Modifiers.Title")}
+            description={t("Dialog.Modifiers.Description")}
+          />
           {hasModifiers && (
             <Button
               variant="ghost"
@@ -72,7 +69,7 @@ const ModifiersPanel = ({
       </CardContent>
     </Card>
   ) : (
-    <div className="flex flex-col gap-4 grow">
+    <div className="flex grow flex-col gap-4">
       <ModifierEditor
         modifiers={modifiers}
         onModifierChange={(updatedModifiers) =>
@@ -82,8 +79,8 @@ const ModifiersPanel = ({
           })
         }
       />
-      <ConfigWizardTestPanel 
-        configItem={configItem} 
+      <ConfigWizardTestPanel
+        configItem={configItem}
         title={t("Dialog.Modifiers.Editor.TestPanel.Title")}
         description={t("Dialog.Modifiers.Editor.TestPanel.Description")}
       />

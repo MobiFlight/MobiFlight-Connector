@@ -1,4 +1,5 @@
-import { Card, CardContent } from "@/components/ui/card"
+import SectionHeadline from "@/components/wizard/common/SectionHeadline"
+import WizardSection from "@/components/wizard/common/WizardSection"
 import { FsuipcOffsetPanel } from "@/components/wizard/components/InputActions/FsuipcOffsetInputActionPanel"
 import { VariablePanel } from "@/components/wizard/components/InputActions/VariablePanel"
 import MsfsSourcePanel from "@/components/wizard/OutputConfig/Sources/MsfsSourcePanel"
@@ -29,20 +30,13 @@ const SourceEditor = ({ source, onSourceChange }: SourceEditorProps) => {
 
   return (
     <div className="flex flex-col gap-4" data-testid="source-editor">
-      <Card>
-        <CardContent className="pt-4">
-          <div className="flex flex-col">
-            <div className="text-lg font-semibold">
-              {t("Dialog.ConfigWizard.Source.Title")}
-            </div>
-            <div className="text-muted-foreground text-sm">
-              {t("Dialog.ConfigWizard.Source.Description")}
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-      <Card>
-        <CardContent className="pt-4">
+      <WizardSection>
+        <SectionHeadline
+          title={t("Dialog.ConfigWizard.Source.Title")}
+          description={t("Dialog.ConfigWizard.Source.Description")}
+        />
+      </WizardSection>
+      <WizardSection>
           <div className="flex flex-col gap-4">
             <div className="flex flex-row items-end justify-between">
               <SourceTypeComboBox
@@ -71,8 +65,7 @@ const SourceEditor = ({ source, onSourceChange }: SourceEditorProps) => {
               />
             </div>
           </div>
-        </CardContent>
-      </Card>
+      </WizardSection>
       {selectedSourceType?.value === "SimConnectSource" && (
         <MsfsSourcePanel
           variant="details"
@@ -94,29 +87,21 @@ const SourceEditor = ({ source, onSourceChange }: SourceEditorProps) => {
         />
       )}
       {selectedSourceType?.value === "FsuipcSource" && (
-        <Card>
-          <CardContent className="flex flex-col gap-4 pt-4">
-            <div className="flex flex-col">
-              <div className="text-lg font-semibold">
-                {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.Title")}
-              </div>
-              <div className="text-muted-foreground text-sm">
-                {t(
-                  "Dialog.InputConfigWizard.InputActions.FsuipcOffset.Description",
-                )}
-              </div>
-            </div>
-            <FsuipcOffsetPanel
-              fsuipc={(source as FsuipcSource).FSUIPC}
-              onConfigChange={(fsuipc) => {
-                onSourceChange({
-                  ...(source as FsuipcSource),
-                  FSUIPC: fsuipc,
-                } as FsuipcSource)
-              }}
-            />
-          </CardContent>
-        </Card>
+        <WizardSection>
+          <SectionHeadline
+            title={t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.Title")}
+            description={t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.Description")}
+          />
+          <FsuipcOffsetPanel
+            fsuipc={(source as FsuipcSource).FSUIPC}
+            onConfigChange={(fsuipc) => {
+              onSourceChange({
+                ...(source as FsuipcSource),
+                FSUIPC: fsuipc,
+              } as FsuipcSource)
+            }}
+          />
+        </WizardSection>
       )}
       {selectedSourceType?.value === "ProSimSource" && (
         <ProSimSourcePanel

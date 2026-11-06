@@ -1,4 +1,5 @@
 import ComboBox from "@/components/ComboBox"
+import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import { SourceTypeOptions } from "@/lib/configWizard"
 import { useProjectStore } from "@/stores/projectStore"
 import { Project } from "@/types"
@@ -28,14 +29,10 @@ const SourceTypeComboBox = ({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-col">
-        <div className="text-lg font-semibold">
-          {t("Dialog.ConfigWizard.SourceType.Title")}
-        </div>
-        <div className="text-muted-foreground text-sm">
-          {t("Dialog.ConfigWizard.SourceType.Description")}
-        </div>
-      </div>
+      <SectionHeadline
+        title={t("Dialog.ConfigWizard.SourceType.Title")}
+        description={t("Dialog.ConfigWizard.SourceType.Description")}
+      />
       <ComboBox
         data-testid="source-type-combobox"
         selected={selectedSourceType}

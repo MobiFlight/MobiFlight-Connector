@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import OutputDeviceSummary from "@/components/wizard/OutputConfig/OutputDeviceSummary"
 import { OutputConfig, OutputConfigItem } from "@/types/config"
 import { IconPlus, IconTrash } from "@tabler/icons-react"
@@ -34,14 +35,10 @@ const OutputActionBindingCard = ({
     >
       <CardContent className="flex flex-col gap-2 py-4">
         <div className="flex flex-row items-center justify-between gap-2">
-          <div className="flex flex-col gap-1">
-            <div className="text-lg font-semibold">
-              {t(`Dialog.InputConfigWizard.Action.Title`)}
-            </div>
-            <div className="text-muted-foreground text-sm">
-              {t(`Dialog.InputConfigWizard.Action.Description`)}
-            </div>
-          </div>
+          <SectionHeadline
+            title={t(`Dialog.InputConfigWizard.Action.Title`)}
+            description={t(`Dialog.InputConfigWizard.Action.Description`)}
+          />
           {hasOutputDevice && (
             <Button size={"sm"} variant="ghost" onClick={onRemoveOutputDevice}>
               <IconTrash />

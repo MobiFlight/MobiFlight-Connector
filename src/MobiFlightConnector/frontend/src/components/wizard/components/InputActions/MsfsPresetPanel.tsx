@@ -14,6 +14,7 @@ import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import LoadingSpinner from "../LoadingSpinner"
+import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 export type MsfsPresetPanelProps = {
   variant: "input" | "output"
   isLoading: boolean
@@ -104,16 +105,10 @@ const MsfsPresetPanel = ({
     <Card className="grow">
       <CardContent className="flex flex-col gap-4 pt-4">
         <div className="flex flex-row items-end justify-between">
-          <div className="flex flex-col">
-            <div className="text-lg font-semibold">
-              {t("Dialog.InputConfigWizard.InputActions.Common.Preset.Title")}
-            </div>
-            <div className="text-muted-foreground text-sm">
-              {t(
-                "Dialog.InputConfigWizard.InputActions.Common.Preset.Description",
-              )}
-            </div>
-          </div>
+          <SectionHeadline
+            title={t("Dialog.InputConfigWizard.InputActions.Common.Preset.Title")}
+            description={t("Dialog.InputConfigWizard.InputActions.Common.Preset.Description")}
+          />
           <div className="flex flex-row items-center gap-2">
             <Switch
               checked={favoritesOnly}

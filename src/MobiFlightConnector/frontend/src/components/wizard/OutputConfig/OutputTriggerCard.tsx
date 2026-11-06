@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { IConfigItem, OutputConfigItem } from "@/types/config"
 import { useTranslation } from "react-i18next"
 import SourceSummary from "./SourceSummary"
+import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 
 export type OutputTriggerCardProps = {
   configItem: IConfigItem
@@ -25,14 +26,10 @@ const OutputTriggerCard = ({
       className="border-primary transition-shadow hover:shadow-md"
     >
       <CardContent className="flex flex-col gap-4 pt-4">
-        <div className="flex flex-col gap-2">
-          <div className="text-lg font-semibold">
-            {t("Dialog.InputConfigWizard.ConfigTrigger.Title")}
-          </div>
-          <div className="text-muted-foreground text-sm">
-            {t("Dialog.InputConfigWizard.ConfigTrigger.Description")}
-          </div>
-        </div>
+        <SectionHeadline
+          title={t("Dialog.InputConfigWizard.ConfigTrigger.Title")}
+          description={t("Dialog.InputConfigWizard.ConfigTrigger.Description")}
+        />
         {outputConfigItem.Source == null ? (
           <div className="flex flex-row items-center gap-2">
             <Button

@@ -10,9 +10,10 @@ import { CommandConfigContextMenu } from "@/types/commands"
 import { IconFlask, IconPlayerStopFilled } from "@tabler/icons-react"
 import { useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Card, CardContent } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import DeviceIcon from "@/components/icons/DeviceIcon"
+import SectionHeadline from "@/components/wizard/common/SectionHeadline"
+import WizardSection from "@/components/wizard/common/WizardSection"
 
 export interface ConfigWizardTestPanelProps {
   configItem: IConfigItem | null
@@ -98,70 +99,61 @@ const ConfigWizardTestPanel = ({
   }
 
   return (
-    <Card>
-      <CardContent className="flex flex-col gap-4">
-        <div className="flex flex-col gap-1 pt-4">
-          <div className="text-lg font-semibold">{title}</div>
-          <div className="text-muted-foreground text-sm">{description}</div>
+    <WizardSection>
+      <SectionHeadline title={title} description={description} />
+      <div className="flex grow flex-row items-end gap-2">
+        <div className="flex flex-col gap-1">
+          <Label>{t("ConfigList.Header.RawValue")}</Label>
+          <Input
+            placeholder="Enter raw value"
+            value={testValue}
+            onChange={handleValueChange}
+            className="max-w-16"
+          />
         </div>
-        <div className="flex grow flex-row items-end gap-2">
-          <div className="flex flex-col gap-1">
-            <Label>
-              {t("ConfigList.Header.RawValue")}
-            </Label>
-            <Input
-              placeholder="Enter raw value"
-              value={testValue}
-              onChange={handleValueChange}
-              className="max-w-16"
-            />
-          </div>
-          <div className="inline-flex">
-            <Button
-              disabled={!configItem}
-              variant="outline"
-              size="sm"
-              className="h-8 px-2 text-md gap-1 [&_svg]:size-6"
-              onClick={() =>
-                handleMenuItemClick({ action: !isTesting ? "test" : "stop" })
+        <div className="inline-flex">
+          <Button
+            disabled={!configItem}
+            variant="outline"
+            size="sm"
+            className="text-md h-8 gap-1 px-2 [&_svg]:size-6"
+            onClick={() =>
+              handleMenuItemClick({ action: !isTesting ? "test" : "stop" })
+            }
+          >
+            <TwoStateIcon
+              state={isTesting}
+              primaryIcon={IconFlask}
+              secondaryIcon={IconPlayerStopFilled}
+              primaryClassName={
+                configItem
+                  ? "stroke-sky-600"
+                  : "fill-none stroke-2 stroke-muted-foreground"
               }
-            >
-              <TwoStateIcon
-                state={isTesting}
-                primaryIcon={IconFlask}
-                secondaryIcon={IconPlayerStopFilled}
-                primaryClassName={
-                  configItem
-                    ? "stroke-sky-600"
-                    : "fill-none stroke-2 stroke-muted-foreground"
-                }
-                secondaryClassName="fill-red-700 stroke-red-700"
-              />
-              <div className="hidden pr-1 lg:inline-flex">
-                {!isTesting
-                  ? t("Project.Execution.Test.Label")
-                  : t("Project.Execution.Test.Stop")}
-              </div>
-            </Button>
-          </div>
-          <div className="mt-1 h-3 flex-1 border-t border-dashed border-gray-800 mb-1"></div>
-          <Badge variant="secondary" className="h-8">
-            {`${configItem?.Modifiers?.Items?.length ?? "0"} modifiers`}
-          </Badge>
-          <div className="mt-1 h-3 flex-1 border-t border-dashed border-gray-800 mb-1"></div>
-          <div className="flex flex-col gap-1">
-            <Label>
-              {t("ConfigList.Header.FinalValue")}
-            </Label>
-            <Badge variant="secondary" className="h-8">
-              {isTesting ? runtimeState?.Value : "?"}
-            </Badge>
-          </div>
-          <div className="mt-1 h-3 w-4 border-t border-dashed border-gray-800 mb-1"></div>
-          <DeviceIcon  variant={configItem?.Device?.Type} />
+              secondaryClassName="fill-red-700 stroke-red-700"
+            />
+            <div className="hidden pr-1 lg:inline-flex">
+              {!isTesting
+                ? t("Project.Execution.Test.Label")
+                : t("Project.Execution.Test.Stop")}
+            </div>
+          </Button>
         </div>
-      </CardContent>
-    </Card>
+        <div className="mt-1 mb-1 h-3 flex-1 border-t border-dashed border-gray-800"></div>
+        <Badge variant="secondary" className="h-8">
+          {`${configItem?.Modifiers?.Items?.length ?? "0"} modifiers`}
+        </Badge>
+        <div className="mt-1 mb-1 h-3 flex-1 border-t border-dashed border-gray-800"></div>
+        <div className="flex flex-col gap-1">
+          <Label>{t("ConfigList.Header.FinalValue")}</Label>
+          <Badge variant="secondary" className="h-8">
+            {isTesting ? runtimeState?.Value : "?"}
+          </Badge>
+        </div>
+        <div className="mt-1 mb-1 h-3 w-4 border-t border-dashed border-gray-800"></div>
+        <DeviceIcon variant={configItem?.Device?.Type} />
+      </div>
+    </WizardSection>
   )
 }
 export default ConfigWizardTestPanel

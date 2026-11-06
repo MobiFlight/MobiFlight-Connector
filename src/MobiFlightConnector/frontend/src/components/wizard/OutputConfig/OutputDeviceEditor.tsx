@@ -1,5 +1,6 @@
 import ComboBox from "@/components/ComboBox"
-import { Card, CardContent } from "@/components/ui/card"
+import SectionHeadline from "@/components/wizard/common/SectionHeadline"
+import WizardSection from "@/components/wizard/common/WizardSection"
 import { ControllerComboBox } from "@/components/wizard/components/ConfigTrigger"
 import ConfigWizardTestPanel from "@/components/wizard/components/ConfigWizardTestPanel"
 import CustomDevicePanel from "@/components/wizard/OutputConfig/OutputDevices/CustomDevicePanel"
@@ -7,7 +8,6 @@ import LcdDisplayPanel from "@/components/wizard/OutputConfig/OutputDevices/LcdD
 import LedModulePanel from "@/components/wizard/OutputConfig/OutputDevices/LedModulePanel"
 import OutputPanel from "@/components/wizard/OutputConfig/OutputDevices/OutputPanel"
 import ServoPanel from "@/components/wizard/OutputConfig/OutputDevices/ServoPanel"
-import ShiftRegisterPanel from "@/components/wizard/OutputConfig/OutputDevices/ShiftRegisterPanel"
 import StepperPanel from "@/components/wizard/OutputConfig/OutputDevices/StepperPanel"
 import { useControllerStore } from "@/stores/controllerStore"
 import {
@@ -19,7 +19,6 @@ import {
   ServoConfig,
   StepperConfig,
   OutputDeviceConfig,
-  ShiftRegisterConfig,
   CustomDeviceConfig,
 } from "@/types/config"
 import {
@@ -136,72 +135,61 @@ const OutputDeviceEditor = ({
 
   return (
     <div className="flex flex-col gap-4" data-testid="output-device-editor">
-      <Card>
-        <CardContent className="flex flex-col gap-4 pt-4">
-          <div className="flex flex-1 flex-col">
-            <div className="text-lg font-semibold">
-              {t("Dialog.ConfigWizard.Device.Title")}
-            </div>
-            <div className="text-muted-foreground text-sm">
-              {t("Dialog.ConfigWizard.Device.Description")}
-            </div>
+      <WizardSection>
+        <SectionHeadline
+          title={t("Dialog.ConfigWizard.Device.Title")}
+          description={t("Dialog.ConfigWizard.Device.Description")}
+        />
+      </WizardSection>
+      <WizardSection>
+        <SectionHeadline
+          title="Step 1 - Display type"
+          description="Select the type of device you want to configure."
+        />
+        <div className="flex flex-row items-center gap-4">
+          <div className="flex flex-col gap-2">
+            <ControllerComboBox
+              completeControllers={completeControllers}
+              selectedController={configItem.Controller}
+              onChange={(controller) => {
+                updateConfigItem(controller, undefined)
+              }}
+            />
           </div>
-        </CardContent>
-      </Card>
-      <Card>
-        <CardContent className="flex flex-col gap-4 pt-4">
-          <div className="flex flex-col gap-1">
-            <div className="text-lg font-semibold">Step 1 - Display type</div>
-            <div className="text-muted-foreground text-sm">
-              Select the type of device you want to configure.
-            </div>
-          </div>
-          <div className="flex flex-row items-center gap-4">
-            <div className="flex flex-col gap-2">
-              <ControllerComboBox
-                completeControllers={completeControllers}
-                selectedController={configItem.Controller}
-                onChange={(controller) => {
-                  updateConfigItem(controller, undefined)
-                }}
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <ComboBox
-                items={deviceTypeOptions}
-                getLabel={(item) => item.label}
-                getValue={(item) => item.value}
-                selected={selectedDeviceTypeOption}
-                isSelected={(item, selected) =>
-                  selected ? item.value === selected.value : false
+          <div className="flex flex-col gap-2">
+            <ComboBox
+              items={deviceTypeOptions}
+              getLabel={(item) => item.label}
+              getValue={(item) => item.value}
+              selected={selectedDeviceTypeOption}
+              isSelected={(item, selected) =>
+                selected ? item.value === selected.value : false
+              }
+              setSelected={(item) => {
+                // deselecting the current device type clears the device
+                if (!item) {
+                  updateConfigItem(configItem.Controller, undefined)
+                  return
                 }
-                setSelected={(item) => {
-                  // deselecting the current device type clears the device
-                  if (!item) {
-                    updateConfigItem(configItem.Controller, undefined)
-                    return
-                  }
 
-                  const first = completeDevices.find(
-                    (device) => device.Type === item?.value,
-                  )
-                  const isSameDeviceType =
-                    first?.Type === configItem.Device?.Type
+                const first = completeDevices.find(
+                  (device) => device.Type === item?.value,
+                )
+                const isSameDeviceType = first?.Type === configItem.Device?.Type
 
-                  const device = isSameDeviceType
-                    ? ({ ...configItem.Device, ...first } as OutputDeviceConfig)
-                    : OutputDeviceConfigDefaults.createByType(
-                        first?.Type as OutputDeviceType,
-                        first?.Name ?? "",
-                        first?.Capabilities ?? undefined,
-                      )
-                  updateConfigItem(configItem.Controller, device)
-                }}
-              />
-            </div>
+                const device = isSameDeviceType
+                  ? ({ ...configItem.Device, ...first } as OutputDeviceConfig)
+                  : OutputDeviceConfigDefaults.createByType(
+                      first?.Type as OutputDeviceType,
+                      first?.Name ?? "",
+                      first?.Capabilities ?? undefined,
+                    )
+                updateConfigItem(configItem.Controller, device)
+              }}
+            />
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </WizardSection>
       {configItem.Device && configItem.Device.Type === "Output" && (
         <OutputPanel
           variant="details"
@@ -245,13 +233,6 @@ const OutputDeviceEditor = ({
           controller={configItem.Controller}
           devices={devices.filter((device) => device.Type === "Stepper")}
           onChange={(device) => updateConfigItem(configItem.Controller, device)}
-        />
-      )}
-      {configItem.Device && configItem.Device.Type === "ShiftRegister" && (
-        <ShiftRegisterPanel
-          variant="details"
-          config={configItem.Device as ShiftRegisterConfig}
-          controller={configItem.Controller}
         />
       )}
       {configItem.Device && configItem.Device.Type === "CustomDevice" && (

@@ -1,8 +1,9 @@
 import ComboBox from "@/components/ComboBox"
-import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import SectionHeadline from "@/components/wizard/common/SectionHeadline"
+import WizardSection from "@/components/wizard/common/WizardSection"
 import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
 import EventIdPresetsPanel from "@/components/wizard/components/InputActions/EventIdPresetsPanel"
 import { EventIdInputAction, PmdgEventIdInputAction } from "@/types/config"
@@ -82,16 +83,11 @@ const EventIdInputActionPanel = ({
   }
 
   return (
-    <Card>
-      <CardContent className="flex flex-col gap-4 pt-4">
-        <div className="flex flex-col">
-          <div className="text-lg font-semibold">
-            {t("Dialog.InputConfigWizard.InputActions.EventId.Title")}
-          </div>
-          <div className="text-muted-foreground text-sm">
-            {t("Dialog.InputConfigWizard.InputActions.EventId.Description")}
-          </div>
-        </div>
+    <WizardSection>
+        <SectionHeadline
+          title={t("Dialog.InputConfigWizard.InputActions.EventId.Title")}
+          description={t("Dialog.InputConfigWizard.InputActions.EventId.Description")}
+        />
         <div className="flex flex-col gap-4">
           {options === "pmdg" && (
             <div className="flex flex-col gap-2">
@@ -201,8 +197,7 @@ const EventIdInputActionPanel = ({
             </div>
           )}
         </div>
-      </CardContent>
-    </Card>
+      </WizardSection>
   )
 }
 export default EventIdInputActionPanel

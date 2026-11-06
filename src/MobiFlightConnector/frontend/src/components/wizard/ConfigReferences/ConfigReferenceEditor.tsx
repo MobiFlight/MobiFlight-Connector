@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Switch } from "@/components/ui/switch"
+import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import { configReferenceVariants } from "@/components/wizard/variants"
 import { ConfigReference, IConfigItem } from "@/types/config"
 import { IconPlus, IconTrash } from "@tabler/icons-react"
@@ -161,14 +162,12 @@ const ConfigReferenceEditor = ({
       data-testid="config-reference-editor"
     >
       <div className="flex flex-row justify-between gap-4">
-        <div className="flex flex-col gap-2">
-          <div className="text-lg font-semibold">
-            {t("Dialog.InputConfigWizard.ConfigReferenceEditor.Title")}
-          </div>
-          <div className="text-muted-foreground text-sm">
-            {t("Dialog.InputConfigWizard.ConfigReferenceEditor.Description")}
-          </div>
-        </div>
+        <SectionHeadline
+          title={t("Dialog.InputConfigWizard.ConfigReferenceEditor.Title")}
+          description={t(
+            "Dialog.InputConfigWizard.ConfigReferenceEditor.Description",
+          )}
+        />
         <Button
           variant="default"
           className="self-end"
