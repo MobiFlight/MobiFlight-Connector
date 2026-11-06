@@ -1,5 +1,4 @@
 ﻿using MobiFlight.Base;
-using MobiFlight.Base;
 using MobiFlight.BrowserMessages;
 using MobiFlight.BrowserMessages.Outgoing;
 using MobiFlight.Controllers;
@@ -28,7 +27,7 @@ namespace MobiFlight
         {
             _executionManager = executionManager;
         }
-        private enum ConfigListUndoAction
+        internal enum ConfigListUndoAction
         {
             Delete,
             Add,
@@ -44,7 +43,7 @@ namespace MobiFlight
             ItemEdited
         }
 
-        private sealed class ConfigListUndoItemState
+        internal sealed class ConfigListUndoItemState
         {
             public string Guid { get; set; }
             public int OriginalIndex { get; set; }
@@ -52,13 +51,13 @@ namespace MobiFlight
             public IConfigItem Snapshot { get; set; }
         }
 
-        private sealed class ConfigListProfileSnapshot
+        internal sealed class ConfigListProfileSnapshot
         {
             public ConfigFile File { get; set; }
             public List<IConfigItem> Items { get; set; }
         }
 
-        private sealed class ConfigListUndoEntry
+        internal sealed class ConfigListUndoEntry
         {
             public ConfigListUndoAction Action { get; set; }
             public Project Project { get; set; }
@@ -94,9 +93,9 @@ namespace MobiFlight
 
         private long _listHistoryStart = 0;
 
-        private List<ConfigListUndoEntry> UndoHistory => _listUndoHistory;
+        internal List<ConfigListUndoEntry> UndoHistory => _listUndoHistory;
 
-        private void RecordConfigListUndo(
+        internal void RecordConfigListUndo(
             ConfigListUndoAction action,
             IConfigItem item,
             int originalIndex)
@@ -120,7 +119,7 @@ namespace MobiFlight
             PushConfigListUndo(entry);
         }
 
-        private void PushConfigListUndo(ConfigListUndoEntry entry)
+        internal void PushConfigListUndo(ConfigListUndoEntry entry)
         {
             if (_listUndoHistory.Count >= MaxListUndoSteps)
             {
@@ -132,7 +131,7 @@ namespace MobiFlight
             _executionManager.NotifyConfigListActionRecorded();
         }
 
-        private void RecordConfigListBulkUndo(ConfigListUndoAction action, List<IConfigItem> affectedItems)
+        internal void RecordConfigListBulkUndo(ConfigListUndoAction action, List<IConfigItem> affectedItems)
         {
             if (affectedItems.Count == 0) return;
             var states = affectedItems.Select(item => new ConfigListUndoItemState
@@ -160,7 +159,7 @@ namespace MobiFlight
             PushConfigListUndo(entry);
         }
 
-        private void RecordConfigListResortUndo(
+        internal void RecordConfigListResortUndo(
             int sourceIndex,
             int targetIndex,
             List<IConfigItem> sourceBefore,
@@ -186,6 +185,60 @@ namespace MobiFlight
             PushConfigListUndo(entry);
         }
 
+        public void RecordProfileAdded(ConfigFile file, int index)
+        {
+            if (file == null || Project == null)
+                return;
+
+            PushConfigListUndo(new ConfigListUndoEntry
+            {
+                Action = ConfigListUndoAction.ProfileAdded,
+                Project = Project,
+                File = file,
+                ConfigIndex = index,
+                OriginalIndex = index
+            });
+        }
+
+        public void RecordProfileMerged(List<ConfigFile> mergedFiles)
+        {
+            if (
+                Project == null ||
+                mergedFiles == null ||
+                mergedFiles.Count == 0
+            )
+            {
+                return;
+            }
+
+            var originalProfiles = Project.ConfigFiles
+                .Select(file => new ConfigListProfileSnapshot
+                {
+                    File = file,
+                    Items = file.ConfigItems
+                        .Select(item => (IConfigItem)item.Clone())
+                        .ToList()
+                })
+                .ToList();
+
+            PushConfigListUndo(new ConfigListUndoEntry
+            {
+                Action = ConfigListUndoAction.ProfileMerged,
+                Project = Project,
+
+                File = Project.ConfigFiles.FirstOrDefault(),
+                ConfigIndex = 0,
+
+                OriginalIndex = Project.ConfigFiles.Count,
+
+                MergedFiles = mergedFiles.ToList(),
+                OriginalProfiles = originalProfiles,
+
+                OriginalControllerBindings =
+                    Project.ControllerBindings?.ToList()
+            });
+        }
+
         public void ClearConfigListUndoHistory()
         {
             if (_listUndoHistory.Count == 0 && _listHistoryStart == 0) return;
@@ -195,7 +248,7 @@ namespace MobiFlight
             PublishDeleteUndoState();
         }
 
-        private void PublishDeleteUndoState()
+        internal void PublishDeleteUndoState()
         {
             MessageExchange.Instance.Publish(new ConfigListUndoState
             {

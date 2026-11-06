@@ -20,6 +20,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Collections.ObjectModel;
 using MobiFlight.Controllers;
+using ConfigListUndoAction =
+    MobiFlight.ConfigListUndoManager.ConfigListUndoAction;
+
+using ConfigListUndoEntry =
+    MobiFlight.ConfigListUndoManager.ConfigListUndoEntry;
+
+using ConfigListProfileSnapshot =
+    MobiFlight.ConfigListUndoManager.ConfigListProfileSnapshot;
 
 namespace MobiFlight
 {
@@ -65,214 +73,18 @@ namespace MobiFlight
 
         public event EventHandler OnConfigListActionRecorded;
         public event EventHandler OnConfigListActionUndone;
+        private readonly ConfigListUndoManager _configListUndoManager;
 
-        private enum ConfigListUndoAction
-        {
-            Delete,
-            Add,
-            Duplicate,
-            BulkDelete,
-            Toggle,
-            Resort,
-            ProfileAdded,
-            ProfileRename,
-            ProfileDeleted,
-            ItemRename,
-            ProfileMerged,
-            ItemEdited
-        }
-
-        private sealed class ConfigListUndoItemState
-        {
-            public string Guid { get; set; }
-            public int OriginalIndex { get; set; }
-            public bool OriginalActive { get; set; }
-            public IConfigItem Snapshot { get; set; }
-        }
-
-        private sealed class ConfigListProfileSnapshot
-        {
-            public ConfigFile File { get; set; }
-            public List<IConfigItem> Items { get; set; }
-        }
-
-        private sealed class ConfigListUndoEntry
-        {
-            public ConfigListUndoAction Action { get; set; }
-            public Project Project { get; set; }
-            public ConfigFile File { get; set; }
-            public int ConfigIndex { get; set; }
-            public int OriginalIndex { get; set; }
-            public string Guid { get; set; }
-            public IConfigItem Snapshot { get; set; }
-            public List<ConfigListUndoItemState> Items { get; set; }
-            public ConfigFile TargetFile { get; set; }
-            public int TargetConfigIndex { get; set; }
-            public List<string> SourceOrderBefore { get; set; }
-            public List<string> TargetOrderBefore { get; set; }
-            public string OriginalLabel { get; set; }
-            public string OriginalName { get; set; }
-            public List<ConfigFile> MergedFiles { get; set; }
-            public List<ConfigListProfileSnapshot> OriginalProfiles
-            {
-                get;
-                set;
-            }
-            public List<ControllerBinding> OriginalControllerBindings
-            {
-                get;
-                set;
-            }
-        }
-
-        private const int MaxListUndoSteps = 50;
-
-        private readonly List<ConfigListUndoEntry> _listUndoHistory =
-            new List<ConfigListUndoEntry>();
-
-        private long _listHistoryStart = 0;
-
-        private void RecordConfigListUndo(
-            ConfigListUndoAction action,
-            IConfigItem item,
-            int originalIndex)
-        {
-            var entry = new ConfigListUndoEntry
-            {
-                Action = action,
-                Project = Project,
-                File = Project.ConfigFiles[ActiveConfigIndex],
-                ConfigIndex = ActiveConfigIndex,
-                OriginalIndex = originalIndex,
-                Guid = item.GUID,
-
-                // Only deleted items need their full configuration
-                // restored. Added items only need to be removed.
-                Snapshot = action == ConfigListUndoAction.Delete
-                    ? (IConfigItem)item.Clone()
-                    : null
-            };
-
-            PushConfigListUndo(entry);
-        }
-
-        private void PushConfigListUndo(ConfigListUndoEntry entry)
-        {
-            if (_listUndoHistory.Count >= MaxListUndoSteps)
-            {
-                _listUndoHistory.RemoveAt(0);
-                _listHistoryStart++;
-            }
-            _listUndoHistory.Add(entry);
-            PublishDeleteUndoState();
-            OnConfigListActionRecorded?.Invoke(
-                this,
-                EventArgs.Empty
-                );
-        }
-
-        private void RecordConfigListBulkUndo(ConfigListUndoAction action, List<IConfigItem> affectedItems)
-        {
-            if (affectedItems.Count == 0) return;
-            var states = affectedItems.Select(item => new ConfigListUndoItemState
-            {
-                Guid = item.GUID,
-                OriginalIndex = ConfigItems.FindIndex(
-                    cfg => cfg.GUID == item.GUID),
-                OriginalActive = item.Active,
-                Snapshot = action == ConfigListUndoAction.BulkDelete
-                    ? (IConfigItem)item.Clone()
-                    : null
-            })
-            .OrderBy(item => item.OriginalIndex)
-            .ToList();
-
-            var entry = new ConfigListUndoEntry
-            {
-                Action = action,
-                Project = Project,
-                File = Project.ConfigFiles[ActiveConfigIndex],
-                ConfigIndex = ActiveConfigIndex,
-                Items = states
-            };
-
-            PushConfigListUndo(entry);
-        }
-
-        private void RecordConfigListResortUndo(
-            int sourceIndex,
-            int targetIndex,
-            List<IConfigItem> sourceBefore,
-            List<IConfigItem> targetBefore)
-        {
-            var entry = new ConfigListUndoEntry
-            {
-                Action = ConfigListUndoAction.Resort,
-                Project = Project,
-                File = Project.ConfigFiles[sourceIndex],
-                ConfigIndex = sourceIndex,
-                TargetFile = Project.ConfigFiles[targetIndex],
-                TargetConfigIndex = targetIndex,
-                SourceOrderBefore = sourceBefore
-                    .Select(item => item.GUID)
-                    .ToList(),
-                TargetOrderBefore = sourceIndex == targetIndex
-                    ? null
-                    : targetBefore
-                        .Select(item => item.GUID)
-                        .ToList()
-            };
-            PushConfigListUndo(entry);
-        }
+        private List<ConfigListUndoEntry> _listUndoHistory => _configListUndoManager.UndoHistory;
 
         public void RecordProfileAdded(ConfigFile file, int index)
         {
-            if (file == null || Project == null)
-                return;
-
-            PushConfigListUndo(new ConfigListUndoEntry
-            {
-                Action = ConfigListUndoAction.ProfileAdded,
-                Project = Project,
-                File = file,
-                ConfigIndex = index,
-                OriginalIndex = index
-            });
+            _configListUndoManager.RecordProfileAdded(file, index);
         }
 
         public void RecordProfileMerged(List<ConfigFile> mergedFiles)
         {
-            if (
-                Project == null ||
-                mergedFiles == null ||
-                mergedFiles.Count == 0
-            )
-            {
-                return;
-            }
-
-            var originalProfiles = Project.ConfigFiles
-                .Select(file => new ConfigListProfileSnapshot
-                {
-                    File = file,
-                    Items = file.ConfigItems.Select(item => (IConfigItem)item.Clone()).ToList()
-                }).ToList();
-
-            PushConfigListUndo(new ConfigListUndoEntry
-            {
-                Action = ConfigListUndoAction.ProfileMerged,
-                Project = Project,
-
-                File = Project.ConfigFiles.FirstOrDefault(),
-                ConfigIndex = 0,
-
-                OriginalIndex = Project.ConfigFiles.Count,
-
-                MergedFiles = mergedFiles.ToList(),
-                OriginalProfiles = originalProfiles,
-
-                OriginalControllerBindings = Project.ControllerBindings?.ToList()
-            });
+            _configListUndoManager.RecordProfileMerged(mergedFiles);
         }
 
         private void RestoreProfileMerge(ConfigListUndoEntry entry)
@@ -293,33 +105,7 @@ namespace MobiFlight
 
         public void CancelLastProfileMerge()
         {
-            if (_listUndoHistory.Count == 0)
-                return;
-
-            int lastIndex = _listUndoHistory.Count - 1;
-            var entry = _listUndoHistory[lastIndex];
-
-            if (
-                entry.Action != ConfigListUndoAction.ProfileMerged ||
-                !ReferenceEquals(entry.Project, Project)
-            )
-            {
-                return;
-            }
-
-            RestoreProfileMerge(entry);
-
-            _listUndoHistory.RemoveAt(lastIndex);
-
-            OnInputConfigSettingsChanged(this, null);
-            MessageExchange.Instance.Publish(Project);
-
-            OnConfigListActionUndone?.Invoke(
-                this,
-                EventArgs.Empty
-            );
-
-            PublishDeleteUndoState();
+            _configListUndoManager.CancelLastProfileMerge();
         }
 
         private void RejectConfigListUndo(ConfigListUndoEntry entry, string reason)
@@ -349,25 +135,14 @@ namespace MobiFlight
 
         public void ClearConfigListUndoHistory()
         {
-            if (_listUndoHistory.Count == 0 && _listHistoryStart == 0) return;
-
-            _listUndoHistory.Clear();
-            _listHistoryStart = 0;
-            PublishDeleteUndoState();
+            _configListUndoManager.ClearConfigListUndoHistory();
         }
 
         public event EventHandler OnConfigListCreationApplied;
 
         private void PublishDeleteUndoState()
         {
-            MessageExchange.Instance.Publish(new ConfigListUndoState
-            {
-                CanUndo = _listUndoHistory.Count > 0,
-                History = _listUndoHistory
-                    .Select(entry => entry.Action.ToString())
-                    .ToArray(),
-                HistoryStart = _listHistoryStart
-            });
+            _configListUndoManager.PublishDeleteUndoState();
         }
 
         /// <summary>
@@ -456,7 +231,7 @@ namespace MobiFlight
             }
         }
 
-        public int ActiveConfigIndex { get; private set; } = 0;
+        public int ActiveConfigIndex { get; internal set; } = 0;
 
         private bool _autoConnectTimerRunning = false;
 
@@ -484,6 +259,8 @@ namespace MobiFlight
         {
             // Register the initial project's change notifications.
             _project.ProjectChanged += Project_ProjectChanged;
+
+            _configListUndoManager = new ConfigListUndoManager(this);
 
             this.xplaneCache = xplaneCache;
             this.simConnectCache = simConnectCache;
@@ -705,7 +482,7 @@ namespace MobiFlight
                 switch (message.Action)
                 {
                     case "delete":
-                        RecordConfigListBulkUndo(ConfigListUndoAction.BulkDelete, affectedItems);
+                        _configListUndoManager.RecordConfigListBulkUndo(ConfigListUndoAction.BulkDelete, affectedItems);
                         foreach (var item in affectedItems)
                         {
                             ConfigItems.Remove(item);
@@ -715,7 +492,7 @@ namespace MobiFlight
 
                     case "toggle":
                         bool newActive = !affectedItems[0].Active;
-                        RecordConfigListBulkUndo(ConfigListUndoAction.Toggle, affectedItems);
+                        _configListUndoManager.RecordConfigListBulkUndo(ConfigListUndoAction.Toggle, affectedItems);
                         foreach (var item in affectedItems)
                         {
                             item.Active = newActive;
@@ -745,7 +522,7 @@ namespace MobiFlight
                         var deletedItem = ConfigItems[deleteIndex];
 
                         // Capture the item before removing it.
-                        RecordConfigListUndo(
+                        _configListUndoManager.RecordConfigListUndo(
                             ConfigListUndoAction.Delete,
                             deletedItem,
                             deleteIndex
@@ -760,7 +537,7 @@ namespace MobiFlight
                         cfg = ConfigItems.Find(i => i.GUID == message.Item.GUID);
                         string newName = message.Item.Name;
                         if (cfg == null || newName == null || cfg.Name == newName) return;
-                        PushConfigListUndo(new ConfigListUndoEntry
+                        _configListUndoManager.PushConfigListUndo(new ConfigListUndoEntry
                         {
                             Action = ConfigListUndoAction.ItemRename,
                             Project = Project,
@@ -775,7 +552,7 @@ namespace MobiFlight
                     case "toggle":
                         cfg = ConfigItems.Find(i => i.GUID == message.Item.GUID);
                         if (cfg == null) return;
-                        RecordConfigListBulkUndo(ConfigListUndoAction.Toggle, new List<IConfigItem> { cfg });
+                        _configListUndoManager.RecordConfigListBulkUndo(ConfigListUndoAction.Toggle, new List<IConfigItem> { cfg });
                         cfg.Active = !cfg.Active;
                         break;
 
@@ -791,7 +568,7 @@ namespace MobiFlight
                         ConfigItems.Insert(duplicateIndex + 1, duplicatedItem);
 
                         // Track the duplicate, not the original.
-                        RecordConfigListUndo(
+                        _configListUndoManager.RecordConfigListUndo(
                             ConfigListUndoAction.Duplicate,
                             duplicatedItem,
                             duplicateIndex + 1
@@ -941,7 +718,7 @@ namespace MobiFlight
                     return;
                 }
 
-                RecordConfigListResortUndo(
+                _configListUndoManager.RecordConfigListResortUndo(
                     sourceIndex,
                     targetIndex,
                     sourceBefore,
@@ -989,7 +766,7 @@ namespace MobiFlight
                 switch (message.Action)
                 {
                     case CommandFileContextMenuAction.remove:
-                        PushConfigListUndo(new ConfigListUndoEntry
+                        _configListUndoManager.PushConfigListUndo(new ConfigListUndoEntry
                         {
                             Action = ConfigListUndoAction.ProfileDeleted,
                             Project = Project,
@@ -1007,7 +784,7 @@ namespace MobiFlight
                     case CommandFileContextMenuAction.rename:
                         string newLabel = message.File?.Label;
                         if (newLabel == null || file.Label == newLabel) return;
-                        PushConfigListUndo(new ConfigListUndoEntry
+                        _configListUndoManager.PushConfigListUndo(new ConfigListUndoEntry
                         {
                             Action = ConfigListUndoAction.ProfileRename,
                             Project = Project,
@@ -1077,7 +854,7 @@ namespace MobiFlight
                 ConfigItems.Add(item);
 
                 // Record the successfully added item.
-                RecordConfigListUndo(
+                _configListUndoManager.RecordConfigListUndo(
                     ConfigListUndoAction.Add,
                     item,
                     ConfigItems.Count - 1
@@ -1564,7 +1341,7 @@ namespace MobiFlight
 
             if (!isLatestCreation)
             {
-                PushConfigListUndo(new ConfigListUndoEntry
+                _configListUndoManager.PushConfigListUndo(new ConfigListUndoEntry
                 {
                     Action = ConfigListUndoAction.ItemEdited,
                     Project = Project,
@@ -1880,6 +1657,27 @@ namespace MobiFlight
         internal void OnInputConfigSettingsChanged(object sender, EventArgs e)
         {
                 _inputEventExecutors.Values.ToList().ForEach(executor => executor.ClearCache());
+        }
+
+        internal void NotifyConfigListActionRecorded()
+        {
+            OnConfigListActionRecorded?.Invoke(
+                this,
+                EventArgs.Empty
+            );
+        }
+
+        internal void NotifyConfigListActionUndone()
+        {
+            OnConfigListActionUndone?.Invoke(
+                this,
+                EventArgs.Empty
+            );
+        }
+
+        internal void NotifyConfigListUndoChanged(object sender)
+        {
+            OnConfigHasChanged?.Invoke(sender, null);
         }
 
         public bool IsStarted()
