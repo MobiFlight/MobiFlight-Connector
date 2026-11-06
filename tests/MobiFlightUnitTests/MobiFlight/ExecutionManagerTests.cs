@@ -451,6 +451,93 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod]
+        public void UndoProfileAdded_WhenLastProfile_RestoresPreviousDeletedProfile()
+        {
+            // Arrange
+            var originalProfile = new ConfigFile
+            {
+                Label = "Original profile"
+            };
+
+            var project = new Project();
+            project.ConfigFiles.Add(originalProfile);
+
+            _executionManager.Project = project;
+
+            // Delete the original profile.
+            MessageExchange.Instance.Publish(
+                new CommandFileContextMenu
+                {
+                    Action = CommandFileContextMenuAction.remove,
+                    Index = 0,
+                    File = originalProfile
+                }
+            );
+
+            Assert.HasCount(0, project.ConfigFiles);
+
+            // Add a new profile.
+            var newProfile = new ConfigFile
+            {
+                Label = "New profile"
+            };
+
+            _executionManager.RecordProfileAdded(newProfile, 0);
+            project.ConfigFiles.Add(newProfile);
+
+            Assert.HasCount(1, project.ConfigFiles);
+
+            // Undo ProfileAdded.
+            MessageExchange.Instance.Publish(
+                new CommandUndoConfigList
+                {
+                    Steps = 1
+                }
+            );
+
+            // The newly added profile should be removed.
+            Assert.HasCount(0, project.ConfigFiles);
+
+            // ActiveConfigIndex must not become negative.
+            Assert.AreEqual(0, _executionManager.ActiveConfigIndex);
+
+            // The earlier ProfileDeleted action must remain.
+            var history = GetPublishedMessages<ConfigListUndoState>().Last();
+
+            CollectionAssert.AreEqual(
+                new[] { "ProfileDeleted" },
+                history.History
+            );
+
+            // Undo ProfileDeleted.
+            MessageExchange.Instance.Publish(
+                new CommandUndoConfigList
+                {
+                    Steps = 1
+                }
+            );
+
+            // The original profile should be restored.
+            Assert.HasCount(1, project.ConfigFiles);
+            Assert.AreSame(originalProfile, project.ConfigFiles[0]);
+
+            Assert.AreEqual(0, _executionManager.ActiveConfigIndex);
+
+            history = GetPublishedMessages<ConfigListUndoState>().Last();
+
+            Assert.IsFalse(history.CanUndo);
+            Assert.HasCount(0, history.History);
+
+            // No Undo failure should have occurred.
+            var failures = GetPublishedMessages<Notification>()
+                .Where(notification =>
+                    notification.Event == "ConfigListUndoFailed")
+                .ToList();
+
+            Assert.HasCount(0, failures);
+        }
+
+        [TestMethod]
         public void CommandFileContextMenu_Rename_RenamesConfig()
         {
             // Arrange

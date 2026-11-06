@@ -593,14 +593,11 @@ namespace MobiFlight
 
                 else if (entry.Action == ConfigListUndoAction.ProfileAdded)
                 {
-                    if (
-                        Project.ConfigFiles.Count <= 1 ||
-                        entry.File.ConfigItems.Count > 0
-                    )
+                    if (entry.File.ConfigItems.Count > 0)
                     {
                         RejectConfigListUndo(
                             entry,
-                            "Added profile list no longer matches the recorded state."
+                            "Added profile contains ConfigItems."
                         );
 
                         return;
@@ -608,9 +605,10 @@ namespace MobiFlight
 
                     Project.ConfigFiles.RemoveAt(actualProfileIndex);
 
-                    ActiveConfigIndex = Math.Min(
+                    ActiveConfigIndex = Math.Clamp(
                         ActiveConfigIndex,
-                        Project.ConfigFiles.Count - 1
+                        0,
+                        Math.Max(0, Project.ConfigFiles.Count - 1)
                     );
                 }
 
