@@ -180,14 +180,9 @@ test.describe("Test profile tabs basic features", () => {
     // the overlay is not nested in the dom
     // we have to use the page locator to find it
     await page.getByRole("menuitem", { name: "Rename" }).click()
-    await secondTab
-      .getByRole("button", { name: "Config 2" })
-      .getByRole("textbox")
-      .fill("Config 2 Renamed")
-    await secondTab
-      .getByRole("button", { name: "Config 2" })
-      .getByRole("textbox")
-      .press("Enter")
+    const secondTabTextbox = secondTab.getByRole("textbox")
+    await secondTabTextbox.fill("Config 2 Renamed")
+    await secondTabTextbox.press("Enter")
 
     postedCommands = await configListPage.mobiFlightPage.getTrackedCommands()
     lastCommand = postedCommands!.pop()

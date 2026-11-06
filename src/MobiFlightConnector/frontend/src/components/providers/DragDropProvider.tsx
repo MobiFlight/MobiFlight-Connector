@@ -16,7 +16,10 @@ import { snapToCursor } from "@/lib/dnd-kit/snap-to-cursor"
 import { IConfigItem } from "@/types"
 import { Table } from "@tanstack/react-table"
 import { ConfigItemDragOverlay } from "@/components/dnd/ConfigItemDragOverlay"
-import { ConfigItemDragContext } from "./ConfigItemContext"
+import {
+  ConfigItemDragContext,
+  ConfigItemDragVisualContext,
+} from "./ConfigItemContext"
 import { useProjectStoreActions } from "@/stores/projectStore"
 import { restrictToBottomOfParentElement } from "../dnd/modifiers/restrictToBottomOfParentElement"
 import {
@@ -35,6 +38,7 @@ export interface DragState {
   items: {
     dragItem: IConfigItem | null
     draggedItems: IConfigItem[] // The actual items being dragged (full objects)
+    draggedItemIds: ReadonlySet<string>
     originalPositions: Map<string, number> // GUID -> original index
   }
 
@@ -60,6 +64,13 @@ export interface ConfigItemDragContextType {
   setTable: (table: Table<IConfigItem> | null) => void
   setTableContainerRef: (element: Element | null) => void
 }
+
+export interface ConfigItemDragVisualContextType {
+  draggedItemIds: ReadonlySet<string>
+  isInsideTable: boolean
+}
+
+const EMPTY_DRAGGED_ITEM_IDS: ReadonlySet<string> = new Set()
 
 /**
  * Props for the drag provider component
@@ -137,11 +148,11 @@ export function ConfigItemDragProvider({
       }
 
       const dragItem = draggedRow ? draggedRow.original : null
-      const draggedItemsIds = draggedItems.map((item) => item.GUID)
+      const draggedItemIds = new Set(draggedItems.map((item) => item.GUID))
 
       const originalPositions = new Map<string, number>()
       table.getRowModel().rows.forEach((row, index) => {
-        if (!draggedItemsIds.includes(row.original.GUID)) return
+        if (!draggedItemIds.has(row.original.GUID)) return
         originalPositions.set(row.original.GUID, index)
       })
 
@@ -150,6 +161,7 @@ export function ConfigItemDragProvider({
         items: {
           dragItem: dragItem,
           draggedItems: draggedItems,
+          draggedItemIds,
           originalPositions: originalPositions,
         },
 
@@ -372,6 +384,16 @@ export function ConfigItemDragProvider({
     setTableContainerRef, // Function for table to register its container element
   }
 
+  const draggedItemIds =
+    dragState?.items.draggedItemIds ?? EMPTY_DRAGGED_ITEM_IDS
+  const dragVisualContextValue = useMemo(
+    () => ({
+      draggedItemIds,
+      isInsideTable: dragState?.ui.isInsideTable ?? true,
+    }),
+    [draggedItemIds, dragState?.ui.isInsideTable],
+  )
+
   const createDynamicModifier = useCallback(
     (dragState: DragState | null): Modifier => {
       return (args) => {
@@ -406,20 +428,22 @@ export function ConfigItemDragProvider({
   return (
     // Provide context to child components
     <ConfigItemDragContext.Provider value={contextValue}>
-      {/* The actual DnD functionality wrapper */}
-      <DndContext
-        sensors={sensors}
-        // pointer within is needed for tab hover detection
-        collisionDetection={collisionDetection}
-        modifiers={modifiers}
-        onDragStart={handleDragStart}
-        onDragMove={handleDragMove}
-        onDragEnd={handleDragEnd}
-        onDragCancel={handleDragCancel}
-      >
-        {children}
-        <ConfigItemDragOverlay />
-      </DndContext>
+      <ConfigItemDragVisualContext.Provider value={dragVisualContextValue}>
+        {/* The actual DnD functionality wrapper */}
+        <DndContext
+          sensors={sensors}
+          // pointer within is needed for tab hover detection
+          collisionDetection={collisionDetection}
+          modifiers={modifiers}
+          onDragStart={handleDragStart}
+          onDragMove={handleDragMove}
+          onDragEnd={handleDragEnd}
+          onDragCancel={handleDragCancel}
+        >
+          {children}
+          <ConfigItemDragOverlay />
+        </DndContext>
+      </ConfigItemDragVisualContext.Provider>
     </ConfigItemDragContext.Provider>
   )
 }
