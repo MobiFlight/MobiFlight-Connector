@@ -7,5 +7,8 @@ namespace MobiFlight.BrowserMessages.Incoming
     {
         [JsonProperty("item")] // Matches the lowercase "item" in JSON
         public ConfigItem Item { get; set; }
+
+        [JsonProperty("change")]
+        public string Change { get; set; }
     }
 }

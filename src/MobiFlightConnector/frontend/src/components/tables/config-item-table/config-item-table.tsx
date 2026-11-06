@@ -35,6 +35,7 @@ import { useDroppable } from "@dnd-kit/core"
 import { useErrorFallbackTest } from "@/lib/hooks/useErrorFallbackTest"
 import { useNavigate } from "react-router"
 import { ConfigItemTableContext } from "./ConfigItemTableContext"
+import { useProjectStore } from "@/stores/projectStore"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -184,6 +185,16 @@ export function ConfigItemTable<TValue>({
     })
   })
 
+  const hasActiveProfile = useProjectStore((state) => {
+    const configFiles = state.project?.ConfigFiles
+
+    return (
+      configFiles != null &&
+      state.activeConfigFileIndex >= 0 &&
+      state.activeConfigFileIndex < configFiles.length
+    )
+  })
+
   useEffect(() => {
     const newItemWasCreatedOrDuplicated = lastAction.current !== null
     const listHasGrownByOneItem =
@@ -265,20 +276,32 @@ export function ConfigItemTable<TValue>({
   }, [publish, t])
 
   const deleteSelected = useCallback(() => {
-    const action = "delete"
-    const selectedConfigs = table.getSelectedRowModel().rows.map((row) => {
-      return row.original as IConfigItem
-    })
+    const selectedConfigs = table
+      .getSelectedRowModel()
+      .rows.map((row) => row.original as IConfigItem)
+
     if (selectedConfigs.length === 0) return
 
-    publish({
-      key: "CommandConfigBulkAction",
-      payload: {
-        action: action,
-        items: selectedConfigs,
-      },
-    })
-    // Clear selection after deletion
+    if (selectedConfigs.length === 1) {
+      // Use the single-item delete path.
+      // The backend records an Undo snapshot here.
+      publish({
+        key: "CommandConfigContextMenu",
+        payload: {
+          action: "delete",
+          item: selectedConfigs[0],
+        },
+      } as CommandConfigContextMenu)
+    } else {
+      publish({
+        key: "CommandConfigBulkAction",
+        payload: {
+          action: "delete",
+          items: selectedConfigs,
+        },
+      })
+    }
+
     table.setRowSelection({})
   }, [table, publish])
 
@@ -380,12 +403,14 @@ export function ConfigItemTable<TValue>({
             <Button
               className="bg-pink-600 text-white hover:bg-pink-500 dark:bg-pink-900 dark:hover:bg-pink-700"
               onClick={handleAddOutputConfig}
+              disabled={!hasActiveProfile}
             >
               {t("ConfigList.Actions.OutputConfigItem.Add")}
             </Button>
             <Button
               className="bg-teal-600 text-white hover:bg-teal-500 dark:bg-teal-900 dark:hover:bg-teal-700"
               onClick={handleAddInputConfig}
+              disabled={!hasActiveProfile}
             >
               {t("ConfigList.Actions.InputConfigItem.Add")}
             </Button>

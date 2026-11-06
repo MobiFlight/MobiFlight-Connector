@@ -5,6 +5,8 @@ using MobiFlight.BrowserMessages.Outgoing;
 using MobiFlight.Execution;
 using MobiFlight.FSUIPC;
 using MobiFlight.InputConfig;
+using MobiFlight.BrowserMessages.Incoming;
+using MobiFlight.BrowserMessages.Outgoing;
 using MobiFlight.ProSim;
 using MobiFlight.Scripts;
 using MobiFlight.SimConnectMSFS;
@@ -16,6 +18,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Collections.ObjectModel;
+using MobiFlight.Controllers;
 
 namespace MobiFlight
 {
@@ -57,6 +61,33 @@ namespace MobiFlight
 
         public event EventHandler SettingsDialogRequested;
         public event EventHandler<Project> OnProjectChanged;
+
+
+        public event EventHandler OnConfigListActionRecorded;
+        public event EventHandler OnConfigListActionUndone;
+        private readonly ConfigListUndoManager _configListUndoManager;
+
+        public void RecordProfileAdded(ConfigFile file, int index)
+        {
+            _configListUndoManager.RecordProfileAdded(file, index);
+        }
+
+        public void RecordProfileMerged(List<ConfigFile> mergedFiles)
+        {
+            _configListUndoManager.RecordProfileMerged(mergedFiles);
+        }
+
+        public void CancelLastProfileMerge()
+        {
+            _configListUndoManager.CancelLastProfileMerge();
+        }
+
+        public void ClearConfigListUndoHistory()
+        {
+            _configListUndoManager.ClearConfigListUndoHistory();
+        }
+
+        public event EventHandler OnConfigListCreationApplied;
 
         /// <summary>
         /// a semaphore to prevent multiple execution of timer callback
@@ -115,24 +146,36 @@ namespace MobiFlight
         }
 
         private Project _project = new Project();
+
+        private void Project_ProjectChanged(object sender, EventArgs e)
+        {
+            OnProjectChanged?.Invoke(this, Project);
+        }
+
         public Project Project
         {
             get { return _project; }
+
             set
             {
-                if (_project == value) return;
+                if (ReferenceEquals(_project, value))
+                    return;
+
+                ClearConfigListUndoHistory();
+
+                // Unsubscribe from the previous project.
+                _project.ProjectChanged -= Project_ProjectChanged;
+
                 _project = value;
 
-                _project.ProjectChanged += (s, e) =>
-                {
-                    OnProjectChanged?.Invoke(this, Project);
-                };
+                // Subscribe to the new project.
+                _project.ProjectChanged += Project_ProjectChanged;
 
                 OnProjectChanged?.Invoke(this, Project);
             }
         }
 
-        public int ActiveConfigIndex { get; private set; } = 0;
+        public int ActiveConfigIndex { get; internal set; } = 0;
 
         private bool _autoConnectTimerRunning = false;
 
@@ -158,6 +201,11 @@ namespace MobiFlight
             FSUIPCCacheInterface fsuipcCache,
             ProSimCacheInterface proSimCache)
         {
+            // Register the initial project's change notifications.
+            _project.ProjectChanged += Project_ProjectChanged;
+
+            _configListUndoManager = new ConfigListUndoManager(this);
+
             this.xplaneCache = xplaneCache;
             this.simConnectCache = simConnectCache;
             this.fsuipcCache = fsuipcCache;
@@ -359,50 +407,46 @@ namespace MobiFlight
             // thread, every 200ms) enumerates bare. Don't unmark without synchronizing ConfigItems first.
             MessageExchange.Instance.SubscribeOnUiThread<CommandUpdateConfigItem>((message) =>
             {
-                HandleCommandUpdateConfigItem(message.Item);
-            });
-
-            MessageExchange.Instance.SubscribeOnUiThread<CommandAddConfigItem>((message) =>
-            {
-                IConfigItem item = new OutputConfigItem()
-                {
-                    Source = SourceFactory.Create(Project.ToProjectInfo().Sim)
-                };
-                if (message.Type == "InputConfig")
-                {
-                    item = new InputConfigItem();
-                }
-
-                item.GUID = Guid.NewGuid().ToString();
-                item.Name = message.Name;
-                item.Active = true;
-                ConfigItems.Add(item);
-
-                MessageExchange.Instance.Publish(new ConfigValueFullUpdate(ActiveConfigIndex, ConfigItems));
-                OnConfigHasChanged?.Invoke(item, null);
+                HandleCommandUpdateConfigItem(message.Item, message.Change);
             });
 
             MessageExchange.Instance.SubscribeOnUiThread<CommandConfigBulkAction>((message) =>
             {
-                if (message.Action == "delete")
+                if (message.Items == null || message.Items.Count == 0) return;
+
+                var selectedGuids = new HashSet<string>(
+                    message.Items.Select(item => item.GUID)
+                );
+
+                var affectedItems = ConfigItems
+                    .Where(item => selectedGuids.Contains(item.GUID))
+                    .ToList();
+                if (affectedItems.Count == 0) return;
+
+                switch (message.Action)
                 {
-                    message.Items.ForEach(item =>
-                    {
-                        var cfg = ConfigItems.Find(i => i.GUID == item.GUID);
-                        ConfigItems.Remove(cfg);
-                    });
-                    OnInputConfigSettingsChanged(this, null); // else InputEventExecutor's cache keeps the deleted item bound
+                    case "delete":
+                        _configListUndoManager.RecordConfigListBulkDeleteUndo(affectedItems);
+                        foreach (var item in affectedItems)
+                        {
+                            ConfigItems.Remove(item);
+                        }
+                        OnInputConfigSettingsChanged(this, null);
+                        break;
+
+                    case "toggle":
+                        bool newActive = !affectedItems[0].Active;
+                        _configListUndoManager.RecordConfigListToggleUndo(affectedItems);
+                        foreach (var item in affectedItems)
+                        {
+                            item.Active = newActive;
+                        }
+                        break;
+
+                    default:
+                        return;
                 }
-                else if (message.Action == "toggle")
-                {
-                    var toggleValue = !message.Items.First().Active;
-                    message.Items.ForEach(item =>
-                    {
-                        var cfg = ConfigItems.Find(i => i.GUID == item.GUID);
-                        if (cfg == null) return;
-                        cfg.Active = toggleValue;
-                    });
-                }
+
                 MessageExchange.Instance.Publish(new ConfigValueFullUpdate(ActiveConfigIndex, ConfigItems));
                 OnConfigHasChanged?.Invoke(ConfigItems, null);
             });
@@ -413,21 +457,42 @@ namespace MobiFlight
                 switch (message.Action)
                 {
                     case "delete":
-                        ConfigItems.RemoveAll(i => i.GUID == message.Item.GUID);
-                        OnInputConfigSettingsChanged(this, null); // else InputEventExecutor's cache keeps the deleted item bound
-                        break;
+                        int deleteIndex = ConfigItems.FindIndex(
+                            i => i.GUID == message.Item.GUID
+                        );
 
-                    case "toggle":
-                        cfg = ConfigItems.Find(i => i.GUID == message.Item.GUID);
-                        if (cfg == null) break;
-                        cfg.Active = !cfg.Active;
+                        if (deleteIndex < 0) return;
+
+                        var deletedItem = ConfigItems[deleteIndex];
+
+                        // Capture the item before removing it.
+                        _configListUndoManager.RecordConfigListDeleteUndo(
+                            deletedItem,
+                            deleteIndex
+                        );
+
+                        ConfigItems.RemoveAt(deleteIndex);
+
+                        OnInputConfigSettingsChanged(this, null);
                         break;
 
                     case "duplicate":
-                        var index = ConfigItems.FindIndex(i => i.GUID == message.Item.GUID);
-                        if (index == -1) break;
-                        var dup = ConfigItems[index].Duplicate();
-                        ConfigItems.Insert(index + 1, dup);
+                        int duplicateIndex = ConfigItems.FindIndex(
+                             i => i.GUID == message.Item.GUID
+                         );
+
+                        if (duplicateIndex < 0) return;
+
+                        var duplicatedItem = ConfigItems[duplicateIndex].Duplicate();
+
+                        ConfigItems.Insert(duplicateIndex + 1, duplicatedItem);
+
+                        // Track the duplicate, not the original.
+                        _configListUndoManager.RecordConfigListDuplicateUndo(
+                            duplicatedItem,
+                            duplicateIndex + 1
+                        );
+
                         break;
 
                     case "test":
@@ -496,32 +561,108 @@ namespace MobiFlight
 
             MessageExchange.Instance.SubscribeOnUiThread<CommandResortConfigItem>((message) =>
             {
-                // find all items
-                var resortedItems = new List<IConfigItem>();
-                var ConfigItems = Project.ConfigFiles[message.SourceFileIndex].ConfigItems;
-
-                message.Items.ToList().ForEach(item =>
+                if (
+                    message.Items == null ||
+                    message.Items.Length == 0 ||
+                    message.SourceFileIndex < 0 ||
+                    message.SourceFileIndex >= Project.ConfigFiles.Count ||
+                    message.TargetFileIndex < 0 ||
+                    message.TargetFileIndex >= Project.ConfigFiles.Count
+                )
                 {
-                    IConfigItem cfg = ConfigItems.Find(i => i.GUID == item.GUID);
-                    if (cfg == null) return;
-                    resortedItems.Add(cfg);
-                    ConfigItems.Remove(cfg);
-                });
+                    return;
+                }
 
-                var targetFile = Project.ConfigFiles[message.TargetFileIndex];
+                int sourceIndex = message.SourceFileIndex;
+                int targetIndex = message.TargetFileIndex;
 
-                var currentIndex = message.NewIndex;
+                var sourceFile = Project.ConfigFiles[sourceIndex];
+                var targetFile = Project.ConfigFiles[targetIndex];
 
-                resortedItems.ForEach(item =>
+                bool sameProfile = sourceIndex == targetIndex;
+
+                var sourceBefore = sourceFile.ConfigItems.ToList();
+
+                var targetBefore = sameProfile
+                    ? sourceBefore
+                    : targetFile.ConfigItems.ToList();
+
+                var movedIds = new HashSet<string>(
+                    message.Items.Select(item => item.GUID));
+
+                var movedItems = sourceBefore
+                    .Where(item => movedIds.Contains(item.GUID))
+                    .ToList();
+
+                if (movedItems.Count != movedIds.Count || movedIds.Count == 0)
                 {
-                    targetFile.ConfigItems.Insert(currentIndex, item);
-                    currentIndex++;
-                });
+                    return;
+                }
 
-                MessageExchange.Instance.Publish(new ConfigValueFullUpdate(message.SourceFileIndex, ConfigItems));
-                MessageExchange.Instance.Publish(new ConfigValueFullUpdate(message.TargetFileIndex, targetFile.ConfigItems));
+                if (!sameProfile && targetBefore.Any(item => movedIds.Contains(item.GUID)))
+                {
+                    return;
+                }
 
-                OnConfigHasChanged?.Invoke(ConfigItems, null);
+                var sourceAfter = sourceBefore
+                    .Where(item => !movedIds.Contains(item.GUID))
+                    .ToList();
+
+                var targetAfter = sameProfile
+                    ? sourceAfter.ToList()
+                    : targetBefore.ToList();
+
+                int insertionIndex = Math.Max(
+                    0,
+                    Math.Min(message.NewIndex, targetAfter.Count));
+                targetAfter.InsertRange(insertionIndex, movedItems);
+
+                if (sameProfile)
+                {
+                    sourceAfter = targetAfter;
+                }
+
+                bool sourceChanged = !sourceBefore
+                    .Select(item => item.GUID)
+                    .SequenceEqual(
+                        sourceAfter.Select(item => item.GUID));
+                bool targetChanged = !sameProfile &&
+                    !targetBefore
+                        .Select(item => item.GUID)
+                        .SequenceEqual(targetAfter.Select(item => item.GUID));
+                if (!sourceChanged && !targetChanged)
+                {
+                    MessageExchange.Instance.Publish(
+                        new ConfigValueFullUpdate(sourceIndex, sourceFile.ConfigItems));
+                    return;
+                }
+
+                _configListUndoManager.RecordConfigListResortUndo(
+                    sourceIndex,
+                    targetIndex,
+                    sourceBefore,
+                    targetBefore);
+                sourceFile.ConfigItems.Clear();
+                sourceFile.ConfigItems.AddRange(sourceAfter);
+
+                if (!sameProfile)
+                {
+                    targetFile.ConfigItems.Clear();
+                    targetFile.ConfigItems.AddRange(targetAfter);
+                }
+
+                MessageExchange.Instance.Publish(
+                    new ConfigValueFullUpdate(sourceIndex, sourceFile.ConfigItems));
+
+                if (!sameProfile)
+                {
+                    MessageExchange.Instance.Publish(
+                        new ConfigValueFullUpdate(targetIndex, targetFile.ConfigItems));
+                }
+
+                OnInputConfigSettingsChanged(this, null);
+
+                OnConfigHasChanged?.Invoke(sourceFile.ConfigItems, null);
             });
 
             MessageExchange.Instance.SubscribeOnUiThread<CommandActiveConfigFile>((message) =>
@@ -532,32 +673,46 @@ namespace MobiFlight
 
             MessageExchange.Instance.SubscribeOnUiThread<CommandFileContextMenu>((message) =>
             {
-                if (message.Index >= Project.ConfigFiles.Count)
+                if (message.Index < 0 || message.Index >= Project.ConfigFiles.Count)
                 {
-                    Log.Instance.log($"Command {message.Action} - Index not found: {message.Index}", LogSeverity.Error);
                     return;
                 }
 
                 var file = Project.ConfigFiles[message.Index];
 
-                if (file == null)
-                {
-                    Log.Instance.log($"Command {message.Action} - File not found: {message.File.FileName}", LogSeverity.Error);
-                    return;
-                }
+                if (file == null) return;
 
                 switch (message.Action)
                 {
                     case CommandFileContextMenuAction.remove:
+                        _configListUndoManager.RecordProfileDeleted(file, message.Index);
+
                         Project.ConfigFiles.RemoveAt(message.Index);
-                        break;
+
+                        ActiveConfigIndex = Math.Min(
+                            ActiveConfigIndex,
+                            Math.Max(0, Project.ConfigFiles.Count - 1));
+
+                        OnInputConfigSettingsChanged(this, null);
+                        MessageExchange.Instance.Publish(Project);
+                        return;
                     case CommandFileContextMenuAction.rename:
-                        file.Label = message.File.Label;
+                        string newLabel = message.File?.Label;
+
+                        if (newLabel == null || file.Label == newLabel)
+                            return;
+
+                        _configListUndoManager.RecordProfileRename(
+                            file,
+                            message.Index
+                        );
+
+                        file.Label = newLabel;
                         break;
                     case CommandFileContextMenuAction.export:
                         // this is not subscribed here
                         // see MainForm.cs for the subscription there.
-                        break;
+                        return;
                     default:
                         return;
                 }
@@ -591,6 +746,54 @@ namespace MobiFlight
                 {
                     PublishVJoyDefinitions();
                 }
+            });
+
+            MessageExchange.Instance.SubscribeOnUiThread<CommandAddConfigItem>((message) =>
+            {
+                // A ConfigItem must belong to an existing profile.
+                if (Project?.ConfigFiles == null || ActiveConfigIndex < 0 || ActiveConfigIndex >= Project.ConfigFiles.Count)
+                {
+                    Log.Instance.log($"Cannot add ConfigItem: no active profile.", LogSeverity.Warn);
+                    return;
+                }
+
+                IConfigItem item = new OutputConfigItem()
+                {
+                    Source = SourceFactory.Create(
+                        Project.ToProjectInfo().Sim
+                    )
+                };
+
+                if (message.Type == "InputConfig")
+                {
+                    item = new InputConfigItem();
+                }
+
+                item.GUID = Guid.NewGuid().ToString();
+                item.Name = message.Name;
+                item.Active = true;
+
+                ConfigItems.Add(item);
+
+                // Record the successfully added item.
+                _configListUndoManager.RecordConfigListAddUndo(
+                    item,
+                    ConfigItems.Count - 1
+                );
+
+                MessageExchange.Instance.Publish(
+                    new ConfigValueFullUpdate(
+                        ActiveConfigIndex,
+                        ConfigItems
+                    )
+                );
+
+                OnConfigHasChanged?.Invoke(item, null);
+            });
+
+            MessageExchange.Instance.SubscribeOnUiThread<CommandUndoConfigList>((message) =>
+            {
+                _configListUndoManager.UndoSteps(message.Steps);
             });
         }
 
@@ -652,15 +855,46 @@ namespace MobiFlight
             return true;
         }
 
-        private void HandleCommandUpdateConfigItem(ConfigItem item)
+        public void HandleCommandUpdateConfigItem(ConfigItem item, string change = null)
         {
-            var configItemIndex = ConfigItems.FindIndex(i => i.GUID == item.GUID);
-            if (configItemIndex == -1) return;
+            if (
+                item == null ||
+                Project == null ||
+                ActiveConfigIndex < 0 ||
+                ActiveConfigIndex >= Project.ConfigFiles.Count) return;
 
-            ConfigItems[configItemIndex] = item;
+            var file = Project.ConfigFiles[ActiveConfigIndex];
+
+            var items = file.ConfigItems;
+
+            int itemIndex = items.FindIndex(i => i.GUID == item.GUID);
+
+            if (itemIndex < 0) return;
+
+            var originalItem = items[itemIndex];
+
+            if (originalItem.Equals(item)) return;
+
+            bool isLatestCreation =
+                _configListUndoManager.RecordConfigListItemEditUndo(
+                    originalItem,
+                    file,
+                    itemIndex,
+                    change
+                );
+
+            items[itemIndex] = item;
+
             MessageExchange.Instance.Publish(new ConfigValuePartialUpdate(item));
+
             OnInputConfigSettingsChanged(item, null);
+
             OnConfigHasChanged?.Invoke(new IConfigItem[] { item }, null);
+
+            if (isLatestCreation)
+            {
+                OnConfigListCreationApplied?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         private void ModuleCache_ModuleConnected(object sender, EventArgs e)
@@ -953,6 +1187,27 @@ namespace MobiFlight
         internal void OnInputConfigSettingsChanged(object sender, EventArgs e)
         {
                 _inputEventExecutors.Values.ToList().ForEach(executor => executor.ClearCache());
+        }
+
+        internal void NotifyConfigListActionRecorded()
+        {
+            OnConfigListActionRecorded?.Invoke(
+                this,
+                EventArgs.Empty
+            );
+        }
+
+        internal void NotifyConfigListActionUndone()
+        {
+            OnConfigListActionUndone?.Invoke(
+                this,
+                EventArgs.Empty
+            );
+        }
+
+        internal void NotifyConfigListUndoChanged(object sender)
+        {
+            OnConfigHasChanged?.Invoke(sender, null);
         }
 
         public bool IsStarted()

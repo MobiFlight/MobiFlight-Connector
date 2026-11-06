@@ -16,6 +16,7 @@ import {
   ProjectStatus,
   ProSimDataRefDefinitionUpdate,
   RecentProjects,
+  ConfigListUndoState,
 } from "@/types/messages"
 import Settings from "@/types/settings"
 import { useRecentProjects, useSettingsStore } from "@/stores/settingsStore"
@@ -36,6 +37,7 @@ import { useVariableStore } from "@/stores/variableStore"
 import { useProSimDataRefStore } from "@/stores/prosimDataRefStore"
 import { useLogsStore } from "@/stores/logsStore"
 import { useQueryClient } from "@tanstack/react-query"
+import { useHistoryStore } from "@/stores/historyStore"
 
 export const useBackendStateAppMessages = () => {
   const [queryParameters] = useSearchParams()
@@ -59,6 +61,21 @@ export const useBackendStateAppMessages = () => {
   const { addLog } = useLogsStore()
 
   const queryClient = useQueryClient()
+
+  const setCanUndoConfigList = useHistoryStore(
+    (state) => state.setCanUndoConfigList,
+  )
+
+  const setConfigListUndoHistory = useHistoryStore(
+    (state) => state.setConfigListUndoHistory,
+  )
+
+  useAppMessage("ConfigListUndoState", (message) => {
+    const state = message.payload as ConfigListUndoState
+    setCanUndoConfigList(state.CanUndo)
+
+    setConfigListUndoHistory(state.History ?? [], state.HistoryStart ?? 0)
+  })
 
   useAppMessage("Project", (message) => {
     const project = message.payload as Project
@@ -114,12 +131,12 @@ export const useBackendStateAppMessages = () => {
     console.log("ProjectStatus message received", projectStatus)
     setProjectStatus(projectStatus)
   })
-  
+
   useAppMessage("HubHopState", (message) => {
     const state = message.payload as HubHopState
     console.log("HubHopState message received", state)
     setHubHopState(state)
-    
+
     if (state.Result === "Success") {
       queryClient.invalidateQueries({
         queryKey: ["msfs-presets"],

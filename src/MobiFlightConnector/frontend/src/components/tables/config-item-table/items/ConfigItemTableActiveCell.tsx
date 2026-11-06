@@ -16,6 +16,18 @@ function ConfigItemTableActiveCell({ row }: ConfigItemTableActiveCellProps) {
   const item = row.original as IConfigItem
   const { attributes, listeners } = useSortable({ id: item.GUID })
 
+  const handleToggle = (checked: boolean) => {
+    if (checked === item.Active) return
+
+    publish({
+      key: "CommandUpdateConfigItem",
+      payload: {
+        item: { ...item, Active: checked },
+        change: "toggle",
+      },
+    } as CommandUpdateConfigItem)
+  }
+
   return (
     <div className="flex flex-row py-2">
       <div
@@ -28,12 +40,9 @@ function ConfigItemTableActiveCell({ row }: ConfigItemTableActiveCellProps) {
       <div className="flex flex-row items-center">
         <Switch
           checked={row.getValue("Active") as boolean}
-          onClick={() => {
-            const updatedItem = { ...item, Active: !item.Active }
-            publish({
-              key: "CommandUpdateConfigItem",
-              payload: { item: updatedItem },
-            } as CommandUpdateConfigItem)
+          onCheckedChange={handleToggle}
+          onClick={(event) => {
+            event.stopPropagation()
           }}
         />
       </div>

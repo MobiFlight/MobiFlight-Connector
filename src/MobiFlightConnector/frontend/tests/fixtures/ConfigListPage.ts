@@ -65,6 +65,7 @@ export class ConfigListPage {
       async (message) => {
         const item = (message as CommandUpdateConfigItem).payload
           .item as IConfigItem
+
         const response = {
           key: "ConfigValuePartialUpdate",
           payload: {
@@ -72,7 +73,7 @@ export class ConfigListPage {
           } as ConfigValuePartialUpdate,
         }
 
-        ;(window as Window).postMessage(response, "*")
+        window.postMessage(response, "*")
       },
     )
   }
@@ -108,14 +109,17 @@ export class ConfigListPage {
       Name: "Empty Input Config Item",
       Type: "InputConfigItem",
     }
-    const templateItem = itemType === "InputConfigItem" ? templateInputConfig : configItems.find((i) => i.Type === itemType)
+    const templateItem =
+      itemType === "InputConfigItem"
+        ? templateInputConfig
+        : configItems.find((i) => i.Type === itemType)
     if (!templateItem)
       throw new Error(`No test data found for item type ${itemType}`)
 
-    const newItem = { 
+    const newItem = {
       ...templateItem,
       ...{
-        GUID:  crypto.randomUUID(),
+        GUID: crypto.randomUUID(),
         Name: `New ${itemType} (created from test)`,
       },
       ...configItemProps,
