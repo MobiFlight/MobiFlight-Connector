@@ -3,7 +3,7 @@ import { MsfsInputAction } from "@/types/config"
 import { fetchHubHopPresets } from "@/lib/configWizard"
 import { useQuery } from "@tanstack/react-query"
 import MsfsPresetDetails from "@/components/wizard/components/MsfsPresetDetails"
-import MsfsPresetSummary from "@/components/wizard/components/MsfsPresetSummary"
+import PresetSummary from "@/components/wizard/common/PresetSummary"
 
 export type MsfsInputActionPanelProps = {
   variant: "summary" | "details"
@@ -16,20 +16,17 @@ const MsfsInputActionPanel = ({
   config,
   onConfigChange,
 }: MsfsInputActionPanelProps) => {
-
   const { data: presets = [], isLoading } = useQuery({
     queryKey: ["msfs-presets"],
     queryFn: () => fetchHubHopPresets("msfs"),
     // presets don't change at runtime; HubHopState drives invalidation
     staleTime: Infinity,
   })
-  
+
   const preset = presets.find((p) => p.id === config?.PresetId) ?? null
 
   if (variant === "summary") {
-    return (
-      <MsfsPresetSummary preset={preset} config={config} />
-    )
+    return <PresetSummary label={preset?.label} code={config?.Command} />
   }
 
   return (

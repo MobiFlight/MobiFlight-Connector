@@ -1,6 +1,6 @@
+import PresetSummary from "@/components/wizard/common/PresetSummary"
 import XplanePresetDetails from "@/components/wizard/components/InputActions/XplanePresetDetails"
 import XplanePresetPanel from "@/components/wizard/components/InputActions/XplanePresetPanel"
-import XplanePresetSummary from "@/components/wizard/components/XplanePresetSummary"
 import { fetchHubHopPresets } from "@/lib/configWizard"
 import { XplaneInputAction, XplaneSource } from "@/types/config"
 import { XplanePreset } from "@/types/preset"
@@ -28,9 +28,9 @@ const XplaneSourcePanel = ({
 
   if (variant === "summary") {
     return (
-      <XplanePresetSummary
-        preset={preset}
-        config={source?.XplaneDataRef ?? null}
+      <PresetSummary
+        label={preset?.label ?? null}
+        code={source?.XplaneDataRef?.Path ?? null}
       />
     )
   }

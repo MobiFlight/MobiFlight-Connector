@@ -1,6 +1,6 @@
+import PresetSummary from "@/components/wizard/common/PresetSummary"
 import MsfsPresetPanel from "@/components/wizard/components/InputActions/MsfsPresetPanel"
 import MsfsPresetDetails from "@/components/wizard/components/MsfsPresetDetails"
-import MsfsPresetSummary from "@/components/wizard/components/MsfsPresetSummary"
 import { fetchHubHopPresets } from "@/lib/configWizard"
 import { SimConnectSource } from "@/types/config"
 import { useQuery } from "@tanstack/react-query"
@@ -30,13 +30,9 @@ const MsfsSourcePanel = ({
 
   if (variant === "summary") {
     return (
-      <MsfsPresetSummary
-        preset={preset}
-        config={
-          source?.SimConnectValue
-            ? { Command: source.SimConnectValue.Value }
-            : null
-        }
+      <PresetSummary
+        label={preset?.label}
+        code={source?.SimConnectValue?.Value ?? null}
       />
     )
   }

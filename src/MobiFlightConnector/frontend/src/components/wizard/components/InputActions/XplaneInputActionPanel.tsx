@@ -1,10 +1,10 @@
-import XplanePresetSummary from "@/components/wizard/components/XplanePresetSummary"
 import XplanePresetPanel from "@/components/wizard/components/InputActions/XplanePresetPanel"
 import { fetchHubHopPresets } from "@/lib/configWizard"
 import { XplaneInputAction } from "@/types/config"
 import { XplanePreset } from "@/types/preset"
 import { useQuery } from "@tanstack/react-query"
 import XplanePresetDetails from "@/components/wizard/components/InputActions/XplanePresetDetails"
+import PresetSummary from "@/components/wizard/common/PresetSummary"
 
 export type XplaneInputActionPanelProps = {
   variant: "summary" | "details"
@@ -26,9 +26,7 @@ const XplaneInputActionPanel = ({
   const preset = presets.find((p) => p.code === config?.Path) ?? null
 
   if (variant === "summary") {
-    return (
-      <XplanePresetSummary preset={preset} config={config} />
-    )
+    return <PresetSummary label={preset?.label} code={config?.Path} />
   }
 
   return (
