@@ -1532,6 +1532,8 @@ namespace MobiFlight
                         cfg.Status.Remove(ConfigItemStatusType.Precondition);
                     }
 
+                    ConfigRefChecker.UpdateStatus(cfg, ConfigItems);
+
                     if (!cfg.Status.SequenceEqual(originalCfg.Status))
                     {
                         updatedValues[cfg.GUID] = cfg;

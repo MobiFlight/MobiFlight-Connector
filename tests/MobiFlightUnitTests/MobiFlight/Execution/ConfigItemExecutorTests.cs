@@ -561,6 +561,23 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod]
+        public void Execute_ShouldReportMissingConfigRef_WhenReferencedConfigItemWasDeleted()
+        {
+            // Arrange
+            var cfg = new OutputConfigItem { Active = true };
+            cfg.ConfigRefs.Add(new ConfigRef { Active = true, Ref = "deleted-guid", Placeholder = "#" });
+            configItems.Add(cfg);
+            var updatedValues = new ConcurrentDictionary<string, IConfigItem>();
+
+            // Act
+            executor.Execute(cfg, updatedValues);
+
+            // Assert
+            Assert.AreEqual("Missing", cfg.Status[ConfigItemStatusType.ConfigRef]);
+            Assert.HasCount(1, updatedValues);
+        }
+
+        [TestMethod]
         public void Execute_ShouldHandleConfigPreconditionCorrectly_WhereConfigReferenceExists()
         {
             // Arrange
