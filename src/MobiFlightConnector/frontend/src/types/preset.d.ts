@@ -12,11 +12,25 @@ export type Preset = {
   updatedBy?: string
   reported?: number
   score?: number
-  presetType: "Input" | "Output" | "Input (Potentiometer)",
+  presetType: "Input" | "Output" | "Input (Potentiometer)"
   author?: string
 }
 
 export type XplanePreset = Preset & {
   presetType: "Input" | "Output" | "InputOutput" | "Input (Potentiometer)"
   codeType: "DataRef" | "Command"
+}
+
+type PresetSim = "msfs" | "xplane"
+type PresetType = "input" | "input (potentiometer)" | "output" | "inputoutput"
+
+// Where the MSFS values live in each saved config shape.
+export type MsfsPresetAdapter<T> = {
+  mode: "input" | "output"
+  getPresetId: (config: T) => string | null | undefined
+  getCode: (config: T) => string | null | undefined
+  withPreset: (config: T, preset: Preset | null) => T
+  // A manually edited code no longer matches the preset,
+  // so the preset id is cleared.
+  withCode: (config: T, code: string) => T
 }

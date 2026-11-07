@@ -5,20 +5,19 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import { VirtualPresetList } from "@/components/wizard/components/VirtualPresetList"
-import { fetchHubHopPresets, filterPresetByText } from "@/lib/configWizard"
+import { filterPresetByText } from "@/lib/configWizard"
 import { useProjectStore } from "@/stores/projectStore"
-import { Preset, XplanePreset } from "@/types/preset"
+import { Preset, PresetSim, PresetType, XplanePreset } from "@/types/preset"
 import { AircraftInfo } from "@/types/project"
 import { IconX } from "@tabler/icons-react"
-import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import LoadingSpinner from "@/components/wizard/components/LoadingSpinner"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
+import { useHubHopPresets } from "@/lib/hooks/useHubHopPresets"
 
-type PresetSim = "msfs" | "xplane"
 type PresetPanelMode = "input" | "output"
-type PresetType = "input" | "input (potentiometer)" | "output" | "inputoutput"
+
 
 type PresetSettings = {
   presetTypes: Record<PresetPanelMode, PresetType[]>
@@ -35,22 +34,15 @@ const presetPanelSettings: Record<"msfs" | "xplane", PresetSettings> = {
   },
   xplane: {
     presetTypes: {
+      // DataRefs can be read and written, so "inputoutput" presets fit both modes.
       input: ["input", "inputoutput", "input (potentiometer)"],
-      output: ["output"],
+      output: ["output", "inputoutput"],
     },
     getKey: (preset) => preset.code,
   },
 }
 
-export const useHubHopPresets = (sim: PresetSim) => {
-  return useQuery({
-    queryKey: [`${sim}-presets`],
-    queryFn: () => fetchHubHopPresets(sim),
-    staleTime: Infinity,
-  })
-}
-
-export type MsfsPresetPanelProps = {
+export type PresetPanelProps = {
   sim: PresetSim
   mode: "input" | "output"
   isLoading: boolean
@@ -63,7 +55,7 @@ const PresetPanel = ({
   isLoading,
   selectedPresetId,
   setSelectedPreset,
-}: MsfsPresetPanelProps) => {
+}: PresetPanelProps) => {
   const { t } = useTranslation()
   const { project } = useProjectStore()
   const [favoritesOnly, setFavoritesOnly] = useState(true)

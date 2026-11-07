@@ -2,10 +2,11 @@ import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Source } from "@/types/config"
 import { FsuipcOffsetSummary } from "@/components/wizard/components/InputActions/FsuipcOffsetInputActionPanel"
-import MsfsSourcePanel from "@/components/wizard/OutputConfig/Sources/MsfsSourcePanel"
+import MsfsPresetPanel from "@/components/wizard/common/MsfsPresetPanel"
 import { Badge } from "@/components/ui/badge"
 import { IconEdit, IconTrash } from "@tabler/icons-react"
 import XplaneSourcePanel from "@/components/wizard/OutputConfig/Sources/XplaneSourcePanel"
+import { msfsSourceAdapter } from "@/types/presets"
 
 export interface SourceSummaryProps {
   source: Source
@@ -25,12 +26,12 @@ const SourceSummary = ({ source, onEdit, onRemove }: SourceSummaryProps) => {
           {source.Type}
         </Badge>
       </div>
-      
+
       {source.Type === "SimConnectSource" && (
-        <MsfsSourcePanel
+        <MsfsPresetPanel
           variant="summary"
-          source={source}
-          onSourceChange={() => {}}
+          adapter={msfsSourceAdapter}
+          config={source}
         />
       )}
 
@@ -43,7 +44,7 @@ const SourceSummary = ({ source, onEdit, onRemove }: SourceSummaryProps) => {
       )}
 
       {source.Type === "VariableSource" && (
-        <div className="flex flex-row items-center justify-between grow">
+        <div className="flex grow flex-row items-center justify-between">
           <div className="flex flex-col gap-1">
             <Label>Name</Label>
             <div>
@@ -55,13 +56,13 @@ const SourceSummary = ({ source, onEdit, onRemove }: SourceSummaryProps) => {
       )}
 
       {source.Type === "FsuipcSource" && (
-        <div className="flex flex-row items-center justify-between grow">
+        <div className="flex grow flex-row items-center justify-between">
           <FsuipcOffsetSummary config={source.FSUIPC} />
         </div>
       )}
 
       {source.Type === "ProSimSource" && (
-        <div className="flex flex-row items-center justify-between grow">
+        <div className="flex grow flex-row items-center justify-between">
           <div className="flex flex-col gap-1">
             <Label>Code</Label>
             <div>{source.ProSimDataRef?.Path}</div>
