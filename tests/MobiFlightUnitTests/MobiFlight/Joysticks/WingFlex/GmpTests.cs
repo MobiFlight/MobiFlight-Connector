@@ -1,6 +1,4 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
-using System.Linq;
+using MobiFlight.Base;
 
 namespace MobiFlight.Joysticks.WingFlex.Tests
 {
@@ -91,7 +89,7 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
         }
 
         [TestMethod()]
-        public void EnumerateOutputDevices_AddsOutputsAndLcdDisplays()
+        public void EnumerateOutputDevices_ReturnsOutputsAndLcdDisplays()
         {
             var definition = new JoystickDefinition
             {
@@ -108,13 +106,12 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
 
             Assert.HasCount(2, outputs);
 
-            var lcd = outputs.OfType<JoystickOutputDisplay>().Single();
+            var lcd = outputs.Single(o => o is ControllerDevice && (o as ControllerDevice).Type == DeviceType.LcdDisplay) as ControllerDevice;
             Assert.AreEqual("utc.lcd", lcd.Name);
-            Assert.AreEqual(6, lcd.Cols);
-            Assert.AreEqual(1, lcd.Lines);
-            Assert.AreEqual(12, lcd.Byte);
+            Assert.AreEqual(6, lcd.Capabilities.Columns);
+            Assert.AreEqual(1, lcd.Capabilities.Rows);
 
-            var led = outputs.Single(o => o is not JoystickOutputDisplay);
+            var led = outputs.Single(o => o is DeviceReference && (o as DeviceReference).Type == DeviceType.Output) as DeviceReference;
             Assert.AreEqual("led1", led.Name);
         }
 

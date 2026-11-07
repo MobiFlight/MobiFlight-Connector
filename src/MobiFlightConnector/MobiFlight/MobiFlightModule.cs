@@ -1268,37 +1268,13 @@ namespace MobiFlight
             return result;
         }
 
-        public IEnumerable<Firmware.BaseDevice> GetConnectedOutputDevices()
-        {
-            List<Firmware.BaseDevice> result = new List<Firmware.BaseDevice>();
-
-            foreach (Firmware.BaseDevice dev in Config.Items)
-            {
-                switch (dev.Type)
-                {
-                    case DeviceType.Output:
-                    case DeviceType.LedModule:
-                    case DeviceType.Servo:
-                    case DeviceType.Stepper:
-                    case DeviceType.ShiftRegister:
-                    case DeviceType.LcdDisplay:
-                    case DeviceType.CustomDevice:
-                        result.Add(dev);
-                        break;
-                }
-            }
-
-            result.Sort((a, b) => { return a.Name.CompareTo(b.Name); });
-            return result;
-        }
-
-        public IEnumerable<DeviceReference> GetConnectedInputDevices()
+        public List<DeviceReference> GetControllerDevices()
         {
             var result = new List<DeviceReference>();
 
             foreach (Firmware.BaseDevice dev in Config.Items)
             {
-                var range = DeviceReferenceFactory.Create(dev);
+                var range = DeviceReferenceFactory.Create(dev, Board);
                 result.AddRange(range);
             }
 

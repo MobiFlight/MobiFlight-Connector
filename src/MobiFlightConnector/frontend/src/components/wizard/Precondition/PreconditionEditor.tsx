@@ -9,6 +9,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Switch } from "@/components/ui/switch"
+import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import MoveUpDownButtons from "@/components/wizard/components/MoveUpDownButtons"
 import { preconditionVariants } from "@/components/wizard/variants"
 import {
@@ -303,14 +304,12 @@ const PreconditionEditor = ({
   return (
     <div className="flex grow flex-col gap-4" data-testid="precondition-editor">
       <div className="flex flex-row justify-between gap-4">
-        <div className="flex flex-col gap-2">
-          <div className="text-lg font-semibold">
-            {t("Dialog.InputConfigWizard.PreconditionEditor.Title")}
-          </div>
-          <div className="text-muted-foreground text-sm">
-            {t("Dialog.InputConfigWizard.PreconditionEditor.Description")}
-          </div>
-        </div>
+        <SectionHeadline
+          title={t("Dialog.InputConfigWizard.PreconditionEditor.Title")}
+          description={t(
+            "Dialog.InputConfigWizard.PreconditionEditor.Description",
+          )}
+        />
         <DropdownMenu>
           <DropdownMenuTrigger asChild className="self-end">
             <Button variant="default" className="w-fit" size={"sm"}>

@@ -1,7 +1,8 @@
 import { Badge } from "@/components/ui/badge"
-import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import SectionHeadline from "@/components/wizard/common/SectionHeadline"
+import WizardSection from "@/components/wizard/common/WizardSection"
 import ActionTypeComboBox from "@/components/wizard/components/ActionTypeComboBox"
 import CopyPasteActionPanel from "@/components/wizard/components/CopyPasteActionPanel"
 import EventIdInputActionPanel from "@/components/wizard/components/InputActions/EventIdInputActionPanel"
@@ -9,7 +10,7 @@ import FsuipcOffsetInputActionPanel from "@/components/wizard/components/InputAc
 import JeehellInputActionPanel from "@/components/wizard/components/InputActions/JeehellInputActionPanel"
 import KeyboardInputActionPanel from "@/components/wizard/components/InputActions/KeyboardInputActionPanel"
 import LuaMacroInputActionPanel from "@/components/wizard/components/InputActions/LuaMacroInputActionPanel"
-import MsfsInputActionPanel from "@/components/wizard/components/InputActions/MsfsInputActionPanel"
+import MsfsPresetPanel from "@/components/wizard/common/MsfsPresetPanel"
 import ProSimInputActionPanel from "@/components/wizard/components/InputActions/ProSimInputActionPanel"
 import RetriggerPanel from "@/components/wizard/components/InputActions/RetriggerPanel"
 import { VariablePanel } from "@/components/wizard/components/InputActions/VariablePanel"
@@ -33,6 +34,7 @@ import {
   XplaneInputAction,
 } from "@/types/config"
 import { useTranslation } from "react-i18next"
+import { msfsInputActionAdapter } from "@/types/presets"
 export interface ActionEditorProps {
   event: { variant: string; event: string }
   buttonOptions?: Partial<ButtonHoldOptions> & Partial<ButtonLongReleaseOptions>
@@ -76,10 +78,10 @@ export const ActionSummary = ({ action }: ActionSummaryProps) => {
         </Badge>
       </div>
       {selectedActionType?.value === "MSFS2020CustomInputAction" && (
-        <MsfsInputActionPanel
+        <MsfsPresetPanel
           variant="summary"
-          config={action ? (action as MsfsInputAction) : null}
-          onConfigChange={() => {}}
+          adapter={msfsInputActionAdapter}
+          config={action as MsfsInputAction}
         />
       )}
       {selectedActionType?.value === "XplaneInputAction" && (
@@ -92,6 +94,7 @@ export const ActionSummary = ({ action }: ActionSummaryProps) => {
       {selectedActionType?.value === "VariableInputAction" && (
         <VariablePanel
           variant="summary"
+          triggerType="input"
           currentVariable={
             action ? (action as MobiFlightVariableAction).Variable : undefined
           }
@@ -175,10 +178,11 @@ const ActionPanel = ({
   switch (action.Type) {
     case "MSFS2020CustomInputAction":
       return (
-        <MsfsInputActionPanel
+        <MsfsPresetPanel
           variant="details"
-          config={action ? (action as MsfsInputAction) : null}
-          onConfigChange={(config) => onActionChange(config)}
+          adapter={msfsInputActionAdapter}
+          config={action as MsfsInputAction}
+          onConfigChange={onActionChange}
         />
       )
     case "XplaneInputAction":
@@ -193,6 +197,7 @@ const ActionPanel = ({
       return (
         <VariablePanel
           variant="details"
+          triggerType="input"
           currentVariable={
             action ? (action as MobiFlightVariableAction).Variable : undefined
           }
@@ -430,60 +435,52 @@ const ActionEditor = ({
     : undefined
   return (
     <div className="flex flex-col gap-4" data-testid="action-editor">
-      <Card>
-        <CardContent className="pt-4 flex flex-col gap-4">
-          <div className="flex flex-1 flex-col">
-            <div className="text-lg font-semibold">
-              {t(
-                `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.label`,
-              )}
-            </div>
-            <div className="text-muted-foreground text-sm">
-              {t(
-                `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.description`,
-              )}
-            </div>
-          </div>
-          {event.variant === "button" && event.event === "onHold" && (
-            <ButtonOnHoldOptions
-              event={event}
-              buttonOptions={buttonOptions}
-              action={action}
-              onActionChange={onActionChange}
-            />
+      <WizardSection>
+        <SectionHeadline
+          title={t(
+            `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.label`,
           )}
-          {event.variant === "button" && event.event === "onLongRelease" && (
-            <ButtonOnLongReleaseOptions
-              event={event}
-              buttonOptions={buttonOptions}
-              action={action}
-              onActionChange={onActionChange}
-            />
+          description={t(
+            `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.description`,
           )}
-        </CardContent>
-      </Card>
-      <Card>
-        <CardContent className="pt-4">
-          <div className="flex flex-col gap-4">
-            <div className="flex flex-row items-end justify-between">
-              <ActionTypeComboBox
-                selectedActionType={selectedActionType}
-                setSelectedActionType={(option) => {
-                  onActionChange(
-                    option ? { ...action, Type: option.value } : null,
-                  )
-                }}
-              />
-              <CopyPasteActionPanel
-                action={action}
-                onActionChange={(newAction) => {
-                  onActionChange(newAction)
-                }}
-              />
-            </div>
+        />
+        {event.variant === "button" && event.event === "onHold" && (
+          <ButtonOnHoldOptions
+            event={event}
+            buttonOptions={buttonOptions}
+            action={action}
+            onActionChange={onActionChange}
+          />
+        )}
+        {event.variant === "button" && event.event === "onLongRelease" && (
+          <ButtonOnLongReleaseOptions
+            event={event}
+            buttonOptions={buttonOptions}
+            action={action}
+            onActionChange={onActionChange}
+          />
+        )}
+      </WizardSection>
+      <WizardSection>
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-row items-end justify-between">
+            <ActionTypeComboBox
+              selectedActionType={selectedActionType}
+              setSelectedActionType={(option) => {
+                onActionChange(
+                  option ? { ...action, Type: option.value } : null,
+                )
+              }}
+            />
+            <CopyPasteActionPanel
+              action={action}
+              onActionChange={(newAction) => {
+                onActionChange(newAction)
+              }}
+            />
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </WizardSection>
       <ActionPanel onActionChange={onActionChange} action={action} />
     </div>
   )

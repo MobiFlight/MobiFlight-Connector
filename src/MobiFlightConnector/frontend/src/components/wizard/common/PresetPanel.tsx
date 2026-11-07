@@ -5,39 +5,67 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import { VirtualPresetList } from "@/components/wizard/components/VirtualPresetList"
-import { fetchHubHopPresets, filterPresetByText } from "@/lib/configWizard"
+import { filterPresetByText } from "@/lib/configWizard"
 import { useProjectStore } from "@/stores/projectStore"
-import { Preset, XplanePreset } from "@/types/preset"
+import { Preset, PresetSim, PresetType, XplanePreset } from "@/types/preset"
 import { AircraftInfo } from "@/types/project"
 import { IconX } from "@tabler/icons-react"
-import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
-import LoadingSpinner from "../LoadingSpinner"
-export type MsfsPresetPanelProps = {
-  variant: "input" | "output"
+import LoadingSpinner from "@/components/wizard/components/LoadingSpinner"
+import SectionHeadline from "@/components/wizard/common/SectionHeadline"
+import { useHubHopPresets } from "@/lib/hooks/useHubHopPresets"
+
+type PresetPanelMode = "input" | "output"
+
+
+type PresetSettings = {
+  presetTypes: Record<PresetPanelMode, PresetType[]>
+  getKey: (preset: Preset | XplanePreset) => string
+}
+
+const presetPanelSettings: Record<"msfs" | "xplane", PresetSettings> = {
+  msfs: {
+    presetTypes: {
+      input: ["input", "input (potentiometer)"],
+      output: ["output"],
+    },
+    getKey: (preset) => preset.id,
+  },
+  xplane: {
+    presetTypes: {
+      // DataRefs can be read and written, so "inputoutput" presets fit both modes.
+      input: ["input", "inputoutput", "input (potentiometer)"],
+      output: ["output", "inputoutput"],
+    },
+    getKey: (preset) => preset.code,
+  },
+}
+
+export type PresetPanelProps = {
+  sim: PresetSim
+  mode: "input" | "output"
   isLoading: boolean
   selectedPresetId: string | null
   setSelectedPreset: (preset: Preset | XplanePreset | null) => void
 }
-const MsfsPresetPanel = ({
-  variant,
+const PresetPanel = ({
+  sim,
+  mode,
   isLoading,
   selectedPresetId,
   setSelectedPreset,
-}: MsfsPresetPanelProps) => {
+}: PresetPanelProps) => {
   const { t } = useTranslation()
   const { project } = useProjectStore()
   const [favoritesOnly, setFavoritesOnly] = useState(true)
 
-  const validPresetTypes =
-    variant === "input" ? ["input", "input (potentiometer)"] : ["output"]
-  const { data: presets = [] /*, isLoading */ } = useQuery({
-    queryKey: ["msfs-presets"],
-    queryFn: () => fetchHubHopPresets("msfs"),
-    // presets don't change at runtime; HubHopState drives invalidation
-    staleTime: Infinity,
-  })
+  const { presetTypes, getKey } = presetPanelSettings[sim]
+  const validPresetTypes = presetTypes[mode]
+
+  const { data: presets = [] } = useHubHopPresets(sim)
+
+
   const projectAircraftFilter = (p: Preset) =>
     (project?.Aircraft?.length ?? 0) > 0
       ? project!.Aircraft!.some(
@@ -46,10 +74,10 @@ const MsfsPresetPanel = ({
       : true
   const validPresets = presets.filter(
     (p: Preset) =>
-      validPresetTypes.includes(p.presetType.toLowerCase()) &&
+      validPresetTypes.includes(p.presetType.toLowerCase() as PresetType) &&
       (favoritesOnly ? projectAircraftFilter(p) : true),
   )
-  const selectedPreset = validPresets.find((p) => p.id === selectedPresetId)
+  const selectedPreset = validPresets.find((p) => getKey(p) === selectedPresetId)
   const [filter, setFilter] = useState({
     vendor: selectedPreset?.vendor || "",
     aircraft: selectedPreset?.aircraft || "",
@@ -104,16 +132,14 @@ const MsfsPresetPanel = ({
     <Card className="grow">
       <CardContent className="flex flex-col gap-4 pt-4">
         <div className="flex flex-row items-end justify-between">
-          <div className="flex flex-col">
-            <div className="text-lg font-semibold">
-              {t("Dialog.InputConfigWizard.InputActions.Common.Preset.Title")}
-            </div>
-            <div className="text-muted-foreground text-sm">
-              {t(
-                "Dialog.InputConfigWizard.InputActions.Common.Preset.Description",
-              )}
-            </div>
-          </div>
+          <SectionHeadline
+            title={t(
+              "Dialog.InputConfigWizard.InputActions.Common.Preset.Title",
+            )}
+            description={t(
+              "Dialog.InputConfigWizard.InputActions.Common.Preset.Description",
+            )}
+          />
           <div className="flex flex-row items-center gap-2">
             <Switch
               checked={favoritesOnly}
@@ -240,4 +266,4 @@ const MsfsPresetPanel = ({
     </Card>
   )
 }
-export default MsfsPresetPanel
+export default PresetPanel

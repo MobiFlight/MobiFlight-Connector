@@ -1,7 +1,7 @@
-import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
+import WizardSection from "@/components/wizard/common/WizardSection"
 import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
 import ProSimDataRefPanel from "@/components/wizard/components/InputActions/ProsimDataRefPanel"
 import { ProSimInputAction } from "@/types/config"
@@ -50,58 +50,56 @@ const ProSimInputActionPanel = ({
   }
 
   return (
-    <Card>
-      <CardContent className="flex flex-col gap-4 pt-4">
-        <div className="flex flex-col gap-4">
-          <ProSimDataRefPanel
-            variant="input"
-            selectedPath={config?.Path ?? null}
-            onPresetChange={(preset) =>
+    <WizardSection>
+      <div className="flex flex-col gap-4">
+        <ProSimDataRefPanel
+          variant="input"
+          selectedPath={config?.Path ?? null}
+          onPresetChange={(preset) =>
+            onConfigChange({
+              ...(config as ProSimInputAction),
+              Path: preset.Name,
+            } as ProSimInputAction)
+          }
+        />
+        <Separator />
+        <div className="flex flex-col gap-2">
+          <Label htmlFor="path">
+            {t("Dialog.InputConfigWizard.InputActions.ProSim.PathLabel")}
+          </Label>
+          <div
+            id="path"
+            className="rounded border p-2 text-sm"
+            data-testid="pathValue"
+          >
+            {config?.Path && config?.Path !== ""
+              ? config?.Path
+              : t(
+                  "Dialog.InputConfigWizard.InputActions.ProSim.NoPresetSelected",
+                )}
+          </div>
+        </div>
+        <div className="flex flex-col gap-2">
+          <Label htmlFor="param">
+            {t("Dialog.InputConfigWizard.InputActions.ProSim.ParameterLabel")}
+          </Label>
+          <Input
+            className="font-mono text-sm whitespace-nowrap"
+            id="param"
+            placeholder={t(
+              "Dialog.InputConfigWizard.InputActions.ProSim.ParameterPlaceholder",
+            )}
+            value={config?.Expression}
+            onChange={(e) =>
               onConfigChange({
                 ...(config as ProSimInputAction),
-                Path: preset.Name,
+                Expression: e.target.value,
               } as ProSimInputAction)
             }
           />
-          <Separator />
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="path">
-              {t("Dialog.InputConfigWizard.InputActions.ProSim.PathLabel")}
-            </Label>
-            <div
-              id="path"
-              className="rounded border p-2 text-sm"
-              data-testid="pathValue"
-            >
-              {config?.Path && config?.Path !== ""
-                ? config?.Path
-                : t(
-                    "Dialog.InputConfigWizard.InputActions.ProSim.NoPresetSelected",
-                  )}
-            </div>
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="param">
-              {t("Dialog.InputConfigWizard.InputActions.ProSim.ParameterLabel")}
-            </Label>
-            <Input
-              className="font-mono text-sm whitespace-nowrap"
-              id="param"
-              placeholder={t(
-                "Dialog.InputConfigWizard.InputActions.ProSim.ParameterPlaceholder",
-              )}
-              value={config?.Expression}
-              onChange={(e) =>
-                onConfigChange({
-                  ...(config as ProSimInputAction),
-                  Expression: e.target.value,
-                } as ProSimInputAction)
-              }
-            />
-          </div>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </WizardSection>
   )
 }
 export default ProSimInputActionPanel

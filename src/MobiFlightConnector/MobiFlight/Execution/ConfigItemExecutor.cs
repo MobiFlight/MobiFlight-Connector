@@ -260,7 +260,8 @@ namespace MobiFlight.Execution
             }
 
             cfg.Status[ConfigItemStatusType.Test] = "TEST_EXECUTION";
-            MessageExchange.Instance.Publish(new ConfigValuePartialUpdate(cfg));
+            // value-only update, cfg may be an unsaved draft of the listed item
+            MessageExchange.Instance.Publish(new ConfigValueRawAndFinalUpdate(new ConfigValueOnlyItem(cfg)));
         }
 
         public void ExecuteTestOff(OutputConfigItem cfg)
@@ -296,7 +297,7 @@ namespace MobiFlight.Execution
             }
 
             cfg.Status.Remove(ConfigItemStatusType.Test);
-            MessageExchange.Instance.Publish(new ConfigValuePartialUpdate(cfg));
+            MessageExchange.Instance.Publish(new ConfigValueRawAndFinalUpdate(new ConfigValueOnlyItem(cfg)));
         }
 
         private ConnectorValue ExecuteRead(OutputConfigItem cfg)
@@ -454,10 +455,11 @@ namespace MobiFlight.Execution
                     case LedModule device:
                         var val = value.PadRight(device.DisplayLedDigits.Count, device.DisplayLedPaddingChar[0]);
                         if (device.DisplayLedPadding) val = value.PadLeft(device.DisplayLedPadding ? device.DisplayLedDigits.Count : 0, device.DisplayLedPaddingChar[0]);
+                        var (arcazeAddress, arcazeConnector) = device.SplitAddress();
                         arcazeCache.setDisplay(
                             serial,
-                            device.DisplayLedAddress,
-                            device.DisplayLedConnector,
+                            arcazeAddress,
+                            arcazeConnector,
                             device.DisplayLedDigits,
                             device.DisplayLedDecimalPoints,
                             val);
@@ -477,6 +479,7 @@ namespace MobiFlight.Execution
                 {
                     case LedModule device:
 
+                        var (ledName, ledModule) = device.SplitAddress();
                         var decimalCount = value.Count(c => c == '.');
 
                         var val = value.PadRight(device.DisplayLedDigits.Count + decimalCount, device.DisplayLedPaddingChar[0]);
@@ -495,8 +498,8 @@ namespace MobiFlight.Execution
 
                             mobiFlightCache.SetDisplayBrightness(
                                 serial,
-                                device.DisplayLedAddress,
-                                device.DisplayLedConnector,
+                                ledName,
+                                ledModule,
                                 refValue
                                 );
                         }
@@ -505,8 +508,8 @@ namespace MobiFlight.Execution
 
                         mobiFlightCache.SetDisplay(
                             serial,
-                            device.DisplayLedAddress,
-                            device.DisplayLedConnector,
+                            ledName,
+                            ledModule,
                             device.DisplayLedDigits,
                             decimalPoints,
                             val,

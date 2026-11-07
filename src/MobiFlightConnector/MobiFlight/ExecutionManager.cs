@@ -80,6 +80,10 @@ namespace MobiFlight
 
         private readonly Timer frontendUpdateTimer = new Timer();
 
+        // test run started from the config wizard, evaluated on every tick
+        private readonly Timer wizardTestTimer = new Timer();
+        private OutputConfigItem wizardTestConfig;
+
         /// <summary>
         /// This list contains preparsed information and cached values for the supervised FSUIPC offsets
         /// </summary>
@@ -211,6 +215,8 @@ namespace MobiFlight
             autoConnectTimer.Interval = 10000;
             autoConnectTimer.Tick += new EventHandler(AutoConnectTimer_TickAsync);
 
+            wizardTestTimer.Tick += (s, e) => ExecuteWizardTest();
+
             testModeTimer.Tick += new EventHandler(testModeTimer_Tick);
             SetTestModeInterval(Properties.Settings.Default.TestTimerInterval);
 
@@ -286,7 +292,7 @@ namespace MobiFlight
                 {
                     Name = controller.Name,
                     Serial = controller.Serial,
-                    Devices = controller.GetConnectedInputDevices()
+                    Devices = controller.GetControllerDevices()
                                         .ToList()
                 });
             });
@@ -309,7 +315,9 @@ namespace MobiFlight
                 {
                     Name = controller.Name,
                     Serial = controller.Serial,
-                    Devices = controller.GetAvailableDevices().ToList<DeviceReference>()
+                    Devices = controller.GetAvailableDevices()
+                                        .Union(controller.GetAvailableOutputDevices())
+                                        .ToList<DeviceReference>()
                 });
             });
 
@@ -452,6 +460,58 @@ namespace MobiFlight
                         try
                         {
                             ExecuteTestOn(cfg as OutputConfigItem);
+                        }
+                        catch (Exception e)
+                        {
+                            Log.Instance.log($"Error during test mode execution: {cfg.Name}. {e.Message}", LogSeverity.Error);
+                        }
+
+                        return;
+
+                    case "testStart":
+                        cfg = message.Item;
+                        if (cfg == null || !(cfg is OutputConfigItem)) break;
+
+                        // a value change on the same config keeps the device on
+                        if (ConfigItemInTestMode?.GUID != cfg.GUID)
+                        {
+                            try
+                            {
+                                ExecuteTestOff(ConfigItemInTestMode, true);
+                            }
+                            catch (Exception e)
+                            {
+                                Log.Instance.log(e.Message, LogSeverity.Error);
+                            }
+                        }
+
+                        wizardTestConfig = cfg as OutputConfigItem;
+                        ExecuteWizardTest();
+                        // modifiers like Blink need continuous evaluation
+                        wizardTestTimer.Interval = Properties.Settings.Default.TestTimerInterval;
+                        wizardTestTimer.Start();
+
+                        return;
+
+                    case "testStop":
+                        cfg = message.Item;
+                        if (cfg == null || !(cfg is OutputConfigItem)) break;
+
+                        wizardTestTimer.Stop();
+                        wizardTestConfig = null;
+
+                        try
+                        {
+                            ExecuteTestOff(ConfigItemInTestMode, true);
+                        }
+                        catch (Exception e)
+                        {
+                            Log.Instance.log(e.Message, LogSeverity.Error);
+                        }
+
+                        try
+                        {
+                            ExecuteTestOff(cfg as OutputConfigItem, true);
                         }
                         catch (Exception e)
                         {
@@ -1436,6 +1496,35 @@ namespace MobiFlight
                                                   inputActionExecutionCache,
                                                   ConfigItemInTestMode);
             executor.ExecuteTestOff(cfg);
+        }
+
+        private void ExecuteWizardTest()
+        {
+            var cfg = wizardTestConfig;
+            if (cfg == null) return;
+
+            try
+            {
+                var configRefs = cfg.ConfigRefs
+                    .Where(r => r.Active)
+                    .Select(r => new ConfigRefValue(r, r.TestValue))
+                    .ToList();
+                var value = cfg.TestValue;
+                foreach (var modifier in cfg.Modifiers.Items.Where(m => m.Active))
+                {
+                    value = modifier.Apply(value, configRefs);
+                }
+
+                cfg.RawValue = cfg.TestValue.ToString();
+                cfg.Value = value.ToString();
+                ExecuteTestOn(cfg, value);
+            }
+            catch (Exception e)
+            {
+                // stop to avoid logging on every tick
+                wizardTestTimer.Stop();
+                Log.Instance.log($"Error during test mode execution: {cfg.Name}. {e.Message}", LogSeverity.Error);
+            }
         }
 
         public void ExecuteTestOn(OutputConfigItem cfg, ConnectorValue value = null)

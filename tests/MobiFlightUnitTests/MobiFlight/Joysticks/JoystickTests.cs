@@ -1,6 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
+﻿using MobiFlight.Base;
 
 namespace MobiFlight.Joysticks.Tests
 {
@@ -224,7 +222,10 @@ namespace MobiFlight.Joysticks.Tests
             Assert.HasCount(2, devices, "There should be at least one available output device.");
 
             Assert.IsInstanceOfType(devices[0], typeof(JoystickOutputDevice), "The available device should be of type JoystickOutputDevice.");
-            Assert.IsInstanceOfType(devices[1], typeof(JoystickOutputDisplay), "The available device should be of type JoystickOutputDisplay.");
+            var display = Assert.IsInstanceOfType<ControllerDevice>(devices[1], "The available display should be a ControllerDevice.");
+            Assert.AreEqual(DeviceType.LcdDisplay, display.Type);
+            Assert.AreEqual(1, display.Capabilities.Rows);
+            Assert.AreEqual(16, display.Capabilities.Columns);
         }
 
         #region Stop Tests

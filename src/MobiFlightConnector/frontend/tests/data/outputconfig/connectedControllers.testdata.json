@@ -1,0 +1,49 @@
+[
+  {
+    "Name": "ProtoBoard-v2",
+    "Serial": "SN-5FC-1CF",
+    "Vendor": "MobiFlight",
+    "ProductId": "",
+    "VendorId": "",
+    "Type": "MobiFlight",
+    "Connected": true,
+    "ImageUrl": null,
+    "certified": false,
+    "Devices": [
+      { "Name": "1", "Label": "Button 1", "Type": "Button" },
+      { "Name": "LED 1", "Label": "LED 1", "Type": "Output", "Capabilities": { "Pwm": false } },
+      { "Name": "LED 2", "Label": "LED 2", "Type": "Output", "Capabilities": { "Pwm": true } },
+      { "Name": "Servo 1", "Label": "Servo 1", "Type": "Servo" },
+      { "Name": "Servo 2", "Label": "Servo 2", "Type": "Servo" },
+      { "Name": "Stepper 1", "Label": "Stepper 1", "Type": "Stepper" },
+      { "Name": "LCD 1", "Label": "LCD 1", "Type": "LcdDisplay", "Capabilities": { "Rows": 4, "Columns": 16 } },
+      { "Name": "7-Segment", "Label": "7-Segment", "Type": "LedModule", "Capabilities": { "Digits": 8 } }
+    ]
+  },
+  {
+    "Name": "Mega Output Board",
+    "Serial": "SN-ABC-123",
+    "Vendor": "MobiFlight",
+    "ProductId": "",
+    "VendorId": "",
+    "Type": "MobiFlight",
+    "Connected": true,
+    "ImageUrl": null,
+    "certified": false,
+    "Devices": [
+      { "Name": "LED A", "Label": "Gear Light", "Type": "Output", "Capabilities": { "Pwm": false } }
+    ]
+  },
+  {
+    "Name": "Alpha Flight Controls Lite",
+    "Serial": "JS-c0875190-3b89-11ed-8007-444553540000",
+    "Vendor": "Honeycomb",
+    "ProductId": "",
+    "VendorId": "",
+    "Type": "Joystick",
+    "Connected": true,
+    "ImageUrl": null,
+    "certified": false,
+    "Devices": [{ "Name": "1", "Label": "Button 1", "Type": "Button" }]
+  }
+]

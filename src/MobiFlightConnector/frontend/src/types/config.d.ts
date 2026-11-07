@@ -1,5 +1,7 @@
 import { Controller } from "./controller"
 import { ModifierList, Modifier } from "./modifier"
+import { InputDeviceType, OutputDeviceType } from "./controller"
+import type { ConnectorValueType } from "./connectorValue"
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface IDictionary<T, K extends string | number | symbol> {
@@ -11,6 +13,12 @@ export interface IConfigValueOnlyItem {
   RawValue?: string | null
   Value?: string | null
   Status: IDictionary<string, ConfigItemStatusType>
+}
+
+export interface ConnectorValue {
+  type: ConnectorValueType
+  Float64: number
+  String: string | null
 }
 
 export interface IConfigItem extends IConfigValueOnlyItem {
@@ -30,6 +38,48 @@ export interface IConfigItem extends IConfigValueOnlyItem {
   analog?: AnalogTrigger
   ConfigRefs?: ConfigReference[]
   Modifiers?: ModifierList
+  // output configs only
+  TestValue?: ConnectorValue
+}
+
+export type Source =
+  | SimConnectSource
+  | XplaneSource
+  | VariableSource
+  | FsuipcSource
+  | ProSimSource
+export type SourceType = Source["Type"]
+
+export interface SimConnectSource {
+  Type: "SimConnectSource"
+  SimConnectValue: {
+    UUID: uuid
+    Value: string
+  }
+}
+
+export interface XplaneSource {
+  Type: "XplaneSource"
+  XplaneDataRef: {
+    Path: string
+  }
+}
+
+export interface VariableSource {
+  Type: "VariableSource"
+  MobiFlightVariable: MobiFlightVariable
+}
+
+export interface ProSimSource {
+  Type: "ProSimSource"
+  ProSimDataRef: {
+    Path: string
+  }
+}
+
+export interface FsuipcSource {
+  Type: "FsuipcSource"
+  FSUIPC: FsuipcOffset
 }
 
 export type ConfigItemStatusType =
@@ -50,6 +100,7 @@ export type ConfigItemType = "InputConfigItem" | "OutputConfigItem"
 
 export interface OutputConfigItem extends IConfigItem {
   Type: "OutputConfigItem"
+  Source: Source
   ButtonInputConfig?: ButtonTrigger
   AnalogInputConfig?: AnalogTrigger
 }
@@ -61,6 +112,10 @@ export interface InputConfigItem extends IConfigItem {
 export interface IDeviceConfig {
   Type: InputDeviceType | OutputDeviceType
   Name: string
+}
+
+export interface OutputDeviceConfig extends IDeviceConfig {
+  Type: OutputDeviceType
 }
 
 export interface ExtendedDeviceConfig extends IDeviceConfig {
@@ -94,7 +149,9 @@ export type ButtonTrigger = {
   onLongRelease?: Action
 }
 
-export type ButtonTrigger = ButtonTrigger & Partial<ButtonHoldOptions> & Partial<ButtonLongReleaseOptions>
+export type ButtonTrigger = ButtonTrigger &
+  Partial<ButtonHoldOptions> &
+  Partial<ButtonLongReleaseOptions>
 
 export interface EncoderTrigger {
   onLeft?: Action
@@ -214,4 +271,57 @@ export type ConfigReference = {
   Placeholder: string
   Ref: string
   TestValue: string
+}
+
+/* Output devices */
+export interface OutputConfig extends OutputDeviceConfig {
+  Type: "Output"
+  Pin: string
+  Brightness: number
+  PwmMode: boolean
+}
+
+export interface LedModuleConfig extends OutputDeviceConfig {
+  Type: "LedModule"
+  DisplayLedAddress: string
+  DisplayLedModuleSize: number
+  DisplayLedPadding: boolean
+  DisplayLedPaddingChar: string
+  DisplayLedDigits: string[]
+  DisplayLedDecimalPoints: string[]
+  DisplayLedReverseDigits: boolean
+  DisplayLedBrightnessReference: string
+}
+
+export interface LcdDisplayConfig extends OutputDeviceConfig {
+  Type: "LcdDisplay"
+  Address: string
+  Lines: string[]
+}
+
+export interface ServoConfig extends OutputDeviceConfig {
+  Type: "Servo"
+  Address: string
+  Min: string
+  Max: string
+  MaxRotationPercent: string
+}
+
+export interface StepperConfig extends OutputDeviceConfig {
+  Type: "Stepper"
+  Address: string
+  InputRev: number
+  OutputRev: number
+  TestValue: number
+  CompassMode: boolean
+  Acceleration: number
+  Speed: number
+}
+
+export interface CustomDeviceConfig extends OutputDeviceConfig {
+  Type: "CustomDevice"
+  CustomType: string
+  CustomName: string
+  MessageType: number
+  Value: string
 }

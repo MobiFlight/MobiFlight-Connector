@@ -525,7 +525,7 @@ test.describe("Input Config Wizard - Edit name", () => {
 
     // Opening and closing a detail view should not start editing again
     await page.getByRole("button", { name: "Edit On Press Action" }).click()
-    const goBackButton = page.getByRole("button", { name: "Go back" })
+    const goBackButton = page.getByRole("button", { name: "Done" })
     await expect(goBackButton).toBeVisible()
     await expect(page).toHaveURL(/detail=/)
     await goBackButton.click()
@@ -775,7 +775,7 @@ test.describe("Input Config Wizard - Trigger Panel", () => {
       await options.first().click()
 
       const goBackButton = page.getByRole("button", {
-        name: "Go back",
+        name: "Done",
       })
       await expect(goBackButton).toBeVisible()
       await goBackButton.click()
@@ -1288,7 +1288,7 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
     const items = editor.getByTestId("precondition-item-row")
     await expect(items).toHaveCount(1)
 
-    const goBackButton = page.getByRole("button", { name: "Go back" })
+    const goBackButton = page.getByRole("button", { name: "Done" })
     await expect(goBackButton).toBeVisible()
     await goBackButton.click()
     await expect(editor).not.toBeVisible()
@@ -1456,7 +1456,7 @@ test.describe("Input Config Wizard - Config References panel", () => {
     )
     await expect(referenceItems).toHaveCount(1)
 
-    const goBackButton = page.getByRole("button", { name: "Go back" })
+    const goBackButton = page.getByRole("button", { name: "Done" })
     await expect(goBackButton).toBeVisible()
     await goBackButton.click()
     await expect(configReferenceEditor).not.toBeVisible()
@@ -1507,7 +1507,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     // close the popup with the options
     await page.keyboard.press("Escape")
 
-    const goBackButton = page.getByRole("button", { name: "Go back" })
+    const goBackButton = page.getByRole("button", { name: "Done" })
     await expect(goBackButton).toBeVisible()
     await goBackButton.click()
 
@@ -1563,7 +1563,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await transformationOption.click()
 
     // close the editor
-    const backButton = page.getByRole("button", { name: "Go back" })
+    const backButton = page.getByRole("button", { name: "Done" })
     await expect(backButton).toBeVisible()
     await backButton.click()
     await expect(modifierEditor).not.toBeVisible()
@@ -1834,7 +1834,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
 
     await expect(modifierHeader.getByText("$*2")).toBeVisible()
 
-    const goBackButton = page.getByRole("button", { name: "Go back" })
+    const goBackButton = page.getByRole("button", { name: "Done" })
     await expect(goBackButton).toBeVisible()
     await goBackButton.click()
 
@@ -1899,7 +1899,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(modifierHeader.getByText("from 3 to 6")).toBeVisible()
 
     // Close the drawer
-    const goBackButton = page.getByRole("button", { name: "Go back" })
+    const goBackButton = page.getByRole("button", { name: "Done" })
     await expect(goBackButton).toBeVisible()
     await goBackButton.click()
 
@@ -1999,7 +1999,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     ).toBeVisible()
 
     // Close the drawer
-    const goBackButton = page.getByRole("button", { name: "Go back" })
+    const goBackButton = page.getByRole("button", { name: "Done" })
     await expect(goBackButton).toBeVisible()
     await goBackButton.click()
 
@@ -2111,7 +2111,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     ).toBeVisible()
 
     // Close the drawer
-    const goBackButton = page.getByRole("button", { name: "Go back" })
+    const goBackButton = page.getByRole("button", { name: "Done" })
     await expect(goBackButton).toBeVisible()
     await goBackButton.click()
 
@@ -2204,7 +2204,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(thirdFromInput).toHaveValue("5")
 
     // Close the drawer
-    const goBackButton = page.getByRole("button", { name: "Go back" })
+    const goBackButton = page.getByRole("button", { name: "Done" })
     await expect(goBackButton).toBeVisible()
     await goBackButton.click()
 
@@ -2363,7 +2363,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(elseInputField).not.toBeVisible()
 
     // Close the drawer
-    const goBackButton = page.getByRole("button", { name: "Go back" })
+    const goBackButton = page.getByRole("button", { name: "Done" })
     await expect(goBackButton).toBeVisible()
     await goBackButton.click()
 
@@ -2473,7 +2473,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     ).toBeVisible()
 
     // Close the drawer
-    const goBackButton = page.getByRole("button", { name: "Go back" })
+    const goBackButton = page.getByRole("button", { name: "Done" })
     await expect(goBackButton).toBeVisible()
     await goBackButton.click()
 
@@ -2626,7 +2626,7 @@ test.describe("Input Config Wizard - Action Type Panel", () => {
     const actionEditor = page.getByTestId("action-editor")
     await expect(actionEditor).toBeVisible()
 
-    const goBackButton = page.getByRole("button", { name: "Go back" })
+    const goBackButton = page.getByRole("button", { name: "Done" })
     await expect(goBackButton).toBeVisible()
 
     // Hitting Escape should not close the drawer
@@ -2673,7 +2673,7 @@ test.describe("Input Config Wizard - Action Type Panel", () => {
     await expect(pasteButton).toBeEnabled()
 
     // Navigate away and close the action editor
-    const goBackButton = page.getByRole("button", { name: "Go back" })
+    const goBackButton = page.getByRole("button", { name: "Done" })
     await expect(goBackButton).toBeVisible()
     await goBackButton.click()
 
@@ -3168,7 +3168,7 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
     await expect(codeInput).toBeVisible()
     await codeInput.fill("Test Code Input")
 
-    const backButton = page.getByRole("button", { name: "Go back" })
+    const backButton = page.getByRole("button", { name: "Done" })
     await expect(backButton).toBeVisible()
     await backButton.click()
     await expect(actionEditor).not.toBeVisible()
@@ -3787,7 +3787,7 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
     await codeInput.fill("Test Code Input")
 
     // Close the drawer
-    const backButton = page.getByRole("button", { name: "Go back" })
+    const backButton = page.getByRole("button", { name: "Done" })
     await expect(backButton).toBeVisible()
     await backButton.click()
     await expect(actionEditor).not.toBeVisible()
@@ -3851,7 +3851,7 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
     await expect(valueInput).toBeVisible()
     await valueInput.fill("Test Value")
 
-    const backButton = page.getByRole("button", { name: "Go back" })
+    const backButton = page.getByRole("button", { name: "Done" })
     await expect(backButton).toBeVisible()
     await backButton.click()
     await expect(actionEditor).not.toBeVisible()
@@ -4041,7 +4041,7 @@ test.describe("Input Config Wizard - Variable Input Action Panel", () => {
     await variableNameInput.fill("TestVariable")
     await variableValueInput.fill("123")
 
-    const backButton = page.getByRole("button", { name: "Go back" })
+    const backButton = page.getByRole("button", { name: "Done" })
     await expect(backButton).toBeVisible()
     await backButton.click()
     await expect(actionEditor).not.toBeVisible()
@@ -4113,7 +4113,7 @@ test.describe("Input Config Wizard - Variable Input Action Panel", () => {
     await variableNameInput.fill("TestVariable")
     await variableValueInput.fill("123")
 
-    const backButton = page.getByRole("button", { name: "Go back" })
+    const backButton = page.getByRole("button", { name: "Done" })
     await expect(backButton).toBeVisible()
     await backButton.click()
     await expect(actionEditor).not.toBeVisible()
@@ -4207,7 +4207,7 @@ test.describe("Input Config Wizard - Retrigger Input Action Panel", () => {
     await expect(actionTypeOption).toBeVisible()
     await actionTypeOption.click()
 
-    const backButton = page.getByRole("button", { name: "Go back" })
+    const backButton = page.getByRole("button", { name: "Done" })
     await expect(backButton).toBeVisible()
     await backButton.click()
     await expect(actionEditor).not.toBeVisible()
@@ -4453,7 +4453,7 @@ test.describe("Input Config Wizard - Keyboard Input Action Panel", () => {
     await page.keyboard.up("F8")
     // End: provide specific user input
 
-    const backButton = page.getByRole("button", { name: "Go back" })
+    const backButton = page.getByRole("button", { name: "Done" })
     await expect(backButton).toBeVisible()
     await backButton.click()
     await expect(actionEditor).not.toBeVisible()
@@ -4712,7 +4712,7 @@ test.describe("Input Config Wizard - vJoy Input Action Panel", () => {
     await stateSwitch.click() // from true to false (not pressed)
     // End: provide specific user input
 
-    const backButton = page.getByRole("button", { name: "Go back" })
+    const backButton = page.getByRole("button", { name: "Done" })
     await expect(backButton).toBeVisible()
     await backButton.click()
     await expect(actionEditor).not.toBeVisible()
@@ -4787,7 +4787,7 @@ test.describe("Input Config Wizard - vJoy Input Action Panel", () => {
     await valueInput.fill("16384")
     // End: provide specific user input
 
-    const backButton = page.getByRole("button", { name: "Go back" })
+    const backButton = page.getByRole("button", { name: "Done" })
     await expect(backButton).toBeVisible()
     await backButton.click()
     await expect(actionEditor).not.toBeVisible()
@@ -5017,7 +5017,7 @@ test.describe("Input Config Wizard - FSUIPC Offset Input Action Panel", () => {
 
     // End: provide specific user input
 
-    const backButton = page.getByRole("button", { name: "Go back" })
+    const backButton = page.getByRole("button", { name: "Done" })
     await expect(backButton).toBeVisible()
     await backButton.click()
     await expect(actionEditor).not.toBeVisible()
@@ -5096,7 +5096,7 @@ test.describe("Input Config Wizard - FSUIPC Offset Input Action Panel", () => {
     await valueInput.fill("1.234")
     // End: provide specific user input
 
-    const backButton = page.getByRole("button", { name: "Go back" })
+    const backButton = page.getByRole("button", { name: "Done" })
     await expect(backButton).toBeVisible()
     await backButton.click()
     await expect(actionEditor).not.toBeVisible()
@@ -5164,7 +5164,7 @@ test.describe("Input Config Wizard - FSUIPC Offset Input Action Panel", () => {
     await valueInput.fill("Test String")
     // End: provide specific user input
 
-    const backButton = page.getByRole("button", { name: "Go back" })
+    const backButton = page.getByRole("button", { name: "Done" })
     await expect(backButton).toBeVisible()
     await backButton.click()
     await expect(actionEditor).not.toBeVisible()
@@ -5309,7 +5309,7 @@ test.describe("Input Config Wizard - FSUIPC EventID Input Action Panel", () => {
     await customParamInput.fill("54321")
     // End: provide specific user input
 
-    const backButton = page.getByRole("button", { name: "Go back" })
+    const backButton = page.getByRole("button", { name: "Done" })
     await expect(backButton).toBeVisible()
     await backButton.click()
     await expect(actionEditor).not.toBeVisible()
@@ -5472,7 +5472,7 @@ test.describe("Input Config Wizard - FSUIPC PMDG EventID Input Action Panel", ()
     await expect(customParamInput).not.toBeVisible()
     // End: provide specific user input
 
-    const backButton = page.getByRole("button", { name: "Go back" })
+    const backButton = page.getByRole("button", { name: "Done" })
     await expect(backButton).toBeVisible()
     await backButton.click()
     await expect(actionEditor).not.toBeVisible()
@@ -5634,7 +5634,7 @@ test.describe("Input Config Wizard - FSUIPC Jeehell Input Action Panel", () => {
     await valueInput.fill("12345")
     // End: provide specific user input
 
-    const backButton = page.getByRole("button", { name: "Go back" })
+    const backButton = page.getByRole("button", { name: "Done" })
     await expect(backButton).toBeVisible()
     await backButton.click()
     await expect(actionEditor).not.toBeVisible()
@@ -5776,7 +5776,7 @@ test.describe("Input Config Wizard - FSUIPC Lua Macro Input Action Panel", () =>
     await macroValueInput.fill("MACRO VALUE")
     // End: provide specific user input
 
-    const backButton = page.getByRole("button", { name: "Go back" })
+    const backButton = page.getByRole("button", { name: "Done" })
     await expect(backButton).toBeVisible()
     await backButton.click()
     await expect(actionEditor).not.toBeVisible()
@@ -5969,7 +5969,7 @@ test.describe("Input Config Wizard - ProSim Input Action Panel", () => {
     await parameterInput.fill("Custom")
     // End: provide specific user input
 
-    const backButton = page.getByRole("button", { name: "Go back" })
+    const backButton = page.getByRole("button", { name: "Done" })
     await expect(backButton).toBeVisible()
     await backButton.click()
     await expect(actionEditor).not.toBeVisible()
@@ -6064,7 +6064,7 @@ test.describe("Input Config Wizard - Action Binding Panels", () => {
         await button.click()
         await expect(actionEditor).toBeVisible()
 
-        const backButton = page.getByRole("button", { name: "Go back" })
+        const backButton = page.getByRole("button", { name: "Done" })
         await expect(backButton).toBeVisible()
         await backButton.click()
         await expect(actionEditor).not.toBeVisible()
@@ -6102,7 +6102,7 @@ test.describe("Input Config Wizard - Action Binding Panels", () => {
     await inputHoldDelay.fill(inputHoldDelayValue.toString())
     await inputRepeatDelay.fill(inputRepeatDelayValue.toString())
 
-    const backButton = page.getByRole("button", { name: "Go back" })
+    const backButton = page.getByRole("button", { name: "Done" })
     await expect(backButton).toBeVisible()
     await backButton.click()
     await expect(actionEditor).not.toBeVisible()
@@ -6146,7 +6146,7 @@ test.describe("Input Config Wizard - Action Binding Panels", () => {
 
     await inputLongReleaseDelay.fill(inputLongReleaseDelayValue.toString())
 
-    const backButton = page.getByRole("button", { name: "Go back" })
+    const backButton = page.getByRole("button", { name: "Done" })
     await expect(backButton).toBeVisible()
     await backButton.click()
     await expect(actionEditor).not.toBeVisible()
@@ -6251,7 +6251,7 @@ test.describe("Input Config Wizard - Action Binding Panels", () => {
       await expect(actionInputOption).toBeVisible()
       await actionInputOption.click()
 
-      const backButton = page.getByRole("button", { name: "Go back" })
+      const backButton = page.getByRole("button", { name: "Done" })
       // Close the side panel with back button
       await expect(backButton).toBeVisible()
       await backButton.click()

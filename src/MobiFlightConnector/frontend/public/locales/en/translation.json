@@ -380,6 +380,7 @@
       "Cancel": "Cancel",
       "Close": "Close",
       "Save": "Save",
+      "Done": "Done",
       "SaveChanges": "Save changes",
       "ApplyChanges": "Apply changes",
       "DiscardChanges": "Discard changes",
@@ -477,7 +478,45 @@
         "NoModifiers": "No modifiers defined.",
         "DeleteModifier": "Remove modifier",
         "MoveUp": "Move up modifier",
-        "MoveDown": "Move down modifier"
+        "MoveDown": "Move down modifier",
+        "TestPanel": {
+          "Title": "Test modifiers",
+          "Description": "Test the functionality of the configured modifiers."
+        }
+      }
+    },
+    "ConfigWizard": {
+      "Output": {
+        "Title": "Edit output configuration",
+        "Description": "Edit all settings for your output configuration in this dialog.",
+        "InputAction": {
+          "Button": "Button action",
+          "Analog": "Analog action",
+          "Remove": "Remove input action"
+        }
+      },
+      "Source": {
+        "Title": "Specify source value",
+        "Description": "Configure the value for this output configuration."
+      },
+      "SourceType": {
+        "Title": "Step 1 - Source",
+        "Description": "Select where the value comes from.",
+        "Options": {
+          "SimConnectSource": {"label": "Microsoft Flight Simulator"},
+          "XplaneSource": {"label": "X-Plane"},
+          "ProSimSource": {"label": "ProSim"},
+          "VariableSource": {"label": "MobiFlight - Variable"},
+          "FsuipcSource": {"label": "FSUIPC"}
+        }
+      },
+      "Device": {
+        "Title": "Specify output device settings",
+        "Description": "Configure the settings for this output device configuration.",
+        "TestPanel": {
+          "Title": "Step - Test output device",
+          "Description": "Test the functionality of this output device configuration."
+        }
       }
     },
     "InputConfigWizard": {
@@ -809,6 +848,7 @@
           "VariableNamePlaceholder": "Enter variable name...",
           "ExpressionLabel": "Expression",
           "ExpressionPlaceholder": "Enter expression...",
+          "ExpressionNone": "none",
           "ExpressionHelp": "Use <1>$</1> to represent the variable value in expressions, e.g. <3>$ * 2</3> to double a number variable."
         },
         "ProSimDataRef": {

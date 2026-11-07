@@ -1,13 +1,18 @@
 import ComboBox from "@/components/ComboBox"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import { useAppMessage } from "@/lib/hooks/appMessage"
 import messageExchange from "@/lib/messageExchange"
 
 import { useControllerStore } from "@/stores/controllerStore"
 import { CommandScanForInput } from "@/types/commands"
 import { IConfigItem } from "@/types/config"
-import { BaseDevice, Controller, InputDeviceType } from "@/types/controller"
+import {
+  DeviceReference,
+  Controller,
+  InputDeviceType,
+} from "@/types/controller"
 import { ScanForInputResult } from "@/types/messages"
 import { InputDeviceTypes } from "@/types/typesOptions"
 import { IconLoader2, IconTrash } from "@tabler/icons-react"
@@ -17,6 +22,85 @@ import { useTranslation } from "react-i18next"
 export type ConfigTriggerProps = {
   configItem: IConfigItem
   setConfigItem: (item: IConfigItem) => void
+}
+
+export const ControllerComboBox = ({
+  completeControllers,
+  selectedController,
+  onChange,
+  variant = "default",
+}: {
+  completeControllers: Partial<Controller>[]
+  selectedController: Partial<Controller> | undefined
+  onChange: (controller: Partial<Controller> | undefined) => void
+  variant?: "full-width" | "default"
+}) => {
+  const { t } = useTranslation()
+  return (
+    <ComboBox
+      widthClass={variant === "full-width" ? "w-full" : "w-56"}
+      align="start"
+      getLabel={(controller) => (controller as Controller).Name}
+      getValue={(controller) =>
+        (controller as Controller).Serial ?? (controller as Controller).Name
+      }
+      isSelected={(controller, selected) =>
+        (controller as Controller).Serial === selected?.Serial ||
+        (!(controller as Controller).Serial &&
+          (controller as Controller).Name === selected?.Name)
+      }
+      items={completeControllers}
+      selected={selectedController}
+      placeholder={t("Dialog.InputConfigWizard.ConfigTrigger.SelectController")}
+      searchPlaceholder={t(
+        "Dialog.InputConfigWizard.ConfigTrigger.SearchController",
+      )}
+      noOptionsPlaceholder={t(
+        "Dialog.InputConfigWizard.ConfigTrigger.NoControllerFound",
+      )}
+      setSelected={onChange}
+    />
+  )
+}
+
+export const DeviceComboBox = ({
+  devices,
+  selectedDevice,
+  selectedController,
+  onChange,
+  variant = "default",
+}: {
+  devices: DeviceReference[]
+  selectedDevice: DeviceReference | undefined
+  selectedController: Partial<Controller> | undefined
+  onChange: (device: DeviceReference | undefined) => void
+  variant?: "full-width" | "default"
+}) => {
+  const { t } = useTranslation()
+  return (
+    <ComboBox
+      widthClass={variant === "full-width" ? "w-full" : "w-56"}
+      align="start"
+      getLabel={(device) =>
+        (device as DeviceReference)?.Label ?? (device as DeviceReference)?.Name
+      }
+      getValue={(device) => (device as DeviceReference)?.Name}
+      isSelected={(device, selected) =>
+        (device as DeviceReference).Name === selected?.Name
+      }
+      items={devices}
+      selected={selectedDevice}
+      placeholder={t("Dialog.InputConfigWizard.ConfigTrigger.SelectDevice")}
+      searchPlaceholder={t(
+        "Dialog.InputConfigWizard.ConfigTrigger.SearchDevice",
+      )}
+      noOptionsPlaceholder={t(
+        "Dialog.InputConfigWizard.ConfigTrigger.NoDeviceFound",
+      )}
+      disabled={!selectedController}
+      setSelected={onChange}
+    />
+  )
 }
 
 const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
@@ -36,17 +120,11 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
       )
     : undefined
 
-  const hasControllerOption = selectedController
-    ? controllers.some(
-        (controller) =>
-          controller.Serial === selectedController.Serial ||
-          (!selectedController.Serial &&
-            controller.Name === selectedController.Name),
-      )
-    : false
-
+  // Add selected controller to the list
+  // because it won't be included in the list of controllers
+  // if it's not currently connected
   const completeControllers: Partial<Controller>[] =
-    selectedController && !hasControllerOption
+    selectedController && !connectedController
       ? [...controllers, selectedController]
       : controllers
 
@@ -57,15 +135,15 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
       (!selectedController.Serial &&
         selectedController.Name === configItem.Controller.Name))
 
-  const inputDeviceFilter = (device: BaseDevice) => {
+  const inputDeviceFilter = (device: DeviceReference) => {
     return InputDeviceTypes.includes(device.Type as InputDeviceType)
   }
 
-  const devices: BaseDevice[] = [
+  const devices: DeviceReference[] = [
     ...(connectedController?.Devices?.filter(inputDeviceFilter) ?? []),
   ]
 
-  const configuredDevice: BaseDevice | undefined =
+  const configuredDevice: DeviceReference | undefined =
     configItem.Device != null
       ? {
           Name: configItem.Device.Name,
@@ -74,9 +152,9 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
         }
       : undefined
 
-  const [selectedDevice, setSelectedDevice] = useState<BaseDevice | undefined>(
-    configuredDevice,
-  )
+  const [selectedDevice, setSelectedDevice] = useState<
+    DeviceReference | undefined
+  >(configuredDevice)
 
   if (
     selectedMatchesConfigController &&
@@ -88,7 +166,7 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
 
   const updateConfigItem = (
     controller: Partial<Controller> | undefined,
-    device: BaseDevice | undefined,
+    device: DeviceReference | undefined,
   ) => {
     setConfigItem({
       ...configItem,
@@ -136,14 +214,10 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
       className="border-primary transition-shadow hover:shadow-md"
     >
       <CardContent className="flex flex-col gap-4 pt-4">
-        <div className="flex flex-col gap-2">
-          <div className="text-lg font-semibold">
-            {t("Dialog.InputConfigWizard.ConfigTrigger.Title")}
-          </div>
-          <div className="text-muted-foreground text-sm">
-            {t("Dialog.InputConfigWizard.ConfigTrigger.Description")}
-          </div>
-        </div>
+        <SectionHeadline
+          title={t("Dialog.InputConfigWizard.ConfigTrigger.Title")}
+          description={t("Dialog.InputConfigWizard.ConfigTrigger.Description")}
+        />
         <div className="flex flex-row items-center gap-2">
           <Button onClick={scanForInput} className="px-5" size="sm">
             {scanning ? (
@@ -156,31 +230,10 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
             )}
           </Button>
           <div className="flex flex-col gap-2">
-            <ComboBox
-              widthClass="w-56"
-              align="start"
-              getLabel={(controller) => (controller as Controller).Name}
-              getValue={(controller) =>
-              (controller as Controller).Serial ??
-                (controller as Controller).Name
-              }
-              isSelected={(controller, selected) =>
-                (controller as Controller).Serial === selected?.Serial ||
-                (!(controller as Controller).Serial &&
-                  (controller as Controller).Name === selected?.Name)
-              }
-              items={completeControllers}
-              selected={selectedController}
-              placeholder={t(
-                "Dialog.InputConfigWizard.ConfigTrigger.SelectController",
-              )}
-              searchPlaceholder={t(
-                "Dialog.InputConfigWizard.ConfigTrigger.SearchController",
-              )}
-              noOptionsPlaceholder={t(
-                "Dialog.InputConfigWizard.ConfigTrigger.NoControllerFound",
-              )}
-              setSelected={(controller) => {
+            <ControllerComboBox
+              completeControllers={completeControllers}
+              selectedController={selectedController}
+              onChange={(controller) => {
                 setSelectedController(controller)
                 setSelectedDevice(undefined)
                 updateConfigItem(controller, undefined)
@@ -189,29 +242,11 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
           </div>
 
           <div className="flex flex-col gap-2">
-            <ComboBox
-              widthClass="w-56"
-              align="start"
-              getLabel={(device) =>
-                (device as BaseDevice)?.Label ?? (device as BaseDevice)?.Name
-              }
-              getValue={(device) => (device as BaseDevice)?.Name}
-              isSelected={(device, selected) =>
-                (device as BaseDevice).Name === selected?.Name
-              }
-              items={devices}
-              selected={selectedDevice}
-              placeholder={t(
-                "Dialog.InputConfigWizard.ConfigTrigger.SelectDevice",
-              )}
-              searchPlaceholder={t(
-                "Dialog.InputConfigWizard.ConfigTrigger.SearchDevice",
-              )}
-              noOptionsPlaceholder={t(
-                "Dialog.InputConfigWizard.ConfigTrigger.NoDeviceFound",
-              )}
-              disabled={!selectedController}
-              setSelected={(device) => {
+            <DeviceComboBox
+              devices={devices}
+              selectedDevice={selectedDevice}
+              selectedController={selectedController}
+              onChange={(device) => {
                 setSelectedDevice(device)
                 updateConfigItem(selectedController, device)
               }}
@@ -228,7 +263,9 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
             }}
           >
             <IconTrash className="mr-2" />
-            <span className="sr-only lg:not-sr-only text-sm">{t("Dialog.InputConfigWizard.ConfigTrigger.ClearInput")}</span>
+            <span className="sr-only text-sm lg:not-sr-only">
+              {t("Dialog.InputConfigWizard.ConfigTrigger.ClearInput")}
+            </span>
           </Button>
         </div>
       </CardContent>

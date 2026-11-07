@@ -101,7 +101,7 @@ namespace MobiFlight.Base
         public event EventHandler ProjectChanged;
 
         [JsonIgnore]
-        public readonly Version SchemaVersion = new Version(0, 10);
+        public readonly Version SchemaVersion = new Version(0, 11);
         [JsonIgnore]
         public Version OriginalSchemaVersion { get; private set; } = null;
 
@@ -491,6 +491,15 @@ namespace MobiFlight.Base
                     Log.Instance.log("Applying V0.10 migrations", LogSeverity.Debug);
                 }
                 migratedDocument = V0_10_InputConfigItemDeviceMigration.Apply(migratedDocument);
+            }
+
+            if (currentVersion < new Version(0, 11))
+            {
+                if (!suppressLogging)
+                {
+                    Log.Instance.log("Applying V0.11 migrations", LogSeverity.Debug);
+                }
+                migratedDocument = V0_11_LedModuleAddressMigration.Apply(migratedDocument);
             }
 
             // Update version in migrated document

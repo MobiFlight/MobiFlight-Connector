@@ -34,7 +34,7 @@ namespace MobiFlight.Base.Tests
             return new OutputConfigItem()
             {
                 Name = "Test1",
-                Device = new LedModule() {  DisplayLedAddress = "0", DisplayLedConnector = 1 },
+                Device = new LedModule() {  DisplayLedAddress = "0:1" },
                 Active = true,
                 Preconditions = PreconditionList,
                 Modifiers = ModifierList,
