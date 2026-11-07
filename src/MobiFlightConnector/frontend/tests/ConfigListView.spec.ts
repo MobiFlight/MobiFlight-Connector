@@ -54,7 +54,7 @@ test.describe("Confirm content and basic functions are working", () => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData()
     await configListPage.setupConfigItemEditConfirmationResponse()
-    await configListPage.mobiFlightPage.trackCommand("CommandConfigContextMenu")
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
 
     const nameCell = page.getByRole("row", { name: "LED 1" }).first()
 
@@ -75,7 +75,7 @@ test.describe("Confirm content and basic functions are working", () => {
     let postedCommands =
       await configListPage.mobiFlightPage.getTrackedCommands()
     const lastCommand = postedCommands!.pop()
-    expect(lastCommand.key).toEqual("CommandConfigContextMenu")
+    expect(lastCommand.key).toEqual("CommandUpdateConfigItem")
     expect(lastCommand.payload.action).toEqual("rename")
     expect((lastCommand.payload.item as IConfigItem).Name).toEqual("LED 1245")
 
@@ -241,7 +241,7 @@ test.describe("Confirm content and basic functions are working", () => {
     configListPage,
     page,
   }) => {
-    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithEmptyData()
     await configListPage.mobiFlightPage.trackCommand("CommandAddConfigItem")
 
     const addOutputConfigButton = page.getByRole("button", {
@@ -260,7 +260,7 @@ test.describe("Confirm content and basic functions are working", () => {
     configListPage,
     page,
   }) => {
-    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithEmptyData()
     await configListPage.mobiFlightPage.trackCommand("CommandAddConfigItem")
 
     const addInputConfigButton = page.getByRole("button", {
@@ -1054,8 +1054,10 @@ test.describe("Controller device labels are displayed correctly", () => {
               Name: configName,
               Type: "OutputConfigItem",
               ButtonInputConfig: {
-                onPress: { Type: "RetriggerInputAction"} as RetriggerInputAction
-              }
+                onPress: {
+                  Type: "RetriggerInputAction",
+                } as RetriggerInputAction,
+              },
             } as Partial<OutputConfigItem>,
           ],
         } as Partial<ConfigFile>,
