@@ -60,6 +60,8 @@ namespace MobiFlight.Modifier
                 case FSUIPCOffsetType.Float:
                 case FSUIPCOffsetType.Integer:
                     string tmpValue = Apply(result.Float64.ToString());
+                    // The substring of a number is a string
+                    result.type = FSUIPCOffsetType.String;
                     result.String = tmpValue;
                     break;
 
