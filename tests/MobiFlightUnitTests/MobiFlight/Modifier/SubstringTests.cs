@@ -27,19 +27,36 @@ namespace MobiFlight.Modifier.Tests
         }
 
         [TestMethod()]
-        public void Apply_ShouldNotChangeInputValue_WhenValueIsNumeric()
+        [DataRow(FSUIPCOffsetType.Integer)]
+        [DataRow(FSUIPCOffsetType.Float)]
+        public void Apply_ShouldNotModifyOriginalInputValue_WhenValueTypeIsNumeric(FSUIPCOffsetType type)
         {
             // Arrange
             var substring = new Substring { Active = true, Start = 1, End = 4 };
-            var value = new ConnectorValue { type = FSUIPCOffsetType.Integer, Float64 = 12345 };
+            var value = new ConnectorValue { type = type, Float64 = 12345 };
 
             // Act
             substring.Apply(value, new List<ConfigRefValue>());
 
             // Assert
-            Assert.AreEqual(FSUIPCOffsetType.Integer, value.type);
+            Assert.AreEqual(type, value.type);
             Assert.AreEqual(12345d, value.Float64);
             Assert.IsNull(value.String);
+        }
+
+        [TestMethod()]
+        public void Apply_ShouldNotModifyOriginalInputValue_WhenValueTypeIsString()
+        {
+            // Arrange
+            var substring = new Substring { Active = true, Start = 1, End = 4 };
+            var value = new ConnectorValue { type = FSUIPCOffsetType.String, String = "ABCDEFGH" };
+
+            // Act
+            substring.Apply(value, new List<ConfigRefValue>());
+
+            // Assert
+            Assert.AreEqual(FSUIPCOffsetType.String, value.type);
+            Assert.AreEqual("ABCDEFGH", value.String);
         }
 
         [TestMethod()]
