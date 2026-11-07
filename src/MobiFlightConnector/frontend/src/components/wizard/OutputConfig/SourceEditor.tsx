@@ -2,7 +2,7 @@ import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import WizardSection from "@/components/wizard/common/WizardSection"
 import { FsuipcOffsetPanel } from "@/components/wizard/components/InputActions/FsuipcOffsetInputActionPanel"
 import { VariablePanel } from "@/components/wizard/components/InputActions/VariablePanel"
-import MsfsSourcePanel from "@/components/wizard/OutputConfig/Sources/MsfsSourcePanel"
+import MsfsPresetPanel from "@/components/wizard/common/MsfsPresetPanel"
 import ProSimSourcePanel from "@/components/wizard/OutputConfig/Sources/ProSimSourcePanel"
 import XplaneSourcePanel from "@/components/wizard/OutputConfig/Sources/XplaneSourcePanel"
 import SourceTypeComboBox from "@/components/wizard/OutputConfig/SourceTypeComboBox"
@@ -17,6 +17,7 @@ import {
 } from "@/types/config"
 import { SourceDefaults } from "@/types/defaults"
 import { useTranslation } from "react-i18next"
+import { msfsSourceAdapter } from "@/types/presets"
 
 export interface SourceEditorProps {
   source: Source | null
@@ -67,10 +68,11 @@ const SourceEditor = ({ source, onSourceChange }: SourceEditorProps) => {
           </div>
       </WizardSection>
       {selectedSourceType?.value === "SimConnectSource" && (
-        <MsfsSourcePanel
+        <MsfsPresetPanel
           variant="details"
-          source={source as SimConnectSource}
-          onSourceChange={onSourceChange}
+          adapter={msfsSourceAdapter}
+          config={source as SimConnectSource}
+          onConfigChange={onSourceChange}
         />
       )}
       {selectedSourceType?.value === "VariableSource" && (

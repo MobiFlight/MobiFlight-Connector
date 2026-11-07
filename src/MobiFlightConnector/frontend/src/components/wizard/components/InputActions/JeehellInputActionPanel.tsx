@@ -21,7 +21,6 @@ const JeehellInputActionPanel = ({
   onConfigChange,
 }: JeehellInputActionPanelProps) => {
   const { t } = useTranslation()
-  // In MsfsPresetPanel (or a dedicated hook)
   const presetUrl = "/presets/presets_jeehell.cip"
   const { data: presets = [] /*, isLoading */ } = useQuery({
     queryKey: [`presets-jeehell`],

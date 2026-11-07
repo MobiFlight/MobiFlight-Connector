@@ -10,7 +10,7 @@ import FsuipcOffsetInputActionPanel from "@/components/wizard/components/InputAc
 import JeehellInputActionPanel from "@/components/wizard/components/InputActions/JeehellInputActionPanel"
 import KeyboardInputActionPanel from "@/components/wizard/components/InputActions/KeyboardInputActionPanel"
 import LuaMacroInputActionPanel from "@/components/wizard/components/InputActions/LuaMacroInputActionPanel"
-import MsfsInputActionPanel from "@/components/wizard/components/InputActions/MsfsInputActionPanel"
+import MsfsPresetPanel from "@/components/wizard/common/MsfsPresetPanel"
 import ProSimInputActionPanel from "@/components/wizard/components/InputActions/ProSimInputActionPanel"
 import RetriggerPanel from "@/components/wizard/components/InputActions/RetriggerPanel"
 import { VariablePanel } from "@/components/wizard/components/InputActions/VariablePanel"
@@ -34,6 +34,7 @@ import {
   XplaneInputAction,
 } from "@/types/config"
 import { useTranslation } from "react-i18next"
+import { msfsInputActionAdapter } from "@/types/presets"
 export interface ActionEditorProps {
   event: { variant: string; event: string }
   buttonOptions?: Partial<ButtonHoldOptions> & Partial<ButtonLongReleaseOptions>
@@ -77,10 +78,10 @@ export const ActionSummary = ({ action }: ActionSummaryProps) => {
         </Badge>
       </div>
       {selectedActionType?.value === "MSFS2020CustomInputAction" && (
-        <MsfsInputActionPanel
+        <MsfsPresetPanel
           variant="summary"
-          config={action ? (action as MsfsInputAction) : null}
-          onConfigChange={() => {}}
+          adapter={msfsInputActionAdapter}
+          config={action as MsfsInputAction}
         />
       )}
       {selectedActionType?.value === "XplaneInputAction" && (
@@ -177,10 +178,11 @@ const ActionPanel = ({
   switch (action.Type) {
     case "MSFS2020CustomInputAction":
       return (
-        <MsfsInputActionPanel
+        <MsfsPresetPanel
           variant="details"
-          config={action ? (action as MsfsInputAction) : null}
-          onConfigChange={(config) => onActionChange(config)}
+          adapter={msfsInputActionAdapter}
+          config={action as MsfsInputAction}
+          onConfigChange={onActionChange}
         />
       )
     case "XplaneInputAction":
