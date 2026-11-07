@@ -182,6 +182,7 @@ namespace MobiFlight
             POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}UL", Label = $"{name} (↖)", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.POV });
         }
 
+        [System.Diagnostics.Conditional("DEBUG")]
         protected void LogInputAdded(DeviceObjectInstance device, string label)
         {
             int offset = device.Offset;
