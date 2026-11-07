@@ -76,7 +76,7 @@ test.describe("Confirm content and basic functions are working", () => {
       await configListPage.mobiFlightPage.getTrackedCommands()
     const lastCommand = postedCommands!.pop()
     expect(lastCommand.key).toEqual("CommandUpdateConfigItem")
-    expect(lastCommand.payload.action).toEqual("rename")
+    expect(lastCommand.payload.change).toEqual("rename")
     expect((lastCommand.payload.item as IConfigItem).Name).toEqual("LED 1245")
 
     // Click on the text span to enter edit mode
@@ -241,6 +241,7 @@ test.describe("Confirm content and basic functions are working", () => {
     configListPage,
     page,
   }) => {
+    await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithEmptyData()
     await configListPage.mobiFlightPage.trackCommand("CommandAddConfigItem")
 
@@ -260,6 +261,7 @@ test.describe("Confirm content and basic functions are working", () => {
     configListPage,
     page,
   }) => {
+    await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithEmptyData()
     await configListPage.mobiFlightPage.trackCommand("CommandAddConfigItem")
 
