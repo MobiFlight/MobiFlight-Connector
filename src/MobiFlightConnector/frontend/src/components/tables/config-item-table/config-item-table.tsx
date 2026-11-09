@@ -281,27 +281,13 @@ export function ConfigItemTable<TValue>({
       .rows.map((row) => row.original as IConfigItem)
 
     if (selectedConfigs.length === 0) return
-
-    if (selectedConfigs.length === 1) {
-      // Use the single-item delete path.
-      // The backend records an Undo snapshot here.
-      publish({
-        key: "CommandConfigContextMenu",
-        payload: {
-          action: "delete",
-          item: selectedConfigs[0],
-        },
-      } as CommandConfigContextMenu)
-    } else {
-      publish({
-        key: "CommandConfigBulkAction",
-        payload: {
-          action: "delete",
-          items: selectedConfigs,
-        },
-      })
-    }
-
+    publish({
+      key: "CommandConfigBulkAction",
+      payload: {
+        action: "delete",
+        items: selectedConfigs,
+      },
+    })
     table.setRowSelection({})
   }, [table, publish])
 

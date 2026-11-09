@@ -297,6 +297,75 @@ test.describe("Confirm content and basic functions are working", () => {
     const duplicatedRow = await configListPage.getConfigItemRow(2)
     await expect(duplicatedRow).toHaveAttribute("data-state", "selected")
   })
+
+  test("Deleting one selected config uses CommandConfigBulkAction", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+
+    await configListPage.mobiFlightPage.trackCommand("CommandConfigBulkAction")
+
+    // Select a single config item.
+    await page.locator("tbody tr").first().click()
+
+    // Delete the selected item.
+    await page.keyboard.press("Delete")
+
+    await expect
+      .poll(async () => {
+        const commands =
+          await configListPage.mobiFlightPage.getTrackedCommands()
+        return commands?.length ?? 0
+      })
+      .toBe(1)
+
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+
+    const command = commands![0]
+
+    expect(command.key).toBe("CommandConfigBulkAction")
+    expect(command.payload.action).toBe("delete")
+    expect(command.payload.items).toHaveLength(1)
+  })
+  test("Deleting multiple selected configs uses CommandConfigBulkAction", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+
+    await configListPage.mobiFlightPage.trackCommand("CommandConfigBulkAction")
+
+    const rows = page.locator("tbody tr")
+
+    // Select two different config items.
+    await rows.nth(0).click()
+
+    await page.keyboard.down("Control")
+    await rows.nth(1).click()
+    await page.keyboard.up("Control")
+
+    // Delete both selected items.
+    await page.keyboard.press("Delete")
+
+    await expect
+      .poll(async () => {
+        const commands =
+          await configListPage.mobiFlightPage.getTrackedCommands()
+        return commands?.length ?? 0
+      })
+      .toBe(1)
+
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+
+    const command = commands![0]
+
+    expect(command.key).toBe("CommandConfigBulkAction")
+    expect(command.payload.action).toBe("delete")
+    expect(command.payload.items).toHaveLength(2)
+  })
 })
 
 test.describe("Verify Error Boundary", () => {
