@@ -19,8 +19,8 @@ const XplanePresetPanel = <T,>({
 }: XplanePresetPanelProps<T>) => {
   const { data: presets = [], isLoading } = useHubHopPresets("xplane")
   const presetId = adapter.getPresetId(config) ?? null
-  const code = adapter.getCode(config) ?? ""
-  const codeType = adapter.getCodeType?.(config) ?? "DataRef"
+  const code = adapter.getCode(config) ?? null
+  const codeType = adapter.getCodeType?.(config) ?? null
   const value = adapter.getValue?.(config) ?? null
   const preset = presets.find((p) => p.code === code) ?? null
 
@@ -45,7 +45,7 @@ const XplanePresetPanel = <T,>({
         sim="xplane"
         mode="input"
         preset={preset}
-        code={code || null}
+        code={code}
         codeType={codeType}
         value={value}
         onCodeChange={(code) =>

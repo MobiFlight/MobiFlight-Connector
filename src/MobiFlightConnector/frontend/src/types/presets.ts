@@ -38,12 +38,14 @@ export const xplaneInputActionAdapter: PresetAdapter<XplaneInputAction> = {
   mode: "input",
   getPresetId: (action) => action.Path,
   getCode: (action) => action.Path,
+  getCodeType: (action) => action.InputType,
   withPreset: (action, preset) =>
     ({
       ...action,
       Path: preset?.code ?? null,
     }) as XplaneInputAction,
   withCode: (action, code) => ({ ...action, Path: code }),
+  withCodeType: (action, codeType) => ({ ...action, InputType: codeType }),
   withValue: (action, value) => ({ ...action, Expression: value }),
 }
 
@@ -51,6 +53,7 @@ export const xplaneSourceAdapter: PresetAdapter<XplaneSource> = {
   mode: "output",
   getPresetId: (source) => source.XplaneDataRef.Path,
   getCode: (source) => source.XplaneDataRef.Path,
+  getCodeType: () => "DataRef",
   withPreset: (source, preset) =>
     ({
       ...source,

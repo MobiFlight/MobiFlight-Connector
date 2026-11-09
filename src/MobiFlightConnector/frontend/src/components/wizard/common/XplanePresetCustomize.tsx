@@ -94,7 +94,7 @@ const XplanePresetCustomize = ({
           />
           <div className="text-muted-foreground text-sm">
             {t(
-              `Dialog.InputConfigWizard.InputActions.Xplane.SupportedPlaceholders`,
+              `Dialog.InputConfigWizard.InputActions.Common.SupportedPlaceholders`,
             )}
           </div>
         </div>
