@@ -15,7 +15,7 @@ import ProSimInputActionPanel from "@/components/wizard/components/InputActions/
 import RetriggerPanel from "@/components/wizard/components/InputActions/RetriggerPanel"
 import { VariablePanel } from "@/components/wizard/common/VariablePanel"
 import VJoyInputActionPanel from "@/components/wizard/components/InputActions/VJoyInputActionPanel"
-import XplaneInputActionPanel from "@/components/wizard/components/InputActions/XplaneInputActionPanel"
+import XplanePresetPanel from "@/components/wizard/common/XplanePresetPanel"
 import { ActionTypeOptions } from "@/lib/configWizard"
 import {
   Action,
@@ -34,7 +34,7 @@ import {
   XplaneInputAction,
 } from "@/types/config"
 import { useTranslation } from "react-i18next"
-import { msfsInputActionAdapter } from "@/types/presets"
+import { msfsInputActionAdapter, xplaneInputActionAdapter } from "@/types/presets"
 export interface ActionEditorProps {
   event: { variant: string; event: string }
   buttonOptions?: Partial<ButtonHoldOptions> & Partial<ButtonLongReleaseOptions>
@@ -85,10 +85,10 @@ export const ActionSummary = ({ action }: ActionSummaryProps) => {
         />
       )}
       {selectedActionType?.value === "XplaneInputAction" && (
-        <XplaneInputActionPanel
+        <XplanePresetPanel
           variant="summary"
+          adapter={xplaneInputActionAdapter}
           config={action as XplaneInputAction}
-          onConfigChange={() => {}}
         />
       )}
       {selectedActionType?.value === "VariableInputAction" && (
@@ -187,9 +187,10 @@ const ActionPanel = ({
       )
     case "XplaneInputAction":
       return (
-        <XplaneInputActionPanel
+        <XplanePresetPanel
           variant="details"
-          config={action ? (action as XplaneInputAction) : null}
+          adapter={xplaneInputActionAdapter}
+          config={action as XplaneInputAction}
           onConfigChange={(c) => onActionChange(c)}
         />
       )

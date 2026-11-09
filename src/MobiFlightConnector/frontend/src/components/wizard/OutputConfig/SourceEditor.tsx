@@ -4,7 +4,6 @@ import { FsuipcOffsetPanel } from "@/components/wizard/components/InputActions/F
 import { VariablePanel } from "@/components/wizard/common/VariablePanel"
 import MsfsPresetPanel from "@/components/wizard/common/MsfsPresetPanel"
 import ProSimSourcePanel from "@/components/wizard/OutputConfig/Sources/ProSimSourcePanel"
-import XplaneSourcePanel from "@/components/wizard/OutputConfig/Sources/XplaneSourcePanel"
 import SourceTypeComboBox from "@/components/wizard/OutputConfig/SourceTypeComboBox"
 import { SourceTypeOptions } from "@/lib/configWizard"
 import {
@@ -17,7 +16,8 @@ import {
 } from "@/types/config"
 import { SourceDefaults } from "@/types/defaults"
 import { useTranslation } from "react-i18next"
-import { msfsSourceAdapter } from "@/types/presets"
+import { msfsSourceAdapter, xplaneSourceAdapter } from "@/types/presets"
+import XplanePresetPanel from "@/components/wizard/common/XplanePresetPanel"
 
 export interface SourceEditorProps {
   source: Source | null
@@ -38,40 +38,48 @@ const SourceEditor = ({ source, onSourceChange }: SourceEditorProps) => {
         />
       </WizardSection>
       <WizardSection>
-          <div className="flex flex-col gap-4">
-            <div className="flex flex-row items-end justify-between">
-              <SourceTypeComboBox
-                selectedSourceType={selectedSourceType}
-                setSelectedSourceType={(option) => {
-                  switch (option?.value) {
-                    case "SimConnectSource":
-                      onSourceChange(SourceDefaults.createSimConnectSource())
-                      break
-                    case "FsuipcSource":
-                      onSourceChange(SourceDefaults.createFsuipcSource())
-                      break
-                    case "ProSimSource":
-                      onSourceChange(SourceDefaults.createProSimSource())
-                      break
-                    case "VariableSource":
-                      onSourceChange(SourceDefaults.createVariableSource())
-                      break
-                    case "XplaneSource":
-                      onSourceChange(SourceDefaults.createXplaneSource())
-                      break
-                    default:
-                      onSourceChange(null)
-                  }
-                }}
-              />
-            </div>
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-row items-end justify-between">
+            <SourceTypeComboBox
+              selectedSourceType={selectedSourceType}
+              setSelectedSourceType={(option) => {
+                switch (option?.value) {
+                  case "SimConnectSource":
+                    onSourceChange(SourceDefaults.createSimConnectSource())
+                    break
+                  case "FsuipcSource":
+                    onSourceChange(SourceDefaults.createFsuipcSource())
+                    break
+                  case "ProSimSource":
+                    onSourceChange(SourceDefaults.createProSimSource())
+                    break
+                  case "VariableSource":
+                    onSourceChange(SourceDefaults.createVariableSource())
+                    break
+                  case "XplaneSource":
+                    onSourceChange(SourceDefaults.createXplaneSource())
+                    break
+                  default:
+                    onSourceChange(null)
+                }
+              }}
+            />
           </div>
+        </div>
       </WizardSection>
       {selectedSourceType?.value === "SimConnectSource" && (
         <MsfsPresetPanel
           variant="details"
           adapter={msfsSourceAdapter}
           config={source as SimConnectSource}
+          onConfigChange={onSourceChange}
+        />
+      )}
+      {selectedSourceType?.value === "XplaneSource" && (
+        <XplanePresetPanel
+          variant="details"
+          adapter={xplaneSourceAdapter}
+          config={source as XplaneSource}
           onConfigChange={onSourceChange}
         />
       )}
@@ -91,8 +99,12 @@ const SourceEditor = ({ source, onSourceChange }: SourceEditorProps) => {
       {selectedSourceType?.value === "FsuipcSource" && (
         <WizardSection>
           <SectionHeadline
-            title={t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.Title")}
-            description={t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.Description")}
+            title={t(
+              "Dialog.InputConfigWizard.InputActions.FsuipcOffset.Title",
+            )}
+            description={t(
+              "Dialog.InputConfigWizard.InputActions.FsuipcOffset.Description",
+            )}
           />
           <FsuipcOffsetPanel
             fsuipc={(source as FsuipcSource).FSUIPC}
@@ -108,13 +120,6 @@ const SourceEditor = ({ source, onSourceChange }: SourceEditorProps) => {
       {selectedSourceType?.value === "ProSimSource" && (
         <ProSimSourcePanel
           source={source as ProSimSource}
-          onSourceChange={onSourceChange}
-        />
-      )}
-      {selectedSourceType?.value === "XplaneSource" && (
-        <XplaneSourcePanel
-          variant="details"
-          source={source as XplaneSource}
           onSourceChange={onSourceChange}
         />
       )}

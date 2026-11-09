@@ -5,8 +5,8 @@ import { FsuipcOffsetSummary } from "@/components/wizard/components/InputActions
 import MsfsPresetPanel from "@/components/wizard/common/MsfsPresetPanel"
 import { Badge } from "@/components/ui/badge"
 import { IconEdit, IconTrash } from "@tabler/icons-react"
-import XplaneSourcePanel from "@/components/wizard/OutputConfig/Sources/XplaneSourcePanel"
-import { msfsSourceAdapter } from "@/types/presets"
+import { msfsSourceAdapter, xplaneSourceAdapter } from "@/types/presets"
+import XplanePresetPanel from "@/components/wizard/common/XplanePresetPanel"
 
 export interface SourceSummaryProps {
   source: Source
@@ -36,10 +36,10 @@ const SourceSummary = ({ source, onEdit, onRemove }: SourceSummaryProps) => {
       )}
 
       {source.Type === "XplaneSource" && (
-        <XplaneSourcePanel
+        <XplanePresetPanel
           variant="summary"
-          source={source}
-          onSourceChange={() => {}}
+          adapter={xplaneSourceAdapter}
+          config={source}
         />
       )}
 
