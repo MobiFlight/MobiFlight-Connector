@@ -1,8 +1,8 @@
 import PresetPanel from "@/components/wizard/common/PresetPanel"
 import PresetSummary from "@/components/wizard/common/PresetSummary"
-import XplanePresetDetails from "@/components/wizard/common/XplanePresetDetails"
+import PresetDetails from "@/components/wizard/common/XplanePresetDetails"
 import { fetchHubHopPresets } from "@/lib/configWizard"
-import { XplaneInputAction, XplaneSource } from "@/types/config"
+import { XplaneSource } from "@/types/config"
 import { XplanePreset } from "@/types/preset"
 import { useQuery } from "@tanstack/react-query"
 
@@ -35,12 +35,6 @@ const XplaneSourcePanel = ({
     )
   }
 
-  // refactor alert!
-  const inputActionShape = {
-    InputType: "DataRef",
-    Path: source?.XplaneDataRef?.Path ?? "",
-  } as XplaneInputAction
-
   return (
     <div className="flex flex-col gap-4">
       <PresetPanel
@@ -58,15 +52,17 @@ const XplaneSourcePanel = ({
           })
         }
       />
-      <XplanePresetDetails
-        variant="output"
+      <PresetDetails
+        sim="xplane"
+        mode="output"
         preset={preset}
-        config={inputActionShape}
-        onConfigChange={(config) =>
+        code={source?.XplaneDataRef?.Path || null}
+        codeType="DataRef"
+        onCodeChange={(code) =>
           onSourceChange({
             ...source,
             XplaneDataRef: {
-              Path: config.Path ?? "",
+              Path: code ?? "",
             },
           })
         }

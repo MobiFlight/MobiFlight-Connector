@@ -1,7 +1,7 @@
-import { MsfsInputAction, SimConnectSource } from "@/types/config"
-import type { MsfsPresetAdapter } from "@/types/preset"
+import { MsfsInputAction, SimConnectSource, XplaneInputAction, XplaneSource } from "@/types/config"
+import type { PresetAdapter } from "@/types/preset"
 
-export const msfsInputActionAdapter: MsfsPresetAdapter<MsfsInputAction> = {
+export const msfsInputActionAdapter: PresetAdapter<MsfsInputAction> = {
   mode: "input",
   getPresetId: (action) => action.PresetId,
   getCode: (action) => action.Command,
@@ -14,7 +14,7 @@ export const msfsInputActionAdapter: MsfsPresetAdapter<MsfsInputAction> = {
   withCode: (action, code) => ({ ...action, Command: code, PresetId: "" }),
 }
 
-export const msfsSourceAdapter: MsfsPresetAdapter<SimConnectSource> = {
+export const msfsSourceAdapter: PresetAdapter<SimConnectSource> = {
   mode: "output",
   getPresetId: (source) => source.SimConnectValue?.UUID,
   getCode: (source) => source.SimConnectValue?.Value,
@@ -32,4 +32,35 @@ export const msfsSourceAdapter: MsfsPresetAdapter<SimConnectSource> = {
     ...source,
     SimConnectValue: { ...source.SimConnectValue, Value: code, UUID: "" },
   }),
+}
+
+export const xplaneInputActionAdapter: PresetAdapter<XplaneInputAction> = {
+  mode: "input",
+  getPresetId: (action) => action.Path,
+  getCode: (action) => action.Path,
+  withPreset: (action, preset) =>
+    ({
+      ...action,
+      Path: preset?.code ?? null,
+    }) as XplaneInputAction,
+  withCode: (action, code) => ({ ...action, Path: code }),
+  withValue: (action, value) => ({ ...action, Expression: value }),
+}
+
+export const xplaneSourceAdapter: PresetAdapter<XplaneSource> = {
+  mode: "output",
+  getPresetId: (source) => source.XplaneDataRef.Path,
+  getCode: (source) => source.XplaneDataRef.Path,
+  withPreset: (source, preset) =>
+    ({
+      ...source,
+      XplaneDataRef: {
+        ...source.XplaneDataRef,
+        Path: preset?.code ?? null,
+      },
+    }) as XplaneSource,
+  withCode: (source, code) => ({
+    ...source,
+    XplaneDataRef: { ...source.XplaneDataRef, Path: code },
+  })
 }

@@ -2,7 +2,7 @@ import { fetchHubHopPresets } from "@/lib/configWizard"
 import { XplaneInputAction } from "@/types/config"
 import { XplanePreset } from "@/types/preset"
 import { useQuery } from "@tanstack/react-query"
-import XplanePresetDetails from "@/components/wizard/common/XplanePresetDetails"
+import PresetDetails from "@/components/wizard/common/XplanePresetDetails"
 import PresetSummary from "@/components/wizard/common/PresetSummary"
 import PresetPanel from "@/components/wizard/common/PresetPanel"
 
@@ -44,11 +44,31 @@ const XplaneInputActionPanel = ({
           })
         }
       />
-      <XplanePresetDetails
-        variant="input"
+      <PresetDetails
+        sim="xplane"
+        mode="input"
         preset={preset}
-        config={config}
-        onConfigChange={onConfigChange}
+        code={config?.Path || null}
+        codeType={config?.InputType}
+        value={config?.Expression}
+        onCodeChange={(code) =>
+          onConfigChange({
+            ...(config as XplaneInputAction),
+            Path: code,
+          })
+        }
+        onCodeTypeChange={(codeType) =>
+          onConfigChange({
+            ...(config as XplaneInputAction),
+            InputType: codeType,
+          })
+        }
+        onValueChange={(value) => {
+          onConfigChange({
+            ...(config as XplaneInputAction),
+            Expression: value,
+          })
+        }}
       />
     </div>
   )

@@ -172,7 +172,7 @@ export interface MsfsInputAction extends Action {
 
 export interface XplaneInputAction extends Action {
   Type: "XplaneInputAction"
-  InputType: string | null
+  InputType: "DataRef" | "Command" | null
   Path: string | null
   Expression: string
 }
