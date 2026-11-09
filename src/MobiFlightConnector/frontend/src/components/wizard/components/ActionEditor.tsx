@@ -489,7 +489,7 @@ const ActionEditor = ({
                 selectedActionType={selectedActionType}
                 setSelectedActionType={(option) => {
                   const actionLabel =
-                    "Dialog.InputConfigWizard.History.ActionChanged"
+                    "Dialog.InputConfigWizard.History.ActionTypeChanged"
                   if (!option) {
                     onActionChange(null, undefined, actionLabel)
                     return
