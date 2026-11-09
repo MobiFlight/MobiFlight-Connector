@@ -488,40 +488,6 @@
         }
       }
     },
-    "ConfigWizard": {
-      "Output": {
-        "Title": "Edit output configuration",
-        "Description": "Edit all settings for your output configuration in this dialog.",
-        "InputAction": {
-          "Button": "Button action",
-          "Analog": "Analog action",
-          "Remove": "Remove input action"
-        }
-      },
-      "Source": {
-        "Title": "Specify source value",
-        "Description": "Configure the value for this output configuration."
-      },
-      "SourceType": {
-        "Title": "Step 1 - Source",
-        "Description": "Select where the value comes from.",
-        "Options": {
-          "SimConnectSource": {"label": "Microsoft Flight Simulator"},
-          "XplaneSource": {"label": "X-Plane"},
-          "ProSimSource": {"label": "ProSim"},
-          "VariableSource": {"label": "MobiFlight - Variable"},
-          "FsuipcSource": {"label": "FSUIPC"}
-        }
-      },
-      "Device": {
-        "Title": "Specify output device settings",
-        "Description": "Configure the settings for this output device configuration.",
-        "TestPanel": {
-          "Title": "Step - Test output device",
-          "Description": "Test the functionality of this output device configuration."
-        }
-      }
-    },
     "InputConfigWizard": {
       "Title": "Edit input configuration",
       "Description": "Edit all settings for this input configuration in this dialog.",

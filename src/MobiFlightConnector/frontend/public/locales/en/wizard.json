@@ -1,0 +1,103 @@
+{
+  "ConfigWizard": {
+    "General": {
+      "Controller": "Controller",
+      "DisplayType": "Display type",
+      "Device": "Device",
+      "Options": "Options"
+    },
+    "Output": {
+      "Title": "Edit output configuration",
+      "Description": "Edit all settings for your output configuration in this dialog.",
+      "InputAction": {
+        "Button": "Button action",
+        "Analog": "Analog action",
+        "Remove": "Remove input action"
+      },
+      "OutputDevice": "Output device"
+    },
+    "Source": {
+      "Title": "Specify source value",
+      "Description": "Configure the value for this output configuration.",
+      "Label": "Source",
+      "Remove": "Remove source"
+    },
+    "SourceType": {
+      "Title": "Step 1 - Source",
+      "Description": "Select where the value comes from.",
+      "Options": {
+        "SimConnectSource": { "label": "Microsoft Flight Simulator" },
+        "XplaneSource": { "label": "X-Plane" },
+        "ProSimSource": { "label": "ProSim" },
+        "VariableSource": { "label": "MobiFlight - Variable" },
+        "FsuipcSource": { "label": "FSUIPC" }
+      }
+    },
+    "Device": {
+      "Title": "Specify output device settings",
+      "Description": "Configure the settings for this output device configuration.",
+      "TestPanel": {
+        "Title": "Step - Test output device",
+        "Description": "Test the functionality of this output device configuration."
+      },
+      "Stepper": {
+        "Title": "Step 2 - Stepper settings",
+        "Description": "Select the stepper and configure how values map to its movement.",
+        "Label": "Stepper",
+        "Reset": "Reset",
+        "CompassMode": "Compass mode",
+        "Steps": "Steps"
+      },
+      "Servo": {
+        "Title": "Step 2 - Servo settings",
+        "Description": "Select the servo and map the value range to its rotation.",
+        "Label": "Servo",
+        "MinValue": "Min value",
+        "MaxValue": "Max value",
+        "MaxRotation": "Max rotation (%)",
+        "Range": "Range"
+      },
+      "Output": {
+        "Title": "Step 2 - Output settings",
+        "Description": "Select one or more pins and configure the brightness.",
+        "Label": "Output",
+        "List": "List of available outputs",
+        "DynamicBrightness": "Dynamic brightness",
+        "DynamicBrighnessDescription": "Dynamic brightness is controlled by current value ($)",
+        "NoDimmablePins": "No dimmable pins available.",
+        "StaticBrightness": "Static brightness",
+        "StaticBrighnessDescription": "Set the static brightness for all values other than 0."
+      },
+      "SevenSegment": {
+        "Title": "Step 2 - 7-Segment settings",
+        "Description": "Select the module and configure which digits show the value.",
+        "Label": "7-Segment",
+        "Display": "Display",
+        "Digits": "Digits",
+        "UseDigits": "Use digits",
+        "DecimalPoints": "Decimal points",
+        "AdvancedOptions": {
+          "Title": "Advanced options",
+          "Description": "Configure advanced display options for the 7-segment module.",
+          "Padding": "Padding with",
+          "ReverseDigits": "Reverse digits"
+        }
+      },
+      "LcdDisplay": {
+        "Title": "Step 2 - LCD Display settings",
+        "Description": "Select the LCD display and configure its settings.",
+        "Label": "LCD Display",
+        "Lines": "Lines"
+      },
+      "CustomDevice": {
+        "Title": "Step 2 - Custom Device settings",
+        "Description": "Select the device and the message that receives the value.",
+        "Label": "Custom Device",
+        "MessageType": "Message type",
+        "Value": "Value",
+        "Type": "Custom type",
+        "Message": "Message type"
+      }
+    }
+  }
+}
