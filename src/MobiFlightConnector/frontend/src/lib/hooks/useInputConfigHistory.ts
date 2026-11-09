@@ -4,12 +4,13 @@ import { useState, type KeyboardEvent } from "react"
 import useTextEditSession, {
   isTextEditingTarget,
 } from "@/lib/hooks/useTextEditSession"
+import type { HistoryAction } from "@/types/history"
 
 const MAX_UNDO_STEPS = 50
 
 type HistoryEntry = {
   snapshot: IConfigItem
-  action: string
+  action: HistoryAction
 }
 
 type DrawerSession = {
@@ -61,7 +62,7 @@ const useInputConfigHistory = (configItem: IConfigItem | undefined) => {
     next: IConfigItem,
     textEditId: number | null,
     lastTextEditId: number | null,
-    actionLabel?: string,
+    actionLabel?: HistoryAction,
   ) => {
     const updatedHistory = history.slice(0, cursor + 1)
     const snapshot = structuredClone(next)
@@ -102,7 +103,7 @@ const useInputConfigHistory = (configItem: IConfigItem | undefined) => {
 
   const applyConfigChange = (
     nextConfigItem: IConfigItem,
-    actionLabel?: string,
+    actionLabel?: HistoryAction,
   ) => {
     const textEditId = getCurrentTextEditId()
 

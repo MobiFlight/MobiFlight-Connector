@@ -4,12 +4,13 @@ import ModifierEditor from "@/components/wizard/Modifier/ModifierEditor"
 import ModifierSummary from "@/components/wizard/Modifier/ModifierSummary"
 import { cn } from "@/lib/utils"
 import { IConfigItem } from "@/types"
+import { HistoryAction } from "@/types/history"
 import { IconEdit } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 
 type ModifiersPanelProps = {
   configItem: IConfigItem
-  onConfigChange: (configItem: IConfigItem, actionLabel?: string) => void
+  onConfigChange: (configItem: IConfigItem, actionLabel?: HistoryAction) => void
   openDetailsPanel: () => void
   variant: "summary" | "details"
   liveData: {

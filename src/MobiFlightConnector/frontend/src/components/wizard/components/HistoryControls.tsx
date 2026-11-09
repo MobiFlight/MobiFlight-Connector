@@ -14,9 +14,10 @@ import {
   IconChevronDown,
 } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
+import type { HistoryAction } from "@/types/history"
 
 type HistoryControlsProps = {
-  history: { action: string }[]
+  history: { action: HistoryAction }[]
   cursor: number
   historyStart: number
   onUndo: () => void
@@ -132,9 +133,11 @@ const HistoryControls = ({
                       ? historyStart === 0
                         ? t("Dialog.InputConfigWizard.History.Original")
                         : t("Dialog.InputConfigWizard.History.Oldest")
-                      : entry.action.startsWith("Dialog.")
-                        ? t(entry.action)
-                        : entry.action
+                      : typeof entry.action === "string"
+                        ? entry.action.startsWith("Dialog.")
+                          ? t(entry.action)
+                          : entry.action
+                        : t(entry.action.key, entry.action.params ?? {})
 
                   return (
                     <DropdownMenuItem

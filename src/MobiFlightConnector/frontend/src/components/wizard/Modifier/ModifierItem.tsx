@@ -34,10 +34,11 @@ import { IconChevronDown, IconTrash } from "@tabler/icons-react"
 import { Switch } from "@/components/ui/switch"
 import { Button } from "@/components/ui/button"
 import MoveUpDownButtons from "@/components/wizard/components/MoveUpDownButtons"
+import { HistoryAction } from "@/types/history"
 
 type ModifierItemProps = {
   modifier: Modifier
-  onChange: (updated: Modifier, actionLabel?: string) => void
+  onChange: (updated: Modifier, actionLabel?: HistoryAction) => void
   onDelete: () => void
   onMoveUp?: () => void
   onMoveDown?: () => void
@@ -108,12 +109,14 @@ export const ModifierItem = ({
             onCheckedChange={(checked) =>
               onChange(
                 { ...modifier, Active: checked },
-                t(
-                  checked
+                {
+                  key: checked
                     ? "Dialog.InputConfigWizard.History.ModifierEnabled"
                     : "Dialog.InputConfigWizard.History.ModifierDisabled",
-                  { type: modifier.Type },
-                ),
+                  params: {
+                    type: modifier.Type,
+                  },
+                },
               )
             }
           />

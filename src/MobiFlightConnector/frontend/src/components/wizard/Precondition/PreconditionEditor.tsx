@@ -17,6 +17,7 @@ import {
   Precondition,
   PreconditionType,
 } from "@/types/config"
+import { HistoryAction } from "@/types/history"
 import { PRECONDITION_TYPES } from "@/types/typesOptions"
 import { IconPlus, IconTrash } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
@@ -27,7 +28,7 @@ export interface PreconditionEditorProps {
   preconditions: Precondition[]
   onPreconditionsChange: (
     preconditions: Precondition[],
-    actionLabel?: string,
+    actionLabel?: HistoryAction,
   ) => void
 }
 
@@ -56,7 +57,7 @@ type PreconditionItemRowProps = {
   precondition: Precondition
   variables: MobiFlightVariable[]
   outputConfigs: IConfigItem[]
-  onChange: (updated: Precondition, actionLabel?: string) => void
+  onChange: (updated: Precondition, actionLabel?: HistoryAction) => void
   onDelete: () => void
   showLogic: boolean
   onMoveUp: () => void
@@ -123,11 +124,9 @@ const PreconditionItemRow = ({
         onCheckedChange={(checked) =>
           onChange(
             { ...precondition, Active: !!checked },
-            t(
-              checked
-                ? "Dialog.InputConfigWizard.History.PreconditionEnabled"
-                : "Dialog.InputConfigWizard.History.PreconditionDisabled",
-            ),
+            checked
+              ? "Dialog.InputConfigWizard.History.PreconditionEnabled"
+              : "Dialog.InputConfigWizard.History.PreconditionDisabled",
           )
         }
       />
@@ -275,18 +274,18 @@ const PreconditionEditor = ({
   const handleChange = (
     index: number,
     updated: Precondition,
-    actionLabel?: string,
+    actionLabel?: HistoryAction,
   ) => {
     onPreconditionsChange(
       preconditions.map((p, i) => (i === index ? updated : p)),
-      actionLabel ?? t("Dialog.InputConfigWizard.History.PreconditionChanged"),
+      actionLabel ?? "Dialog.InputConfigWizard.History.PreconditionChanged",
     )
   }
 
   const handleDelete = (index: number) => {
     onPreconditionsChange(
       preconditions.filter((_, i) => i !== index),
-      t("Dialog.InputConfigWizard.History.PreconditionRemoved"),
+      "Dialog.InputConfigWizard.History.PreconditionRemoved",
     )
   }
 
@@ -295,7 +294,7 @@ const PreconditionEditor = ({
     const newPrecondition = { ...EMPTY_PRECONDITION, Type: preconditionType }
     onPreconditionsChange(
       [...preconditions, newPrecondition],
-      t("Dialog.InputConfigWizard.History.PreconditionAdded"),
+      "Dialog.InputConfigWizard.History.PreconditionAdded",
     )
   }
 
@@ -310,7 +309,7 @@ const PreconditionEditor = ({
     newPreconditions[index] = temp
     onPreconditionsChange(
       newPreconditions,
-      t("Dialog.InputConfigWizard.History.PreconditionChanged"),
+      "Dialog.InputConfigWizard.History.PreconditionChanged",
     )
   }
 
@@ -323,7 +322,7 @@ const PreconditionEditor = ({
     newPreconditions[index] = temp
     onPreconditionsChange(
       newPreconditions,
-      t("Dialog.InputConfigWizard.History.PreconditionChanged"),
+      "Dialog.InputConfigWizard.History.PreconditionChanged",
     )
   }
 

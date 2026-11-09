@@ -5,6 +5,7 @@ import ConfigReferenceSummary from "@/components/wizard/ConfigReferences/ConfigR
 import { cn } from "@/lib/utils"
 import { useProjectStore } from "@/stores/projectStore"
 import { ConfigReference, IConfigItem } from "@/types/config"
+import { HistoryAction } from "@/types/history"
 import { IconEdit, IconPlus } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 
@@ -12,7 +13,7 @@ type ConfigReferencePanelProps = {
   configReferences: ConfigReference[]
   onConfigReferencesChange?: (
     configReferences: ConfigReference[],
-    actionLabel?: string,
+    actionLabel?: HistoryAction,
   ) => void
   variant: "summary" | "details"
   openDetailsPanel: () => void

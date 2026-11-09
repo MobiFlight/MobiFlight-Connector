@@ -32,6 +32,7 @@ import {
   VJoyInputAction,
   XplaneInputAction,
 } from "@/types/config"
+import { HistoryAction } from "@/types/history"
 import { useTranslation } from "react-i18next"
 export interface ActionEditorProps {
   event: { variant: string; event: string }
@@ -41,7 +42,7 @@ export interface ActionEditorProps {
     item: Action | null,
     buttonOptions?: Partial<ButtonHoldOptions> &
       Partial<ButtonLongReleaseOptions>,
-    actionLabel?: string,
+    actionLabel?: HistoryAction,
   ) => void
 }
 export interface ActionSummaryProps {
@@ -169,7 +170,7 @@ const ActionPanel = ({
   onActionChange,
 }: {
   action: Action | null
-  onActionChange: (action: Action, actionLabel?: string) => void
+  onActionChange: (action: Action, actionLabel?: HistoryAction) => void
 }) => {
   if (!action) return null
 
@@ -357,7 +358,7 @@ const ButtonOnHoldOptions = ({
                 HoldDelay: value ? parseInt(value) : undefined,
                 RepeatDelay: buttonOptions?.RepeatDelay,
               },
-              t("Dialog.InputConfigWizard.History.TriggerChanged"),
+              "Dialog.InputConfigWizard.History.TriggerChanged",
             )
           }}
         />
@@ -384,7 +385,7 @@ const ButtonOnHoldOptions = ({
                 HoldDelay: buttonOptions?.HoldDelay,
                 RepeatDelay: value ? parseInt(value) : undefined,
               },
-              t("Dialog.InputConfigWizard.History.TriggerChanged"),
+              "Dialog.InputConfigWizard.History.TriggerChanged",
             )
           }}
         />
@@ -425,7 +426,7 @@ const ButtonOnLongReleaseOptions = ({
               {
                 LongReleaseDelay: value ? parseInt(value) : undefined,
               },
-              t("Dialog.InputConfigWizard.History.TriggerChanged"),
+              "Dialog.InputConfigWizard.History.TriggerChanged",
             )
           }}
           value={buttonOptions?.LongReleaseDelay}
@@ -487,9 +488,8 @@ const ActionEditor = ({
               <ActionTypeComboBox
                 selectedActionType={selectedActionType}
                 setSelectedActionType={(option) => {
-                  const actionLabel = t(
-                    "Dialog.InputConfigWizard.History.ActionTypeChanged",
-                  )
+                  const actionLabel =
+                    "Dialog.InputConfigWizard.History.ActionChanged"
                   if (!option) {
                     onActionChange(null, undefined, actionLabel)
                     return
@@ -531,8 +531,8 @@ const ActionEditor = ({
                 onActionChange={(newAction) => {
                   const actionLabel =
                     action?.Type !== newAction.Type
-                      ? t("Dialog.InputConfigWizard.History.ActionTypeChanged")
-                      : t("Dialog.InputConfigWizard.History.ActionChanged")
+                      ? "Dialog.InputConfigWizard.History.ActionTypeChanged"
+                      : "Dialog.InputConfigWizard.History.ActionChanged"
 
                   onActionChange(newAction, undefined, actionLabel)
                 }}
@@ -546,7 +546,7 @@ const ActionEditor = ({
           onActionChange(
             updatedAction,
             undefined,
-            actionLabel ?? t("Dialog.InputConfigWizard.History.ActionChanged"),
+            actionLabel ?? "Dialog.InputConfigWizard.History.ActionChanged",
           )
         }
         action={action}

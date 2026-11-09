@@ -8,10 +8,14 @@ import { Separator } from "@/components/ui/separator"
 import { Badge } from "@/components/ui/badge"
 import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
 import { Card, CardContent } from "@/components/ui/card"
+import { HistoryAction } from "@/types/history"
 export type VariablePanelProps = {
   variant: "summary" | "details"
   currentVariable?: MobiFlightVariable
-  onVariableChange: (variable: MobiFlightVariable, actionLabel?: string) => void
+  onVariableChange: (
+    variable: MobiFlightVariable,
+    actionLabel?: HistoryAction,
+  ) => void
 }
 
 const defaultVariable: MobiFlightVariable = {

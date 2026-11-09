@@ -181,9 +181,12 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
                       ...draftConfigItem,
                       Name: newName,
                     },
-                    t("Dialog.InputConfigWizard.History.NameChanged", {
-                      name: newName,
-                    }),
+                    {
+                      key: "Dialog.InputConfigWizard.History.NameChanged",
+                      params: {
+                        name: newName,
+                      },
+                    },
                   )
                 }
               }}

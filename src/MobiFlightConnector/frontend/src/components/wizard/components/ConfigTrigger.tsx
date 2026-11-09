@@ -8,6 +8,7 @@ import { useControllerStore } from "@/stores/controllerStore"
 import { CommandScanForInput } from "@/types/commands"
 import { IConfigItem } from "@/types/config"
 import { BaseDevice, Controller, InputDeviceType } from "@/types/controller"
+import { HistoryAction } from "@/types/history"
 import { ScanForInputResult } from "@/types/messages"
 import { InputDeviceTypes } from "@/types/typesOptions"
 import { IconLoader2, IconTrash } from "@tabler/icons-react"
@@ -16,7 +17,7 @@ import { useTranslation } from "react-i18next"
 
 export type ConfigTriggerProps = {
   configItem: IConfigItem
-  setConfigItem: (item: IConfigItem, actionLabel?: string) => void
+  setConfigItem: (item: IConfigItem, actionLabel?: HistoryAction) => void
 }
 
 const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
@@ -108,7 +109,7 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
             }
           : null,
       },
-      t("Dialog.InputConfigWizard.History.TriggerChanged"),
+      "Dialog.InputConfigWizard.History.TriggerChanged",
     )
   }
 

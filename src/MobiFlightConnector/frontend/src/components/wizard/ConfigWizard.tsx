@@ -26,10 +26,11 @@ import { useTranslation } from "react-i18next"
 import ActionEditor from "@/components/wizard/components/ActionEditor"
 import ModifiersPanel from "@/components/wizard/Modifier/ModifiersPanel"
 import { Button } from "@/components/ui/button"
+import type { HistoryAction } from "@/types/history"
 
 export type ConfigWizardProps = {
   configItem: IConfigItem
-  onConfigChange: (configItem: IConfigItem, actionLabel?: string) => void
+  onConfigChange: (configItem: IConfigItem, actionLabel?: HistoryAction) => void
   drawerContainer?: RefObject<HTMLDivElement | null>
   liveData: {
     rawValue: string | null | undefined
@@ -106,7 +107,7 @@ const ConfigWizard = ({
   const handleActionChange = (
     action: Action | null,
     options?: Partial<ButtonHoldOptions> & Partial<ButtonLongReleaseOptions>,
-    actionLabel?: string,
+    actionLabel?: HistoryAction,
   ) => {
     if (event.variant === "button") {
       onConfigChange(
@@ -178,7 +179,7 @@ const ConfigWizard = ({
     <div className="flex flex-col gap-4">
       <ConfigTrigger
         configItem={configItem}
-        setConfigItem={(item: IConfigItem, actionLabel?: string) => {
+        setConfigItem={(item: IConfigItem, actionLabel?: HistoryAction) => {
           // Update the configItem state here
           onConfigChange(item, actionLabel)
         }}
@@ -268,8 +269,7 @@ const ConfigWizard = ({
             }
             onConfigChange(
               updatedConfigItem,
-              actionLabel ??
-                t("Dialog.InputConfigWizard.History.TriggerChanged"),
+              actionLabel ?? "Dialog.InputConfigWizard.History.TriggerChanged",
             )
           }}
         />
@@ -291,8 +291,7 @@ const ConfigWizard = ({
                 ...configItem,
                 encoder: trigger as EncoderTrigger,
               },
-              actionLabel ??
-                t("Dialog.InputConfigWizard.History.TriggerChanged"),
+              actionLabel ?? "Dialog.InputConfigWizard.History.TriggerChanged",
             )
           }}
         />
@@ -314,8 +313,7 @@ const ConfigWizard = ({
                 ...configItem,
                 analog: trigger as AnalogTrigger,
               },
-              actionLabel ??
-                t("Dialog.InputConfigWizard.History.TriggerChanged"),
+              actionLabel ?? "Dialog.InputConfigWizard.History.TriggerChanged",
             )
           }}
         />

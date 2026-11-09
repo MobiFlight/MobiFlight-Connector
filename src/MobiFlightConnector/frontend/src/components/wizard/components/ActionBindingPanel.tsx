@@ -12,6 +12,7 @@ import {
   ButtonTrigger,
   EncoderTrigger,
 } from "@/types/config"
+import { HistoryAction } from "@/types/history"
 import {
   IconEdit,
   IconInfoCircle,
@@ -32,7 +33,7 @@ export type ActionBindingPanelProps = {
         Partial<ButtonLongReleaseOptions>,
     ) => void,
   ) => void
-  onTriggerChange: (trigger: ActionTrigger, actionLabel?: string) => void
+  onTriggerChange: (trigger: ActionTrigger, actionLabel?: HistoryAction) => void
 }
 const eventActionMap = {
   button: ["onPress", "onRelease", "onHold", "onLongRelease"],

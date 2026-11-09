@@ -11,11 +11,12 @@ import { Button } from "@/components/ui/button"
 import IconBrandHubHopLogo from "@/components/icons/IconBrandHubHopLogo"
 import { IconExclamationCircle } from "@tabler/icons-react"
 import useOpenUrl from "@/lib/hooks/useOpenUrl"
+import { HistoryAction } from "@/types/history"
 
 export type MsfsInputActionPanelProps = {
   variant: "summary" | "details"
   config: MsfsInputAction | null
-  onConfigChange: (config: MsfsInputAction, actionLabel?: string) => void
+  onConfigChange: (config: MsfsInputAction, actionLabel?: HistoryAction) => void
 }
 
 const MsfsInputActionPanel = ({

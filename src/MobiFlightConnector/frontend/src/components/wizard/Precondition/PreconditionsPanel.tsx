@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils"
 import { useProjectStore } from "@/stores/projectStore"
 import { useVariableStore } from "@/stores/variableStore"
 import { IConfigItem, Precondition } from "@/types/config"
+import { HistoryAction } from "@/types/history"
 import { IconEdit } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 
@@ -13,7 +14,7 @@ export type PreconditionsPanelProps = {
   preconditions: Precondition[] // Replace with actual type of preconditions
   onPreconditionsChange?: (
     updatedPreconditions: Precondition[],
-    actionLabel?: string,
+    actionLabel?: HistoryAction,
   ) => void
   variant: "summary" | "details"
   openDetailsPanel: () => void

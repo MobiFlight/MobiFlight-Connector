@@ -5,6 +5,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Switch } from "@/components/ui/switch"
 import { configReferenceVariants } from "@/components/wizard/variants"
 import { ConfigReference, IConfigItem } from "@/types/config"
+import { HistoryAction } from "@/types/history"
 import { IconPlus, IconTrash } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 
@@ -13,7 +14,7 @@ export interface ConfigReferenceEditorProps {
   configReferences: ConfigReference[]
   onConfigReferencesChange: (
     configReferences: ConfigReference[],
-    actionLabel?: string,
+    actionLabel?: HistoryAction,
   ) => void
 }
 
@@ -40,7 +41,7 @@ const SUGGESTED_PLACEHOLDERS = [
 type ConfigReferenceItemRowProps = {
   configReference: ConfigReference
   outputConfigs: IConfigItem[]
-  onChange: (updated: ConfigReference, actionLabel?: string) => void
+  onChange: (updated: ConfigReference, actionLabel?: HistoryAction) => void
   onDelete: () => void
 }
 
@@ -67,11 +68,9 @@ const ConfigReferenceItemRow = ({
           onCheckedChange={(checked) =>
             onChange(
               { ...configReference, Active: !!checked },
-              t(
-                checked
-                  ? "Dialog.InputConfigWizard.History.ConfigReferenceEnabled"
-                  : "Dialog.InputConfigWizard.History.ConfigReferenceDisabled",
-              ),
+              checked
+                ? "Dialog.InputConfigWizard.History.ConfigReferenceEnabled"
+                : "Dialog.InputConfigWizard.History.ConfigReferenceDisabled",
             )
           }
         />
@@ -147,19 +146,18 @@ const ConfigReferenceEditor = ({
   const handleChange = (
     index: number,
     updated: ConfigReference,
-    actionLabel?: string,
+    actionLabel?: HistoryAction,
   ) => {
     onConfigReferencesChange(
       configReferences.map((c, i) => (i === index ? updated : c)),
-      actionLabel ??
-        t("Dialog.InputConfigWizard.History.ConfigReferenceChanged"),
+      actionLabel ?? "Dialog.InputConfigWizard.History.ConfigReferenceChanged",
     )
   }
 
   const handleDelete = (index: number) => {
     onConfigReferencesChange(
       configReferences.filter((_, i) => i !== index),
-      t("Dialog.InputConfigWizard.History.ConfigReferenceRemoved"),
+      "Dialog.InputConfigWizard.History.ConfigReferenceRemoved",
     )
   }
 
@@ -173,7 +171,7 @@ const ConfigReferenceEditor = ({
         ...configReferences,
         { ...EMPTY_CONFIG_REFERENCE, Placeholder: suggestedPlaceholder },
       ],
-      t("Dialog.InputConfigWizard.History.ConfigReferenceAdded"),
+      "Dialog.InputConfigWizard.History.ConfigReferenceAdded",
     )
   }
 
