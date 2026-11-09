@@ -136,10 +136,7 @@ const ProjectNameLabel = () => {
               <IconDeviceGamepad2 />
               {t("MainMenu.Extras.ControllerBindings")}
             </DropdownMenuItem>
-            <DropdownMenuItem
-              disabled={!canReload}
-              onClick={handleReloadClick}
-            >
+            <DropdownMenuItem disabled={!canReload} onClick={handleReloadClick}>
               <IconRefresh />
               {t("Project.Toolbar.Reload")}
             </DropdownMenuItem>
