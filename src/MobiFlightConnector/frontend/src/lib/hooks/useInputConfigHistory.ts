@@ -4,7 +4,6 @@ import { useState, type KeyboardEvent } from "react"
 import useTextEditSession, {
   isTextEditingTarget,
 } from "@/lib/hooks/useTextEditSession"
-import { useTranslation } from "react-i18next"
 
 const MAX_UNDO_STEPS = 50
 
@@ -31,8 +30,6 @@ type EditorState = {
 }
 
 const useInputConfigHistory = (configItem: IConfigItem | undefined) => {
-  const { t } = useTranslation()
-
   const {
     getCurrentTextEditId,
     resetTextEditSession,
@@ -87,7 +84,7 @@ const useInputConfigHistory = (configItem: IConfigItem | undefined) => {
         snapshot,
         action:
           actionLabel ??
-          t("Dialog.InputConfigWizard.History.ConfigurationChanged"),
+          "Dialog.InputConfigWizard.History.ConfigurationChanged",
       })
     }
 
@@ -193,17 +190,16 @@ const useInputConfigHistory = (configItem: IConfigItem | undefined) => {
         }
       }
 
-      const base = "Dialog.InputConfigWizard"
-
       const drawerLabels: Record<string, string> = {
-        precondition: t(`${base}.Preconditions.Title`),
-        configReference: t(`${base}.ConfigReferences.Title`),
-        modifier: t("Dialog.Modifiers.Title"),
-        action: t(`${base}.Action.Title`),
+        precondition: "Dialog.InputConfigWizard.Preconditions.Title",
+        configReference: "Dialog.InputConfigWizard.ConfigReferences.Title",
+        modifier: "Dialog.Modifiers.Title",
+        action: "Dialog.InputConfigWizard.Action.Title",
       }
 
       const label =
-        drawerLabels[session.view] ?? t(`${base}.History.ConfigurationChanged`)
+        drawerLabels[session.view] ??
+        "Dialog.InputConfigWizard.History.ConfigurationChanged"
 
       const updatedHistory = [
         ...previous.history.slice(0, previous.cursor + 1),

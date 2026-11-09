@@ -88,7 +88,7 @@ const MsfsInputActionPanel = ({
               PresetId: preset ? preset.id : null,
               Command: preset ? preset.code : null,
             } as MsfsInputAction,
-            t("Dialog.InputConfigWizard.History.ActionPresetChanged"),
+            "Dialog.InputConfigWizard.History.ActionPresetChanged",
           )
         }
       />
@@ -202,7 +202,7 @@ const MsfsInputActionPanel = ({
                       Command: e.target.value,
                       PresetId: "", // Clear preset if user manually edits command
                     } as MsfsInputAction,
-                    t("Dialog.InputConfigWizard.History.ActionCodeChanged"),
+                    "Dialog.InputConfigWizard.History.ActionCodeChanged",
                   )
                 }}
               />

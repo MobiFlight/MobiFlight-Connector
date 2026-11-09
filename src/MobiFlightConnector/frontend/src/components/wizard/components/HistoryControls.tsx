@@ -132,7 +132,9 @@ const HistoryControls = ({
                       ? historyStart === 0
                         ? t("Dialog.InputConfigWizard.History.Original")
                         : t("Dialog.InputConfigWizard.History.Oldest")
-                      : entry.action
+                      : entry.action.startsWith("Dialog.")
+                        ? t(entry.action)
+                        : entry.action
 
                   return (
                     <DropdownMenuItem

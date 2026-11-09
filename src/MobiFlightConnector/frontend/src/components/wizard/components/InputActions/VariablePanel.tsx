@@ -167,9 +167,7 @@ export const VariablePanel = ({
                         ...variable,
                         Expression: e.target.value,
                       } as MobiFlightVariable,
-                      t(
-                        "Dialog.InputConfigWizard.History.ActionExpressionChanged",
-                      ),
+                      "Dialog.InputConfigWizard.History.ActionExpressionChanged",
                     )
                   }
                   placeholder={t(
