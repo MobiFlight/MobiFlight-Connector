@@ -60,7 +60,7 @@ const MsfsPresetPanel = <T,>({
 }
 export default MsfsPresetPanel
 
-type MsfsCodeSectionProps = {
+type MsfsPresetDetailsProps = {
   preset: Preset | null
   code: string
   onCodeChange: (code: string) => void
@@ -70,7 +70,7 @@ const MsfsPresetDetails = ({
   preset,
   code,
   onCodeChange,
-}: MsfsCodeSectionProps) => {
+}: MsfsPresetDetailsProps) => {
   const { t } = useTranslation()
 
   return (
