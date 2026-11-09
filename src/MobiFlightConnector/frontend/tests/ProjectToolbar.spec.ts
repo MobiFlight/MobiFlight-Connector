@@ -208,6 +208,34 @@ test.describe("Test profile tabs basic features", () => {
     expect(lastCommand.payload.index).toEqual(1)
     expect(lastCommand.payload.file as ConfigFile).not.toBeNull()
   })
+
+  test("Confirm rename works on a tab that is not active", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+
+    const thirdTab = page.getByRole("tablist").getByRole("tab").nth(2)
+    await expect(thirdTab).toHaveAttribute("aria-selected", "false")
+
+    await configListPage.mobiFlightPage.trackCommand("CommandFileContextMenu")
+    await thirdTab.getByRole("button", { name: "Open menu" }).click()
+    await page.getByRole("menuitem", { name: "Rename" }).click()
+
+    const textbox = thirdTab.getByRole("textbox")
+    await textbox.fill("Config 3 Renamed")
+    await textbox.press("Enter")
+
+    await expect(thirdTab).toHaveAttribute("title", "Config 3 Renamed")
+    const postedCommands =
+      await configListPage.mobiFlightPage.getTrackedCommands()
+    const lastCommand = postedCommands!.pop()
+    expect(lastCommand.key).toEqual("CommandFileContextMenu")
+    expect(lastCommand.payload.action).toEqual("rename")
+    expect(lastCommand.payload.index).toEqual(2)
+    expect(lastCommand.payload.file.Label).toEqual("Config 3 Renamed")
+  })
 })
 
 test.describe("Test profile tabs overflow features", () => {
