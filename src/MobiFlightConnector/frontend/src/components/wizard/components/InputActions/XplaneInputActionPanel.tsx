@@ -2,7 +2,7 @@ import { fetchHubHopPresets } from "@/lib/configWizard"
 import { XplaneInputAction } from "@/types/config"
 import { XplanePreset } from "@/types/preset"
 import { useQuery } from "@tanstack/react-query"
-import XplanePresetDetails from "@/components/wizard/components/InputActions/XplanePresetDetails"
+import XplanePresetDetails from "@/components/wizard/common/XplanePresetDetails"
 import PresetSummary from "@/components/wizard/common/PresetSummary"
 import PresetPanel from "@/components/wizard/common/PresetPanel"
 

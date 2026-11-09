@@ -1,6 +1,6 @@
 import PresetPanel from "@/components/wizard/common/PresetPanel"
 import PresetSummary from "@/components/wizard/common/PresetSummary"
-import XplanePresetDetails from "@/components/wizard/components/InputActions/XplanePresetDetails"
+import XplanePresetDetails from "@/components/wizard/common/XplanePresetDetails"
 import { fetchHubHopPresets } from "@/lib/configWizard"
 import { XplaneInputAction, XplaneSource } from "@/types/config"
 import { XplanePreset } from "@/types/preset"

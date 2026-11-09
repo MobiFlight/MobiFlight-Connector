@@ -13,7 +13,7 @@ import LuaMacroInputActionPanel from "@/components/wizard/components/InputAction
 import MsfsPresetPanel from "@/components/wizard/common/MsfsPresetPanel"
 import ProSimInputActionPanel from "@/components/wizard/components/InputActions/ProSimInputActionPanel"
 import RetriggerPanel from "@/components/wizard/components/InputActions/RetriggerPanel"
-import { VariablePanel } from "@/components/wizard/components/InputActions/VariablePanel"
+import { VariablePanel } from "@/components/wizard/common/VariablePanel"
 import VJoyInputActionPanel from "@/components/wizard/components/InputActions/VJoyInputActionPanel"
 import XplaneInputActionPanel from "@/components/wizard/components/InputActions/XplaneInputActionPanel"
 import { ActionTypeOptions } from "@/lib/configWizard"

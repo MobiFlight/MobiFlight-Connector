@@ -1,7 +1,7 @@
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import WizardSection from "@/components/wizard/common/WizardSection"
 import { FsuipcOffsetPanel } from "@/components/wizard/components/InputActions/FsuipcOffsetInputActionPanel"
-import { VariablePanel } from "@/components/wizard/components/InputActions/VariablePanel"
+import { VariablePanel } from "@/components/wizard/common/VariablePanel"
 import MsfsPresetPanel from "@/components/wizard/common/MsfsPresetPanel"
 import ProSimSourcePanel from "@/components/wizard/OutputConfig/Sources/ProSimSourcePanel"
 import XplaneSourcePanel from "@/components/wizard/OutputConfig/Sources/XplaneSourcePanel"
