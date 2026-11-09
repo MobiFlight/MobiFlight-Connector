@@ -115,7 +115,8 @@
         "NoChanges": "No changes to save",
         "Success": "Saved successfully"
       },
-      "Settings": "Settings"
+      "Settings": "Settings",
+      "Reload": "Reload from disk"
     },
     "Execution": {
       "AutoRun": {

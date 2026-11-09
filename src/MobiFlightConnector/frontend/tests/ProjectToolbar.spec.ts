@@ -40,6 +40,86 @@ test("Confirm project name can be renamed", async ({
   await expect(projectNameLabel.getByText("Test Project Renamed")).toBeVisible()
 })
 
+test.describe("Project reload from disk", () => {
+  let projectContextMenu: Locator
+
+  test.beforeEach(async ({ configListPage, page }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+    projectContextMenu = page
+      .getByTestId("project-name-label")
+      .getByRole("button", { name: "Open menu" })
+    await configListPage.mobiFlightPage.trackCommand("CommandMainMenu")
+  })
+
+  test("Reload without unsaved changes sends reload command immediately", async ({
+    configListPage,
+    page,
+  }) => {
+    await projectContextMenu.click()
+    await page.getByRole("menuitem", { name: "Reload from disk" }).click()
+
+    await expect(page.getByRole("dialog")).toHaveCount(0)
+    const postedCommands =
+      await configListPage.mobiFlightPage.getTrackedCommands()
+    const lastCommand = postedCommands!.pop()
+    expect(lastCommand.key).toEqual("CommandMainMenu")
+    expect(lastCommand.payload.action).toEqual("file.reload")
+  })
+
+  test("Reload with unsaved changes asks for confirmation and reloads on discard", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.mobiFlightPage.updateProjectState({
+      HasChanged: true,
+      SaveStatus: "idle",
+    })
+
+    await projectContextMenu.click()
+    await page.getByRole("menuitem", { name: "Reload from disk" }).click()
+
+    const dialog = page.getByRole("dialog")
+    await expect(dialog.getByText("Discard changes?")).toBeVisible()
+    let postedCommands =
+      await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(
+      postedCommands!.filter((c) => c.payload.action === "file.reload"),
+    ).toHaveLength(0)
+
+    await dialog.getByRole("button", { name: "Discard changes" }).click()
+    await expect(dialog).toHaveCount(0)
+
+    postedCommands = await configListPage.mobiFlightPage.getTrackedCommands()
+    const lastCommand = postedCommands!.pop()
+    expect(lastCommand.key).toEqual("CommandMainMenu")
+    expect(lastCommand.payload.action).toEqual("file.reload")
+  })
+
+  test("Reload with unsaved changes does nothing when user keeps editing", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.mobiFlightPage.updateProjectState({
+      HasChanged: true,
+      SaveStatus: "idle",
+    })
+
+    await projectContextMenu.click()
+    await page.getByRole("menuitem", { name: "Reload from disk" }).click()
+
+    const dialog = page.getByRole("dialog")
+    await dialog.getByRole("button", { name: "Keep editing" }).click()
+    await expect(dialog).toHaveCount(0)
+
+    const postedCommands =
+      await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(
+      postedCommands!.filter((c) => c.payload.action === "file.reload"),
+    ).toHaveLength(0)
+  })
+})
+
 test.describe("Test execution toolbar", () => {
   let toolbar: Locator
 

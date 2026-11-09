@@ -145,6 +145,7 @@ export type CommandMainMenuPayload = {
     | "file.saveas"
     | "file.exit"
     | "file.recent"
+    | "file.reload"
     | "project.edit"
     | "extras.hubhop.download"
     | "extras.msfs.reinstall"

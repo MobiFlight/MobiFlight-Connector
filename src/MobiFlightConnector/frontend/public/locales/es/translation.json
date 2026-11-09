@@ -115,7 +115,8 @@
         "NoChanges": "No hay cambios para guardar",
         "Success": "Cambios guardados con éxito"
       },
-      "Settings": "Configuración"
+      "Settings": "Configuración",
+      "Reload": "Recargar desde el disco"
     },
     "Execution": {
       "AutoRun": {
