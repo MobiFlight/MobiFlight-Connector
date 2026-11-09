@@ -129,13 +129,9 @@ test.describe("General Input Config Wizard Tests", () => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
 
+    await expect(page.getByText("Edit Input Configuration")).not.toBeVisible()
     await openDialogForRow(configListPage, page, 1)
-    
-    await expect(
-      page.getByText(
-        "Edit all settings for this input configuration in this dialog.",
-      ),
-    ).toBeVisible()
+    await expect(page.getByText("Edit Input Configuration")).toBeVisible()
   })
 
   test("Dialog open for input config items - via double click", async ({
@@ -149,9 +145,6 @@ test.describe("General Input Config Wizard Tests", () => {
     await expect(page.getByText("Edit Input Configuration")).not.toBeVisible()
     await firstRow.dblclick()
     await expect(page.getByText("Edit Input Configuration")).toBeVisible()
-
-    await configListPage.gotoPage()
-    await configListPage.mobiFlightPage.initWithTestData("inputaction")
   })
 
   test("Dialog open for input config items - via context menu", async ({
@@ -162,6 +155,8 @@ test.describe("General Input Config Wizard Tests", () => {
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
     const firstRow = await configListPage.getConfigItemRow(1)
 
+    await expect(page.getByText("Edit Input Configuration")).not.toBeVisible()
+
     const contextMenuButton = firstRow
       .getByRole("button", { name: "Open menu" })
       .first()
@@ -171,6 +166,7 @@ test.describe("General Input Config Wizard Tests", () => {
     const menuItem = contextMenu.getByRole("menuitem", { name: "Edit" })
     await expect(menuItem).toBeVisible()
     await menuItem.click()
+    
     await expect(page.getByText("Edit Input Configuration")).toBeVisible()
   })
 
@@ -181,11 +177,15 @@ test.describe("General Input Config Wizard Tests", () => {
     // Opens after clicking "Add Input Config" button and goes through the creation flow
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
+
+    await expect(page.getByText("Edit Input Configuration")).not.toBeVisible()
+
     const addInputConfigButton = page.getByRole("button", {
       name: "Add Input Config",
     })
     await addInputConfigButton.click()
     await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction")
+    
     await expect(page.getByText("Edit Input Configuration")).toBeVisible()
   })
 
