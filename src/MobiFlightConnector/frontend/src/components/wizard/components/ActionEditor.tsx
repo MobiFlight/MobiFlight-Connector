@@ -2,7 +2,9 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import ActionTypeComboBox from "@/components/wizard/components/ActionTypeComboBox"
+import ActionTypeComboBox, {
+  type ActionTypeOption,
+} from "@/components/wizard/components/ActionTypeComboBox"
 import CopyPasteActionPanel from "@/components/wizard/components/CopyPasteActionPanel"
 import EventIdInputActionPanel from "@/components/wizard/components/InputActions/EventIdInputActionPanel"
 import FsuipcOffsetInputActionPanel from "@/components/wizard/components/InputActions/FsuipcOffsetInputActionPanel"
@@ -447,6 +449,44 @@ const ActionEditor = ({
   const selectedActionType = action
     ? ActionTypeOptions.find((option) => option.value === action.Type)
     : undefined
+  const handleActionTypeChange = (option: ActionTypeOption | null) => {
+    const actionLabel = "Dialog.InputConfigWizard.History.ActionTypeChanged"
+
+    if (!option) {
+      onActionChange(null, undefined, actionLabel)
+      return
+    }
+
+    if (action?.Type === option.value) {
+      return
+    }
+
+    if (option.value === "VariableInputAction") {
+      onActionChange(
+        {
+          Type: "VariableInputAction",
+          Variable: {
+            TYPE: "number",
+            Name: "New Variable",
+            Number: 0,
+            Text: "",
+            Expression: "$",
+          },
+        } as MobiFlightVariableAction,
+        undefined,
+        actionLabel,
+      )
+      return
+    }
+
+    onActionChange(
+      {
+        Type: option.value,
+      },
+      undefined,
+      actionLabel,
+    )
+  }
   return (
     <div className="flex flex-col gap-4" data-testid="action-editor">
       <Card>
@@ -487,44 +527,7 @@ const ActionEditor = ({
             <div className="flex flex-row items-end justify-between">
               <ActionTypeComboBox
                 selectedActionType={selectedActionType}
-                setSelectedActionType={(option) => {
-                  const actionLabel =
-                    "Dialog.InputConfigWizard.History.ActionTypeChanged"
-                  if (!option) {
-                    onActionChange(null, undefined, actionLabel)
-                    return
-                  }
-
-                  if (action?.Type === option.value) {
-                    return
-                  }
-
-                  if (option.value === "VariableInputAction") {
-                    onActionChange(
-                      {
-                        Type: "VariableInputAction",
-                        Variable: {
-                          TYPE: "number",
-                          Name: "New Variable",
-                          Number: 0,
-                          Text: "",
-                          Expression: "$",
-                        },
-                      } as MobiFlightVariableAction,
-                      undefined,
-                      actionLabel,
-                    )
-
-                    return
-                  }
-                  onActionChange(
-                    {
-                      Type: option.value,
-                    },
-                    undefined,
-                    actionLabel,
-                  )
-                }}
+                setSelectedActionType={handleActionTypeChange}
               />
               <CopyPasteActionPanel
                 action={action}
