@@ -3,6 +3,7 @@ import { test, expect } from "./fixtures"
 import { ConfigListPage } from "./fixtures/ConfigListPage"
 import outputConnectedControllers from "./data/outputconfig/connectedControllers.testdata.json" with { type: "json" }
 import msfsOutputPresetsResponse from "./data/outputconfig/msfspresets.testdata.json" with { type: "json" }
+import xplanePresetsResponse from "./data/inputaction/xplanepresets.testdata.json" with { type: "json" }
 import { Project } from "../src/types"
 import { IConfigItem } from "../src/types/config"
 
@@ -29,6 +30,9 @@ const initOutputTestData = async (
       await route.fulfill({ json: msfsOutputPresetsResponse })
     },
   )
+  await page.route("*/**/presets/xplane_hubhop_presets.json", async (route) => {
+    await route.fulfill({ json: xplanePresetsResponse })
+  })
 
   await configListPage.gotoPage()
   if (projectOptions) {
@@ -387,6 +391,33 @@ test.describe("Output Config Wizard - Source Panel", () => {
     await expect(sourceEditor.getByRole("status")).toHaveText(
       "0 preset(s) found",
     )
+  })
+
+  test("X-Plane source editor shows only output presets", async ({
+    configListPage,
+    page,
+  }) => {
+    await createEmptyOutputConfigAndOpenWizard(configListPage, page, {
+      Sim: "xplane",
+    })
+    await page
+      .getByTestId("trigger-panel")
+      .getByRole("button", { name: "Source", exact: true })
+      .click()
+    await page.getByTestId("source-type-combobox").click()
+    await page.getByRole("option", { name: "X-Plane" }).click()
+
+    const sourceEditor = page.getByTestId("source-editor")
+
+    // only the InputOutput DataRef of the test data can be read as output
+    await expect(sourceEditor.getByRole("status")).toHaveText(
+      "1 preset(s) found",
+    )
+    await expect(
+      sourceEditor
+        .getByRole("listitem")
+        .filter({ hasText: "IXEG B733 MCP VS Display" }),
+    ).toBeVisible()
   })
 
   test("Selecting an MSFS preset updates the code and is saved correctly", async ({

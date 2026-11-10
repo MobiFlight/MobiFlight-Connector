@@ -33,7 +33,7 @@ const XplanePresetPanel = <T,>({
     <div className="flex flex-col gap-4">
       <PresetPanel
         sim="xplane"
-        mode="input"
+        mode={adapter.mode}
         isLoading={isLoading}
         selectedPresetId={presetId ?? null}
         setSelectedPreset={(selected) =>
@@ -44,7 +44,7 @@ const XplanePresetPanel = <T,>({
       />
       <PresetDetails
         sim="xplane"
-        mode="input"
+        mode={adapter.mode}
         preset={preset}
         code={code}
         codeType={codeType}
