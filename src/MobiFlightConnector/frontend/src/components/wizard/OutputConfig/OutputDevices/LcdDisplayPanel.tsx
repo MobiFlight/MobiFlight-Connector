@@ -65,7 +65,6 @@ const LcdDisplayPanel = ({
           {lines.map((line, index) => (
             <Input
               key={index}
-              aria-label={`Line ${index + 1}`}
               className={`w-auto font-mono`}
               size={LCD_COLS}
               maxLength={LCD_COLS}

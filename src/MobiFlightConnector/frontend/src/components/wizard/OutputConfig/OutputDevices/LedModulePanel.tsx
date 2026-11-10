@@ -142,7 +142,6 @@ const LedModulePanel = ({
             {digitIndexes.map((digit) => (
               <Checkbox
                 key={digit}
-                aria-label={`Digit ${digit}`}
                 checked={config.DisplayLedDigits.includes(digit)}
                 onCheckedChange={(checked) =>
                   onChange?.({
@@ -164,7 +163,6 @@ const LedModulePanel = ({
             {digitIndexes.map((digit) => (
               <Checkbox
                 key={digit}
-                aria-label={`Decimal point ${digit}`}
                 checked={config.DisplayLedDecimalPoints.includes(digit)}
                 onCheckedChange={(checked) =>
                   onChange?.({
