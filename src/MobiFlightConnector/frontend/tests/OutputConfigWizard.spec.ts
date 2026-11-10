@@ -124,6 +124,27 @@ const closeDrawer = async (page: Page) => {
   await page.getByRole("button", { name: "Done" }).click()
 }
 
+// Creates a new output config, opens the source editor and selects the source type
+const createConfigWithSourceType = async (
+  configListPage: ConfigListPage,
+  page: Page,
+  sourceType: string,
+  projectOptions?: Partial<Project>,
+) => {
+  await createEmptyOutputConfigAndOpenWizard(configListPage, page, projectOptions)
+  await page
+    .getByTestId("trigger-panel")
+    .getByRole("button", { name: "Source", exact: true })
+    .click()
+  const sourceEditor = page.getByTestId("source-editor")
+  await selectComboBoxOption(
+    page,
+    sourceEditor.getByTestId("source-type-combobox"),
+    sourceType,
+  )
+  return sourceEditor
+}
+
 const selectComboBoxOption = async (
   page: Page,
   comboBox: ReturnType<Page["getByRole"]>,
@@ -239,24 +260,6 @@ test.describe("General Output Config Wizard Tests", () => {
 })
 
 test.describe("Output Config Wizard - Source Panel", () => {
-  test("Summary shows the MSFS source of an existing config", async ({
-    configListPage,
-    page,
-  }) => {
-    await openWizardForRow(configListPage, page, ROW.Output)
-
-    const triggerPanel = page.getByTestId("trigger-panel")
-    await expect(triggerPanel.getByText("Microsoft Flight Simulator")).toBeVisible()
-    await expect(
-      triggerPanel.getByText("BRAKE_PARKING_INDICATOR", { exact: true }),
-    ).toBeVisible()
-    await expect(
-      triggerPanel.getByText("(A:BRAKE PARKING INDICATOR,Bool)", {
-        exact: true,
-      }),
-    ).toBeVisible()
-  })
-
   test("New config without source shows the select value button", async ({
     configListPage,
     page,
@@ -360,6 +363,50 @@ test.describe("Output Config Wizard - Source Panel", () => {
     }
   })
 
+  test("Deselecting the source type removes the source", async ({
+    configListPage,
+    page,
+  }) => {
+    await openWizardForRow(configListPage, page, ROW.Output)
+    await page.getByTestId("trigger-panel").getByText("Microsoft Flight Simulator").dblclick()
+
+    const sourceEditor = page.getByTestId("source-editor")
+    // Selecting the already selected option deselects it
+    await selectComboBoxOption(
+      page,
+      sourceEditor.getByTestId("source-type-combobox"),
+      "Microsoft Flight Simulator",
+    )
+    await expect(sourceEditor.getByTestId("preset-code-panel")).not.toBeVisible()
+
+    await closeDrawer(page)
+    await expect(
+      page
+        .getByTestId("trigger-panel")
+        .getByRole("button", { name: "Source", exact: true }),
+    ).toBeVisible()
+  })
+})
+
+test.describe("Output Config Wizard - MSFS Source", () => {
+  test("Summary shows the MSFS source of an existing config", async ({
+    configListPage,
+    page,
+  }) => {
+    await openWizardForRow(configListPage, page, ROW.Output)
+
+    const triggerPanel = page.getByTestId("trigger-panel")
+    await expect(triggerPanel.getByText("Microsoft Flight Simulator")).toBeVisible()
+    await expect(
+      triggerPanel.getByText("BRAKE_PARKING_INDICATOR", { exact: true }),
+    ).toBeVisible()
+    await expect(
+      triggerPanel.getByText("(A:BRAKE PARKING INDICATOR,Bool)", {
+        exact: true,
+      }),
+    ).toBeVisible()
+  })
+
   test("MSFS source editor shows only output presets", async ({
     configListPage,
     page,
@@ -394,33 +441,6 @@ test.describe("Output Config Wizard - Source Panel", () => {
     await expect(sourceEditor.getByRole("status")).toHaveText(
       "0 preset(s) found",
     )
-  })
-
-  test("X-Plane source editor shows only output presets", async ({
-    configListPage,
-    page,
-  }) => {
-    await createEmptyOutputConfigAndOpenWizard(configListPage, page, {
-      Sim: "xplane",
-    })
-    await page
-      .getByTestId("trigger-panel")
-      .getByRole("button", { name: "Source", exact: true })
-      .click()
-    await page.getByTestId("source-type-combobox").click()
-    await page.getByRole("option", { name: "X-Plane" }).click()
-
-    const sourceEditor = page.getByTestId("source-editor")
-
-    // only the InputOutput DataRef of the test data can be read as output
-    await expect(sourceEditor.getByRole("status")).toHaveText(
-      "1 preset(s) found",
-    )
-    await expect(
-      sourceEditor
-        .getByRole("listitem")
-        .filter({ hasText: "IXEG B733 MCP VS Display" }),
-    ).toBeVisible()
   })
 
   test("Selecting an MSFS preset updates the code and is saved correctly", async ({
@@ -467,7 +487,263 @@ test.describe("Output Config Wizard - Source Panel", () => {
       },
     })
   })
+})
 
+test.describe("Output Config Wizard - X-Plane Source", () => {
+  test("X-Plane source editor shows only output presets", async ({
+    configListPage,
+    page,
+  }) => {
+    await createEmptyOutputConfigAndOpenWizard(configListPage, page, {
+      Sim: "xplane",
+    })
+    await page
+      .getByTestId("trigger-panel")
+      .getByRole("button", { name: "Source", exact: true })
+      .click()
+    await page.getByTestId("source-type-combobox").click()
+    await page.getByRole("option", { name: "X-Plane" }).click()
+
+    const sourceEditor = page.getByTestId("source-editor")
+
+    // only the InputOutput DataRef of the test data can be read as output
+    await expect(sourceEditor.getByRole("status")).toHaveText(
+      "1 preset(s) found",
+    )
+    await expect(
+      sourceEditor
+        .getByRole("listitem")
+        .filter({ hasText: "IXEG B733 MCP VS Display" }),
+    ).toBeVisible()
+  })
+
+  test("Selecting an X-Plane preset updates the path and is saved correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const sourceEditor = await createConfigWithSourceType(
+      configListPage,
+      page,
+      "X-Plane",
+      { Sim: "xplane" },
+    )
+
+    await sourceEditor
+      .getByRole("listitem")
+      .getByText("IXEG B733 MCP VS Display", { exact: true })
+      .click()
+
+    await test.step("Path is updated by the preset", async () => {
+      await expect(sourceEditor.getByLabel("Path")).toHaveValue(
+        "ixeg/733/MCP/mcp_vs_dial_ann",
+      )
+      // Output sources can only read DataRefs, so there is no value field
+      await expect(sourceEditor.getByLabel("Value")).not.toBeVisible()
+    })
+
+    await closeDrawer(page)
+    await expect(sourceEditor).not.toBeVisible()
+
+    await test.step("Summary shows the preset", async () => {
+      const triggerPanel = page.getByTestId("trigger-panel")
+      await expect(triggerPanel.getByText("X-Plane")).toBeVisible()
+      await expect(
+        triggerPanel.getByText("IXEG B733 MCP VS Display", { exact: true }),
+      ).toBeVisible()
+    })
+
+    const payload = await applyChangesAndReturnPayload(configListPage, page)
+    expect(payload.item.Source).toEqual({
+      Type: "XplaneSource",
+      XplaneDataRef: { Path: "ixeg/733/MCP/mcp_vs_dial_ann" },
+    })
+  })
+
+  test("Custom X-Plane path is saved correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const sourceEditor = await createConfigWithSourceType(
+      configListPage,
+      page,
+      "X-Plane",
+      { Sim: "xplane" },
+    )
+
+    await sourceEditor.getByLabel("Path").fill("sim/custom/dataref")
+
+    await closeDrawer(page)
+    await expect(sourceEditor).not.toBeVisible()
+
+    await expect(
+      page
+        .getByTestId("trigger-panel")
+        .getByText("sim/custom/dataref", { exact: true }),
+    ).toBeVisible()
+
+    const payload = await applyChangesAndReturnPayload(configListPage, page)
+    expect(payload.item.Source).toEqual({
+      Type: "XplaneSource",
+      XplaneDataRef: { Path: "sim/custom/dataref" },
+    })
+  })
+})
+
+test.describe("Output Config Wizard - FSUIPC Source", () => {
+  test("Newly created FSUIPC source is saved correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const sourceEditor = await createConfigWithSourceType(
+      configListPage,
+      page,
+      "FSUIPC",
+      { Sim: "msfs", Features: { FSUIPC: true, ProSim: false } },
+    )
+
+    await test.step("Configure the offset", async () => {
+      await selectComboBoxOption(
+        page,
+        sourceEditor.getByRole("combobox").filter({ hasText: "1 Byte" }),
+        "4 Bytes",
+      )
+      await sourceEditor.getByRole("textbox", { name: "Offset" }).fill("66CC")
+      await sourceEditor.getByRole("textbox", { name: "Mask" }).fill("AABBCCDD")
+      await sourceEditor.getByRole("switch").click()
+      await expect(sourceEditor.getByRole("switch")).toBeChecked()
+    })
+
+    await closeDrawer(page)
+    await expect(sourceEditor).not.toBeVisible()
+
+    await test.step("Summary shows the offset", async () => {
+      const triggerPanel = page.getByTestId("trigger-panel")
+      await expect(triggerPanel.getByText("FSUIPC")).toBeVisible()
+      await expect(triggerPanel.getByText("66CC", { exact: true })).toBeVisible()
+      await expect(
+        triggerPanel.getByText("AABBCCDD", { exact: true }),
+      ).toBeVisible()
+      await expect(triggerPanel.getByText("True", { exact: true })).toBeVisible()
+    })
+
+    const payload = await applyChangesAndReturnPayload(configListPage, page)
+    expect(payload.item.Source).toEqual({
+      Type: "FsuipcSource",
+      FSUIPC: {
+        OffsetType: 0,
+        Size: 4,
+        Offset: 0x66cc,
+        Mask: 0xaabbccdd,
+        BcdMode: true,
+      },
+    })
+  })
+})
+
+test.describe("Output Config Wizard - ProSim Source", () => {
+  const publishProSimDataRefs = async (configListPage: ConfigListPage) => {
+    await configListPage.mobiFlightPage.publishMessage({
+      key: "ProSimDataRefDefinitionUpdate",
+      payload: {
+        DataRefs: {
+          "aircraft.heading": {
+            Name: "aircraft.heading",
+            Description: "Aircraft Heading",
+            CanRead: true,
+            CanWrite: true,
+            DataType: "float",
+            DataUnit: "degrees",
+          },
+          "autopilot.altitude": {
+            Name: "autopilot.altitude",
+            Description: "Autopilot Altitude",
+            CanRead: true,
+            CanWrite: false,
+            DataType: "float",
+            DataUnit: "feet",
+          },
+          "system.reset": {
+            Name: "system.reset",
+            Description: "System Reset",
+            CanRead: false,
+            CanWrite: true,
+            DataType: "bool",
+            DataUnit: "",
+          },
+        },
+      },
+    })
+  }
+
+  test("ProSim source editor shows only readable DataRefs", async ({
+    configListPage,
+    page,
+  }) => {
+    await createEmptyOutputConfigAndOpenWizard(configListPage, page, {
+      Sim: "msfs",
+      Features: { FSUIPC: false, ProSim: true },
+    })
+    await publishProSimDataRefs(configListPage)
+    await page
+      .getByTestId("trigger-panel")
+      .getByRole("button", { name: "Source", exact: true })
+      .click()
+    const sourceEditor = page.getByTestId("source-editor")
+    await selectComboBoxOption(
+      page,
+      sourceEditor.getByTestId("source-type-combobox"),
+      "ProSim",
+    )
+
+    await expect(sourceEditor.getByText("Aircraft Heading")).toBeVisible()
+    await expect(sourceEditor.getByText("Autopilot Altitude")).toBeVisible()
+    await expect(sourceEditor.getByText("System Reset")).not.toBeVisible()
+  })
+
+  test("Selecting a ProSim DataRef updates the path and is saved correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await createEmptyOutputConfigAndOpenWizard(configListPage, page, {
+      Sim: "msfs",
+      Features: { FSUIPC: false, ProSim: true },
+    })
+    await publishProSimDataRefs(configListPage)
+    await page
+      .getByTestId("trigger-panel")
+      .getByRole("button", { name: "Source", exact: true })
+      .click()
+    const sourceEditor = page.getByTestId("source-editor")
+    await selectComboBoxOption(
+      page,
+      sourceEditor.getByTestId("source-type-combobox"),
+      "ProSim",
+    )
+
+    await sourceEditor.getByPlaceholder("Filter presets").fill("Altitude")
+    await expect(sourceEditor.getByText("Aircraft Heading")).not.toBeVisible()
+    // The editor only highlights the selected DataRef, so the path is
+    // verified via the summary and the payload
+    await sourceEditor.getByText("Autopilot Altitude").click()
+
+    await closeDrawer(page)
+    await expect(sourceEditor).not.toBeVisible()
+
+    await expect(
+      page
+        .getByTestId("trigger-panel")
+        .getByText("autopilot.altitude", { exact: true }),
+    ).toBeVisible()
+
+    const payload = await applyChangesAndReturnPayload(configListPage, page)
+    expect(payload.item.Source).toEqual({
+      Type: "ProSimSource",
+      ProSimDataRef: { Path: "autopilot.altitude" },
+    })
+  })
+})
+
+test.describe("Output Config Wizard - Variable Source", () => {
   test("Newly created Variable source is saved correctly", async ({
     configListPage,
     page,
@@ -509,30 +785,6 @@ test.describe("Output Config Wizard - Source Panel", () => {
         TYPE: "number",
       },
     })
-  })
-
-  test("Deselecting the source type removes the source", async ({
-    configListPage,
-    page,
-  }) => {
-    await openWizardForRow(configListPage, page, ROW.Output)
-    await page.getByTestId("trigger-panel").getByText("Microsoft Flight Simulator").dblclick()
-
-    const sourceEditor = page.getByTestId("source-editor")
-    // Selecting the already selected option deselects it
-    await selectComboBoxOption(
-      page,
-      sourceEditor.getByTestId("source-type-combobox"),
-      "Microsoft Flight Simulator",
-    )
-    await expect(sourceEditor.getByTestId("preset-code-panel")).not.toBeVisible()
-
-    await closeDrawer(page)
-    await expect(
-      page
-        .getByTestId("trigger-panel")
-        .getByRole("button", { name: "Source", exact: true }),
-    ).toBeVisible()
   })
 })
 
