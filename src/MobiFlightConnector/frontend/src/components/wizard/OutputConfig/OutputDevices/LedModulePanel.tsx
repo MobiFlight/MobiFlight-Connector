@@ -13,11 +13,6 @@ import { useTranslation } from "react-i18next"
 
 type Option = { label: string; value: string }
 
-const paddingCharOptions: Option[] = [
-  { label: "0", value: "0" },
-  { label: "Space", value: " " },
-]
-
 const OptionComboBox = ({
   options,
   value,
@@ -57,6 +52,14 @@ const LedModulePanel = ({
   onChange,
 }: LedModulePanelProps) => {
   const { t } = useTranslation("wizard")
+
+  const paddingCharOptions: Option[] = [
+    { label: "0", value: "0" },
+    {
+      label: t("ConfigWizard.Device.SevenSegment.AdvancedOptions.PaddingSpace"),
+      value: " ",
+    },
+  ]
   const selectedDevice = devices.find(
     (device) => device.Name === config.DisplayLedAddress,
   )

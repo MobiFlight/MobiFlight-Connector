@@ -102,6 +102,7 @@
           "Title": "Advanced options",
           "Description": "Configure advanced display options for the 7-segment module.",
           "Padding": "Padding with",
+          "PaddingSpace": "Space",
           "ReverseDigits": "Reverse digits"
         }
       },
