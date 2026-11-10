@@ -75,11 +75,12 @@ const ProjectNameLabel = () => {
 
   const historyCount = configListUndoHistory.length
 
-  const getHistoryLabel = (action: string) =>
-    t(`ConfigList.History.${action}`, {
+  const getHistoryLabel = (action: string) => {
+    const translationKey = action === "rename" ? "ItemRename" : action
+    return t(`ConfigList.History.${translationKey}`, {
       defaultValue: action,
     })
-
+  }
   const listHistory = [
     { action: "" },
     ...configListUndoHistory.map((action) => ({

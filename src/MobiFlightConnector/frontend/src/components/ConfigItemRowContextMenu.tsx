@@ -13,7 +13,10 @@ import {
 import messageExchange from "@/lib/messageExchange"
 import { useRowInteraction } from "@/lib/hooks/useRowInteraction"
 import { IConfigItem } from "@/types"
-import { CommandConfigContextMenu } from "@/types/commands"
+import {
+  CommandConfigContextMenu,
+  CommandConfigBulkAction,
+} from "@/types/commands"
 import {
   IconEdit,
   IconPencil,
@@ -63,9 +66,9 @@ function MenuItems({
         </div>
       </Item>
       <Separator />
-      {/* 
-          using setTimeout makes sure the context menu closes before starting the edit, 
-          otherwise the input won't receive focus sometimes 
+      {/*
+          using setTimeout makes sure the context menu closes before starting the edit,
+          otherwise the input won't receive focus sometimes
        */}
       <Item onClick={() => setTimeout(() => startNameEdit?.(), 0)}>
         <div className="flex items-center gap-2 [&_svg]:size-4">
@@ -76,9 +79,9 @@ function MenuItems({
       <Item
         onClick={() =>
           publish({
-            key: "CommandConfigContextMenu",
-            payload: { action: "delete", item },
-          } as CommandConfigContextMenu)
+            key: "CommandConfigBulkAction",
+            payload: { action: "delete", items: [item] },
+          } as CommandConfigBulkAction)
         }
       >
         <div className="flex items-center gap-2 [&_svg]:size-4">
@@ -88,7 +91,7 @@ function MenuItems({
       </Item>
       <Item
         onClick={() =>
-         context?.onDuplicate() ||
+          context?.onDuplicate() ||
           publish({
             key: "CommandConfigContextMenu",
             payload: { action: "duplicate", item },
@@ -144,7 +147,7 @@ const ConfigItemRowContextMenu = ({
     <DropdownMenuContent
       align="end"
       data-testid="config-item-context-menu"
-      // Prevent setting focus 
+      // Prevent setting focus
       onCloseAutoFocus={(e) => e.preventDefault()}
     >
       <MenuItems

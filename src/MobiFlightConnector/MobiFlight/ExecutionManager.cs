@@ -426,7 +426,7 @@ namespace MobiFlight
                 switch (message.Action)
                 {
                     case "delete":
-                        _configListUndoManager.RecordConfigListBulkDeleteUndo(affectedItems);
+                        _configListUndoManager.RecordConfigListDeleteUndo(affectedItems);
                         foreach (var item in affectedItems)
                         {
                             ConfigItems.Remove(item);
@@ -456,26 +456,6 @@ namespace MobiFlight
                 IConfigItem cfg;
                 switch (message.Action)
                 {
-                    case "delete":
-                        int deleteIndex = ConfigItems.FindIndex(
-                            i => i.GUID == message.Item.GUID
-                        );
-
-                        if (deleteIndex < 0) return;
-
-                        var deletedItem = ConfigItems[deleteIndex];
-
-                        // Capture the item before removing it.
-                        _configListUndoManager.RecordConfigListDeleteUndo(
-                            deletedItem,
-                            deleteIndex
-                        );
-
-                        ConfigItems.RemoveAt(deleteIndex);
-
-                        OnInputConfigSettingsChanged(this, null);
-                        break;
-
                     case "duplicate":
                         int duplicateIndex = ConfigItems.FindIndex(
                              i => i.GUID == message.Item.GUID

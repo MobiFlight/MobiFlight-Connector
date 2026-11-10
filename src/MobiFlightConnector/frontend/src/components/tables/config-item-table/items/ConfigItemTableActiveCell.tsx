@@ -1,6 +1,6 @@
 import { Switch } from "@/components/ui/switch"
 import messageExchange from "@/lib/messageExchange"
-import { CommandUpdateConfigItem } from "@/types/commands"
+import { CommandConfigBulkAction } from "@/types/commands"
 import { IConfigItem } from "@/types/config"
 import { useSortable } from "@dnd-kit/sortable"
 import { IconGripVertical } from "@tabler/icons-react"
@@ -20,12 +20,12 @@ function ConfigItemTableActiveCell({ row }: ConfigItemTableActiveCellProps) {
     if (checked === item.Active) return
 
     publish({
-      key: "CommandUpdateConfigItem",
+      key: "CommandConfigBulkAction",
       payload: {
-        item: { ...item, Active: checked },
-        change: "toggle",
+        action: "toggle",
+        items: [item],
       },
-    } as CommandUpdateConfigItem)
+    } as CommandConfigBulkAction)
   }
 
   return (
