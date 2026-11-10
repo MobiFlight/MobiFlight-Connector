@@ -11,14 +11,67 @@
     "certified": false,
     "Devices": [
       { "Name": "1", "Label": "Button 1", "Type": "Button" },
-      { "Name": "LED 1", "Label": "LED 1", "Type": "Output", "Capabilities": { "Pwm": false } },
-      { "Name": "LED 2", "Label": "LED 2", "Type": "Output", "Capabilities": { "Pwm": true } },
+      {
+        "Name": "LED 1",
+        "Label": "LED 1",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "LED 2",
+        "Label": "LED 2",
+        "Type": "Output",
+        "Capabilities": { "Pwm": true }
+      },
       { "Name": "Servo 1", "Label": "Servo 1", "Type": "Servo" },
       { "Name": "Servo 2", "Label": "Servo 2", "Type": "Servo" },
-      { "Name": "Stepper 1", "Label": "Stepper 1", "Type": "Stepper", "Capabilities": { "Profile": { "id": 0, "Mode": 0, "StepsPerRevolution": 2040, "Speed": 467, "Acceleration": 800, "BacklashCompensation": 0, "Deactivate": false } } },
-      { "Name": "LCD 1", "Label": "LCD 1", "Type": "LcdDisplay", "Capabilities": { "Rows": 4, "Columns": 16 } },
-      { "Name": "7-Segment", "Label": "7-Segment", "Type": "LedModule", "Capabilities": { "Digits": 8 } },
-      { "Name": "Custom 1", "Label": "Custom 1", "Type": "CustomDevice" }
+      {
+        "Name": "Stepper 1",
+        "Label": "Stepper 1",
+        "Type": "Stepper",
+        "Capabilities": {
+          "Profile": {
+            "id": 0,
+            "Mode": 0,
+            "StepsPerRevolution": 2040,
+            "Speed": 467,
+            "Acceleration": 800,
+            "BacklashCompensation": 0,
+            "Deactivate": false
+          }
+        }
+      },
+      {
+        "Name": "LCD 1",
+        "Label": "LCD 1",
+        "Type": "LcdDisplay",
+        "Capabilities": { "Rows": 4, "Columns": 16 }
+      },
+      {
+        "Name": "7-Segment",
+        "Label": "7-Segment",
+        "Type": "LedModule",
+        "Capabilities": { "Digits": 8 }
+      },
+      {
+        "Capabilities": {
+          "MessageTypes": [
+            {
+              "Id": 0,
+              "Label": "Custom message 1",
+              "Description": "$ will be displayed as custom 1 value"
+            },
+            {
+              "Id": 1,
+              "Label": "Custom message 2",
+              "Description": "$ will be displayed as custom 2 value"
+            }
+          ]
+        },
+        "Name": "Custom Display",
+        "Label": "Custom Display",
+        "Type": "CustomDevice"
+      }
     ]
   },
   {
@@ -32,7 +85,12 @@
     "ImageUrl": null,
     "certified": false,
     "Devices": [
-      { "Name": "LED A", "Label": "Gear Light", "Type": "Output", "Capabilities": { "Pwm": false } }
+      {
+        "Name": "LED A",
+        "Label": "Gear Light",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      }
     ]
   },
   {

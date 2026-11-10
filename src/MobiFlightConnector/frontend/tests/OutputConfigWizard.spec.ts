@@ -1144,7 +1144,7 @@ test.describe("Output Config Wizard - Custom Device", () => {
 
     await test.step("First device and message type are selected by default", async () => {
       await expect(
-        deviceEditor.getByRole("combobox").filter({ hasText: /^Custom 1$/ }),
+        deviceEditor.getByRole("combobox").filter({ hasText: /^Custom Display$/ }),
       ).toBeVisible()
       await expect(messageTypeComboBox).toBeVisible()
       await expect(
@@ -1166,15 +1166,15 @@ test.describe("Output Config Wizard - Custom Device", () => {
     await test.step("Summary shows the selected device", async () => {
       await expect(actionPanel.getByText("ProtoBoard-v2")).toBeVisible()
       await expect(
-        actionPanel.getByText("Custom 1", { exact: true }),
+        actionPanel.getByText("Custom Display", { exact: true }),
       ).toBeVisible()
     })
 
     const payload = await applyChangesAndReturnPayload(configListPage, page)
     expect(payload.item.Device).toMatchObject({
       Type: "CustomDevice",
-      Name: "Custom 1",
-      CustomName: "Custom 1",
+      Name: "Custom Display",
+      CustomName: "Custom Display",
       MessageType: 1,
       Value: "$ * 2",
     })
