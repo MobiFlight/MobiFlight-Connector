@@ -7,8 +7,12 @@ type MoveUpDownButtonsProps = {
   onMoveDown: () => void
   isFirst?: boolean
   isLast?: boolean
-  i18nPath?: string
+  i18nPath?: MoveUpDownButtonsI18nPrefix
 }
+
+type MoveUpDownButtonsI18nPrefix =
+  | "Dialog.InputConfigWizard.PreconditionEditor"
+  | "Dialog.Modifiers.Editor"
 
 const MoveUpDownButtons = ({
   onMoveUp,

@@ -9,6 +9,7 @@ import OutputDeviceComboBox from "@/components/wizard/OutputConfig/OutputDevices
 import { Separator } from "@/components/ui/separator"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import WizardSection from "@/components/wizard/common/WizardSection"
+import { useTranslation } from "react-i18next"
 
 type Option = { label: string; value: string }
 
@@ -55,6 +56,7 @@ const LedModulePanel = ({
   devices = [],
   onChange,
 }: LedModulePanelProps) => {
+  const { t } = useTranslation("wizard")
   const selectedDevice = devices.find(
     (device) => device.Name === config.DisplayLedAddress,
   )
@@ -95,12 +97,12 @@ const LedModulePanel = ({
     return (
       <WizardSection>
         <SectionHeadline
-          title="Step 2 - 7-Segment settings"
-          description="Select the module and configure which digits show the value."
+          title={t("ConfigWizard.Device.SevenSegment.Title")}
+          description={t("ConfigWizard.Device.SevenSegment.Description")}
         />
         <div className="flex flex-row gap-4">
           <div className="flex flex-col gap-2">
-            <Label>Module</Label>
+            <Label>{t("ConfigWizard.Device.SevenSegment.Display")}</Label>
             <OutputDeviceComboBox
               devices={devices}
               deviceType="LedModule"
@@ -115,7 +117,7 @@ const LedModulePanel = ({
             />
           </div>
           <div className="flex flex-col gap-2">
-            <Label>Digits</Label>
+            <Label>{t("ConfigWizard.Device.SevenSegment.Digits")}</Label>
             <OptionComboBox
               options={moduleSizeOptions}
               value={`${currentModuleSize}`}
@@ -125,7 +127,7 @@ const LedModulePanel = ({
         </div>
         <Separator />
         <div className="flex flex-col gap-2">
-          <Label>Use digits</Label>
+          <Label>{t("ConfigWizard.Device.SevenSegment.UseDigits")}</Label>
           <div className="text-muted-foreground flex flex-row gap-3 text-xs">
             {digitIndexes.map((digit) => (
               <span key={digit} className="w-4 text-center">
@@ -154,7 +156,7 @@ const LedModulePanel = ({
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          <Label>Decimal points</Label>
+          <Label>{t("ConfigWizard.Device.SevenSegment.DecimalPoints")}</Label>
           <div className="flex flex-row gap-3">
             {digitIndexes.map((digit) => (
               <Checkbox
@@ -177,9 +179,9 @@ const LedModulePanel = ({
         </div>
         <Separator />
         <div className="flex flex-col gap-2">
-          <Label>Advanced options</Label>
+          <Label>{t("ConfigWizard.Device.SevenSegment.AdvancedOptions.Title")}</Label>
           <div className="text-muted-foreground text-sm">
-            Configure advanced display options for the 7-segment module.
+            {t("ConfigWizard.Device.SevenSegment.AdvancedOptions.Description")}
           </div>
         </div>
         <div className="flex flex-row items-center gap-4">
@@ -191,7 +193,7 @@ const LedModulePanel = ({
                 onChange?.({ ...config, DisplayLedPadding: !!checked })
               }
             />
-            <Label htmlFor="led-padding">Padding with</Label>
+            <Label htmlFor="led-padding">{t("ConfigWizard.Device.SevenSegment.AdvancedOptions.Padding")}</Label>
           </div>
           <OptionComboBox
             options={paddingCharOptions}
@@ -209,7 +211,7 @@ const LedModulePanel = ({
                 onChange?.({ ...config, DisplayLedReverseDigits: !!checked })
               }
             />
-            <Label htmlFor="led-reverse-digits">Reverse digits</Label>
+            <Label htmlFor="led-reverse-digits">{t("ConfigWizard.Device.SevenSegment.AdvancedOptions.ReverseDigits")}</Label>
           </div>
         </div>
       </WizardSection>
@@ -220,32 +222,32 @@ const LedModulePanel = ({
     variant == "summary" && (
       <div className="flex grow flex-row items-center justify-between gap-2">
         <div className="flex flex-col gap-1">
-          <Label>Controller</Label>
+          <Label>{t("ConfigWizard.General.Controller")}</Label>
           {controller?.Name}
         </div>
         <div className="flex flex-col gap-1">
-          <Label>Display type</Label>
+          <Label>{t("ConfigWizard.General.DisplayType")}</Label>
           <span className="flex flex-row gap-2">
-            <DeviceIcon variant="LedModule" /> 7-Segment
+            <DeviceIcon variant="LedModule" />{t("ConfigWizard.Device.SevenSegment.Label")}
           </span>
         </div>
         <div className="flex flex-col gap-1">
-          <Label>Device</Label>
+          <Label>{t("ConfigWizard.General.Device")}</Label>
           <Badge variant="secondary">{config.Name}</Badge>
         </div>
         <div className="flex flex-col gap-1">
-          <Label>Digits</Label>
+          <Label>{t("ConfigWizard.Device.SevenSegment.Digits")}</Label>
           <Badge variant="secondary">{config.DisplayLedModuleSize}</Badge>
         </div>
         {(config.DisplayLedPadding || config.DisplayLedReverseDigits) && (
           <div className="flex flex-col gap-1">
-            <Label>Options</Label>
+            <Label>{t("ConfigWizard.General.Options")}</Label>
             <span className="flex flex-row gap-1">
               {config.DisplayLedPadding && (
-                <Badge variant="secondary">Padding</Badge>
+                <Badge variant="secondary">{t("ConfigWizard.Device.SevenSegment.AdvancedOptions.Padding")}</Badge>
               )}
               {config.DisplayLedReverseDigits && (
-                <Badge variant="secondary">Reversed</Badge>
+                <Badge variant="secondary">{t("ConfigWizard.Device.SevenSegment.AdvancedOptions.ReverseDigits")}</Badge>
               )}
             </span>
           </div>

@@ -23,7 +23,7 @@ const OutputActionBindingCard = ({
   onAddAnalogAction,
   onRemoveOutputDevice,
 }: OutputActionBindingCardProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
 
   // an input action is shown by its own ActionBindingPanel instead of this card
   const hasOutputDevice = config.Device != null
@@ -43,7 +43,7 @@ const OutputActionBindingCard = ({
             <Button size={"sm"} variant="ghost" onClick={onRemoveOutputDevice}>
               <IconTrash />
               <span className="sr-only">
-                {t(`Dialog.ConfigWizard.Output.InputAction.Remove`)}
+                {t(`ConfigWizard.Output.InputAction.Remove`)}
               </span>
             </Button>
           )}
@@ -65,15 +65,15 @@ const OutputActionBindingCard = ({
             {/* Add your display binding controls here */}
             <Button size={"sm"} variant="outline" onClick={onAddOutputDevice}>
               <IconPlus />
-              Output device
+              {t("ConfigWizard.Output.OutputDevice")}
             </Button>
             <Button size={"sm"} variant="outline" onClick={onAddButtonAction}>
               <IconPlus />
-              {t("Dialog.ConfigWizard.Output.InputAction.Button")}
+              {t("ConfigWizard.Output.InputAction.Button")}
             </Button>
             <Button size={"sm"} variant="outline" onClick={onAddAnalogAction}>
               <IconPlus />
-              {t("Dialog.ConfigWizard.Output.InputAction.Analog")}
+              {t("ConfigWizard.Output.InputAction.Analog")}
             </Button>
           </div>
         )}

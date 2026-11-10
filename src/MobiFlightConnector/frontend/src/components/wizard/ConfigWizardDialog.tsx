@@ -46,7 +46,7 @@ const resetTriggersBasedOnDeviceType = (
 }
 
 const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const navigate = useNavigate()
   const location = useLocation()
   const { project, activeConfigFileIndex } = useProjectStore()
@@ -124,7 +124,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
 
   const isOutputConfig = draftConfigItem?.Type === "OutputConfigItem"
   const i18nPrefix = isOutputConfig
-    ? "Dialog.ConfigWizard.Output"
+    ? "ConfigWizard.Output"
     : "Dialog.InputConfigWizard"
 
   return (

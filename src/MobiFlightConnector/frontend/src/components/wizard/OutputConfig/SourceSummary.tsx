@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { IconEdit, IconTrash } from "@tabler/icons-react"
 import { msfsSourceAdapter, xplaneSourceAdapter } from "@/types/presets"
 import XplanePresetPanel from "@/components/wizard/common/XplanePresetPanel"
+import { useTranslation } from "react-i18next"
 
 export interface SourceSummaryProps {
   source: Source
@@ -15,13 +16,14 @@ export interface SourceSummaryProps {
 }
 
 const SourceSummary = ({ source, onEdit, onRemove }: SourceSummaryProps) => {
+  const { t } = useTranslation("wizard")
   return (
     <div
       className="group hover:bg-accent/30 flex flex-row items-center justify-between gap-4 rounded-md p-2"
       onDoubleClick={onEdit}
     >
       <div className="flex flex-col gap-1">
-        <Label>Source</Label>
+        <Label>{t("ConfigWizard.Source.Label")}</Label>
         <Badge variant={"outline"} className="w-fit">
           {source.Type}
         </Badge>
@@ -78,7 +80,7 @@ const SourceSummary = ({ source, onEdit, onRemove }: SourceSummaryProps) => {
           onClick={onRemove}
         >
           <IconTrash />
-          <span className="sr-only">Remove</span>
+          <span className="sr-only">{t("ConfigWizard.Source.Remove")}</span>
         </Button>
         <Button
           size={"sm"}

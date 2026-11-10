@@ -66,7 +66,7 @@ const OutputDeviceEditor = ({
   onConfigChange,
 }: OutputDeviceEditorProps) => {
   // hooks
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const { controllers } = useControllerStore()
 
   const controllersWithOutputDevices = controllers.filter((controller) =>
@@ -137,8 +137,8 @@ const OutputDeviceEditor = ({
     <div className="flex flex-col gap-4" data-testid="output-device-editor">
       <WizardSection>
         <SectionHeadline
-          title={t("Dialog.ConfigWizard.Device.Title")}
-          description={t("Dialog.ConfigWizard.Device.Description")}
+          title={t("ConfigWizard.Device.Title")}
+          description={t("ConfigWizard.Device.Description")}
         />
       </WizardSection>
       <WizardSection>
@@ -247,8 +247,8 @@ const OutputDeviceEditor = ({
       {configItem.Device && (
         <ConfigWizardTestPanel
           configItem={configItem}
-          title={t("Dialog.ConfigWizard.Device.TestPanel.Title")}
-          description={t("Dialog.ConfigWizard.Device.TestPanel.Description")}
+          title={t("ConfigWizard.Device.TestPanel.Title")}
+          description={t("ConfigWizard.Device.TestPanel.Description")}
         />
       )}
     </div>

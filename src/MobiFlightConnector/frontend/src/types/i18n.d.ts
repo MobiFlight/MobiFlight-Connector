@@ -1,14 +1,11 @@
 import "i18next"
-import translation from "../../public/locales/en/translation.json"
-import wizard from "../../public/locales/en/wizard.json"
 
+// Typed translation keys are disabled for now.
+// Re-enable by adding `resources` (typeof the JSON files in public/locales/en)
+// once dynamic keys are backed by proper domain types.
 declare module "i18next" {
   interface CustomTypeOptions {
     defaultNS: "translation"
     fallbackNS: "translation"
-    resources: {
-      translation: typeof translation
-      wizard: typeof wizard
-    }
   }
 }

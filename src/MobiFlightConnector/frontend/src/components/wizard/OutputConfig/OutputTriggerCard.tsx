@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button"
+import { IconPlus } from "@tabler/icons-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { IConfigItem, OutputConfigItem } from "@/types/config"
 import { useTranslation } from "react-i18next"
@@ -16,7 +17,7 @@ const OutputTriggerCard = ({
   setConfigItem,
   navigateToDetailView,
 }: OutputTriggerCardProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
 
   const outputConfigItem = configItem as OutputConfigItem
 
@@ -37,7 +38,8 @@ const OutputTriggerCard = ({
               className="px-5"
               size="sm"
             >
-              Select value
+              <IconPlus />
+              {t("ConfigWizard.Source.Label")}
             </Button>
           </div>
         ) : (

@@ -9,6 +9,7 @@ import { Switch } from "@/components/ui/switch"
 import { Separator } from "@/components/ui/separator"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import WizardSection from "@/components/wizard/common/WizardSection"
+import { useTranslation } from "react-i18next"
 
 export interface OutputPanelProps {
   variant: "summary" | "details"
@@ -26,22 +27,24 @@ const OutputPanel = ({
   devices = [],
   onChange,
 }: OutputPanelProps) => {
+  const { t } = useTranslation("wizard")
+  
   if (variant == "summary") {
     const selectedPins = config.Pin.split("|").filter((pin) => pin !== "")
     return (
       <div className="flex grow flex-row items-center justify-between gap-2">
         <div className="flex flex-col gap-1">
-          <Label>Controller</Label>
+          <Label>{t("ConfigWizard.General.Controller")}</Label>
           {controller?.Name}
         </div>
         <div className="flex flex-col gap-1">
-          <Label>Display type</Label>
+          <Label>{t("ConfigWizard.General.DisplayType")}</Label>
           <span className="flex flex-row gap-2">
-            <DeviceIcon variant="Output" /> Output
+            <DeviceIcon variant="Output" />{t("ConfigWizard.Device.Output.Label")}
           </span>
         </div>
         <div className="flex flex-col gap-1">
-          <Label>Device</Label>
+          <Label>{t("ConfigWizard.General.Device")}</Label>
           <div className="flex flex-row gap-2">
             {selectedPins.map((pin) => (
               <Badge key={pin} variant="secondary">
@@ -52,8 +55,8 @@ const OutputPanel = ({
         </div>
         {config.PwmMode && (
           <div className="flex flex-col gap-1">
-            <Label>Options</Label>
-            <Badge variant="secondary">PWM Mode On</Badge>
+            <Label>{t("ConfigWizard.General.Options")}</Label>
+            <Badge variant="secondary">{t("ConfigWizard.Device.Output.DynamicBrightness")}</Badge>
           </div>
         )}
       </div>
@@ -85,11 +88,11 @@ const OutputPanel = ({
   return (
     <WizardSection>
       <SectionHeadline
-        title="Step 2 - Output settings"
-        description="Select one or more pins and configure the brightness."
+        title={t("ConfigWizard.Device.Output.Title")}
+        description={t("ConfigWizard.Device.Output.Description")}
       />
       <div className="flex flex-col gap-2">
-        <Label>Pins</Label>
+        <Label>{t("ConfigWizard.Device.Output.List")}</Label>
         <div className="grid grid-cols-4 gap-2">
           {pins.map((pin) => (
             <div key={pin} className="flex flex-row items-center gap-2">
@@ -106,14 +109,14 @@ const OutputPanel = ({
       <Separator />
       <div className="flex flex-row items-center justify-between gap-2">
         <div className="flex flex-col gap-1">
-          <Label htmlFor="output-pwm-mode">Dynamic brightness</Label>
+          <Label htmlFor="output-pwm-mode">{t("ConfigWizard.Device.Output.DynamicBrightness")}</Label>
           {isDimmable ? (
             <span className="text-muted-foreground text-sm">
-              output intensity is controlled by current value ($)
+              {t("ConfigWizard.Device.Output.DynamicBrighnessDescription")}
             </span>
           ) : (
             <div className="text-muted-foreground text-sm">
-              No dimmable pins available.
+              {t("ConfigWizard.Device.Output.NoDimmablePins")}
             </div>
           )}
         </div>
@@ -131,9 +134,9 @@ const OutputPanel = ({
         aria-disabled={config.PwmMode}
       >
         <div className="flex w-1/2 flex-col gap-1">
-          <Label>Static brightness ({config.Brightness})</Label>
+          <Label>{t("ConfigWizard.Device.Output.StaticBrightness")} ({config.Brightness})</Label>
           <div className="text-muted-foreground text-sm">
-            Set the static brightness for all values other than 0.
+            {t("ConfigWizard.Device.Output.StaticBrighnessDescription")}
           </div>
         </div>
         <div className="flex w-1/2">

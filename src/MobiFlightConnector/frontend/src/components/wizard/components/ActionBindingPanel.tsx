@@ -16,6 +16,7 @@ import {
 import { IconEdit, IconInfoCircle, IconPlus, IconTrash } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 export type ActionTrigger = ButtonTrigger | EncoderTrigger | AnalogTrigger
+
 export type ActionBindingPanelProps = {
   variant: "button" | "encoder" | "analog" | "none"
   trigger?: ActionTrigger
@@ -32,12 +33,19 @@ export type ActionBindingPanelProps = {
   // shows a button to remove the whole trigger, e.g. to switch to another kind
   onRemove?: () => void
 }
+
 const eventActionMap = {
   button: ["onPress", "onRelease", "onHold", "onLongRelease"],
   encoder: ["onLeft", "onRight", "onLeftFast", "onRightFast"],
   analog: ["onChange"],
   none: [],
-}
+} as const
+
+type EventActionMap = typeof eventActionMap
+type EventActionLabelKey = {
+  [V in keyof EventActionMap]: `Dialog.InputConfigWizard.${V}.Event.${EventActionMap[V][number]}.label`
+}[keyof EventActionMap]
+
 const ActionBindingPanel = ({
   variant,
   trigger,
@@ -45,7 +53,7 @@ const ActionBindingPanel = ({
   onTriggerChange,
   onRemove,
 }: ActionBindingPanelProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const events = eventActionMap[variant]
   const defaultButtonTrigger: ButtonTrigger &
     Partial<ButtonHoldOptions> &
@@ -95,7 +103,7 @@ const ActionBindingPanel = ({
             <Button size={"sm"} variant="ghost" onClick={onRemove}>
               <IconTrash />
               <span className="sr-only">
-                {t(`Dialog.ConfigWizard.Output.InputAction.Remove`)}
+                {t(`ConfigWizard.Output.InputAction.Remove`)}
               </span>
             </Button>
           )}
@@ -114,7 +122,7 @@ const ActionBindingPanel = ({
             | undefined
           const isLast = index === events.length - 1
           const eventLabel = t(
-            `Dialog.InputConfigWizard.${variant}.Event.${event}.label`,
+            `Dialog.InputConfigWizard.${variant}.Event.${event}.label` as EventActionLabelKey
           )
           return (
             action?.Type && (
@@ -186,8 +194,9 @@ const ActionBindingPanel = ({
               | Action
               | undefined
             const eventLabel = t(
-              `Dialog.InputConfigWizard.${variant}.Event.${event}.label`,
+              `Dialog.InputConfigWizard.${variant}.Event.${event}.label` as EventActionLabelKey
             )
+
             return (
               !action?.Type && (
                 <Button

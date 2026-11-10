@@ -20,7 +20,7 @@ const SourceTypeComboBox = ({
   selectedSourceType,
   setSelectedSourceType,
 }: SourceTypeProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const { project } = useProjectStore()
 
   const filteredOptions = project
@@ -30,8 +30,8 @@ const SourceTypeComboBox = ({
   return (
     <div className="flex flex-col gap-4">
       <SectionHeadline
-        title={t("Dialog.ConfigWizard.SourceType.Title")}
-        description={t("Dialog.ConfigWizard.SourceType.Description")}
+        title={t("ConfigWizard.SourceType.Title")}
+        description={t("ConfigWizard.SourceType.Description")}
       />
       <ComboBox
         data-testid="source-type-combobox"
@@ -39,7 +39,7 @@ const SourceTypeComboBox = ({
         items={filteredOptions}
         getLabel={(item) =>
           t(
-            `Dialog.ConfigWizard.SourceType.Options.${item.value}.label`
+            `ConfigWizard.SourceType.Options.${item.value}.label`
           )
         }
         getValue={(item) => item.value}

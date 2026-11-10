@@ -24,7 +24,7 @@ export interface SourceEditorProps {
   onSourceChange: (source: Source | null) => void
 }
 const SourceEditor = ({ source, onSourceChange }: SourceEditorProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const selectedSourceType = source
     ? SourceTypeOptions.find((option) => option.value === source.Type)
     : undefined
@@ -33,8 +33,8 @@ const SourceEditor = ({ source, onSourceChange }: SourceEditorProps) => {
     <div className="flex flex-col gap-4" data-testid="source-editor">
       <WizardSection>
         <SectionHeadline
-          title={t("Dialog.ConfigWizard.Source.Title")}
-          description={t("Dialog.ConfigWizard.Source.Description")}
+          title={t("ConfigWizard.Source.Title")}
+          description={t("ConfigWizard.Source.Description")}
         />
       </WizardSection>
       <WizardSection>
