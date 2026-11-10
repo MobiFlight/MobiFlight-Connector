@@ -10,16 +10,28 @@ import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import WizardSection from "@/components/wizard/common/WizardSection"
 import { useTranslation } from "react-i18next"
 
-type MessageType = { id: number; label: string; description: string }
+type MessageType = { id: number; labelKey: string; descriptionKey: string }
 
 // TODO: use the message types of the device definition provided by the backend
 const messageTypes: MessageType[] = [
-  { id: 0, label: "Set value", description: "$ will be shown on the display" },
-  { id: 1, label: "Set text", description: "$ as string will be displayed" },
+  {
+    id: 0,
+    labelKey: "ConfigWizard.Device.CustomDevice.MessageTypes.SetValue.Label",
+    descriptionKey:
+      "ConfigWizard.Device.CustomDevice.MessageTypes.SetValue.Description",
+  },
+  {
+    id: 1,
+    labelKey: "ConfigWizard.Device.CustomDevice.MessageTypes.SetText.Label",
+    descriptionKey:
+      "ConfigWizard.Device.CustomDevice.MessageTypes.SetText.Description",
+  },
   {
     id: 2,
-    label: "Clear display",
-    description: "$ = 1 will clear the display",
+    labelKey:
+      "ConfigWizard.Device.CustomDevice.MessageTypes.ClearDisplay.Label",
+    descriptionKey:
+      "ConfigWizard.Device.CustomDevice.MessageTypes.ClearDisplay.Description",
   },
 ]
 
@@ -76,7 +88,7 @@ const CustomDevicePanel = ({
             widthClass="w-56"
             align="start"
             items={messageTypes}
-            getLabel={(messageType) => messageType.label}
+            getLabel={(messageType) => t(messageType.labelKey)}
             getValue={(messageType) => `${messageType.id}`}
             isSelected={(messageType, selected) =>
               messageType.id === selected?.id
@@ -89,12 +101,14 @@ const CustomDevicePanel = ({
           />
           {selectedMessageType && (
             <div className="text-muted-foreground text-sm">
-              {selectedMessageType.description}
+              {t(selectedMessageType.descriptionKey)}
             </div>
           )}
         </div>
         <div className="flex flex-col gap-2">
-          <Label htmlFor="custom-device-value">{t("ConfigWizard.Device.CustomDevice.Value")}</Label>
+          <Label htmlFor="custom-device-value">
+            {t("ConfigWizard.Device.CustomDevice.Value")}
+          </Label>
           <Input
             id="custom-device-value"
             className="w-56"
@@ -117,7 +131,8 @@ const CustomDevicePanel = ({
         <div className="flex flex-col gap-1">
           <Label>{t("ConfigWizard.General.DisplayType")}</Label>
           <span className="flex flex-row gap-2">
-            <DeviceIcon variant="CustomDevice" /> {t("ConfigWizard.Device.CustomDevice.Label")}
+            <DeviceIcon variant="CustomDevice" />{" "}
+            {t("ConfigWizard.Device.CustomDevice.Label")}
           </span>
         </div>
         <div className="flex flex-col gap-1">

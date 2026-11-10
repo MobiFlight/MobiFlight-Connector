@@ -118,7 +118,21 @@
         "MessageType": "Message type",
         "Value": "Value",
         "Type": "Custom type",
-        "Message": "Message type"
+        "Message": "Message type",
+        "MessageTypes": {
+          "SetValue": {
+            "Label": "Set value",
+            "Description": "$ will be shown on the display"
+          },
+          "SetText": {
+            "Label": "Set text",
+            "Description": "$ as string will be displayed"
+          },
+          "ClearDisplay": {
+            "Label": "Clear display",
+            "Description": "$ = 1 will clear the display"
+          }
+        }
       }
     }
   }
