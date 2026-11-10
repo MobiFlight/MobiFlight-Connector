@@ -31,7 +31,7 @@ import { IconX } from "@tabler/icons-react"
 import { toast } from "@/components/ui/ToastWrapper"
 import { useConfigItemDragContext } from "@/lib/hooks/useConfigItemDragContext"
 import ConfigItemNoResultsDroppable from "./items/ConfigItemNoResultsDroppable"
-import { useDroppable } from "@dnd-kit/core"
+import { useDroppable } from "@dnd-kit/react"
 import { useErrorFallbackTest } from "@/lib/hooks/useErrorFallbackTest"
 import { useNavigate } from "react-router"
 import { ConfigItemTableContext } from "./ConfigItemTableContext"
@@ -87,12 +87,7 @@ export function ConfigItemTable<TValue>({
     },
   })
 
-  const { setNodeRef: setTableBodyRef } = useDroppable({
-    id: "config-item-table-body",
-    data: { type: "table" },
-  })
-
-  const { setNodeRef: setTableHeaderRef } = useDroppable({
+  const { ref: setTableHeaderRef } = useDroppable({
     id: "config-item-table-header",
     data: { type: "header" },
   })
@@ -134,11 +129,10 @@ export function ConfigItemTable<TValue>({
     (node: HTMLTableSectionElement | null) => {
       tableBodyRef.current = node
       if (node) {
-        setTableBodyRef(node)
         setTableContainerRef(node)
       }
     },
-    [setTableContainerRef, setTableBodyRef],
+    [setTableContainerRef],
   )
 
   // the useCallback hook is necessary so that playwright tests work correctly

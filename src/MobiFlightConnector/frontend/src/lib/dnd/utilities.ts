@@ -1,9 +1,8 @@
-import type { DragEndEvent } from "@dnd-kit/core"
 import type { IConfigItem } from "@/types"
 import type { DragState } from "@/components/providers/DragDropProvider"
 import messageExchange from "@/lib/messageExchange"
 import { CommandResortConfigItem } from "@/types/commands"
-
+import { DragOperation } from "@dnd-kit/abstract"
 /**
  * Validation result for drag end operations
  */
@@ -32,30 +31,38 @@ export interface DropConfig {
   targetConfigIndex: number
   insertionIndex: number
 }
+type DragEndEvent = {
+  operation: DragOperation
+  canceled: boolean
+}
 
 /**
  * Validates if a drag end event should be processed
  */
 export const validateDragEnd = (
   event: DragEndEvent,
-  dragState: DragState | null
+  dragState: DragState | null,
+  effectiveOverId?: string | number,
 ): DragEndValidation => {
-  const { active, over } = event
+  const { operation } = event
+
+  const activeId = operation.source?.id
+  const overId = effectiveOverId ?? operation.target?.id
 
   if (!dragState?.items || !dragState.configs) {
     return { isValid: false, reason: "Invalid drag state" }
   }
 
-  if (!active.id) {
+  if (!activeId) {
     return { isValid: false, reason: "No active item" }
   }
 
-  if (!over?.id) {
+  if (!overId) {
     return { isValid: false, reason: "Dropped outside valid zone" }
   }
 
   if (
-    active.id === over.id &&
+    activeId === overId &&
     dragState.configs.source === dragState.configs.current
   ) {
     return { isValid: false, reason: "Item dropped on itself" }
@@ -67,7 +74,12 @@ export const validateDragEnd = (
 /**
  * Calculates insertion index based on drop context
  */
-export const calculateInsertionIndex = (dropContext: DropContext): number => {
+export const calculateInsertionIndex = (
+  dropContext: DropContext,
+  isCrossConfig: boolean,
+  activeId?: string | number,
+  tableContainer?: Element | null,
+): number => {
   const {
     hoveringOverTab,
     dropOnPlaceholder,
@@ -77,31 +89,71 @@ export const calculateInsertionIndex = (dropContext: DropContext): number => {
     draggedItems,
   } = dropContext
 
-  // Special cases: tab drops and placeholder drops always go to position 0
-  if (hoveringOverTab || dropOnPlaceholder) {
+  // Dropping on tab, placeholder, or table header always inserts at index 0 (top of table)
+  if (
+    hoveringOverTab ||
+    dropOnPlaceholder ||
+    dropTargetItemId === "config-item-table-header" ||
+    itemsWithoutDragged.length === 0
+  ) {
     return 0
   }
 
-  // Empty list: insert at position 0
-  if (itemsWithoutDragged.length === 0) {
-    return 0
+  // Dropping on the table body container below rows inserts at the end of the table
+  if (dropTargetItemId === "config-item-table-body") {
+    return itemsWithoutDragged.length
   }
 
-  // Find target position in filtered list
-  const dropTargetIndex = itemsWithoutDragged.findIndex(
-    (item) => item.GUID === dropTargetItemId
+  const draggedGuid = (activeId as string) || draggedItems[0]?.GUID
+
+  // 1. If we have the table container and this is a same-config drop inside the table,
+  // the DOM order of rows in tbody (reordered dynamically by OptimisticSortingPlugin)
+  // is the exact visual ground truth of where the user positioned the row.
+  if (!isCrossConfig && tableContainer) {
+    const domRows = Array.from(tableContainer.querySelectorAll("tr[dnd-itemid]"))
+    const draggedGuids = new Set(
+      draggedItems.map((item) => item.GUID).concat(draggedGuid ? [draggedGuid] : []),
+    )
+    const firstDraggedDomIndex = domRows.findIndex((row) =>
+      draggedGuids.has(row.getAttribute("dnd-itemid") || ""),
+    )
+
+    if (firstDraggedDomIndex !== -1) {
+      let nonDraggedBefore = 0
+      for (let i = 0; i < firstDraggedDomIndex; i++) {
+        const id = domRows[i].getAttribute("dnd-itemid")
+        if (id && !draggedGuids.has(id)) {
+          nonDraggedBefore++
+        }
+      }
+      return nonDraggedBefore
+    }
+  }
+
+  const originalDraggedIndex = currentItems.findIndex(
+    (item) => item.GUID === draggedGuid,
   )
 
+  // If dropped on itself, retain original position
+  if (dropTargetItemId === draggedGuid) {
+    return originalDraggedIndex !== -1 ? originalDraggedIndex : 0
+  }
+
+  const dropTargetIndex = itemsWithoutDragged.findIndex(
+    (item) => item.GUID === dropTargetItemId,
+  )
+
+  // If target item not found in filtered list
   if (dropTargetIndex === -1) {
     return 0
   }
 
-  // Calculate based on movement direction
-  const originalDraggedIndex = currentItems.findIndex(
-    (item) => item.GUID === draggedItems[0].GUID
-  )
+  if (isCrossConfig) {
+    return dropTargetIndex 
+  }
+
   const originalTargetIndex = currentItems.findIndex(
-    (item) => item.GUID === dropTargetItemId
+    (item) => item.GUID === dropTargetItemId,
   )
 
   const movingUp = originalDraggedIndex > originalTargetIndex
@@ -118,17 +170,17 @@ export const executeDrop = (
     draggedItems: IConfigItem[],
     sourceConfigIndex: number,
     targetConfigIndex: number,
-    insertionIndex: number
-  ) => void
+    insertionIndex: number,
+  ) => void,
 ): void => {
-  const { sourceConfigIndex, targetConfigIndex, insertionIndex } = dropConfig
+  const { targetConfigIndex, insertionIndex } = dropConfig
 
   // Move items in store
   moveItemsBetweenConfigs(
     dragState.items.draggedItems,
-    sourceConfigIndex,
+    dragState.configs.current,
     targetConfigIndex,
-    insertionIndex
+    insertionIndex,
   )
 
   // Notify backend
@@ -142,7 +194,10 @@ export const executeDrop = (
     },
   } as CommandResortConfigItem)
 
-  console.log("✅ Drop complete - items positioned in config", targetConfigIndex)
+  console.log(
+    "✅ Drop complete - items positioned in config",
+    targetConfigIndex,
+  )
 }
 
 /**
@@ -151,31 +206,35 @@ export const executeDrop = (
 export const extractDropContext = (
   event: DragEndEvent,
   dragState: DragState,
-  getConfigItems: (configIndex: number) => IConfigItem[]
+  getConfigItems: (configIndex: number) => IConfigItem[],
+  effectiveOverId?: string | number,
 ): {
   dropContext: DropContext
   sourceConfigIndex: number
   targetConfigIndex: number
 } => {
-  const { over } = event
+  const { operation } = event
+  const target = operation.target
 
-  const hoveringOverTab = over?.data?.current?.type === "tab"
-  const dropOnPlaceholder = over?.data?.current?.type === "placeholder"
-  const dropTargetItemId = over!.id as string
+  const hoveringOverTab = target?.data?.type === "tab"
+  const dropOnPlaceholder = target?.data?.type === "placeholder"
+  const dropTargetItemId =
+    effectiveOverId !== undefined
+      ? String(effectiveOverId)
+      : String(target?.id ?? "")
 
-  // Determine config indices
-  const sourceConfigIndex = !hoveringOverTab
-    ? dragState.configs.current
-    : dragState.configs.source
-  const targetConfigIndex = !hoveringOverTab
-    ? dragState.configs.current
-    : dragState.ui.hoveredTabIndex
+  const sourceConfigIndex = dragState.configs.source
+  const targetConfigIndex = hoveringOverTab
+    ? ((target?.data?.index as number | undefined) ??
+      dragState.ui.hoveredTabIndex)
+    : dragState.configs.current
 
-  // Get items and filter out dragged ones
-  const currentItems = getConfigItems(sourceConfigIndex)
-  const draggedItemIds = dragState.items.draggedItems.map(item => item.GUID)
+  const currentItems = getConfigItems(targetConfigIndex)
+
+  const draggedItemIds = dragState.items.draggedItems.map((item) => item.GUID)
+
   const itemsWithoutDragged = currentItems.filter(
-    item => !draggedItemIds.includes(item.GUID)
+    (item) => !draggedItemIds.includes(item.GUID),
   )
 
   const dropContext: DropContext = {

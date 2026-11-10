@@ -13,7 +13,7 @@ const ConfigItemTableDragOverlay = (props: ConfigItemTableDragOverlayProps) => {
   return (
     <div
       className={cn(
-        "border-border bg-background relative flex items-center justify-start gap-0 rounded-sm border p-0",
+        "border-border bg-background relative flex w-full items-center justify-start gap-0 rounded-sm border p-0",
         // Add stacked effect for multiple items using pseudo-elements
         itemCount > 1 && [
           "before:bg-background before:border-border before:absolute before:inset-0 before:-z-10 before:translate-y-1 before:rounded-sm before:border",
@@ -29,17 +29,11 @@ const ConfigItemTableDragOverlay = (props: ConfigItemTableDragOverlayProps) => {
         <Badge className="px-4 text-xs">{itemCount}</Badge>
       </div>
       <span className="grow p-3 py-2 font-medium">
-        {
-          itemCount === 1 ? 
-          items[0].Name 
-          : 
-          `You are moving ${itemCount} item(s)`
-        }
+        {itemCount === 1
+          ? items[0]?.Name
+          : `You are moving ${itemCount} item(s)`}
       </span>
-      <div className="text-muted-foreground bg-muted flex w-44 items-center gap-2 p-2 lg:w-136 xl:w-152 2xl:w-1/3">
-        {/* <IconExclamationCircle className="stroke-muted-foreground/80 h-6 w-6" />
-        You can drag & drop items here in the list or move them to other profile
-        tabs. */}
+      <div className="text-muted-foreground bg-muted flex w-full items-center gap-2 p-2 lg:w-136 xl:w-152 2xl:w-1/3">
         &nbsp;
       </div>
       <div className="bg-muted hidden w-44 p-2 lg:block 2xl:w-108">&nbsp;</div>
