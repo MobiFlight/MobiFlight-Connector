@@ -35,6 +35,10 @@ namespace MobiFlight
         protected HidStream Stream;
         protected HidDevice Device;
         protected bool RequiresOutputUpdate = false;
+
+        // true while the device may show values that Stop() has to clear;
+        // starts true because a fresh device may still show stale data
+        private bool _outputsDirty = true;
         private object StateLock = new object();
         protected JoystickState State = null;
 
@@ -178,6 +182,7 @@ namespace MobiFlight
             POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}UL", Label = $"{name} (↖)", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.POV });
         }
 
+        [System.Diagnostics.Conditional("DEBUG")]
         protected void LogInputAdded(DeviceObjectInstance device, string label)
         {
             int offset = device.Offset;
@@ -484,7 +489,13 @@ namespace MobiFlight
             return UsageMap[usage];
         }
 
-        public virtual void SetOutputDeviceState(string name, byte state)
+        public void SetOutputDeviceState(string name, byte state)
+        {
+            _outputsDirty = true;
+            OnSetOutputDeviceState(name, state);
+        }
+
+        protected virtual void OnSetOutputDeviceState(string name, byte state)
         {
             foreach (var light in Lights)
             {
@@ -497,7 +508,13 @@ namespace MobiFlight
             }
         }
 
-        public virtual void SetLcdDisplay(string address, string value)
+        public void SetLcdDisplay(string address, string value)
+        {
+            _outputsDirty = true;
+            OnSetLcdDisplay(address, value);
+        }
+
+        protected virtual void OnSetLcdDisplay(string address, string value)
         {
             var display = Lights.Find(l => l.Name == address) as JoystickOutputDisplay;
             if (display == null) return;
@@ -565,7 +582,16 @@ namespace MobiFlight
             // means to show a message to an user.
         }
 
-        public virtual void Stop()
+        public void Stop()
+        {
+            // avoid flooding the device with stop commands when nothing was sent since the last stop
+            if (!_outputsDirty) return;
+            _outputsDirty = false;
+
+            OnStop();
+        }
+
+        protected virtual void OnStop()
         {
             foreach (var light in Lights)
             {

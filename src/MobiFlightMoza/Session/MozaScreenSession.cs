@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using MobiFlightMoza.Cdu;
 using MobiFlightMoza.Protocol;
 
@@ -18,6 +19,8 @@ namespace MobiFlightMoza.Session
     /// settings and MCDU channels running side by side. Still no clock, no threads, no
     /// I/O beyond <see cref="IMozaFrameSink"/> - <see cref="MozaSessionPump"/> is the only
     /// thing that reads bytes off a real port and drives this with the real clock.
+    /// Every public entry point takes <see cref="Gate"/>: the pump thread (bytes, Tick) and
+    /// the caller's thread (pages, LEDs, brightness) share the multiplexer queues and the sink.
     /// </summary>
     internal sealed class MozaScreenSession : IMozaSessionDriver
     {
@@ -36,10 +39,27 @@ namespace MobiFlightMoza.Session
         private readonly MozaTelemetryChannel TelemetryChannel;
 
         private const double ShutdownGracePeriodSeconds = 3.0;
+        // Fallback if the device does not echo the displayMode write: declare the screen ready anyway.
+        private const double DisplayModeEchoTimeoutSeconds = 2.0;
+        private const int DisplayModeSettingId = 0x18;
+        private const int DisplayBrightnessSettingId = 0x01;
+        private const byte DisplayModeMcdu = 0x01;
+
+        private readonly object Gate = new();
+        // Panel commands issued before the device init completed, latest value per target, in issue order.
+        private readonly Dictionary<int, byte[]> PendingPanelCommands = [];
+        private readonly List<int> PendingPanelOrder = [];
+        private byte? DisplayBrightnessPercent;
+        private bool DisplayBrightnessSent;
+
+        private DateTime? DisplayModeWrittenAt;
+        private bool DisplayModeConfirmed;
+        private bool ScreenReadyReached;
+        private bool ScreenReadyToRaise;
 
         private bool McduStarted;
         private bool SettingsReady;
-        private bool DisplayModeWritten;
+        public bool DisplayModeWritten;
         private bool CabinPositionResolvedFired;
         private byte? CachedDisplayMode;
         private bool CloseBegun;
@@ -55,8 +75,16 @@ namespace MobiFlightMoza.Session
 
         public MozaSessionState State { get; private set; } = MozaSessionState.Closed;
 
+        /// <summary>
+        /// True once the display accepts screen content: the device has echoed displayMode 1
+        /// (MCDU) and the 9050 MCDU channel has negotiated its capability.
+        /// </summary>
+        public bool IsScreenReady => ScreenReadyReached;
+
+        /// <summary>Raised once per session when <see cref="IsScreenReady"/> becomes true (outside the session lock).</summary>
+        public event Action ScreenReady;
         public event Action<byte> CabinPositionResolved;
-        public event Action<string> ErrorMessageCreated;
+        public event Action<string> ErrorMessageCreated;        
         // Milestone tracing through the settings/MCDU bring-up - genuinely useful for
         // partner hardware bring-up, not just a one-off debugging aid.
         public event Action<string> TraceCreated;
@@ -71,8 +99,7 @@ namespace MobiFlightMoza.Session
 
             SettingsChannel = new MozaSettingsChannel(Multiplexer);
             SettingsChannel.Ready += OnSettingsReady;
-            SettingsChannel.SettingEchoed += (settingId, data) =>
-                TraceCreated?.Invoke($"Setting 0x{settingId:X2} echoed by device: [{string.Join(",", data)}].");
+            SettingsChannel.SettingEchoed += OnSettingEchoed;
 
             TelemetryChannel = new MozaTelemetryChannel(Multiplexer);
 
@@ -81,40 +108,51 @@ namespace MobiFlightMoza.Session
             {
                 TraceCreated?.Invoke("MCDU ClientCapability received.");
                 TryEnterMcduMode();
+                TryReachScreenReady("MCDU capability received after displayMode confirmation");
             };
         }
 
         public void Start()
         {
-            State = MozaSessionState.RootHandshake;
-            Sink.Send(MozaConstants.RootHandshakeRequest);
+            lock (Gate)
+            {
+                State = MozaSessionState.RootHandshake;
+                Sink.Send(MozaConstants.RootHandshakeRequest);
+            }
         }
 
         public void OnBytesReceived(byte[] data, int count, DateTime now)
         {
-            CurrentNow = now;
-            byte[] slice = data.Length == count ? data : data[..count];
-            foreach (var message in Decoder.Feed(slice, count))
+            lock (Gate)
             {
-                Dispatch(message, now);
+                CurrentNow = now;
+                byte[] slice = data.Length == count ? data : data[..count];
+                foreach (var message in Decoder.Feed(slice, count))
+                {
+                    Dispatch(message, now);
+                }
             }
+            RaiseScreenReadyIfDue();
         }
 
         public void Tick(DateTime now)
         {
-            CurrentNow = now;
-            if (State != MozaSessionState.Running) return;
-
-            Multiplexer.Tick(now);
-            SettingsChannel.Tick(now);
-
-            if (!ShuttingDown) return;
-
-            if (!CloseBegun)
+            lock (Gate)
             {
-                CloseBegun = true;
-                Multiplexer.BeginClose(now);
+                CurrentNow = now;
+                if (State != MozaSessionState.Running) return;
+
+                Multiplexer.Tick(now);
+                SettingsChannel.Tick(now);
+                CheckDisplayModeEchoTimeout(now);
+
+                if (ShuttingDown && !CloseBegun)
+                {
+                    CloseBegun = true;
+                    Multiplexer.BeginClose(now);
+                }
             }
+            RaiseScreenReadyIfDue();
         }
 
         // Forwards unconditionally - MozaMcduChannel already holds a page submitted before
@@ -122,17 +160,64 @@ namespace MobiFlightMoza.Session
         // submitted before the MCDU connection even exists isn't lost either.
         public void SubmitPage(CduPage page)
         {
-            McduChannel.SubmitPage(page);
+            lock (Gate)
+            {
+                McduChannel.SubmitPage(page);
+            }
         }
 
-        public void ForceResend() => McduChannel.ForceResend();
+        public void ForceResend()
+        {
+            lock (Gate)
+            {
+                McduChannel.ForceResend();
+            }
+        }
+
+        /// <summary>
+        /// Sends a plain panel command (LED, lighting group brightness / mode) to the control
+        /// MCU. Before the device init has completed only the latest command per target is kept
+        /// and sent as soon as the session is running.
+        /// </summary>
+        public void SendPanelCommand(byte[] payload)
+        {
+            lock (Gate)
+            {
+                if (State == MozaSessionState.Running)
+                {
+                    Sink.Send(MozaPanelCommand.Encode(payload));
+                    return;
+                }
+                int key = MozaPanelCommand.TargetKey(payload);
+                if (!PendingPanelCommands.ContainsKey(key)) PendingPanelOrder.Add(key);
+                PendingPanelCommands[key] = payload;
+            }
+        }
+
+        /// <summary>
+        /// Sets the display backlight via 9020 setting 0x01 (percent), the value MOZA Cockpit
+        /// writes for its Display brightness slider. Applied once the settings channel is ready
+        /// if the session is not there yet.
+        /// </summary>
+        public void SetDisplayBrightness(byte percent)
+        {
+            lock (Gate)
+            {
+                DisplayBrightnessPercent = Math.Min(percent, (byte)100);
+                DisplayBrightnessSent = false;
+                TrySendDisplayBrightness();
+            }
+        }
 
         // Callable from any thread: only sets fields. Tick (pump thread) does the actual
-        // work once it observes ShuttingDown, keeping every real mutation single-threaded.
+        // work once it observes ShuttingDown.
         public void BeginShutdown(DateTime now)
         {
-            ShutdownDeadline = now.AddSeconds(ShutdownGracePeriodSeconds);
-            ShuttingDown = true; // written last: the volatile write publishes ShutdownDeadline too
+            lock (Gate)
+            {
+                ShutdownDeadline = now.AddSeconds(ShutdownGracePeriodSeconds);
+                ShuttingDown = true;
+            }
         }
 
         public bool IsShutdownComplete
@@ -167,6 +252,7 @@ namespace MobiFlightMoza.Session
                     // without) a separate reply to the init command.
                     if (message.DevicePair != MozaConstants.DevicePairFromDevice) return;
                     State = MozaSessionState.Running;
+                    FlushPendingPanelCommands();
                     DispatchRunning(message, now);
                     return;
 
@@ -221,7 +307,66 @@ namespace MobiFlightMoza.Session
             CachedDisplayMode = SettingsChannel.DisplayMode;
             SettingsReady = true;
             TraceCreated?.Invoke($"Settings channel ready. Cached displayMode={CachedDisplayMode?.ToString() ?? "(none reported)"}, cabinPosition={SettingsChannel.CabinPosition?.ToString() ?? "(none reported)"}.");
+            TrySendDisplayBrightness();
             TryEnterMcduMode();
+        }
+
+        private void OnSettingEchoed(int settingId, byte[] data)
+        {
+            TraceCreated?.Invoke($"Setting 0x{settingId:X2} echoed by device: [{string.Join(",", data)}].");
+            // The forced 0 -> 1 transition is echoed twice; only the final MCDU value counts.
+            if (DisplayModeWrittenAt.HasValue && settingId == DisplayModeSettingId && data.Length > 0 && data[0] == DisplayModeMcdu)
+            {
+                DisplayModeConfirmed = true;
+                TryReachScreenReady("displayMode 1 echoed by device");
+            }
+        }
+
+        private void CheckDisplayModeEchoTimeout(DateTime now)
+        {
+            if (ScreenReadyReached || DisplayModeConfirmed || !DisplayModeWrittenAt.HasValue) return;
+            if ((now - DisplayModeWrittenAt.Value).TotalSeconds < DisplayModeEchoTimeoutSeconds) return;
+            DisplayModeConfirmed = true;
+            TryReachScreenReady($"no displayMode echo within {DisplayModeEchoTimeoutSeconds} s, assuming MCDU mode");
+        }
+
+        private void TryReachScreenReady(string reason)
+        {
+            if (ScreenReadyReached || !DisplayModeConfirmed || !McduChannel.Capability.HasValue) return;
+            ScreenReadyReached = true;
+            ScreenReadyToRaise = true;
+            TraceCreated?.Invoke($"Screen ready ({reason}).");
+            // Pages sent before the mode switch may have been rendered in the old mode - repaint.
+            McduChannel.ForceResend();
+        }
+
+        // Called without holding Gate, so a handler may call back into the session (e.g. submit a page).
+        private void RaiseScreenReadyIfDue()
+        {
+            bool raise;
+            lock (Gate)
+            {
+                raise = ScreenReadyToRaise;
+                ScreenReadyToRaise = false;
+            }
+            if (raise) ScreenReady?.Invoke();
+        }
+
+        private void FlushPendingPanelCommands()
+        {
+            foreach (int key in PendingPanelOrder)
+            {
+                Sink.Send(MozaPanelCommand.Encode(PendingPanelCommands[key]));
+            }
+            PendingPanelOrder.Clear();
+            PendingPanelCommands.Clear();
+        }
+
+        private void TrySendDisplayBrightness()
+        {
+            if (DisplayBrightnessSent || !DisplayBrightnessPercent.HasValue || !SettingsReady) return;
+            DisplayBrightnessSent = true;
+            SettingsChannel.RequestSetting(DisplayBrightnessSettingId, [DisplayBrightnessPercent.Value, 0, 0, 0]);
         }
 
         // Entered once both settings collection and MCDU capability negotiation are done -
@@ -236,6 +381,7 @@ namespace MobiFlightMoza.Session
                 return;
             }
             DisplayModeWritten = true;
+            DisplayModeWrittenAt = CurrentNow;
             // Deliberate: forces displayMode through 0 then 1 on every connect, since a
             // same-value write gets no device echo/repaint and a prior session that exited
             // uncleanly could leave it already at 1. Intentional, load-bearing - see the

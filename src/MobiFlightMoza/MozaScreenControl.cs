@@ -20,7 +20,7 @@ namespace MobiFlightMoza
         private SerialPort Port;
         private MozaScreenSession Session;
         private readonly MozaSessionPump Pump = new();
-
+        public event Action ScreenReady;
         public event Action<byte> CabinPositionResolved;
         public event Action<string> ErrorMessageCreated;
         public event Action<string> TraceCreated;
@@ -63,6 +63,7 @@ namespace MobiFlightMoza
 
             Port = port;
             Session = new MozaScreenSession(new SerialStreamFrameSink(port));
+            Session.ScreenReady += () => ScreenReady?.Invoke();
             Session.CabinPositionResolved += value => CabinPositionResolved?.Invoke(value);
             Session.ErrorMessageCreated += message => ErrorMessageCreated?.Invoke(message);
             Session.TraceCreated += message => TraceCreated?.Invoke(message);
@@ -83,6 +84,32 @@ namespace MobiFlightMoza
         }
 
         public void ForceResend() => Session?.ForceResend();
+
+        /// <summary>Switches one annunciator LED (device index, e.g. MCDU 0 = FM1, Boeing 2 = EXEC).</summary>
+        public void SetLed(byte index, bool on)
+        {
+            Session?.SendPanelCommand(MozaPanelCommand.Led(index, on));
+        }
+
+        /// <summary>
+        /// Brightness 0..15 of a lighting group (the Cockpit slider). Only effective while the
+        /// group is in <see cref="MozaLightMode.Manual"/>.
+        /// </summary>
+        public void SetLightGroupBrightness(MozaLightGroup group, int level)
+        {
+            Session?.SendPanelCommand(MozaPanelCommand.Brightness(group, level));
+        }
+
+        public void SetLightGroupMode(MozaLightGroup group, MozaLightMode mode)
+        {
+            Session?.SendPanelCommand(MozaPanelCommand.LightMode(group, mode));
+        }
+
+        /// <summary>Display backlight in percent (0 switches the display off), as Cockpit's Display slider does.</summary>
+        public void SetDisplayBrightness(int percent)
+        {
+            Session?.SetDisplayBrightness((byte)Math.Clamp(percent, 0, 100));
+        }
 
         // Deliberately a no-op for v1: the panel simply keeps showing whatever it was last
         // told to show. Revisit if that turns out to be the wrong UX (R-STOP).
@@ -124,7 +151,15 @@ namespace MobiFlightMoza
 
             // wire is already a complete, correctly-flagged SerialLink frame by the time it
             // reaches the real port - isReply only matters one layer up, at the tunnel wrap.
-            public void Send(byte[] wire, bool isReply = false) => Port.BaseStream.Write(wire, 0, wire.Length);
+            // The session serializes its own sends; the lock keeps whole frames together even
+            // if another writer is added later.
+            public void Send(byte[] wire, bool isReply = false)
+            {
+                lock (this)
+                {
+                    Port.BaseStream.Write(wire, 0, wire.Length);
+                }
+            }
         }
     }
 }

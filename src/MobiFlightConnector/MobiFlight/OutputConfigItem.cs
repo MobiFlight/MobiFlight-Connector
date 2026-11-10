@@ -30,8 +30,9 @@ namespace MobiFlight
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public InputConfig.AnalogInputConfig AnalogInputConfig { get; set; }
 
-        public string DeviceType { get; set; }
-        public string DeviceName {  get { return Device?.Name;  } }
+        [JsonIgnore]
+        public bool HasInputAction => Controller == null && (ButtonInputConfig != null || AnalogInputConfig != null);
+
         public OutputConfigItem()
         {
             Source = new SimConnectSource();
@@ -50,8 +51,6 @@ namespace MobiFlight
             if (!base.Equals(obj)) return false;
 
             return (
-                DeviceName == item.DeviceName &&
-                DeviceType == item.DeviceType &&
                 (Source?.AreEqual(item.Source) ?? item.Source == null) &&
                 TestValue.AreEqual(item.TestValue) &&
                 Device.AreEqual(item.Device) &&
@@ -151,7 +150,7 @@ namespace MobiFlight
 
             if (reader.LocalName == "display")
             {
-                DeviceType = reader["type"];
+                var DeviceType = reader["type"];
 
                 // preserve backward compatibility
                 if (DeviceType == "Pin") DeviceType = MobiFlightOutput.TYPE;
@@ -159,6 +158,7 @@ namespace MobiFlight
 
                 Controller = SerialNumber.CreateController(reader["serial"]);
 
+                // TODO: MobiFlight*.TYPE belong to the runtime classes; the OutputConfig.* classes should own their type names.
                 if (DeviceType == MobiFlightOutput.TYPE)
                 {
                     Device = new OutputConfig.Output();
@@ -311,6 +311,13 @@ namespace MobiFlight
 
             Modifiers.WriteXml(writer);
 
+            var DeviceType = HasInputAction ? "InputAction" : Device?.Type;
+
+            // TODO: The legacy XML name "Display Module" differs from Device.Type "LedModule".
+            // The type naming needs a controller-independent cleanup; see the config dialog rewrite.
+            // Xml file saving is disabled but unit tests are still using this code path.
+            if (DeviceType == "LedModule") DeviceType = MobiFlightLedModule.TYPE;
+
             writer.WriteStartElement("display");
                 writer.WriteAttributeString("type", DeviceType);
                 writer.WriteAttributeString("serial", SerialNumber.BuildFullSerial(Controller) ?? SerialNumber.NOT_SET);
@@ -375,7 +382,6 @@ namespace MobiFlight
         {
             this.Source = config.Source?.Clone() as Source;
             
-            this.DeviceType = config.DeviceType;
             this.Controller = config.Controller?.Clone() as Controller;
 
             this.Device = config.Device?.Clone() as IDeviceConfig;
@@ -401,21 +407,6 @@ namespace MobiFlight
             return new OutputConfigItem(this) { GUID = System.Guid.NewGuid().ToString() };
         }
 
-        protected override IDeviceConfig GetDeviceConfig()
-        {
-            switch (DeviceType)
-            {
-                case MobiFlightOutput.TYPE:
-                case ArcazeLedDigit.TYPE:
-                case MobiFlightServo.TYPE:
-                case MobiFlightStepper.TYPE:
-                case MobiFlightShiftRegister.TYPE:
-                case MobiFlightLcdDisplay.TYPE:
-                case MobiFlightCustomDevice.TYPE:
-                    return Device;
-                default:
-                    return null;
-            }
-        }
+        protected override IDeviceConfig GetDeviceConfig() => Device;
     }
 }

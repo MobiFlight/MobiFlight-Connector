@@ -66,7 +66,7 @@ namespace MobiFlightMoza.Cdu
         }
 
         private static McduTextRow BuildTextRow(CduPage page, int row)
-            => new((byte)row, [new McduTextSegment(0, page.GetRowText(row))]);
+            => new((byte)row, [new McduTextSegment(0, MozaCharacterMapper.ToSupportedText(page.GetRowText(row)))]);
 
         private static McduStyleRow BuildStyleRow(CduPage page, int row)
         {

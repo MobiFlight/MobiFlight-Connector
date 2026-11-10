@@ -10,7 +10,7 @@ namespace MobiFlightMoza.Protocol
 
         // The FCD Display's composite device reports this PID on both the HID base-unit
         // interface and the CDC display interface this list is used to locate.
-        public static readonly int[] McduProductIds = [0x1305];
+        public static readonly int[] McduProductIds = [0x1305,0x1306];
 
         public static bool AreConfigured => VendorId != 0x0000 && McduProductIds.Length > 0;
     }

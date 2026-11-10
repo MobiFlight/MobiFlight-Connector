@@ -17,7 +17,7 @@ namespace MobiFlight.Joysticks.WinCtrl.Tests
             public TestableWinCtrlCdu(JoystickDefinition def, ICduWebsocketHub hub)
                 : base(null, def, WinCtrlConstants.PRODUCT_ID_MCDU_CPT, hub) { }
 
-            public override void SetLcdDisplay(string address, string value)
+            protected override void OnSetLcdDisplay(string address, string value)
             {
                 CapturedLcdValues.Add(value);
             }

@@ -63,5 +63,24 @@ namespace MobiFlight.Joysticks.Tests
 
             Assert.IsInstanceOfType(controller, typeof(Moza.MozaMcdu));
         }
+
+        [TestMethod]
+        public void CanCreate_MozaBoeingCduInstanceName_ReturnsTrue()
+        {
+            Assert.IsTrue(HidControllerFactory.CanCreate("MOZA MB7F MFCD Display"));
+        }
+
+        [TestMethod]
+        public void Create_MozaBoeingCduDefinition_ReturnsMozaMcdu()
+        {
+            var definition = new JoystickDefinition
+            {
+                InstanceName = "MOZA MB7F MFCD Display"
+            };
+
+            var controller = HidControllerFactory.Create(definition, new FakeCduWebsocketHub());
+
+            Assert.IsInstanceOfType(controller, typeof(Moza.MozaMcdu));
+        }
     }
 }

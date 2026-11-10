@@ -120,5 +120,105 @@ namespace MobiFlight.SimConnectMSFS.Tests
             // Assert
             Assert.IsTrue(result);
         }
+
+        #region UserCfg.opt parsing
+
+        private string WriteUserCfg(params string[] lines)
+        {
+            var userCfg = Path.Combine(testDirectory, "UserCfg.opt");
+            File.WriteAllLines(userCfg, lines);
+            return userCfg;
+        }
+
+        [TestMethod()]
+        public void ReadInstalledPackagesPath_ShouldReturnPathWithoutQuotes()
+        {
+            // Arrange
+            var userCfg = WriteUserCfg(
+                "{",
+                "InstalledPackagesPath \"D:\\MSFS\"",
+                "}");
+
+            // Act
+            var result = WasmModuleUpdater.ReadInstalledPackagesPath(userCfg);
+
+            // Assert
+            Assert.AreEqual(@"D:\MSFS", result);
+        }
+
+        [TestMethod()]
+        public void ReadInstalledPackagesPath_ShouldIgnoreNextBootEntry()
+        {
+            // Arrange
+            var userCfg = WriteUserCfg(
+                "InstalledPackagesPathNextBoot \"E:\\Other\"",
+                "InstalledPackagesPath \"D:\\MSFS\"");
+
+            // Act
+            var result = WasmModuleUpdater.ReadInstalledPackagesPath(userCfg);
+
+            // Assert
+            Assert.AreEqual(@"D:\MSFS", result);
+        }
+
+        [TestMethod()]
+        public void ReadInstalledPackagesPath_ShouldHandleIndentedEntry()
+        {
+            // Arrange
+            var userCfg = WriteUserCfg("    InstalledPackagesPath \"D:\\MSFS\"");
+
+            // Act
+            var result = WasmModuleUpdater.ReadInstalledPackagesPath(userCfg);
+
+            // Assert
+            Assert.AreEqual(@"D:\MSFS", result);
+        }
+
+        [TestMethod()]
+        public void ReadInstalledPackagesPath_ShouldReturnNull_WhenEntryIsMissing()
+        {
+            // Arrange
+            var userCfg = WriteUserCfg("{", "Something \"else\"", "}");
+
+            // Act
+            var result = WasmModuleUpdater.ReadInstalledPackagesPath(userCfg);
+
+            // Assert
+            Assert.IsNull(result);
+        }
+
+        [TestMethod()]
+        [DataRow("InstalledPackagesPath")]
+        [DataRow("InstalledPackagesPath ")]
+        [DataRow("InstalledPackagesPath \"\"")]
+        public void ReadInstalledPackagesPath_ShouldReturnNull_WhenValueIsEmpty(string line)
+        {
+            // Arrange
+            var userCfg = WriteUserCfg(line);
+
+            // Act
+            var result = WasmModuleUpdater.ReadInstalledPackagesPath(userCfg);
+
+            // Assert
+            Assert.IsNull(result);
+        }
+
+        [TestMethod()]
+        public void ReadInstalledPackagesPath_ShouldNotKeepFileLocked()
+        {
+            // Arrange
+            var userCfg = WriteUserCfg("Something \"else\"");
+
+            // Act
+            WasmModuleUpdater.ReadInstalledPackagesPath(userCfg);
+
+            // Assert
+            using (new FileStream(userCfg, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+            {
+                // opening exclusively succeeds only if the reader was disposed
+            }
+        }
+
+        #endregion
     }
 }
