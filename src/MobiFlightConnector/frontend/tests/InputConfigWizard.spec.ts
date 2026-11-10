@@ -4108,7 +4108,7 @@ test.describe("Input Config Wizard - Variable Input Action Panel", () => {
     await expect(variableTypeComboBox).toBeVisible()
 
     await variableTypeComboBox.click()
-    await page.getByRole("option", { name: "String" }).click()
+    await page.getByRole("option", { name: "Text" }).click()
 
     await variableNameInput.fill("TestVariable")
     await variableValueInput.fill("123")

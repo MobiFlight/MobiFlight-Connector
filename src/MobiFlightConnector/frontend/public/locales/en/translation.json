@@ -813,6 +813,10 @@
           "Description": "Define the variable that you want to use. You can either create a new one or use an existing variable.",
           "ExistingVariable": "Use existing variable",
           "VariableTypeLabel": "Type",
+          "VariableType": {
+            "Number": "Number",
+            "String": "Text"
+          },
           "VariableNameLabel": "Name",
           "VariableNamePlaceholder": "Enter variable name...",
           "ExpressionLabel": "Expression",

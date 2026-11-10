@@ -32,8 +32,18 @@ export const VariablePanel = ({
 }: VariablePanelProps) => {
   const { t } = useTranslation()
   const variableTypeOptions = [
-    { value: "number", label: "Number" },
-    { value: "string", label: "String" },
+    {
+      value: "number",
+      label: t(
+        "Dialog.InputConfigWizard.InputActions.Variable.VariableType.Number",
+      ),
+    },
+    {
+      value: "string",
+      label: t(
+        "Dialog.InputConfigWizard.InputActions.Variable.VariableType.String",
+      ),
+    },
   ]
   const { variables } = useVariableStore()
   useEffect(() => {
