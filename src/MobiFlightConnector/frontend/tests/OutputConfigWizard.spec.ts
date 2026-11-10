@@ -201,7 +201,7 @@ test.describe("General Output Config Wizard Tests", () => {
     const triggerPanel = page.getByTestId("trigger-panel")
     await removeSource(page)
     await expect(
-      triggerPanel.getByRole("button", { name: "Select value" }),
+      triggerPanel.getByRole("button", { name: "Source", exact: true }),
     ).toBeVisible()
 
     await page.keyboard.press("Escape")
@@ -258,7 +258,8 @@ test.describe("Output Config Wizard - Source Panel", () => {
 
     const triggerPanel = page.getByTestId("trigger-panel")
     const selectValueButton = triggerPanel.getByRole("button", {
-      name: "Select value",
+      name: "Source",
+      exact: true,
     })
     await expect(selectValueButton).toBeVisible()
 
@@ -295,7 +296,7 @@ test.describe("Output Config Wizard - Source Panel", () => {
     await removeSource(page)
 
     await expect(
-      triggerPanel.getByRole("button", { name: "Select value" }),
+      triggerPanel.getByRole("button", { name: "Source", exact: true }),
     ).toBeVisible()
     await expect(triggerPanel.getByText("SimConnectSource")).not.toBeVisible()
 
@@ -342,7 +343,7 @@ test.describe("Output Config Wizard - Source Panel", () => {
         )
         await page
           .getByTestId("trigger-panel")
-          .getByRole("button", { name: "Select value" })
+          .getByRole("button", { name: "Source", exact: true })
           .click()
 
         await page.getByTestId("source-type-combobox").click()
@@ -440,7 +441,7 @@ test.describe("Output Config Wizard - Source Panel", () => {
     await createEmptyOutputConfigAndOpenWizard(configListPage, page)
     await page
       .getByTestId("trigger-panel")
-      .getByRole("button", { name: "Select value" })
+      .getByRole("button", { name: "Source", exact: true })
       .click()
 
     const sourceEditor = page.getByTestId("source-editor")
@@ -496,7 +497,7 @@ test.describe("Output Config Wizard - Source Panel", () => {
     await expect(
       page
         .getByTestId("trigger-panel")
-        .getByRole("button", { name: "Select value" }),
+        .getByRole("button", { name: "Source", exact: true }),
     ).toBeVisible()
   })
 })
@@ -597,8 +598,8 @@ test.describe("Output Config Wizard - Output Device Panel", () => {
         "Output",
         "Servo",
         "Stepper",
-        "LcdDisplay",
-        "LedModule",
+        "LCD Display",
+        "7-Segment Display",
       ])
       await page.keyboard.press("Escape")
     })
@@ -662,7 +663,7 @@ test.describe("Output Config Wizard - Output Device Panel", () => {
       await expect(actionPanel.getByText("ProtoBoard-v2")).toBeVisible()
       await expect(actionPanel.getByText("LED 1", { exact: true })).toBeVisible()
       await expect(actionPanel.getByText("LED 2", { exact: true })).toBeVisible()
-      await expect(actionPanel.getByText("PWM Mode On")).toBeVisible()
+      await expect(actionPanel.getByText("Dynamic brightness", { exact: true })).toBeVisible()
     })
 
     const payload = await applyChangesAndReturnPayload(configListPage, page)

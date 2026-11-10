@@ -1,8 +1,7 @@
-import ComboBox from "@/components/ComboBox"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import WizardSection from "@/components/wizard/common/WizardSection"
-import { ControllerComboBox } from "@/components/wizard/components/ConfigTrigger"
 import ConfigWizardTestPanel from "@/components/wizard/components/ConfigWizardTestPanel"
+import DeviceTypeSelectionPanel from "@/components/wizard/OutputConfig/DeviceTypeSelectionPanel"
 import CustomDevicePanel from "@/components/wizard/OutputConfig/OutputDevices/CustomDevicePanel"
 import LcdDisplayPanel from "@/components/wizard/OutputConfig/OutputDevices/LcdDisplayPanel"
 import LedModulePanel from "@/components/wizard/OutputConfig/OutputDevices/LedModulePanel"
@@ -104,15 +103,14 @@ const OutputDeviceEditor = ({
     (a, b) => a.Name === b.Name,
   )
 
-  const deviceTypeOptions = [
-    ...new Set(completeDevices.map((device) => device.Type)),
-  ].map((type) => ({
-    label: type,
-    value: type,
-  }))
+  const deviceTypes = [
+    ...new Set(
+      completeDevices.filter(isOutputDevice).map((device) => device.Type),
+    ),
+  ] as OutputDeviceType[]
 
-  const selectedDeviceTypeOption = deviceTypeOptions.find(
-    (option) => option.value === configuredDevice?.Type,
+  const selectedDeviceType = deviceTypes.find(
+    (deviceType) => deviceType === configuredDevice?.Type,
   )
 
   const updateConfigItem = (
@@ -142,53 +140,36 @@ const OutputDeviceEditor = ({
         />
       </WizardSection>
       <WizardSection>
-        <SectionHeadline
-          title="Step 1 - Display type"
-          description="Select the type of device you want to configure."
-        />
-        <div className="flex flex-row items-center gap-4">
-          <div className="flex flex-col gap-2">
-            <ControllerComboBox
-              completeControllers={completeControllers}
-              selectedController={configItem.Controller}
-              onChange={(controller) => {
-                updateConfigItem(controller, undefined)
-              }}
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <ComboBox
-              items={deviceTypeOptions}
-              getLabel={(item) => item.label}
-              getValue={(item) => item.value}
-              selected={selectedDeviceTypeOption}
-              isSelected={(item, selected) =>
-                selected ? item.value === selected.value : false
-              }
-              setSelected={(item) => {
-                // deselecting the current device type clears the device
-                if (!item) {
-                  updateConfigItem(configItem.Controller, undefined)
-                  return
-                }
+        <DeviceTypeSelectionPanel
+          controllers={completeControllers}
+          selectedController={configItem.Controller}
+          onControllerChange={(controller) => {
+            updateConfigItem(controller, undefined)
+          }}
+          deviceTypes={deviceTypes}
+          selectedDeviceType={selectedDeviceType}
+          onDeviceTypeChange={(deviceType) => {
+            // deselecting the current device type clears the device
+            if (!deviceType) {
+              updateConfigItem(configItem.Controller, undefined)
+              return
+            }
 
-                const first = completeDevices.find(
-                  (device) => device.Type === item?.value,
+            const first = completeDevices.find(
+              (device) => device.Type === deviceType,
+            )
+            const isSameDeviceType = first?.Type === configItem.Device?.Type
+
+            const device = isSameDeviceType
+              ? ({ ...configItem.Device, ...first } as OutputDeviceConfig)
+              : OutputDeviceConfigDefaults.createByType(
+                  deviceType,
+                  first?.Name ?? "",
+                  first?.Capabilities ?? undefined,
                 )
-                const isSameDeviceType = first?.Type === configItem.Device?.Type
-
-                const device = isSameDeviceType
-                  ? ({ ...configItem.Device, ...first } as OutputDeviceConfig)
-                  : OutputDeviceConfigDefaults.createByType(
-                      first?.Type as OutputDeviceType,
-                      first?.Name ?? "",
-                      first?.Capabilities ?? undefined,
-                    )
-                updateConfigItem(configItem.Controller, device)
-              }}
-            />
-          </div>
-        </div>
+            updateConfigItem(configItem.Controller, device)
+          }}
+        />
       </WizardSection>
       {configItem.Device && configItem.Device.Type === "Output" && (
         <OutputPanel

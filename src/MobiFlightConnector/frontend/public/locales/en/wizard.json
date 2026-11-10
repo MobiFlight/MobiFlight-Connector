@@ -6,6 +6,10 @@
       "Device": "Device",
       "Options": "Options"
     },
+    "TestPanel": {
+      "RawValuePlaceholder": "Enter raw value",
+      "ModifierCount": "{{count}} modifiers"
+    },
     "Output": {
       "Title": "Edit output configuration",
       "Description": "Edit all settings for your output configuration in this dialog.",
@@ -31,6 +35,19 @@
         "ProSimSource": { "label": "ProSim" },
         "VariableSource": { "label": "MobiFlight - Variable" },
         "FsuipcSource": { "label": "FSUIPC" }
+      }
+    },
+    "DeviceType": {
+      "Title": "Step 1 - Display type",
+      "Description": "Select the type of device you want to configure.",
+      "Options": {
+        "Output": { "label": "Output" },
+        "LedModule": { "label": "7-Segment Display" },
+        "LcdDisplay": { "label": "LCD Display" },
+        "Servo": { "label": "Servo" },
+        "Stepper": { "label": "Stepper" },
+        "ShiftRegister": { "label": "Output Shift Register" },
+        "CustomDevice": { "label": "Custom Device" }
       }
     },
     "Device": {
@@ -63,10 +80,10 @@
         "Label": "Output",
         "List": "List of available outputs",
         "DynamicBrightness": "Dynamic brightness",
-        "DynamicBrighnessDescription": "Dynamic brightness is controlled by current value ($)",
+        "DynamicBrightnessDescription": "Dynamic brightness is controlled by current value ($)",
         "NoDimmablePins": "No dimmable pins available.",
         "StaticBrightness": "Static brightness",
-        "StaticBrighnessDescription": "Set the static brightness for all values other than 0."
+        "StaticBrightnessDescription": "Set the static brightness for all values other than 0."
       },
       "SevenSegment": {
         "Title": "Step 2 - 7-Segment settings",

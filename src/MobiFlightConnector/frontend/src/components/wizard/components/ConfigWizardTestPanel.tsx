@@ -40,7 +40,7 @@ const ConfigWizardTestPanel = ({
   title,
   description,
 }: ConfigWizardTestPanelProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const { publish } = messageExchange
   const [testValue, setTestValue] = useState(() =>
     toText(configItem?.TestValue),
@@ -105,7 +105,7 @@ const ConfigWizardTestPanel = ({
         <div className="flex flex-col gap-1">
           <Label>{t("ConfigList.Header.RawValue")}</Label>
           <Input
-            placeholder="Enter raw value"
+            placeholder={t("ConfigWizard.TestPanel.RawValuePlaceholder")}
             value={testValue}
             onChange={handleValueChange}
             className="max-w-16"
@@ -141,7 +141,9 @@ const ConfigWizardTestPanel = ({
         </div>
         <div className="mt-1 mb-1 h-3 flex-1 border-t border-dashed border-gray-800"></div>
         <Badge variant="secondary" className="h-8">
-          {`${configItem?.Modifiers?.Items?.length ?? "0"} modifiers`}
+          {t("ConfigWizard.TestPanel.ModifierCount", {
+            count: configItem?.Modifiers?.Items?.length ?? 0,
+          })}
         </Badge>
         <div className="mt-1 mb-1 h-3 flex-1 border-t border-dashed border-gray-800"></div>
         <div className="flex flex-col gap-1">

@@ -112,7 +112,7 @@ const OutputPanel = ({
           <Label htmlFor="output-pwm-mode">{t("ConfigWizard.Device.Output.DynamicBrightness")}</Label>
           {isDimmable ? (
             <span className="text-muted-foreground text-sm">
-              {t("ConfigWizard.Device.Output.DynamicBrighnessDescription")}
+              {t("ConfigWizard.Device.Output.DynamicBrightnessDescription")}
             </span>
           ) : (
             <div className="text-muted-foreground text-sm">
@@ -136,7 +136,7 @@ const OutputPanel = ({
         <div className="flex w-1/2 flex-col gap-1">
           <Label>{t("ConfigWizard.Device.Output.StaticBrightness")} ({config.Brightness})</Label>
           <div className="text-muted-foreground text-sm">
-            {t("ConfigWizard.Device.Output.StaticBrighnessDescription")}
+            {t("ConfigWizard.Device.Output.StaticBrightnessDescription")}
           </div>
         </div>
         <div className="flex w-1/2">
