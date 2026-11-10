@@ -819,6 +819,7 @@
           },
           "VariableNameLabel": "Name",
           "VariableNamePlaceholder": "Enter variable name...",
+          "DefaultName": "New Variable",
           "ExpressionLabel": "Expression",
           "ExpressionPlaceholder": "Enter expression...",
           "ExpressionNone": "none",

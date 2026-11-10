@@ -19,7 +19,6 @@ export type VariablePanelProps = {
 
 const defaultVariable = {
   TYPE: "number",
-  Name: "New Variable",
   Text: "",
   Expression: "$",
 } as MobiFlightVariable
@@ -48,9 +47,12 @@ export const VariablePanel = ({
   const { variables } = useVariableStore()
   useEffect(() => {
     if (!currentVariable) {
-      onVariableChange(defaultVariable)
+      onVariableChange({
+        ...defaultVariable,
+        Name: t("Dialog.InputConfigWizard.InputActions.Variable.DefaultName"),
+      })
     }
-  }, [onVariableChange, currentVariable])
+  }, [onVariableChange, currentVariable, t])
 
   if (!currentVariable) {
     return null
