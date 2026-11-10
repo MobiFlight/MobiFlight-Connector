@@ -9,6 +9,7 @@ import { IConfigItem } from "../src/types/config"
 
 // Rows in the config list of the default test project (row 0 is the header)
 const ROW = {
+  SevenSegment: 1, // "7-Segment"
   Stepper: 2, // "Stepper 2"
   Servo: 3, // "Servo"
   Output: 5, // "LED 1" - has config references and preconditions
@@ -992,6 +993,73 @@ test.describe("Output Config Wizard - Stepper Device", () => {
     await resetButton.click()
     await expect(deviceEditor.getByLabel("Speed")).toHaveValue("467")
     await expect(resetButton).toHaveCount(0)
+  })
+})
+
+test.describe("Output Config Wizard - 7-Segment Device", () => {
+  test("Existing 7-Segment config is displayed and saved correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await openWizardForRow(configListPage, page, ROW.SevenSegment)
+
+    const actionPanel = page.getByTestId("action-panel")
+    await test.step("Summary shows the 7-segment settings", async () => {
+      await expect(
+        actionPanel.getByText("7-Segment", { exact: true }).last(),
+      ).toBeVisible()
+      await expect(actionPanel.getByText("Padding with")).not.toBeVisible()
+      await expect(actionPanel.getByText("Reverse digits")).not.toBeVisible()
+    })
+
+    await actionPanel.getByRole("button").last().click()
+    const deviceEditor = page.getByTestId("output-device-editor")
+    await expect(deviceEditor).toBeVisible()
+
+    const paddingCheckbox = deviceEditor.getByRole("checkbox", {
+      name: "Padding with",
+    })
+    const reverseDigitsCheckbox = deviceEditor.getByRole("checkbox", {
+      name: "Reverse digits",
+    })
+
+    await test.step("Details show the 7-segment settings", async () => {
+      await expect(
+        deviceEditor.getByRole("combobox").filter({ hasText: /^7-Segment$/ }),
+      ).toBeVisible()
+      await expect(paddingCheckbox).not.toBeChecked()
+      await expect(reverseDigitsCheckbox).not.toBeChecked()
+    })
+
+    await test.step("Enable padding with space and reverse digits", async () => {
+      await paddingCheckbox.click()
+      await selectComboBoxOption(
+        page,
+        deviceEditor.getByRole("combobox").filter({ hasText: /^0$/ }),
+        "Space",
+      )
+      await reverseDigitsCheckbox.click()
+      await expect(paddingCheckbox).toBeChecked()
+      await expect(reverseDigitsCheckbox).toBeChecked()
+    })
+
+    await closeDrawer(page)
+    await expect(deviceEditor).not.toBeVisible()
+
+    await test.step("Summary shows the enabled options", async () => {
+      await expect(actionPanel.getByText("Padding with")).toBeVisible()
+      await expect(actionPanel.getByText("Reverse digits")).toBeVisible()
+    })
+
+    const payload = await applyChangesAndReturnPayload(configListPage, page)
+    expect(payload.item.Device).toMatchObject({
+      Type: "LedModule",
+      Name: "7-Segment",
+      DisplayLedAddress: "7-Segment",
+      DisplayLedPadding: true,
+      DisplayLedPaddingChar: " ",
+      DisplayLedReverseDigits: true,
+    })
   })
 })
 
