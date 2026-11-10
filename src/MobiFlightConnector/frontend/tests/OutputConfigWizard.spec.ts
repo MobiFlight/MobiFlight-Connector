@@ -634,6 +634,7 @@ test.describe("Output Config Wizard - Output Device Panel", () => {
         "Stepper",
         "LCD Display",
         "7-Segment Display",
+        "Custom Device",
       ])
       await page.keyboard.press("Escape")
     })
@@ -1112,6 +1113,70 @@ test.describe("Output Config Wizard - LCD Display Device", () => {
         "1234567890123456",
         "******Test******",
       ],
+    })
+  })
+})
+
+test.describe("Output Config Wizard - Custom Device", () => {
+  test("Newly created Custom Device config values are saved correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await createEmptyOutputConfigAndOpenWizard(configListPage, page)
+    const actionPanel = page.getByTestId("action-panel")
+    await actionPanel.getByRole("button", { name: "Output device" }).click()
+
+    const deviceEditor = page.getByTestId("output-device-editor")
+    await selectComboBoxOption(
+      page,
+      deviceEditor.getByRole("combobox").first(),
+      "ProtoBoard-v2",
+    )
+    await selectComboBoxOption(
+      page,
+      deviceEditor.getByRole("combobox").nth(1),
+      "Custom Device",
+    )
+
+    const messageTypeComboBox = deviceEditor
+      .getByRole("combobox")
+      .filter({ hasText: /^Set value$/ })
+
+    await test.step("First device and message type are selected by default", async () => {
+      await expect(
+        deviceEditor.getByRole("combobox").filter({ hasText: /^Custom 1$/ }),
+      ).toBeVisible()
+      await expect(messageTypeComboBox).toBeVisible()
+      await expect(
+        deviceEditor.getByText("$ will be shown on the display"),
+      ).toBeVisible()
+    })
+
+    await test.step("Select message type and enter value", async () => {
+      await selectComboBoxOption(page, messageTypeComboBox, "Set text")
+      await expect(
+        deviceEditor.getByText("$ as string will be displayed"),
+      ).toBeVisible()
+      await deviceEditor.getByLabel("Value").fill("$ * 2")
+    })
+
+    await closeDrawer(page)
+    await expect(deviceEditor).not.toBeVisible()
+
+    await test.step("Summary shows the selected device", async () => {
+      await expect(actionPanel.getByText("ProtoBoard-v2")).toBeVisible()
+      await expect(
+        actionPanel.getByText("Custom 1", { exact: true }),
+      ).toBeVisible()
+    })
+
+    const payload = await applyChangesAndReturnPayload(configListPage, page)
+    expect(payload.item.Device).toMatchObject({
+      Type: "CustomDevice",
+      Name: "Custom 1",
+      CustomName: "Custom 1",
+      MessageType: 1,
+      Value: "$ * 2",
     })
   })
 })
