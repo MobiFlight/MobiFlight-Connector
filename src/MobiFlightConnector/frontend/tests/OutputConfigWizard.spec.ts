@@ -642,7 +642,77 @@ test.describe("Output Config Wizard - Output Device Panel", () => {
       await page.keyboard.press("Escape")
     })
   })
+})
 
+test.describe("Output Config Wizard - Device Test Panel", () => {
+  test("Test panel starts and stops the test of the output device", async ({
+    configListPage,
+    page,
+  }) => {
+    await openWizardForRow(configListPage, page, ROW.Output)
+    const actionPanel = page.getByTestId("action-panel")
+    await actionPanel.getByRole("button").last().click()
+
+    const deviceEditor = page.getByTestId("output-device-editor")
+    await expect(
+      deviceEditor.getByText("Step - Test output device"),
+    ).toBeVisible()
+
+    await configListPage.mobiFlightPage.trackCommand("CommandConfigContextMenu")
+
+    await test.step("Start test with a custom value", async () => {
+      // the value is committed when the input loses focus
+      await deviceEditor.getByPlaceholder("Enter raw value").fill("42")
+      await deviceEditor.getByPlaceholder("Enter raw value").blur()
+      await deviceEditor.getByRole("button", { name: "Test" }).click()
+      await expect(
+        deviceEditor.getByRole("button", { name: "Stop" }),
+      ).toBeVisible()
+
+      const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+      const payload = commands?.pop()?.payload
+      expect(payload.action).toBe("testStart")
+      expect(payload.item.GUID).toBe("f79f75dd-0d45-4c91-870d-599cfc75ede1")
+      expect(payload.item.TestValue).toMatchObject({ Float64: 42 })
+    })
+
+    await test.step("Stop test", async () => {
+      await deviceEditor.getByRole("button", { name: "Stop" }).click()
+      await expect(
+        deviceEditor.getByRole("button", { name: "Test" }),
+      ).toBeVisible()
+
+      const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+      expect(commands?.pop()?.payload.action).toBe("testStop")
+    })
+  })
+
+  test("Closing the device editor stops a running test", async ({
+    configListPage,
+    page,
+  }) => {
+    await openWizardForRow(configListPage, page, ROW.Output)
+    await page.getByTestId("action-panel").getByRole("button").last().click()
+
+    const deviceEditor = page.getByTestId("output-device-editor")
+    await configListPage.mobiFlightPage.trackCommand("CommandConfigContextMenu")
+    await deviceEditor.getByRole("button", { name: "Test" }).click()
+    await expect(deviceEditor.getByRole("button", { name: "Stop" })).toBeVisible()
+
+    await closeDrawer(page)
+    await expect(deviceEditor).not.toBeVisible()
+
+    await expect
+      .poll(async () => {
+        const commands =
+          await configListPage.mobiFlightPage.getTrackedCommands()
+        return commands?.map((command) => command.payload.action)
+      })
+      .toEqual(["testStart", "testStop"])
+  })
+})
+
+test.describe("Output Config Wizard - Output Device", () => {
   test("Newly created Output device config values are saved correctly", async ({
     configListPage,
     page,
@@ -745,7 +815,9 @@ test.describe("Output Config Wizard - Output Device Panel", () => {
       deviceEditor.getByText("No dimmable pins available."),
     ).toBeVisible()
   })
+})
 
+test.describe("Output Config Wizard - Servo Device", () => {
   test("Existing Servo config is displayed and saved correctly", async ({
     configListPage,
     page,
@@ -797,72 +869,6 @@ test.describe("Output Config Wizard - Output Device Panel", () => {
       Max: "200",
       MaxRotationPercent: "50",
     })
-  })
-
-  test("Test panel starts and stops the test of the output device", async ({
-    configListPage,
-    page,
-  }) => {
-    await openWizardForRow(configListPage, page, ROW.Output)
-    const actionPanel = page.getByTestId("action-panel")
-    await actionPanel.getByRole("button").last().click()
-
-    const deviceEditor = page.getByTestId("output-device-editor")
-    await expect(
-      deviceEditor.getByText("Step - Test output device"),
-    ).toBeVisible()
-
-    await configListPage.mobiFlightPage.trackCommand("CommandConfigContextMenu")
-
-    await test.step("Start test with a custom value", async () => {
-      // the value is committed when the input loses focus
-      await deviceEditor.getByPlaceholder("Enter raw value").fill("42")
-      await deviceEditor.getByPlaceholder("Enter raw value").blur()
-      await deviceEditor.getByRole("button", { name: "Test" }).click()
-      await expect(
-        deviceEditor.getByRole("button", { name: "Stop" }),
-      ).toBeVisible()
-
-      const commands = await configListPage.mobiFlightPage.getTrackedCommands()
-      const payload = commands?.pop()?.payload
-      expect(payload.action).toBe("testStart")
-      expect(payload.item.GUID).toBe("f79f75dd-0d45-4c91-870d-599cfc75ede1")
-      expect(payload.item.TestValue).toMatchObject({ Float64: 42 })
-    })
-
-    await test.step("Stop test", async () => {
-      await deviceEditor.getByRole("button", { name: "Stop" }).click()
-      await expect(
-        deviceEditor.getByRole("button", { name: "Test" }),
-      ).toBeVisible()
-
-      const commands = await configListPage.mobiFlightPage.getTrackedCommands()
-      expect(commands?.pop()?.payload.action).toBe("testStop")
-    })
-  })
-
-  test("Closing the device editor stops a running test", async ({
-    configListPage,
-    page,
-  }) => {
-    await openWizardForRow(configListPage, page, ROW.Output)
-    await page.getByTestId("action-panel").getByRole("button").last().click()
-
-    const deviceEditor = page.getByTestId("output-device-editor")
-    await configListPage.mobiFlightPage.trackCommand("CommandConfigContextMenu")
-    await deviceEditor.getByRole("button", { name: "Test" }).click()
-    await expect(deviceEditor.getByRole("button", { name: "Stop" })).toBeVisible()
-
-    await closeDrawer(page)
-    await expect(deviceEditor).not.toBeVisible()
-
-    await expect
-      .poll(async () => {
-        const commands =
-          await configListPage.mobiFlightPage.getTrackedCommands()
-        return commands?.map((command) => command.payload.action)
-      })
-      .toEqual(["testStart", "testStop"])
   })
 })
 
