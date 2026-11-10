@@ -12,6 +12,7 @@ const ROW = {
   SevenSegment: 1, // "7-Segment"
   Stepper: 2, // "Stepper 2"
   Servo: 3, // "Servo"
+  LcdDisplay: 4, // "LCD"
   Output: 5, // "LED 1" - has config references and preconditions
   NoDevice: 7, // "New Output Config" - source, but no device
   InputAction: 15, // "Output Config With Input Action"
@@ -1059,6 +1060,58 @@ test.describe("Output Config Wizard - 7-Segment Device", () => {
       DisplayLedPadding: true,
       DisplayLedPaddingChar: " ",
       DisplayLedReverseDigits: true,
+    })
+  })
+})
+
+test.describe("Output Config Wizard - LCD Display Device", () => {
+  test("Existing LCD Display config is displayed and saved correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await openWizardForRow(configListPage, page, ROW.LcdDisplay)
+
+    const actionPanel = page.getByTestId("action-panel")
+    await test.step("Summary shows the LCD display and its line count", async () => {
+      await expect(actionPanel.getByText("LCD 1", { exact: true })).toBeVisible()
+      await expect(actionPanel.getByText("4", { exact: true })).toBeVisible()
+    })
+
+    await actionPanel.getByRole("button").last().click()
+    const deviceEditor = page.getByTestId("output-device-editor")
+    await expect(deviceEditor).toBeVisible()
+
+    // One input per display row, limited to the number of display columns
+    const lineInputs = deviceEditor.locator('input[maxlength="16"]')
+
+    await test.step("Details show one line per display row", async () => {
+      await expect(
+        deviceEditor.getByRole("combobox").filter({ hasText: /^LCD 1$/ }),
+      ).toBeVisible()
+      await expect(lineInputs).toHaveCount(4)
+      await expect(lineInputs.nth(0)).toHaveValue("1234567890123456")
+      await expect(lineInputs.nth(1)).toHaveValue("******Test******")
+    })
+
+    await test.step("Change the second line", async () => {
+      await lineInputs.nth(1).fill("Hello MobiFlight")
+      await expect(lineInputs.nth(1)).toHaveValue("Hello MobiFlight")
+    })
+
+    await closeDrawer(page)
+    await expect(deviceEditor).not.toBeVisible()
+
+    const payload = await applyChangesAndReturnPayload(configListPage, page)
+    expect(payload.item.Device).toMatchObject({
+      Type: "LcdDisplay",
+      Name: "LCD 1",
+      Address: "LCD 1",
+      Lines: [
+        "1234567890123456",
+        "Hello MobiFlight",
+        "1234567890123456",
+        "******Test******",
+      ],
     })
   })
 })
