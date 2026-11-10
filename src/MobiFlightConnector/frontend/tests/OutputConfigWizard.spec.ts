@@ -1140,7 +1140,7 @@ test.describe("Output Config Wizard - Custom Device", () => {
 
     const messageTypeComboBox = deviceEditor
       .getByRole("combobox")
-      .filter({ hasText: /^Set value$/ })
+      .filter({ hasText: /^Custom message 1$/ })
 
     await test.step("First device and message type are selected by default", async () => {
       await expect(
@@ -1148,14 +1148,14 @@ test.describe("Output Config Wizard - Custom Device", () => {
       ).toBeVisible()
       await expect(messageTypeComboBox).toBeVisible()
       await expect(
-        deviceEditor.getByText("$ will be shown on the display"),
+        deviceEditor.getByText("$ will be displayed as custom 1 value"),
       ).toBeVisible()
     })
 
     await test.step("Select message type and enter value", async () => {
-      await selectComboBoxOption(page, messageTypeComboBox, "Set text")
+      await selectComboBoxOption(page, messageTypeComboBox, "Custom message 2")
       await expect(
-        deviceEditor.getByText("$ as string will be displayed"),
+        deviceEditor.getByText("$ will be displayed as custom 2 value"),
       ).toBeVisible()
       await deviceEditor.getByLabel("Value").fill("$ * 2")
     })

@@ -10,31 +10,6 @@ import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import WizardSection from "@/components/wizard/common/WizardSection"
 import { useTranslation } from "react-i18next"
 
-type MessageType = { id: number; labelKey: string; descriptionKey: string }
-
-// TODO: use the message types of the device definition provided by the backend
-const messageTypes: MessageType[] = [
-  {
-    id: 0,
-    labelKey: "ConfigWizard.Device.CustomDevice.MessageTypes.SetValue.Label",
-    descriptionKey:
-      "ConfigWizard.Device.CustomDevice.MessageTypes.SetValue.Description",
-  },
-  {
-    id: 1,
-    labelKey: "ConfigWizard.Device.CustomDevice.MessageTypes.SetText.Label",
-    descriptionKey:
-      "ConfigWizard.Device.CustomDevice.MessageTypes.SetText.Description",
-  },
-  {
-    id: 2,
-    labelKey:
-      "ConfigWizard.Device.CustomDevice.MessageTypes.ClearDisplay.Label",
-    descriptionKey:
-      "ConfigWizard.Device.CustomDevice.MessageTypes.ClearDisplay.Description",
-  },
-]
-
 export interface CustomDevicePanelProps {
   variant: "summary" | "details"
   config: CustomDeviceConfig
@@ -53,8 +28,12 @@ const CustomDevicePanel = ({
 }: CustomDevicePanelProps) => {
   const { t } = useTranslation("wizard")
   if (variant == "details") {
+    const selectedDevice = devices.find(
+      (device) => device.Name === config.CustomName
+    )
+    const messageTypes = selectedDevice?.Capabilities?.MessageTypes ?? []
     const selectedMessageType = messageTypes.find(
-      (messageType) => messageType.id === config.MessageType,
+      (messageType) => messageType.Id === config.MessageType,
     )
 
     return (
@@ -88,20 +67,20 @@ const CustomDevicePanel = ({
             widthClass="w-56"
             align="start"
             items={messageTypes}
-            getLabel={(messageType) => t(messageType.labelKey)}
-            getValue={(messageType) => `${messageType.id}`}
+            getLabel={(messageType) => t(messageType.Label)}
+            getValue={(messageType) => `${messageType.Id}`}
             isSelected={(messageType, selected) =>
-              messageType.id === selected?.id
+              messageType.Id === selected?.Id
             }
             selected={selectedMessageType}
             setSelected={(messageType) =>
               messageType &&
-              onChange?.({ ...config, MessageType: messageType.id })
+              onChange?.({ ...config, MessageType: messageType.Id })
             }
           />
           {selectedMessageType && (
             <div className="text-muted-foreground text-sm">
-              {t(selectedMessageType.descriptionKey)}
+              {t(selectedMessageType.Description)}
             </div>
           )}
         </div>
