@@ -1,7 +1,11 @@
 import { MsfsInputAction, SimConnectSource, XplaneInputAction, XplaneSource } from "@/types/config"
-import type { PresetAdapter, XplanePreset } from "@/types/preset"
+import type {
+  MsfsPresetAdapter,
+  XplaneInputPresetAdapter,
+  XplaneOutputPresetAdapter,
+} from "@/types/preset"
 
-export const msfsInputActionAdapter: PresetAdapter<MsfsInputAction> = {
+export const msfsInputActionAdapter: MsfsPresetAdapter<MsfsInputAction> = {
   mode: "input",
   getPresetId: (action) => action.PresetId,
   getCode: (action) => action.Command,
@@ -14,7 +18,7 @@ export const msfsInputActionAdapter: PresetAdapter<MsfsInputAction> = {
   withCode: (action, code) => ({ ...action, Command: code, PresetId: "" }),
 }
 
-export const msfsSourceAdapter: PresetAdapter<SimConnectSource> = {
+export const msfsSourceAdapter: MsfsPresetAdapter<SimConnectSource> = {
   mode: "output",
   getPresetId: (source) => source.SimConnectValue?.UUID,
   getCode: (source) => source.SimConnectValue?.Value,
@@ -34,7 +38,7 @@ export const msfsSourceAdapter: PresetAdapter<SimConnectSource> = {
   }),
 }
 
-export const xplaneInputActionAdapter: PresetAdapter<XplaneInputAction> = {
+export const xplaneInputActionAdapter: XplaneInputPresetAdapter<XplaneInputAction> = {
   mode: "input",
   getPresetId: (action) => action.Path,
   getCode: (action) => action.Path,
@@ -44,14 +48,14 @@ export const xplaneInputActionAdapter: PresetAdapter<XplaneInputAction> = {
     ({
       ...action,
       Path: preset?.code ?? null,
-      InputType: (preset as XplanePreset | null)?.codeType ?? null,
+      InputType: preset?.codeType ?? null,
     }) as XplaneInputAction,
   withCode: (action, code) => ({ ...action, Path: code }),
   withCodeType: (action, codeType) => ({ ...action, InputType: codeType }),
   withValue: (action, value) => ({ ...action, Expression: value }),
 }
 
-export const xplaneSourceAdapter: PresetAdapter<XplaneSource> = {
+export const xplaneSourceAdapter: XplaneOutputPresetAdapter<XplaneSource> = {
   mode: "output",
   getPresetId: (source) => source.XplaneDataRef.Path,
   getCode: (source) => source.XplaneDataRef.Path,

@@ -2,13 +2,13 @@ import PresetPanel from "@/components/wizard/common/PresetPanel"
 import PresetSummary from "@/components/wizard/common/PresetSummary"
 import { Preset } from "@/types/preset"
 
-import type { PresetAdapter } from "@/types/preset"
+import type { MsfsPresetAdapter } from "@/types/preset"
 import { useHubHopPresets } from "@/lib/hooks/useHubHopPresets"
 import PresetDetails from "@/components/wizard/common/PresetDetails"
 
 export type MsfsPresetPanelProps<T> = {
   variant: "summary" | "details"
-  adapter: PresetAdapter<T>
+  adapter: MsfsPresetAdapter<T>
   config: T
   onConfigChange?: (config: T) => void
 }

@@ -1,4 +1,4 @@
-import { Preset, XplanePresetAdapter } from "@/types/preset"
+import { XplanePreset, XplanePresetAdapter } from "@/types/preset"
 import PresetDetails from "@/components/wizard/common/PresetDetails"
 import PresetSummary from "@/components/wizard/common/PresetSummary"
 import PresetPanel from "@/components/wizard/common/PresetPanel"
@@ -20,8 +20,9 @@ const XplanePresetPanel = <T,>({
   const { data: presets = [], isLoading } = useHubHopPresets("xplane")
   const presetId = adapter.getPresetId(config) ?? null
   const code = adapter.getCode(config) ?? null
-  const codeType = adapter.getCodeType?.(config) ?? null
-  const value = adapter.getValue?.(config) ?? null
+  const codeType = adapter.getCodeType(config) ?? null
+  const value =
+    adapter.mode === "input" ? (adapter.getValue(config) ?? null) : null
   const preset = presets.find((p) => p.code === code) ?? null
 
   if (variant === "summary") {
@@ -37,7 +38,7 @@ const XplanePresetPanel = <T,>({
         selectedPresetId={presetId ?? null}
         setSelectedPreset={(selected) =>
           onConfigChange?.(
-            adapter.withPreset(config, selected as Preset | null),
+            adapter.withPreset(config, selected as XplanePreset | null),
           )
         }
       />
@@ -53,16 +54,17 @@ const XplanePresetPanel = <T,>({
             adapter.withCode(config, code)
           )
         }
-        onCodeTypeChange={(codeType) =>
-          onConfigChange?.(
-            adapter.withCodeType?.(config, codeType) ?? config
-          )
+        onCodeTypeChange={
+          adapter.mode === "input"
+            ? (codeType) =>
+                onConfigChange?.(adapter.withCodeType(config, codeType))
+            : undefined
         }
-        onValueChange={(value) => {
-          onConfigChange?.(
-            adapter.withValue?.(config, value) ?? config
-          )
-        }}
+        onValueChange={
+          adapter.mode === "input"
+            ? (value) => onConfigChange?.(adapter.withValue(config, value))
+            : undefined
+        }
       />
     </div>
   )
