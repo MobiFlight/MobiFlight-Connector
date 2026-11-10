@@ -1,5 +1,5 @@
 import { MsfsInputAction, SimConnectSource, XplaneInputAction, XplaneSource } from "@/types/config"
-import type { PresetAdapter } from "@/types/preset"
+import type { PresetAdapter, XplanePreset } from "@/types/preset"
 
 export const msfsInputActionAdapter: PresetAdapter<MsfsInputAction> = {
   mode: "input",
@@ -39,10 +39,12 @@ export const xplaneInputActionAdapter: PresetAdapter<XplaneInputAction> = {
   getPresetId: (action) => action.Path,
   getCode: (action) => action.Path,
   getCodeType: (action) => action.InputType,
+  getValue: (action) => action.Expression,
   withPreset: (action, preset) =>
     ({
       ...action,
       Path: preset?.code ?? null,
+      InputType: (preset as XplanePreset | null)?.codeType ?? null,
     }) as XplaneInputAction,
   withCode: (action, code) => ({ ...action, Path: code }),
   withCodeType: (action, codeType) => ({ ...action, InputType: codeType }),
