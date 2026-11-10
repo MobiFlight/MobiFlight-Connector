@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next"
 import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import WizardSection from "@/components/wizard/common/WizardSection"
+import { Badge } from "@/components/ui/badge"
 
 export type VJoyInputActionPanelProps = {
   variant: "summary" | "details"
@@ -77,14 +78,14 @@ const VJoyInputActionPanel = ({
 
   if (variant === "summary") {
     return (
-      <div className="flex grow flex-row items-center justify-between gap-2">
-        <div className="flex w-1/3 flex-col gap-1">
+      <div className="flex flex-row">
+        <div className="flex w-1/2 flex-col gap-1">
           <Label>
             {t("Dialog.InputConfigWizard.InputActions.VJoy.Controller")}:
           </Label>
           <div className="text-sm">{controllerLabel}</div>
         </div>
-        <div className="flex w-1/3 flex-col gap-1">
+        <div className="flex w-1/4 flex-col gap-1">
           <Label>
             {t("Dialog.InputConfigWizard.InputActions.VJoy.Device")}:
           </Label>
@@ -96,19 +97,19 @@ const VJoyInputActionPanel = ({
           )}
         </div>
         {activeTab === "button" && (
-          <div className="flex w-1/3 flex-col gap-1">
+          <div className="flex w-1/4 flex-col gap-1">
             <Label>
               {t("Dialog.InputConfigWizard.InputActions.VJoy.ButtonStateLabel")}
             </Label>
-            <div className="text-sm">
+            <Badge variant={"secondary"} className="w-fit">
               {config?.buttonComand
                 ? t("Dialog.InputConfigWizard.InputActions.VJoy.Pressed")
                 : t("Dialog.InputConfigWizard.InputActions.VJoy.Released")}
-            </div>
+            </Badge>
           </div>
         )}
         {activeTab === "axis" && (
-          <div className="flex w-1/3 flex-col gap-1">
+          <div className="flex w-1/4 flex-col gap-1">
             <Label>
               {t("Dialog.InputConfigWizard.InputActions.VJoy.AxisValueLabel")}
             </Label>

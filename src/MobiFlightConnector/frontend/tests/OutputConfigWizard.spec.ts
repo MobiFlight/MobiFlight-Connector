@@ -116,7 +116,7 @@ const applyChangesAndReturnPayload = async (
 // The remove button of the source summary is only visible on hover
 const removeSource = async (page: Page) => {
   const triggerPanel = page.getByTestId("trigger-panel")
-  await triggerPanel.getByText("SimConnectSource").hover()
+  await triggerPanel.getByText("Microsoft Flight Simulator").hover()
   await triggerPanel.getByRole("button", { name: "Remove" }).click()
 }
 
@@ -246,7 +246,7 @@ test.describe("Output Config Wizard - Source Panel", () => {
     await openWizardForRow(configListPage, page, ROW.Output)
 
     const triggerPanel = page.getByTestId("trigger-panel")
-    await expect(triggerPanel.getByText("SimConnectSource")).toBeVisible()
+    await expect(triggerPanel.getByText("Microsoft Flight Simulator")).toBeVisible()
     await expect(
       triggerPanel.getByText("BRAKE_PARKING_INDICATOR", { exact: true }),
     ).toBeVisible()
@@ -286,7 +286,7 @@ test.describe("Output Config Wizard - Source Panel", () => {
     const sourceEditor = page.getByTestId("source-editor")
 
     await test.step("Open via double click", async () => {
-      await triggerPanel.getByText("SimConnectSource").dblclick()
+      await triggerPanel.getByText("Microsoft Flight Simulator").dblclick()
       await expect(sourceEditor).toBeVisible()
       await closeDrawer(page)
       await expect(sourceEditor).not.toBeVisible()
@@ -305,7 +305,7 @@ test.describe("Output Config Wizard - Source Panel", () => {
     await expect(
       triggerPanel.getByRole("button", { name: "Source", exact: true }),
     ).toBeVisible()
-    await expect(triggerPanel.getByText("SimConnectSource")).not.toBeVisible()
+    await expect(triggerPanel.getByText("Microsoft Flight Simulator")).not.toBeVisible()
 
     const payload = await applyChangesAndReturnPayload(configListPage, page)
     expect(payload.item.Source).toBeUndefined()
@@ -365,7 +365,7 @@ test.describe("Output Config Wizard - Source Panel", () => {
     page,
   }) => {
     await openWizardForRow(configListPage, page, ROW.Output)
-    await page.getByTestId("trigger-panel").getByText("SimConnectSource").dblclick()
+    await page.getByTestId("trigger-panel").getByText("Microsoft Flight Simulator").dblclick()
 
     const sourceEditor = page.getByTestId("source-editor")
     await expect(
@@ -428,7 +428,7 @@ test.describe("Output Config Wizard - Source Panel", () => {
     page,
   }) => {
     await openWizardForRow(configListPage, page, ROW.Output)
-    await page.getByTestId("trigger-panel").getByText("SimConnectSource").dblclick()
+    await page.getByTestId("trigger-panel").getByText("Microsoft Flight Simulator").dblclick()
 
     const sourceEditor = page.getByTestId("source-editor")
     await sourceEditor.getByRole("button", { name: "Reset filters" }).click()
@@ -498,7 +498,7 @@ test.describe("Output Config Wizard - Source Panel", () => {
     await expect(sourceEditor).not.toBeVisible()
 
     const triggerPanel = page.getByTestId("trigger-panel")
-    await expect(triggerPanel.getByText("VariableSource")).toBeVisible()
+    await expect(triggerPanel.getByText("Variable")).toBeVisible()
     await expect(triggerPanel.getByText("MyOutputVar")).toBeVisible()
 
     const payload = await applyChangesAndReturnPayload(configListPage, page)
@@ -516,7 +516,7 @@ test.describe("Output Config Wizard - Source Panel", () => {
     page,
   }) => {
     await openWizardForRow(configListPage, page, ROW.Output)
-    await page.getByTestId("trigger-panel").getByText("SimConnectSource").dblclick()
+    await page.getByTestId("trigger-panel").getByText("Microsoft Flight Simulator").dblclick()
 
     const sourceEditor = page.getByTestId("source-editor")
     // Selecting the already selected option deselects it

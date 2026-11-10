@@ -128,18 +128,12 @@ const KeyboardInputActionPanel = ({
 
   if (variant === "summary") {
     return (
-      <div className="flex grow flex-row items-center justify-between gap-8">
-        <div className="flex flex-row items-center gap-2">
-          <div className="text-sm font-medium">
-            <Label htmlFor="preset">
-              {t(
-                "Dialog.InputConfigWizard.InputActions.Keyboard.KeyComboLabel",
-              )}
-            </Label>
-            <div className="text-sm">
-              <KeyboardShortCut keys={config ?? emptyConfig} />
-            </div>
-          </div>
+      <div className="flex flex-col gap-1">
+        <Label htmlFor="preset">
+          {t("Dialog.InputConfigWizard.InputActions.Keyboard.KeyComboLabel")}
+        </Label>
+        <div className="text-sm">
+          <KeyboardShortCut keys={config ?? emptyConfig} />
         </div>
       </div>
     )

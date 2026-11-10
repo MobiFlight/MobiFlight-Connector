@@ -13,7 +13,12 @@ import {
   ButtonTrigger,
   EncoderTrigger,
 } from "@/types/config"
-import { IconEdit, IconInfoCircle, IconPlus, IconTrash } from "@tabler/icons-react"
+import {
+  IconEdit,
+  IconInfoCircle,
+  IconPlus,
+  IconTrash,
+} from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 export type ActionTrigger = ButtonTrigger | EncoderTrigger | AnalogTrigger
 
@@ -109,7 +114,7 @@ const ActionBindingPanel = ({
           )}
         </div>
         {variant === "none" && (
-          <div className="flex flex-row items-center gap-2 text-muted-foreground justify-center">
+          <div className="text-muted-foreground flex flex-row items-center justify-center gap-2">
             <IconInfoCircle className="text-primary" />
             <div className="text-muted-foreground text-sm">
               {t(`Dialog.InputConfigWizard.Action.NoTriggerDefined`)}
@@ -122,7 +127,7 @@ const ActionBindingPanel = ({
             | undefined
           const isLast = index === events.length - 1
           const eventLabel = t(
-            `Dialog.InputConfigWizard.${variant}.Event.${event}.label` as EventActionLabelKey
+            `Dialog.InputConfigWizard.${variant}.Event.${event}.label` as EventActionLabelKey,
           )
           return (
             action?.Type && (
@@ -135,13 +140,15 @@ const ActionBindingPanel = ({
                     )
                   }
                 >
-                  <div className="flex w-32 flex-col gap-1">
-                    <Label>Event</Label>
-                    <Badge className="w-fit" variant={"secondary"}>
-                      {eventLabel}
-                    </Badge>
+                  <div className="flex flex-row grow">
+                    <div className="flex w-1/4 flex-col gap-1">
+                      <Label>Event</Label>
+                      <Badge className="w-fit" variant={"secondary"}>
+                        {eventLabel}
+                      </Badge>
+                    </div>
+                    <ActionSummary action={action} />
                   </div>
-                  <ActionSummary action={action} />
                   <div className="flex w-20 flex-row justify-end pt-4">
                     <Button
                       size={"sm"}
@@ -194,7 +201,7 @@ const ActionBindingPanel = ({
               | Action
               | undefined
             const eventLabel = t(
-              `Dialog.InputConfigWizard.${variant}.Event.${event}.label` as EventActionLabelKey
+              `Dialog.InputConfigWizard.${variant}.Event.${event}.label` as EventActionLabelKey,
             )
 
             return (

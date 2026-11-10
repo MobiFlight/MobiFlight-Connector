@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next"
 import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import WizardSection from "@/components/wizard/common/WizardSection"
+import { Badge } from "@/components/ui/badge"
 
 export type FsuipcOffsetInputActionPanelProps = {
   variant: "summary" | "details"
@@ -70,37 +71,37 @@ export const FsuipcOffsetSummary = ({
         <Label htmlFor="size">
           {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.SizeLabel")}
         </Label>
-        <div className="text-sm">{config.Size.toString()}</div>
+        <Badge variant="secondary" className="w-fit">{config.Size.toString()}</Badge>
       </div>
       <div className="flex flex-col gap-1">
         <Label htmlFor="offset">
           {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.OffsetLabel")}
         </Label>
-        <div className="text-sm">
+        <Badge variant="secondary" className="w-fit">
           {config.Offset.toString(16).toUpperCase().padStart(4, "0")}
-        </div>
+        </Badge>
       </div>
       <div className="flex flex-col gap-1">
         <Label htmlFor="mask">
           {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.MaskLabel")}
         </Label>
-        <div className="text-sm">
+        <Badge variant="secondary" className="w-fit">
           {config.Mask.toString(16).toUpperCase().padStart(4, "0")}
-        </div>
+        </Badge>
       </div>
       <div className="flex flex-col gap-1">
         <Label htmlFor="bcdMode">
           {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.BcdModeLabel")}
         </Label>
-        <div id="bcdMode" className="text-sm">
+        <Badge variant="secondary" className="w-fit" id="bcdMode">
           {config.BcdMode ? "True" : "False"}
-        </div>
+        </Badge>
       </div>
       <div className="flex grow flex-col gap-1">
         <Label htmlFor="value">
           {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.ValueLabel")}
         </Label>
-        <CodeValueLabel>{value}</CodeValueLabel>
+        <CodeValueLabel>{value ?? " "}</CodeValueLabel>
       </div>
     </div>
   )

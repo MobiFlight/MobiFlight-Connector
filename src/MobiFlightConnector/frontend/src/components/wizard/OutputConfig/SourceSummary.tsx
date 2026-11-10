@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
-import { Source } from "@/types/config"
+import { ProSimInputAction, Source } from "@/types/config"
 import { FsuipcOffsetSummary } from "@/components/wizard/components/InputActions/FsuipcOffsetInputActionPanel"
 import MsfsPresetPanel from "@/components/wizard/common/MsfsPresetPanel"
 import { Badge } from "@/components/ui/badge"
@@ -8,6 +8,7 @@ import { IconEdit, IconTrash } from "@tabler/icons-react"
 import { msfsSourceAdapter, xplaneSourceAdapter } from "@/types/presets"
 import XplanePresetPanel from "@/components/wizard/common/XplanePresetPanel"
 import { useTranslation } from "react-i18next"
+import ProSimInputActionPanel from "@/components/wizard/components/InputActions/ProSimInputActionPanel"
 
 export interface SourceSummaryProps {
   source: Source
@@ -31,7 +32,7 @@ const SourceSummary = ({
       className="group hover:bg-accent/30 flex flex-row items-center justify-between gap-4 rounded-md p-2"
       onDoubleClick={onEdit}
     >
-      <div className="flex flex-row grow items-end">
+      <div className="flex grow flex-row items-end">
         <div className="flex w-1/4 flex-col gap-1">
           <Label>{t("ConfigWizard.Source.Label")}</Label>
           <Badge variant={"secondary"} className="w-fit">
@@ -46,49 +47,55 @@ const SourceSummary = ({
           </Badge>
         </div>
 
-        {source.Type === "SimConnectSource" && (
-          <MsfsPresetPanel
-            variant="summary"
-            adapter={msfsSourceAdapter}
-            config={source}
-            className="w-1/2"
-          />
-        )}
+        <div className="flex w-1/2 flex-col">
+          {source.Type === "SimConnectSource" && (
+            <MsfsPresetPanel
+              variant="summary"
+              adapter={msfsSourceAdapter}
+              config={source}
+            />
+          )}
 
-        {source.Type === "XplaneSource" && (
-          <XplanePresetPanel
-            variant="summary"
-            adapter={xplaneSourceAdapter}
-            config={source}
-          />
-        )}
+          {source.Type === "XplaneSource" && (
+            <XplanePresetPanel
+              variant="summary"
+              adapter={xplaneSourceAdapter}
+              config={source}
+            />
+          )}
 
-        {source.Type === "VariableSource" && (
-          <div className="flex grow flex-row items-center justify-between">
+          {source.Type === "VariableSource" && (
             <div className="flex flex-col gap-1">
-              <Label>Name</Label>
-              <div>
-                {source.MobiFlightVariable?.Name ?? "N/A"}{" "}
-                {source.MobiFlightVariable?.TYPE}
+              <Label htmlFor="variable">
+                {t(
+                  "Dialog.InputConfigWizard.InputActions.Variable.VariableNameLabel",
+                )}
+              </Label>
+              <div className="flex flex-row items-center gap-2">
+                <span className="text-sm">
+                  {source.MobiFlightVariable?.Name ?? "N/A"}
+                </span>
+                <Badge variant="outline">
+                  {source.MobiFlightVariable?.TYPE ?? "N/A"}
+                </Badge>
               </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {source.Type === "FsuipcSource" && (
-          <div className="flex grow flex-row items-center justify-between">
-            <FsuipcOffsetSummary config={source.FSUIPC} />
-          </div>
-        )}
-
-        {source.Type === "ProSimSource" && (
-          <div className="flex grow flex-row items-center justify-between">
-            <div className="flex flex-col gap-1">
-              <Label>Code</Label>
-              <div>{source.ProSimDataRef?.Path}</div>
+          {source.Type === "FsuipcSource" && (
+            <div className="flex grow flex-row items-center justify-between">
+              <FsuipcOffsetSummary config={source.FSUIPC} />
             </div>
-          </div>
-        )}
+          )}
+
+          {source.Type === "ProSimSource" && (
+            <ProSimInputActionPanel
+              variant="summary"
+              config={{ Path: source.ProSimDataRef?.Path ?? "" } as ProSimInputAction}
+              onConfigChange={() => {}}
+            />
+          )}
+        </div>
       </div>
 
       <div className="flex w-20 flex-row justify-end pt-4">

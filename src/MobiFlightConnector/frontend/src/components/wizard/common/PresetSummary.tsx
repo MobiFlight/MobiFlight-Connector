@@ -11,17 +11,17 @@ const PresetSummary = ({ label, code }: PresetSummaryProps) => {
   const { t } = useTranslation()
 
   return (
-    <div className="flex grow flex-row gap-2">
-      <div className="flex w-1/2 flex-col gap-1">
+    <div className="flex flex-row gap-2">
+      <div className="flex w-1/2 max-w-1/2 flex-col gap-1">
         <Label>
           {t("Dialog.InputConfigWizard.InputActions.Common.Preset.Label")}:
         </Label>
-        <div className="text-sm">
+        <div className="text-sm truncate">
           {label ??
             t("Dialog.InputConfigWizard.InputActions.Common.Preset.Custom")}
         </div>
       </div>
-      <div className="flex w-1/2 flex-col gap-1">
+      <div className="flex w-1/2 max-w-1/2 flex-col gap-1">
         <Label>
           {t("Dialog.InputConfigWizard.InputActions.Common.CodeLabel")}
         </Label>
