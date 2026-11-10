@@ -63,7 +63,12 @@
         "Label": "Stepper",
         "Reset": "Reset",
         "CompassMode": "Compass mode",
-        "Steps": "Steps"
+        "Steps": "Steps",
+        "InputRevolution": "Input revolution",
+        "OutputRevolution": "Output revolution",
+        "TestValue": "Test value",
+        "Acceleration": "Acceleration",
+        "Speed": "Speed"
       },
       "Servo": {
         "Title": "Step 2 - Servo settings",

@@ -29,20 +29,31 @@ type StepperNumberField =
 
 const numberFields: {
   field: StepperNumberField
-  label: string
+  labelKey: string
   defaultProfile?: true
   profileField?: string
 }[] = [
-  { field: "InputRev", label: "Input revolution" },
+  {
+    field: "InputRev",
+    labelKey: "ConfigWizard.Device.Stepper.InputRevolution",
+  },
   {
     field: "OutputRev",
-    label: "Output revolution",
+    labelKey: "ConfigWizard.Device.Stepper.OutputRevolution",
     defaultProfile: true,
     profileField: "StepsPerRevolution",
   },
-  { field: "TestValue", label: "Test value" },
-  { field: "Acceleration", label: "Acceleration", defaultProfile: true },
-  { field: "Speed", label: "Speed", defaultProfile: true },
+  { field: "TestValue", labelKey: "ConfigWizard.Device.Stepper.TestValue" },
+  {
+    field: "Acceleration",
+    labelKey: "ConfigWizard.Device.Stepper.Acceleration",
+    defaultProfile: true,
+  },
+  {
+    field: "Speed",
+    labelKey: "ConfigWizard.Device.Stepper.Speed",
+    defaultProfile: true,
+  },
 ]
 
 const StepperPanel = ({
@@ -75,7 +86,7 @@ const StepperPanel = ({
         </div>
         <div className="grid grid-cols-3 gap-4">
           {numberFields.map(
-            ({ field, label, defaultProfile, profileField }) => {
+            ({ field, labelKey, defaultProfile, profileField }) => {
               const profileKey = profileField ?? (field.toString() as string)
               const profileValue = (
                 currentDevice?.Capabilities?.Profile as Record<
@@ -89,7 +100,7 @@ const StepperPanel = ({
                 : false
               return (
                 <div key={field} className="flex flex-col gap-2">
-                  <Label htmlFor={`stepper-${field}`}>{label}</Label>
+                  <Label htmlFor={`stepper-${field}`}>{t(labelKey)}</Label>
                   <Input
                     id={`stepper-${field}`}
                     type="number"
@@ -125,7 +136,9 @@ const StepperPanel = ({
               onChange?.({ ...config, CompassMode: !!checked })
             }
           />
-          <Label htmlFor="stepper-compass-mode">{t("ConfigWizard.Device.Stepper.CompassMode")}</Label>
+          <Label htmlFor="stepper-compass-mode">
+            {t("ConfigWizard.Device.Stepper.CompassMode")}
+          </Label>
         </div>
       </WizardSection>
     )
@@ -141,7 +154,8 @@ const StepperPanel = ({
         <div className="flex flex-col gap-1">
           <Label>{t("ConfigWizard.General.DisplayType")}</Label>
           <span className="flex flex-row gap-2">
-            <DeviceIcon variant="Stepper" /> {t("ConfigWizard.Device.Stepper.Label")}
+            <DeviceIcon variant="Stepper" />{" "}
+            {t("ConfigWizard.Device.Stepper.Label")}
           </span>
         </div>
         <div className="flex flex-col gap-1">
@@ -157,7 +171,9 @@ const StepperPanel = ({
         {config.CompassMode && (
           <div className="flex flex-col gap-1">
             <Label>{t("ConfigWizard.General.Options")}</Label>
-            <Badge variant="secondary">{t("ConfigWizard.Device.Stepper.CompassMode")}</Badge>
+            <Badge variant="secondary">
+              {t("ConfigWizard.Device.Stepper.CompassMode")}
+            </Badge>
           </div>
         )}
       </div>
