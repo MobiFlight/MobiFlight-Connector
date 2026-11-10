@@ -105,10 +105,6 @@ namespace MobiFlight
                 ConfigIndex = ActiveConfigIndex,
                 OriginalIndex = originalIndex,
                 Guid = item.GUID,
-
-                Snapshot = action == ConfigListUndoAction.Delete
-                    ? (IConfigItem)item.Clone()
-                    : null
             };
 
             PushConfigListUndo(entry);
@@ -688,9 +684,15 @@ namespace MobiFlight
             {
                 Event = "ConfigListUndoFailed",
                 Context = new Dictionary<string, string>
-        {
-            { "Reason", reason }
-        }
+                {
+                    {
+                        "Action",
+                        entry.Action == ConfigListUndoAction.ItemUpdated
+                            ? entry.ChangeAnnotation ?? "ItemEdited"
+                            : entry.Action.ToString()
+                    },
+                    { "Reason", reason }
+                }
             });
         }
 

@@ -274,7 +274,7 @@ namespace MobiFlight.Tests
             var history = GetPublishedMessages<ConfigListUndoState>().Last();
 
             CollectionAssert.AreEqual(
-                new[] { "ItemRename" },
+                new[] { "rename" },
                 history.History
             );
 
@@ -296,7 +296,7 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod]
-        public void CommandUpdateConfigItem_Toggle_RecordsAndUndoes()
+        public void CommandConfigBulkAction_SingleToggle_RecordsAndUndoes()
         {
             // Arrange
             var original = new InputConfigItem
@@ -321,10 +321,10 @@ namespace MobiFlight.Tests
 
             // Act
             MessageExchange.Instance.Publish(
-                new CommandUpdateConfigItem
+                new CommandConfigBulkAction
                 {
-                    Item = toggledItem,
-                    Change = "toggle"
+                    Action = "toggle",
+                    Items = new List<ConfigItem> { original }
                 }
             );
 
@@ -1658,10 +1658,10 @@ namespace MobiFlight.Tests
 
             // Record a Toggle action.
             MessageExchange.Instance.Publish(
-                new CommandUpdateConfigItem
+                new CommandConfigBulkAction
                 {
-                    Item = toggledItem,
-                    Change = "toggle"
+                    Action = "toggle",
+                    Items = new List<ConfigItem> { item }
                 }
             );
 
@@ -1716,10 +1716,10 @@ namespace MobiFlight.Tests
 
             // Record a Delete operation.
             MessageExchange.Instance.Publish(
-                new CommandConfigContextMenu
+                new CommandConfigBulkAction
                 {
                     Action = "delete",
-                    Item = original
+                    Items = new List<ConfigItem> { original }
                 }
             );
 
@@ -1794,7 +1794,7 @@ namespace MobiFlight.Tests
 
             file.ConfigItems.Add(conflictingItem);
 
-            AssertRejectedUndoPreservesHistory("BulkDelete", () =>
+            AssertRejectedUndoPreservesHistory("Delete", () =>
                 {
                     // Neither item should be restored.
                     Assert.HasCount(1, file.ConfigItems);
@@ -2082,10 +2082,10 @@ namespace MobiFlight.Tests
 
             // Toggle the original ConfigItem.
             MessageExchange.Instance.Publish(
-                new CommandUpdateConfigItem
+                new CommandConfigBulkAction
                 {
-                    Item = toggledItem,
-                    Change = "toggle"
+                    Action = "toggle",
+                    Items = new List<ConfigItem> { original }
                 }
             );
 
@@ -2198,10 +2198,10 @@ namespace MobiFlight.Tests
 
             // Toggle
             MessageExchange.Instance.Publish(
-                new CommandUpdateConfigItem
+                new CommandConfigBulkAction
                 {
-                    Item = toggledItem,
-                    Change = "toggle"
+                    Action = "toggle",
+                    Items = new List<ConfigItem> { original }
                 }
             );
 
@@ -2300,10 +2300,10 @@ namespace MobiFlight.Tests
 
             // Delete the middle item.
             MessageExchange.Instance.Publish(
-                new CommandConfigContextMenu
+                new CommandConfigBulkAction
                 {
                     Action = "delete",
-                    Item = deleted
+                    Items = new List<ConfigItem> { deleted }
                 }
             );
 

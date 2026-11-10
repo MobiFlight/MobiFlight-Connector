@@ -291,12 +291,15 @@ test.describe("Config List Global Undo", () => {
         return (
           commands?.filter(
             (command) =>
-              command.key === "CommandUpdateConfigItem" &&
-              command.payload.change === "toggle",
+              command.key === "CommandConfigBulkAction" &&
+              command.payload.action === "toggle" &&
+              command.payload.items.length === 1,
           ).length ?? 0
         )
       })
       .toBe(1)
+
+    await backend.trackCommand("CommandConfigBulkAction")
 
     // Simulate the backend recording the Toggle.
     await backend.publishMessage({
