@@ -389,6 +389,7 @@
       "Cancel": "Abbrechen",
       "Close": "Schließen",
       "Save": "Speichern",
+      "Done": "Fertig",
       "SaveChanges": "Änderungen speichern",
       "ApplyChanges": "Änderungen übernehmen",
       "DiscardChanges": "Änderungen verwerfen",
@@ -486,7 +487,11 @@
         "NoModifiers": "Keine Modifikatoren definiert.",
         "DeleteModifier": "Modifikator entfernen",
         "MoveUp": "Modifikator nach oben verschieben",
-        "MoveDown": "Modifikator nach unten verschieben"
+        "MoveDown": "Modifikator nach unten verschieben",
+        "TestPanel": {
+          "Title": "Modifikatoren testen",
+          "Description": "Teste die Funktion der konfigurierten Modifikatoren."
+        }
       }
     },
     "InputConfigWizard": {
@@ -814,10 +819,16 @@
           "Description": "Definiere die Variable, die du verwenden möchtest. Du kannst entweder eine neue erstellen oder eine vorhandene Variable verwenden.",
           "ExistingVariable": "Vorhandene Variable verwenden",
           "VariableTypeLabel": "Variablentyp",
+          "VariableType": {
+            "Number": "Zahl",
+            "String": "Text"
+          },
           "VariableNameLabel": "Variablenname",
           "VariableNamePlaceholder": "Variablennamen eingeben...",
+          "DefaultName": "Neue Variable",
           "ExpressionLabel": "Ausdruck",
           "ExpressionPlaceholder": "Ausdruck eingeben...",
+          "ExpressionNone": "keiner",
           "ExpressionHelp": "Verwende <1>$</1> um den Variablenwert in Ausdrücken darzustellen, z. B. <3>$ * 2</3> um eine Zahlenvariable zu verdoppeln."
         },
         "ProSimDataRef": {

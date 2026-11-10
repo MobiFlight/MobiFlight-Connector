@@ -389,6 +389,7 @@
       "Cancel": "Cancelar",
       "Close": "Cerrar",
       "Save": "Guardar",
+      "Done": "Listo",
       "SaveChanges": "Guardar cambios",
       "ApplyChanges": "Aplicar cambios",
       "DiscardChanges": "Descartar cambios",
@@ -486,7 +487,11 @@
         "NoModifiers": "No hay modificadores definidos.",
         "DeleteModifier": "Eliminar modificador",
         "MoveUp": "Mover modificador hacia arriba",
-        "MoveDown": "Mover modificador hacia abajo"
+        "MoveDown": "Mover modificador hacia abajo",
+        "TestPanel": {
+          "Title": "Probar modificadores",
+          "Description": "Prueba el funcionamiento de los modificadores configurados."
+        }
       }
     },
     "InputConfigWizard": {
@@ -814,10 +819,16 @@
           "Description": "Define la variable que deseas usar. Puedes crear una nueva o usar una existente.",
           "ExistingVariable": "Usar variable existente",
           "VariableTypeLabel": "Tipo de variable",
+          "VariableType": {
+            "Number": "Número",
+            "String": "Texto"
+          },
           "VariableNameLabel": "Nombre de variable",
           "VariableNamePlaceholder": "Ingresar nombre de variable...",
+          "DefaultName": "Nueva variable",
           "ExpressionLabel": "Expresión",
           "ExpressionPlaceholder": "Ingresar expresión...",
+          "ExpressionNone": "ninguna",
           "ExpressionHelp": "Usa <1>$</1> para representar el valor de la variable en expresiones, p. ej. <3>$ * 2</3> para duplicar una variable numérica."
         },
         "ProSimDataRef": {
