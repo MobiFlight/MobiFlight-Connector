@@ -15,7 +15,7 @@
       { "Name": "LED 2", "Label": "LED 2", "Type": "Output", "Capabilities": { "Pwm": true } },
       { "Name": "Servo 1", "Label": "Servo 1", "Type": "Servo" },
       { "Name": "Servo 2", "Label": "Servo 2", "Type": "Servo" },
-      { "Name": "Stepper 1", "Label": "Stepper 1", "Type": "Stepper" },
+      { "Name": "Stepper 1", "Label": "Stepper 1", "Type": "Stepper", "Capabilities": { "Profile": { "id": 0, "Mode": 0, "StepsPerRevolution": 2040, "Speed": 467, "Acceleration": 800, "BacklashCompensation": 0, "Deactivate": false } } },
       { "Name": "LCD 1", "Label": "LCD 1", "Type": "LcdDisplay", "Capabilities": { "Rows": 4, "Columns": 16 } },
       { "Name": "7-Segment", "Label": "7-Segment", "Type": "LedModule", "Capabilities": { "Digits": 8 } }
     ]

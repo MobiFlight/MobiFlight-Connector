@@ -9,6 +9,7 @@ import { IConfigItem } from "../src/types/config"
 
 // Rows in the config list of the default test project (row 0 is the header)
 const ROW = {
+  Stepper: 2, // "Stepper 2"
   Servo: 3, // "Servo"
   Output: 5, // "LED 1" - has config references and preconditions
   NoDevice: 7, // "New Output Config" - source, but no device
@@ -869,6 +870,128 @@ test.describe("Output Config Wizard - Servo Device", () => {
       Max: "200",
       MaxRotationPercent: "50",
     })
+  })
+})
+
+test.describe("Output Config Wizard - Stepper Device", () => {
+  test("Existing Stepper config is displayed and saved correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await openWizardForRow(configListPage, page, ROW.Stepper)
+
+    const actionPanel = page.getByTestId("action-panel")
+    await test.step("Summary shows the stepper settings", async () => {
+      await expect(
+        actionPanel.getByText("Stepper 1", { exact: true }),
+      ).toBeVisible()
+      await expect(actionPanel.getByText("1000 / 2040")).toBeVisible()
+      await expect(actionPanel.getByText("Compass mode")).not.toBeVisible()
+    })
+
+    await actionPanel.getByRole("button").last().click()
+    const deviceEditor = page.getByTestId("output-device-editor")
+    await expect(deviceEditor).toBeVisible()
+
+    await test.step("Details show the stepper settings", async () => {
+      await expect(
+        deviceEditor.getByRole("combobox").filter({ hasText: "Stepper 1" }),
+      ).toBeVisible()
+      await expect(deviceEditor.getByLabel("Input revolution")).toHaveValue(
+        "1000",
+      )
+      await expect(deviceEditor.getByLabel("Output revolution")).toHaveValue(
+        "2040",
+      )
+      await expect(deviceEditor.getByLabel("Test value")).toHaveValue("500")
+      await expect(deviceEditor.getByLabel("Acceleration")).toHaveValue("800")
+      await expect(deviceEditor.getByLabel("Speed")).toHaveValue("467")
+      await expect(
+        deviceEditor.getByRole("switch", { name: "Compass mode" }),
+      ).not.toBeChecked()
+    })
+
+    await test.step("Change settings and enable compass mode", async () => {
+      await deviceEditor.getByLabel("Input revolution").fill("360")
+      await deviceEditor.getByLabel("Test value").fill("180")
+      await deviceEditor.getByRole("switch", { name: "Compass mode" }).click()
+    })
+
+    await closeDrawer(page)
+    await expect(deviceEditor).not.toBeVisible()
+
+    await test.step("Summary shows the changed settings", async () => {
+      await expect(actionPanel.getByText("360 / 2040")).toBeVisible()
+      await expect(actionPanel.getByText("Compass mode")).toBeVisible()
+    })
+
+    const payload = await applyChangesAndReturnPayload(configListPage, page)
+    expect(payload.item.Device).toEqual({
+      Type: "Stepper",
+      Name: "Stepper 1",
+      Address: "Stepper 1",
+      InputRev: 360,
+      OutputRev: 2040,
+      TestValue: 180,
+      Acceleration: 800,
+      Speed: 467,
+      CompassMode: true,
+    })
+  })
+
+  test("New Stepper uses the device profile as defaults", async ({
+    configListPage,
+    page,
+  }) => {
+    await createEmptyOutputConfigAndOpenWizard(configListPage, page)
+    await page
+      .getByTestId("action-panel")
+      .getByRole("button", { name: "Output device" })
+      .click()
+
+    const deviceEditor = page.getByTestId("output-device-editor")
+    await selectComboBoxOption(
+      page,
+      deviceEditor.getByRole("combobox").first(),
+      "ProtoBoard-v2",
+    )
+    await selectComboBoxOption(
+      page,
+      deviceEditor.getByRole("combobox").nth(1),
+      "Stepper",
+    )
+
+    await expect(deviceEditor.getByLabel("Input revolution")).toHaveValue(
+      "1000",
+    )
+    await expect(deviceEditor.getByLabel("Output revolution")).toHaveValue(
+      "2040",
+    )
+    await expect(deviceEditor.getByLabel("Test value")).toHaveValue("500")
+    await expect(deviceEditor.getByLabel("Acceleration")).toHaveValue("800")
+    await expect(deviceEditor.getByLabel("Speed")).toHaveValue("467")
+  })
+
+  test("Reset restores the value of the device profile", async ({
+    configListPage,
+    page,
+  }) => {
+    await openWizardForRow(configListPage, page, ROW.Stepper)
+    const actionPanel = page.getByTestId("action-panel")
+    await actionPanel.getByRole("button").last().click()
+
+    const deviceEditor = page.getByTestId("output-device-editor")
+    const resetButton = deviceEditor.getByRole("button", { name: "Reset" })
+
+    // values match the device profile
+    await expect(resetButton).toHaveCount(0)
+
+    await deviceEditor.getByLabel("Speed").fill("300")
+    await expect(resetButton).toHaveCount(1)
+
+    await resetButton.click()
+    await expect(deviceEditor.getByLabel("Speed")).toHaveValue("467")
+    await expect(resetButton).toHaveCount(0)
   })
 })
 
