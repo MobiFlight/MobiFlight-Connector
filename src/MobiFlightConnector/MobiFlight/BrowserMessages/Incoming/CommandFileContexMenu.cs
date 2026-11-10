@@ -8,7 +8,9 @@ namespace MobiFlight.BrowserMessages.Incoming
     {
         rename,
         remove,
-        export
+        export,
+        moveLeft,
+        moveRight
     }
     public class CommandFileContextMenu
     {
