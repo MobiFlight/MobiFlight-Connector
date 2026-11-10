@@ -31,6 +31,8 @@ const CustomDevicePanel = ({
     const selectedDevice = devices.find(
       (device) => device.Name === config.CustomName
     )
+    // Labels and descriptions come from the custom device definition.
+    // They are not translation keys, so never pass them through t().
     const messageTypes = selectedDevice?.Capabilities?.MessageTypes ?? []
     const selectedMessageType = messageTypes.find(
       (messageType) => messageType.Id === config.MessageType,
@@ -67,7 +69,7 @@ const CustomDevicePanel = ({
             widthClass="w-56"
             align="start"
             items={messageTypes}
-            getLabel={(messageType) => t(messageType.Label)}
+            getLabel={(messageType) => messageType.Label}
             getValue={(messageType) => `${messageType.Id}`}
             isSelected={(messageType, selected) =>
               messageType.Id === selected?.Id
@@ -80,7 +82,7 @@ const CustomDevicePanel = ({
           />
           {selectedMessageType && (
             <div className="text-muted-foreground text-sm">
-              {t(selectedMessageType.Description)}
+              {selectedMessageType.Description}
             </div>
           )}
         </div>
