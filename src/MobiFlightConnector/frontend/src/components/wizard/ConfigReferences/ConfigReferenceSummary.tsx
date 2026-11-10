@@ -2,7 +2,6 @@ import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { configReferenceVariants } from "@/components/wizard/variants"
 import { ConfigReference, IConfigItem } from "@/types/config"
-import { cn } from "@/lib/utils"
 
 type ConfigReferenceSummaryProps = {
   configReferences: ConfigReference[] // Replace with actual type of preconditions
@@ -39,28 +38,12 @@ const ConfigReferenceSummary = ({
             <div className="flex flex-row items-center" key={index}>
               <Badge
                 variant="outline"
-                className={cn(
-                  "flex flex-row px-3 py-1 pr-3",
-                  variantStyle,
-                  !configReference.Active && "opacity-45 grayscale",
-                )}
+                className={`px-3 pr-3 py-1 ${variantStyle} flex flex-row`}
                 title={label}
               >
-                <span
-                  className={cn(
-                    "text-md rounded-full font-bold",
-                    !configReference.Active && "line-through",
-                  )}
-                >
-                  {configReference.Placeholder}
-                </span>
-                <Separator
-                  orientation="vertical"
-                  className="mx-2 h-4 bg-gray-400"
-                />
-                <span className="max-w-30 truncate text-sm font-normal">
-                  {label}
-                </span>
+                <span className="text-md rounded-full font-bold">{configReference.Placeholder}</span>
+                <Separator orientation="vertical" className="mx-2 h-4 bg-gray-400" />
+                <span className="max-w-30 truncate text-sm font-normal">{label}</span>
               </Badge>
             </div>
           )
