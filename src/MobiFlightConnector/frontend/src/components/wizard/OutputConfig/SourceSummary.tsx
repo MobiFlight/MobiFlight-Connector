@@ -11,66 +11,85 @@ import { useTranslation } from "react-i18next"
 
 export interface SourceSummaryProps {
   source: Source
+  liveData: {
+    rawValue: string | null | undefined
+    finalValue: string | null | undefined
+  }
   onEdit: () => void
   onRemove: () => void
 }
 
-const SourceSummary = ({ source, onEdit, onRemove }: SourceSummaryProps) => {
+const SourceSummary = ({
+  source,
+  liveData,
+  onEdit,
+  onRemove,
+}: SourceSummaryProps) => {
   const { t } = useTranslation("wizard")
   return (
     <div
       className="group hover:bg-accent/30 flex flex-row items-center justify-between gap-4 rounded-md p-2"
       onDoubleClick={onEdit}
     >
-      <div className="flex flex-col gap-1">
-        <Label>{t("ConfigWizard.Source.Label")}</Label>
-        <Badge variant={"outline"} className="w-fit">
-          {source.Type}
-        </Badge>
-      </div>
+      <div className="flex flex-row grow items-end">
+        <div className="flex w-1/4 flex-col gap-1">
+          <Label>{t("ConfigWizard.Source.Label")}</Label>
+          <Badge variant={"secondary"} className="w-fit">
+            {t(`ConfigWizard.SourceType.Options.${source.Type}.label`)}
+          </Badge>
+        </div>
 
-      {source.Type === "SimConnectSource" && (
-        <MsfsPresetPanel
-          variant="summary"
-          adapter={msfsSourceAdapter}
-          config={source}
-        />
-      )}
+        <div className="flex w-1/4 flex-col gap-1">
+          <Label>{t("ConfigList.Header.RawValue")}</Label>
+          <Badge variant={"secondary"} className="w-fit">
+            {liveData.rawValue ?? "-"}
+          </Badge>
+        </div>
 
-      {source.Type === "XplaneSource" && (
-        <XplanePresetPanel
-          variant="summary"
-          adapter={xplaneSourceAdapter}
-          config={source}
-        />
-      )}
+        {source.Type === "SimConnectSource" && (
+          <MsfsPresetPanel
+            variant="summary"
+            adapter={msfsSourceAdapter}
+            config={source}
+            className="w-1/2"
+          />
+        )}
 
-      {source.Type === "VariableSource" && (
-        <div className="flex grow flex-row items-center justify-between">
-          <div className="flex flex-col gap-1">
-            <Label>Name</Label>
-            <div>
-              {source.MobiFlightVariable?.Name ?? "N/A"}{" "}
-              {source.MobiFlightVariable?.TYPE}
+        {source.Type === "XplaneSource" && (
+          <XplanePresetPanel
+            variant="summary"
+            adapter={xplaneSourceAdapter}
+            config={source}
+          />
+        )}
+
+        {source.Type === "VariableSource" && (
+          <div className="flex grow flex-row items-center justify-between">
+            <div className="flex flex-col gap-1">
+              <Label>Name</Label>
+              <div>
+                {source.MobiFlightVariable?.Name ?? "N/A"}{" "}
+                {source.MobiFlightVariable?.TYPE}
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {source.Type === "FsuipcSource" && (
-        <div className="flex grow flex-row items-center justify-between">
-          <FsuipcOffsetSummary config={source.FSUIPC} />
-        </div>
-      )}
-
-      {source.Type === "ProSimSource" && (
-        <div className="flex grow flex-row items-center justify-between">
-          <div className="flex flex-col gap-1">
-            <Label>Code</Label>
-            <div>{source.ProSimDataRef?.Path}</div>
+        {source.Type === "FsuipcSource" && (
+          <div className="flex grow flex-row items-center justify-between">
+            <FsuipcOffsetSummary config={source.FSUIPC} />
           </div>
-        </div>
-      )}
+        )}
+
+        {source.Type === "ProSimSource" && (
+          <div className="flex grow flex-row items-center justify-between">
+            <div className="flex flex-col gap-1">
+              <Label>Code</Label>
+              <div>{source.ProSimDataRef?.Path}</div>
+            </div>
+          </div>
+        )}
+      </div>
 
       <div className="flex w-20 flex-row justify-end pt-4">
         <Button

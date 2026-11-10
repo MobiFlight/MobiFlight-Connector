@@ -10,12 +10,17 @@ export type OutputTriggerCardProps = {
   configItem: IConfigItem
   setConfigItem: (item: IConfigItem) => void
   navigateToDetailView: (view: string, size?: "small" | "large") => void
+  liveData: {
+    rawValue: string | null | undefined
+    finalValue: string | null | undefined
+  }
 }
 
 const OutputTriggerCard = ({
   configItem,
   setConfigItem,
   navigateToDetailView,
+  liveData
 }: OutputTriggerCardProps) => {
   const { t } = useTranslation("wizard")
 
@@ -44,6 +49,7 @@ const OutputTriggerCard = ({
           </div>
         ) : (
           <SourceSummary
+            liveData={liveData}
             source={outputConfigItem.Source}
             onEdit={() => navigateToDetailView("source")}
             onRemove={() => setConfigItem({ ...configItem as OutputConfigItem, Source: undefined } as IConfigItem)}

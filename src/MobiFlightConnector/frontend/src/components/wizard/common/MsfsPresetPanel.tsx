@@ -11,6 +11,7 @@ export type MsfsPresetPanelProps<T> = {
   adapter: MsfsPresetAdapter<T>
   config: T
   onConfigChange?: (config: T) => void
+  className?: string
 }
 
 const MsfsPresetPanel = <T,>({
@@ -18,6 +19,7 @@ const MsfsPresetPanel = <T,>({
   adapter,
   config,
   onConfigChange,
+  className,
 }: MsfsPresetPanelProps<T>) => {
   const { data: presets = [], isLoading } = useHubHopPresets("msfs")
 
@@ -30,7 +32,7 @@ const MsfsPresetPanel = <T,>({
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className={`flex flex-col gap-4 ${className ?? ""}`}>
       <PresetPanel
         sim="msfs"
         mode={adapter.mode}

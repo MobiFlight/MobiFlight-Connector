@@ -199,6 +199,7 @@ const ConfigWizard = ({
             onConfigChange(item)
           }}
           navigateToDetailView={navigateToDetailView}
+          liveData={liveData}
         />
       )}
 
