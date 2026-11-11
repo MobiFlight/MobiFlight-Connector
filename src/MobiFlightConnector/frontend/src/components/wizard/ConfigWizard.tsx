@@ -466,6 +466,7 @@ const ConfigWizard = ({
 
               {detailView === "source" && (
                 <SourceEditor
+                  configName={configItem.Name}
                   source={(configItem as OutputConfigItem).Source}
                   onSourceChange={(source) => {
                     onConfigChange({

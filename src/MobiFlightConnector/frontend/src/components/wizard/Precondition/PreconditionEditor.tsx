@@ -313,7 +313,7 @@ const PreconditionEditor = ({
         <SectionHeadline
           title={
             <DrawerTitle
-              variant={variant}
+              mode={variant}
               configName={configName}
               drawerKey="Dialog.InputConfigWizard.PreconditionEditor.Title"
             />
