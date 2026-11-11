@@ -486,7 +486,7 @@
       }
     },
     "InputConfigWizard": {
-      "Title": "Muokkaa syöttömääritystä",
+      "Title": "Määritys",
       "Description": "Muokkaa tämän syöttömäärityksen kaikkia asetuksia.",
       "DrawerTitle": "Asetukset",
       "ConfigTrigger": {

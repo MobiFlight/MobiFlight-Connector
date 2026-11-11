@@ -486,7 +486,7 @@
       }
     },
     "InputConfigWizard": {
-      "Title": "입력 설정 편집",
+      "Title": "구성",
       "Description": "이 대화상자에서 입력 설정의 모든 항목을 편집합니다.",
       "DrawerTitle": "설정",
       "ConfigTrigger": {

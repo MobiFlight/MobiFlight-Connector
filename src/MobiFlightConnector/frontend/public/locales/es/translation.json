@@ -495,7 +495,7 @@
       }
     },
     "InputConfigWizard": {
-      "Title": "Editar configuración de entrada",
+      "Title": "Configuración",
       "Description": "Edita todos los ajustes de esta configuración de entrada en este diálogo.",
       "DrawerTitle": "Preferencias",
       "ConfigTrigger": {

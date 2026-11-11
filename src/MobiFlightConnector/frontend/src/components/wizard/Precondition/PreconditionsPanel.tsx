@@ -6,11 +6,13 @@ import PreconditionSummary from "@/components/wizard/Precondition/PreconditionSu
 import { cn } from "@/lib/utils"
 import { useProjectStore } from "@/stores/projectStore"
 import { useVariableStore } from "@/stores/variableStore"
-import { IConfigItem, Precondition } from "@/types/config"
+import { ConfigItemType, IConfigItem, Precondition } from "@/types/config"
 import { IconEdit } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 
 export type PreconditionsPanelProps = {
+  mode: ConfigItemType
+  configName: string
   preconditions: Precondition[] // Replace with actual type of preconditions
   onPreconditionsChange?: (updatedPreconditions: Precondition[]) => void
   variant: "summary" | "details"
@@ -18,6 +20,8 @@ export type PreconditionsPanelProps = {
 }
 
 const PreconditionsPanel = ({
+  mode,
+  configName,
   preconditions,
   onPreconditionsChange,
   variant,
@@ -76,6 +80,8 @@ const PreconditionsPanel = ({
     </Card>
   ) : (
     <PreconditionEditor
+      mode={mode}
+      configName={configName}
       variables={variables}
       outputConfigs={outputConfigs}
       preconditions={preconditions}

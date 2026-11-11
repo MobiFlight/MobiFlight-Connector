@@ -247,6 +247,8 @@ const ConfigWizard = ({
           {hasPreconditions && (
             <div className="lg:w-1/2">
               <PreconditionsPanel
+                mode={configItem.Type}
+                configName={configItem.Name}
                 preconditions={configItem.Preconditions ?? []}
                 variant="summary"
                 openDetailsPanel={() => navigateToDetailView("precondition")}
@@ -406,6 +408,8 @@ const ConfigWizard = ({
             <div className="flex flex-1 flex-col overflow-y-auto px-4 pb-4">
               {detailView === "precondition" && (
                 <PreconditionsPanel
+                  mode={configItem.Type}
+                  configName={configItem.Name}
                   onPreconditionsChange={(preconditions) => {
                     onConfigChange({
                       ...configItem,

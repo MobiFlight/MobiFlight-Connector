@@ -62,7 +62,7 @@
   --animate-sponsor-row-cycle: sponsor-row-cycle 2s ease-in-out both;
 
   --color-cfgoutput: var(--color-pink-600);
-  --color-cfginput: var(--color-teal-600);
+  --color-cfginput: var(--color-teal-700);
 
   @keyframes accordion-down {
     from {
@@ -158,8 +158,8 @@
 
 @layer theme {
   .dark {
-    --color-cfgoutput: var(--color-pink-700);
-    --color-cfginput: var(--color-teal-700);
+    --color-cfgoutput: var(--color-pink-900);
+    --color-cfginput: var(--color-teal-900);
   }
 }
 

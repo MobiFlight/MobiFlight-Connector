@@ -1,5 +1,5 @@
 export type SectionHeadlineProps = {
-  title: string
+  title: React.ReactNode | string
   description: string
   description2?: string
 }
