@@ -101,6 +101,10 @@ namespace MobiFlight.UI.Tests
         [TestInitialize]
         public void SetUp()
         {
+            // Ensure no subscriptions or UI context leak from previous tests.
+            MessageExchange.Instance.ClearSubscriptions();
+            MessageExchange.Instance.SetSynchronizationContext(null);
+
             // Initialize the MainForm
             _mainForm = new TestableMainForm();
 
@@ -133,6 +137,11 @@ namespace MobiFlight.UI.Tests
             Properties.Settings.Default.Save();
 
             _mainForm.RestorePublisher();
+
+            // Isolate the next test from subscriptions created by this MainForm
+            // and its ExecutionManager.
+            MessageExchange.Instance.ClearSubscriptions();
+            MessageExchange.Instance.SetSynchronizationContext(null);
 
             try
             {
