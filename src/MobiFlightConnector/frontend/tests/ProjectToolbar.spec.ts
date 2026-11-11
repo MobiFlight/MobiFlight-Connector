@@ -289,6 +289,32 @@ test.describe("Test profile tabs basic features", () => {
     expect(lastCommand.payload.file as ConfigFile).not.toBeNull()
   })
 
+  test("Confirm a profile tab can be exported", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+    await configListPage.mobiFlightPage.trackCommand("CommandFileContextMenu")
+
+    // Export a tab that is not active
+    const secondTab = page.getByRole("tablist").getByRole("tab").nth(1)
+    await expect(secondTab).toHaveAttribute("aria-selected", "false")
+    await secondTab.getByRole("button", { name: "Open menu" }).click()
+    await page.getByRole("menuitem", { name: "Export..." }).click()
+
+    const postedCommands =
+      await configListPage.mobiFlightPage.getTrackedCommands()
+    const lastCommand = postedCommands!.pop()
+    expect(lastCommand.key).toEqual("CommandFileContextMenu")
+    expect(lastCommand.payload.action).toEqual("export")
+    expect(lastCommand.payload.index).toEqual(1)
+    expect((lastCommand.payload.file as ConfigFile).Label).toEqual(
+      "Config 2 - Normal label",
+    )
+    await expect(secondTab).toHaveAttribute("aria-selected", "false")
+  })
+
   test("Confirm rename works on a tab that is not active", async ({
     configListPage,
     page,

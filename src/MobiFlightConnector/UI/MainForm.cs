@@ -311,6 +311,14 @@ namespace MobiFlight.UI
                 }
             });
 
+            // OnUiThread: OpenExportConfigFileDialog shows a WinForms dialog.
+            // All other profile actions are handled in ExecutionManager.
+            MessageExchange.Instance.SubscribeOnUiThread<CommandFileContextMenu>((message) =>
+            {
+                if (message.Action != CommandFileContextMenuAction.export) return;
+                OpenExportConfigFileDialog(message.Index);
+            });
+
             var commandMainMenuHandler = new CommandMainMenuHandler(this);
 
             // OnUiThread: opens dialogs / menu actions.
@@ -2118,6 +2126,47 @@ namespace MobiFlight.UI
                 if (DialogResult.OK == fd.ShowDialog())
                 {
                     LoadConfig(fd.FileName, true);
+                }
+            }, null);
+        }
+
+        /// <summary>
+        /// Lets the user save a single profile of the current project as a new project file,
+        /// e.g. to share it or to merge it into another project.
+        /// </summary>
+        /// <param name="index">The index of the profile to export.</param>
+        private void OpenExportConfigFileDialog(int index)
+        {
+            // Show a modal dialog after the current event handler is completed, to avoid potential reentrancy caused by running a nested message loop in the WebView2 event handler.
+            System.Threading.SynchronizationContext.Current.Post((_) =>
+            {
+                // the invalid index is already logged by the ExecutionManager
+                if (index < 0 || index >= execManager.Project.ConfigFiles.Count) return;
+
+                var label = execManager.Project.ConfigFiles[index].Label;
+                var fileName = string.Join("_", (label ?? string.Empty).Split(Path.GetInvalidFileNameChars()));
+
+                SaveFileDialog fd = new SaveFileDialog
+                {
+                    FileName = fileName,
+                    Filter = fileExtensionSaveFilter
+                };
+
+                if (execManager.Project.FilePath != null)
+                {
+                    fd.InitialDirectory = Path.GetDirectoryName(execManager.Project.FilePath);
+                }
+
+                if (DialogResult.OK != fd.ShowDialog()) return;
+
+                try
+                {
+                    execManager.Project.ExportConfigFile(index, fd.FileName);
+                    Log.Instance.log($"Exported profile \"{label}\" to {fd.FileName}", LogSeverity.Info);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Unable to save: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }, null);
         }
