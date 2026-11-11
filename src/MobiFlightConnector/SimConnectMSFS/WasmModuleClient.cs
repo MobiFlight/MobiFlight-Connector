@@ -1,15 +1,14 @@
 ﻿using Microsoft.FlightSimulator.SimConnect;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace MobiFlight.SimConnectMSFS
 {
 
     static class WasmModuleClient
     {
+        private static readonly Lock _lock = new();
+
         public static void Ping(SimConnect simConnect, WasmModuleClientData clientData)
         {
             if (simConnect == null) return;
@@ -21,7 +20,7 @@ namespace MobiFlight.SimConnectMSFS
         public static void Stop(SimConnect simConnect, WasmModuleClientData clientData)
         {
             if (simConnect == null) return;
-               
+
             SendWasmCmd(simConnect, "MF.SimVars.Clear", clientData);
         }
 
@@ -44,13 +43,16 @@ namespace MobiFlight.SimConnectMSFS
         {
             if (simConnect == null) return;
 
-            simConnect.SetClientData(
-               clientData.AREA_COMMAND_ID,
-               (SIMCONNECT_DEFINE_ID)clientData.DATA_DEFINITION_ID,
-               SIMCONNECT_CLIENT_DATA_SET_FLAG.DEFAULT,
-               0,
-               new ClientDataString(command)
-            );
+            lock (_lock)
+            {
+                simConnect.SetClientData(
+                   clientData.AREA_COMMAND_ID,
+                   (SIMCONNECT_DEFINE_ID)clientData.DATA_DEFINITION_ID,
+                   SIMCONNECT_CLIENT_DATA_SET_FLAG.DEFAULT,
+                   0,
+                   new ClientDataString(command)
+                );
+            }
         }
 
         public static void SetConfig(SimConnect simConnect, String ConfigName, String ConfigValue, WasmModuleClientData clientData)
@@ -82,7 +84,6 @@ namespace MobiFlight.SimConnectMSFS
         {
             WasmModuleClient.SendWasmCmd(simConnect, "MF.SimVars.AddString." + SimVarName, clientData);
         }
-
 
     }
 }

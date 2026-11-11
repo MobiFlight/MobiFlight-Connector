@@ -81,7 +81,7 @@ namespace MobiFlight
         private readonly Timer frontendUpdateTimer = new Timer();
 
         /// <summary>
-        /// This list contains preparsed informations and cached values for the supervised FSUIPC offsets
+        /// This list contains preparsed information and cached values for the supervised FSUIPC offsets
         /// </summary>
         readonly FSUIPCCacheInterface fsuipcCache;
 
@@ -99,7 +99,7 @@ namespace MobiFlight
 #endif
         readonly JoystickManager joystickManager = new JoystickManager();
         readonly MidiBoardManager midiBoardManager = new MidiBoardManager();
-        private readonly Dictionary<ConfigFile, InputEventExecutor> _inputEventExecutors = new Dictionary<ConfigFile, InputEventExecutor>();
+        private readonly ConcurrentDictionary<ConfigFile, InputEventExecutor> _inputEventExecutors = new ConcurrentDictionary<ConfigFile, InputEventExecutor>();
         readonly InputActionExecutionCache inputActionExecutionCache = new InputActionExecutionCache();
         private ScriptRunner scriptRunner = null;
         readonly Dictionary<string, double> ScanForInputThreshold = new Dictionary<string, double>();
@@ -239,6 +239,7 @@ namespace MobiFlight
             // every distinct setting across all loaded config files.
             Func<InputEventArgs, List<ButtonTimings>> resolveButtonTimings = e =>
             {
+
                 var timings = new List<ButtonTimings>();
                 foreach (var executor in _inputEventExecutors.Values)
                 {
@@ -557,6 +558,16 @@ namespace MobiFlight
                         // this is not subscribed here
                         // see MainForm.cs for the subscription there.
                         break;
+                    case CommandFileContextMenuAction.moveLeft:
+                    case CommandFileContextMenuAction.moveRight:
+                        // Issue 3205: swap the profile with its neighbour
+                        var targetIndex = message.Action == CommandFileContextMenuAction.moveLeft
+                            ? message.Index - 1
+                            : message.Index + 1;
+                        var isTargetInRange = targetIndex >= 0 && targetIndex < Project.ConfigFiles.Count;
+                        if (!isTargetInRange) return;
+                        Project.ConfigFiles.Move(message.Index, targetIndex);
+                        break;
                     default:
                         return;
                 }
@@ -620,7 +631,7 @@ namespace MobiFlight
 
             var controller = e.Controller;
 
-            MessageExchange.Instance.Publish(new ScanForInputResult() { Controller = controller, Device = e.Device});
+            MessageExchange.Instance.Publish(new ScanForInputResult() { Controller = controller, Device = e.Device });
             ScanForInputStop();
         }
 
@@ -852,7 +863,7 @@ namespace MobiFlight
             simConnectCache.Start();
             xplaneCache.Start();
 
-            scriptRunner.StartUp();
+            scriptRunner.Start();
 
             // the timer has to be enabled before the 
             // on start actions are executed
@@ -870,7 +881,10 @@ namespace MobiFlight
         {
             _inputEventExecutors.Clear();
 
-            if (Project == null || Project.ConfigFiles == null) return;
+            if (Project == null || Project.ConfigFiles == null)
+            {
+                return;
+            }
 
             foreach (var configFile in Project.ConfigFiles)
             {
@@ -890,23 +904,37 @@ namespace MobiFlight
 
         public void Stop()
         {
+            if (IsStarted()) StopExecution();
+
+            StopControllers();
+        }
+
+        // only exists while the config is being executed
+        private void StopExecution()
+        {
             timer.Stop();
             frontendUpdateTimer.Stop();
-            mobiFlightCache.StopKeepAwake();
 
             isExecuting = false;
-#if ARCAZE
-            arcazeCache.Clear();
-#endif
             scriptRunner.Stop();
-            mobiFlightCache.Stop();
             simConnectCache.Stop();
             xplaneCache.Stop();
-            joystickManager.Stop();
-            midiBoardManager.Stop();
             inputActionExecutionCache.Clear();
             ClearConfigItemStatus();
             ClearErrorMessages();
+        }
+
+        // always runs, because a freshly connected controller and
+        // their display devices may show stale data;
+        // each controller decides on its own whether there is anything to stop
+        private void StopControllers()
+        {
+#if ARCAZE
+            arcazeCache.Clear();
+#endif
+            mobiFlightCache.Stop();
+            joystickManager.Stop();
+            midiBoardManager.Stop();
         }
 
         private void ClearConfigItemStatus()
@@ -934,7 +962,7 @@ namespace MobiFlight
 
         internal void OnInputConfigSettingsChanged(object sender, EventArgs e)
         {
-            _inputEventExecutors.ToList().ForEach(executor => executor.Value.ClearCache());
+                _inputEventExecutors.Values.ToList().ForEach(executor => executor.ClearCache());
         }
 
         public bool IsStarted()
@@ -957,8 +985,6 @@ namespace MobiFlight
         public void TestModeStop()
         {
             testModeTimer.Stop();
-
-            mobiFlightCache.StopKeepAwake();
 
             // make sure every device is turned off
             mobiFlightCache.Stop();
@@ -1063,7 +1089,7 @@ namespace MobiFlight
         /// </summary>
         private void ExecuteConfig()
         {
-            // this is kind of sempahore to prevent multiple execution
+            // this is kind of semaphore to prevent multiple execution
             // in fact I don't know if this needs to be done in C# 
             if (isExecuting)
             {
@@ -1474,11 +1500,17 @@ namespace MobiFlight
                 try
                 {
                     var updatedValues = executor.Execute(e, IsStarted());
-                    updatedValues.Keys.ToList().ForEach(k => updatedInputValues[k] = updatedValues[k]);
+
+                    updatedValues.Keys.ToList().ForEach(
+                        k => updatedInputValues[k] = updatedValues[k]
+                    );
                 }
                 catch (Exception ex)
                 {
-                    Log.Instance.log($"Error during input event execution: {ex.Message} - {msgEventLabel}", LogSeverity.Error);
+                    Log.Instance.log(
+                        $"Error during input event execution: {ex.Message} - {msgEventLabel}",
+                        LogSeverity.Error
+                    );
                 }
             }
 
@@ -1509,6 +1541,8 @@ namespace MobiFlight
                     {
                         cfg.Status.Remove(ConfigItemStatusType.Precondition);
                     }
+
+                    ConfigRefChecker.UpdateStatus(cfg, ConfigItems);
 
                     if (!cfg.Status.SequenceEqual(originalCfg.Status))
                     {

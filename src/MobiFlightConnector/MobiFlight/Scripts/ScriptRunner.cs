@@ -1,4 +1,5 @@
 ﻿using MobiFlight.SimConnectMSFS;
+using MobiFlightMoza.Protocol;
 using MobiFlightWwFcu;
 using Newtonsoft.Json;
 using System;
@@ -16,7 +17,6 @@ namespace MobiFlight.Scripts
     internal class ScriptRunner
     {
         private string PythonExecutable;
-        private const string WINWING_CDUS_KEYWORD = "WinwingCDUs";
         private const string CONFIG_FILE_PATH = @"Scripts\ScriptMappings.json";
         private const string SCRIPTS_DIRECTORY = "Scripts";
         private const string SCRIPT_EXTENSION = "*.py";
@@ -52,20 +52,45 @@ namespace MobiFlight.Scripts
             GetAvailableScripts();
         }
 
-        private string[] SubstituteKeywords(string[] productIds)
+        // The known CDU-class product IDs for each vendor that fans out over the shared
+        // /winwing/cdu-* websocket paths (see CduWebsocketHub). ScriptMappings.json lists which
+        // vendors are supported once, at the top level; this is how each VendorId expands to the
+        // hardware IDs every mapping is keyed against, so mappings don't repeat vendor/product IDs.
+        private static readonly Dictionary<int, int[]> CduProductIdsByVendor = new()
         {
-            if (productIds[0] != WINWING_CDUS_KEYWORD)
+            [WinCtrlConstants.VendorId] = WinCtrlConstants.CDU_PRODUCTIDS,
+            [MozaHardwareIds.VendorId] = MozaHardwareIds.McduProductIds,
+        };
+
+        internal static IEnumerable<(string VendorId, string ProductId)> ResolveHardwareIds(IEnumerable<string> vendorIds)
+        {
+            foreach (var vendorIdString in vendorIds)
             {
-                return productIds;
-            }
-            else
-            {
-                return WinCtrlConstants.CDU_PRODUCTIDS.Select(p => p.ToString("X")).ToArray();
+                int vendorId;
+                try
+                {
+                    vendorId = Convert.ToInt32(vendorIdString, 16);
+                }
+                catch (Exception ex) when (ex is FormatException || ex is OverflowException)
+                {
+                    Log.Instance.log($"ScriptRunner - Invalid VendorId format: {vendorIdString}. {ex.Message}", LogSeverity.Error);
+                    continue;
+                }
+
+                if (!CduProductIdsByVendor.TryGetValue(vendorId, out var productIds))
+                {
+                    Log.Instance.log($"ScriptRunner - No known CDU product IDs for VendorId: {vendorIdString}.", LogSeverity.Error);
+                    continue;
+                }
+
+                foreach (var productId in productIds)
+                {
+                    yield return (vendorIdString, productId.ToString("X"));
+                }
             }
         }
 
-
-        private string GetHardwareId(string vendorId, string productId)
+        internal static string GetHardwareId(string vendorId, string productId)
         {
             try
             {
@@ -90,16 +115,15 @@ namespace MobiFlight.Scripts
             string json = File.ReadAllText(CONFIG_FILE_PATH);
             ScriptMappings definitions = JsonConvert.DeserializeObject<ScriptMappings>(json);
 
+            var hardwareIds = ResolveHardwareIds(definitions.VendorIds).ToList();
+
             foreach (var mapping in definitions.Mappings)
             {
-                // Replace keyword
-                mapping.ProductIds = SubstituteKeywords(mapping.ProductIds);
-
                 Log.Instance.log($"ScriptRunner - Add mapping {mapping.ScriptName}.", LogSeverity.Debug);
 
-                foreach (var productId in mapping.ProductIds)
+                foreach (var (vendorId, productId) in hardwareIds)
                 {
-                    string hardwareId = GetHardwareId(mapping.VendorId, productId);
+                    string hardwareId = GetHardwareId(vendorId, productId);
                     if (!MappingDictionary.ContainsKey(hardwareId))
                     {
                         MappingDictionary.Add(hardwareId, new List<ScriptMapping>() { mapping });
@@ -142,7 +166,6 @@ namespace MobiFlight.Scripts
                 NewAircraftRequestQueue.Enqueue(AircraftPath);
             }
         }
-
 
         private void SendUserMessage(int messageCode, params string[] parameters)
         {
@@ -362,21 +385,26 @@ namespace MobiFlight.Scripts
             }
         }
 
-        public void StartUp()
+        public void Start()
         {
-            Log.Instance.log($"ScriptRunner - StartUp().", LogSeverity.Debug);
+            if (IsInPlayMode) return;
+
+            Log.Instance.log($"ScriptRunner - Start().", LogSeverity.Debug);
             // Delay because establishing MsfsCache connection state does need some time.           
             Task.Run(async () =>
             {
                 await Task.Delay(STARTUP_DELAY_MS).ConfigureAwait(false);
-                Start();
+                Play();
             });
         }
 
-        public void Start()
+        private void Play()
         {
-            Log.Instance.log($"ScriptRunner - Start().", LogSeverity.Debug);
+            if (IsInPlayMode) return;
+
+            Log.Instance.log($"ScriptRunner - Play().", LogSeverity.Debug);
             IsInPlayMode = true;
+            
             string currentAircraftDescription = MsfsCache.IsConnected() ? AircraftPath : AircraftName;
             NewAircraftRequestQueue.Enqueue(currentAircraftDescription);
             Task myTask = Task.Run(async () => { await ProcessAircraftRequests(CancellationTokenSource.Token); });
@@ -415,6 +443,8 @@ namespace MobiFlight.Scripts
 
         public void Stop()
         {
+            if (!IsInPlayMode) return;
+
             Log.Instance.log("ScriptRunner - Stop().", LogSeverity.Debug);
             IsInPlayMode = false;
 

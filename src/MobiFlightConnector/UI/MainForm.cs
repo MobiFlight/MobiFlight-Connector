@@ -82,7 +82,7 @@ namespace MobiFlight.UI
         {
             if (Properties.Settings.Default.Language != "")
             {
-                var cultureInfo = new System.Globalization.CultureInfo(Properties.Settings.Default.Language);
+                var cultureInfo = Base.UiCultureResolver.FromSetting(Properties.Settings.Default.Language);
                 System.Threading.Thread.CurrentThread.CurrentUICulture = cultureInfo;
                 System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
             }
@@ -1094,6 +1094,15 @@ namespace MobiFlight.UI
 
         private void CheckForHubhopUpdate()
         {
+
+            //Skipping HubHop download for PR Version
+            var CurVersion = Assembly.GetExecutingAssembly().GetName().Version;
+            if (CurVersion.IsDevOrPullRequestBuild())
+            {
+                Log.Instance.log("Skipping HubHop download since this is an unreleased build.", LogSeverity.Info);
+                return;
+            }
+
             if (!WasmModuleUpdater.HubHopPresetsPresent())
             {
                 DownloadHubHopPresets();
@@ -1144,6 +1153,7 @@ namespace MobiFlight.UI
             foreach (MobiFlightModuleInfo moduleInfo in modules)
             {
                 if (moduleInfo.Type == "Ignored") continue;
+                if (moduleInfo.Type == MobiFlightModule.TYPE_BUSYPORT) continue;
 
                 if (moduleInfo.FirmwareInstallPossible())
                 {
@@ -2129,6 +2139,23 @@ namespace MobiFlight.UI
             }
             LoadConfig((sender as ToolStripMenuItem).Text);
         } //recentMenuItem_Click()
+
+        /// <summary>
+        /// Reloads the current project from its file on disk, discarding in-memory changes.
+        /// The frontend confirms with the user before requesting this when there are unsaved changes.
+        /// </summary>
+        public void ReloadProjectFromDisk()
+        {
+            var filePath = execManager.Project?.FilePath;
+            if (string.IsNullOrEmpty(filePath))
+            {
+                Log.Instance.log("Reload requested but the current project has not been saved to a file yet.", LogSeverity.Warn);
+                return;
+            }
+
+            Log.Instance.log($"Reloading project from disk: {filePath}", LogSeverity.Info);
+            LoadConfig(filePath);
+        }
 
         /// <summary>
         /// loads the according config given by filename

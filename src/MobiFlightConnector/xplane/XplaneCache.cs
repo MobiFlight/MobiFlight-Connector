@@ -89,7 +89,7 @@ namespace MobiFlight.xplane
         /// Updates the subscription to the aircraft name data reference and notifies listeners when the aircraft
         /// changes.
         /// </summary>
-        /// <remarks>This method itself does not reliably detect the name change because of a flaw in the libary used.
+        /// <remarks>This method itself does not reliably detect the name change because of a flaw in the library used.
         /// We basically resubscribe to the datarefs which will provide us with the correct aircraft name reliably.
         /// This method is called when CheckForAircraftName detects a change in the first or third character of the aircraft name.
         /// </remarks>

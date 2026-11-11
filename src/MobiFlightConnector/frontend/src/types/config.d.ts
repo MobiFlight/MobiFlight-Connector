@@ -21,8 +21,6 @@ export interface IConfigItem extends IConfigValueOnlyItem {
   // name / serial of the device
   Controller?: Partial<Controller>
   Device?: IDeviceConfig | null
-  DeviceType?: string | null
-  DeviceName?: string | null
   // Tags: string[];
   Preconditions?: Precondition[]
   button?: ButtonTrigger
@@ -49,6 +47,16 @@ export interface IDictionary<T> {
 export type ControllerType = "MobiFlight" | "Joystick" | "Midi" | "Unknown"
 
 export type ConfigItemType = "InputConfigItem" | "OutputConfigItem"
+
+export interface OutputConfigItem extends IConfigItem {
+  Type: "OutputConfigItem"
+  ButtonInputConfig?: ButtonTrigger
+  AnalogInputConfig?: AnalogTrigger
+}
+
+export interface InputConfigItem extends IConfigItem {
+  Type: "InputConfigItem"
+}
 
 export interface IDeviceConfig {
   Type: InputDeviceType | OutputDeviceType

@@ -64,13 +64,9 @@ namespace MobiFlight
         /// </summary>
         /// <param name="hardwareIdPattern">A RegEx of the VID/PID to match against.</param>
         /// <returns>A list of board definitions matching the hardwareIdPattern or empty list if none found.</returns>
-        public static List<Board> GetBoardsByHardwareId(String hardwareIdPattern)
+        public static List<Board> GetBoardsByHardwareId(String hardwareId)
         {
-            return boards.FindAll(board => board.HardwareIds.Any(hardwareId =>
-            {
-                var regEx = new Regex(hardwareId);
-                return regEx.Match(hardwareIdPattern).Success;
-            }));
+            return boards.FindAll(board => board.HardwareIds.Any(hardwareIdPattern => ByHardwareIdMatcher(hardwareId, hardwareIdPattern)));
         }
 
         /// <summary>
@@ -94,14 +90,25 @@ namespace MobiFlight
         }
 
         /// <summary>
-        /// Loads all board definintions from disk.
+        /// Finds board definitions by matching against the MobiFlight firmware name for the board.
+        /// </summary>
+        /// <param name="mobiflightType">The name to search for</param>
+        /// <returns>The first board definition matching the name, or null if none found</returns>
+        public static List<Board> GetBoardsByMobiFlightType(String mobiflightType)
+        {
+            return boards.FindAll(board => board.Info.MobiFlightType.ToLower() == mobiflightType?.ToLower());
+        }
+
+        /// <summary>
+        /// Loads all board definitions from disk.
         /// </summary>
         public static void LoadDefinitions()
         {
             var files = new List<String>(Directory.GetFiles("Boards", "*.board.json"));
             files.AddRange(Directory.GetFiles("Community", "*.board.json", SearchOption.AllDirectories));
             boards = JsonBackedObject.LoadDefinitions<Board>(files.ToArray(), "Boards/mfboard.schema.json",
-                onSuccess: (board, definitionFile) => {
+                onSuccess: (board, definitionFile) =>
+                {
                     Log.Instance.log($"Loaded board definition for {board.Info.MobiFlightType} ({board.Info.FriendlyName})", LogSeverity.Debug);
 
                     var boardPath = Path.GetDirectoryName(definitionFile);
@@ -114,7 +121,7 @@ namespace MobiFlight
                         board.Info.BoardPicture = Image.FromFile(logoPath);
                     }
 
-                    // check if we have a more board specifc picture
+                    // check if we have a more board specific picture
                     logoPath = $@"{boardPath}\{board.Info.FirmwareBaseName}.png";
                     if (File.Exists(logoPath))
                     {
@@ -129,6 +136,14 @@ namespace MobiFlight
                 },
                 onError: () => LoadingError = true
                 ); ;
+        }
+
+        public static bool ByHardwareIdMatcher(string hardwareId, string hardwareIdPattern)
+        {
+            if (hardwareId == null) return false;
+
+            var regEx = new Regex(hardwareIdPattern);
+            return regEx.Match(hardwareId).Success;
         }
     }
 }

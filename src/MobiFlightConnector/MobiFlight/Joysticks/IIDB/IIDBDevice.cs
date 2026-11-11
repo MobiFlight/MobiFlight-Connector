@@ -25,14 +25,14 @@ namespace MobiFlight.Joysticks.IIDB
         {
         }
 
-        public override void SetOutputDeviceState(string name, byte state)
+        protected override void OnSetOutputDeviceState(string name, byte state)
         {
             if (name == "Backlight")
             {
                 _currentBrightness = state;
             }
 
-            base.SetOutputDeviceState(name, state);
+            base.OnSetOutputDeviceState(name, state);
         }
 
         public override void UpdateOutputDeviceStates()
@@ -44,12 +44,12 @@ namespace MobiFlight.Joysticks.IIDB
             }
         }
 
-        public override void Stop()
+        protected override void OnStop()
         {
             _currentBrightness = 0;
             SendData(0);
             _lastSentBrightness = 0;
-            base.Stop();
+            base.OnStop();
         }
 
         public override void Shutdown()

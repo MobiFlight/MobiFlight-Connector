@@ -4,6 +4,8 @@ namespace MobiFlightWwFcu
 {
     public class WinCtrlConstants
     {
+        public const int VendorId = 0x4098;
+
         internal static readonly byte[] DEST_FCU = new byte[] { 0x10, 0xbb };
         internal static readonly byte[] DEST_EFISL = new byte[] { 0x0d, 0xbf };
         internal static readonly byte[] DEST_EFISR = new byte[] { 0x0e, 0xbf };
@@ -100,6 +102,24 @@ namespace MobiFlightWwFcu
 
         public const string CDU_DATA = "Cdu Data";
         public const string FONT_DATA = "Font Data";
+
+        /// <summary>
+        /// The "-> MOBIFLIGHT <-" splash sent as the first CDU page on connect - shared by
+        /// every CDU-class product (WinCtrl and MOZA alike), not WinCtrl-specific.
+        /// </summary>
+        public const string InitialDisplayJson =
+            @"{
+                ""Target"": ""Display"",
+                ""Data"": [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
+                           [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
+                           [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
+                           [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
+                           [""→"",""w"",0], [""M"",""c"",0],[""O"",""w"",0],[""B"",""c"",0],[""I"",""w"",0],[""F"",""c"",0],[""L"",""w"",0],
+                           [""I"",""c"",0],[""G"",""w"",0],[""H"",""c"",0],[""T"",""w"",0],[""←"",""c"",0],[],[],[],[],[],[],[],[],[],[],[],[],
+                           [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
+                           [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
+                           [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
+                           [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]}";
 
 
         // Renaming would be a breaking change, since these names are used in mobi configuration.

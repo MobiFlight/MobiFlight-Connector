@@ -71,6 +71,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\CommandMessenger.Transport.Serial\CommandMessenger.Transport.Serial.csproj" />
 		<ProjectReference Include="..\CommandMessenger\CommandMessenger.csproj" />
+		<ProjectReference Include="..\MobiFlightMoza\MobiFlightMoza.csproj" />
 		<ProjectReference Include="..\MobiFlightWwFcu\MobiFlightWwFcu.csproj" />
 	</ItemGroup>
 
