@@ -57,25 +57,7 @@ export function SettingsConflictDialog({
 
         {/* Action cards - 3 options */}
         <div className="flex flex-col gap-3">
-          {/* Option 1: Keep local settings */}
-          <button
-            type="button"
-            disabled={isProcessing}
-            onClick={onKeepLocal}
-            className="w-full rounded-xl border border-border bg-card p-4 text-left transition-all hover:bg-accent/40 hover:border-primary/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50 disabled:pointer-events-none"
-          >
-            <div className="text-base font-semibold text-foreground">
-              {t("Settings.Conflict.KeepLocal", "Keep local settings")}
-            </div>
-            <div className="mt-0.5 text-sm text-muted-foreground">
-              {t(
-                "Settings.Conflict.KeepLocalDesc",
-                "Keep settings on this device without syncing with the cloud.",
-              )}
-            </div>
-          </button>
-
-          {/* Option 2: Use cloud settings */}
+          {/* Option 1: Use cloud settings */}
           <button
             type="button"
             disabled={isProcessing}
@@ -93,6 +75,24 @@ export function SettingsConflictDialog({
             </div>
           </button>
 
+          {/* Option 2: Keep local settings */}
+          <button
+            type="button"
+            disabled={isProcessing}
+            onClick={onKeepLocal}
+            className="w-full rounded-xl border border-border bg-card p-4 text-left transition-all hover:bg-accent/40 hover:border-primary/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50 disabled:pointer-events-none"
+          >
+            <div className="text-base font-semibold text-foreground">
+              {t("Settings.Conflict.KeepLocal", "Keep local settings")}
+            </div>
+            <div className="mt-0.5 text-sm text-muted-foreground">
+              {t(
+                "Settings.Conflict.KeepLocalDesc",
+                "Keep settings on this device and disable cloud sync.",
+              )}
+            </div>
+          </button>
+
           {/* Option 3: Upload local to cloud */}
           <button
             type="button"
@@ -106,7 +106,7 @@ export function SettingsConflictDialog({
             <div className="mt-0.5 text-sm text-muted-foreground">
               {t(
                 "Settings.Conflict.UploadLocalDesc",
-                "Overwrite the cloud settings with this device's current version.",
+                "Replace cloud settings with the version saved on this device.",
               )}
             </div>
           </button>

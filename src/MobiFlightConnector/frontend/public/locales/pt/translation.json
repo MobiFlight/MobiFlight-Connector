@@ -980,11 +980,11 @@
       "Title": "Conflito de configurações",
       "Description": "Encontramos versões diferentes das suas configurações neste dispositivo e na nuvem. Escolha qual versão deseja manter.",
       "KeepLocal": "Manter configurações locais",
-      "KeepLocalDesc": "Manter as configurações neste dispositivo sem sincronizar com a nuvem.",
+      "KeepLocalDesc": "Manter as configurações neste dispositivo e desativar a sincronização na nuvem.",
       "UseCloud": "Usar configurações da nuvem",
       "UseCloudDesc": "Substituir as configurações locais pela versão salva na nuvem.",
       "UploadLocal": "Enviar local para a nuvem",
-      "UploadLocalDesc": "Substituir as configurações da nuvem pela versão atual deste dispositivo."
+      "UploadLocalDesc": "Substituir as configurações na nuvem pela versão salva neste dispositivo."
     },
     "Sync": {
       "Notifications": {

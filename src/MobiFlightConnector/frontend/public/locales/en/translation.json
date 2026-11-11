@@ -980,11 +980,11 @@
       "Title": "Settings conflict",
       "Description": "We found different versions of your settings on this device and in the cloud. Choose which version you want to keep.",
       "KeepLocal": "Keep local settings",
-      "KeepLocalDesc": "Keep settings on this device without syncing with the cloud.",
+      "KeepLocalDesc": "Keep settings on this device and disable cloud sync.",
       "UseCloud": "Use cloud settings",
       "UseCloudDesc": "Replace local settings with the version saved in the cloud.",
       "UploadLocal": "Upload local to cloud",
-      "UploadLocalDesc": "Overwrite the cloud settings with this device's current version."
+      "UploadLocalDesc": "Replace cloud settings with the version saved on this device."
     },
     "Sync": {
       "Notifications": {

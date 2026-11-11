@@ -980,11 +980,11 @@
       "Title": "Asetusristiriita",
       "Description": "Löysimme eri versiot asetuksistasi tältä laitteelta ja pilvestä. Valitse kumman version haluat säilyttää.",
       "KeepLocal": "Säilytä paikalliset asetukset",
-      "KeepLocalDesc": "Säilytä tämän laitteen asetukset synkronoimatta pilveen.",
+      "KeepLocalDesc": "Pidä asetukset tällä laitteella ja poista pilvisynkronointi käytöstä.",
       "UseCloud": "Käytä pilviasetuksia",
       "UseCloudDesc": "Korvaa paikalliset asetukset pilveen tallennetulla versiolla.",
       "UploadLocal": "Lataa paikallinen pilveen",
-      "UploadLocalDesc": "Korvaa pilviasetukset tämän laitteen nykyisellä versiolla."
+      "UploadLocalDesc": "Korvaa pilviasetukset tällä laitteella tallennetulla versiolla."
     },
     "Sync": {
       "Notifications": {
