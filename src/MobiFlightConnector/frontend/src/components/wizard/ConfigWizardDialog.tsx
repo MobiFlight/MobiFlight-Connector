@@ -130,7 +130,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
   return (
     <Dialog open={true} onOpenChange={closeDialog}>
       <DialogContent
-        data-testid="inputconfigwizard-dialog"
+        data-testid="configwizard-dialog"
         // prevents focusing on the inactive inline edit label
         onInteractOutside={(e) => {
           if (!hasChanged()) return
@@ -200,7 +200,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
         </div>
         <DialogFooter
           className={`flex flex-row ${isOutputConfig ? "justify-between" : "justify-end"}`}
-          data-testid="inputconfigwizard-dialog-footer"
+          data-testid="configwizard-dialog-footer"
         >
           <div className="flex grow flex-row items-center gap-1">
             {showPendingChangesMessage && (

@@ -58,7 +58,7 @@ const openDialogForRow = async (
   page: Page,
   row: number,
 ) => {
-  const dialog = page.getByTestId("inputconfigwizard-dialog")
+  const dialog = page.getByTestId("configwizard-dialog")
   await expect(dialog).not.toBeVisible()
   await configListPage.clickEditButtonForRow(row)
   await expect(dialog).toBeVisible()
@@ -107,7 +107,7 @@ const createOutputConfigWithSourceAndOpenWizard = async (
     Modifiers: { Items: [] },
   } as unknown as Partial<IConfigItem>)
 
-  const dialog = page.getByTestId("inputconfigwizard-dialog")
+  const dialog = page.getByTestId("configwizard-dialog")
   const row = page.getByRole("row").filter({ hasText: NEW_OUTPUT_CONFIG_NAME })
   await row.getByRole("button", { name: "Edit" }).click()
   await expect(dialog).toBeVisible()
@@ -120,7 +120,7 @@ const applyChangesAndReturnPayload = async (
 ) => {
   await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
   await page.getByRole("button", { name: "Apply changes" }).click()
-  await expect(page.getByTestId("inputconfigwizard-dialog")).not.toBeVisible()
+  await expect(page.getByTestId("configwizard-dialog")).not.toBeVisible()
 
   const commands = await configListPage.mobiFlightPage.getTrackedCommands()
   expect(commands).toBeDefined()

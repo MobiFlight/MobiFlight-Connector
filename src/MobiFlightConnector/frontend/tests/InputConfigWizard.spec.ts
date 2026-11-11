@@ -67,7 +67,7 @@ const openDialogForRow = async (
   page: Page,
   row: number,
 ) => {
-  const dialog = page.getByTestId("inputconfigwizard-dialog")
+  const dialog = page.getByTestId("configwizard-dialog")
   await expect(dialog).not.toBeVisible()
   await configListPage.clickEditButtonForRow(row)
   await expect(dialog).toBeVisible()
@@ -1125,7 +1125,7 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
   }) => {
     await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
 
-    const dialog = page.getByTestId("inputconfigwizard-dialog")
+    const dialog = page.getByTestId("configwizard-dialog")
     await expect(dialog).toBeVisible()
     const addPreconditionButton = dialog.getByRole("button", {
       name: "Add precondition",
@@ -1263,7 +1263,7 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
     const panel = page.getByTestId("precondition-panel")
     await expect(panel).not.toBeVisible()
 
-    const dialog = page.getByTestId("inputconfigwizard-dialog")
+    const dialog = page.getByTestId("configwizard-dialog")
     const editButton = dialog.getByRole("button", {
       name: "Add precondition",
     })
@@ -1331,7 +1331,7 @@ test.describe("Input Config Wizard - Config References panel", () => {
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
     await openDialogForRow(configListPage, page, 1)
 
-    const dialog = page.getByTestId("inputconfigwizard-dialog")
+    const dialog = page.getByTestId("configwizard-dialog")
     const panel = dialog.getByTestId("config-reference-panel")
     const editor = page.getByTestId("config-reference-editor")
 
@@ -1400,7 +1400,7 @@ test.describe("Input Config Wizard - Config References panel", () => {
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
     await openDialogForRow(configListPage, page, 1)
 
-    const dialog = page.getByTestId("inputconfigwizard-dialog")
+    const dialog = page.getByTestId("configwizard-dialog")
     const editButton = dialog.getByRole("button", {
       name: "Edit references",
     })
@@ -1436,7 +1436,7 @@ test.describe("Input Config Wizard - Config References panel", () => {
     const panel = page.getByTestId("config-reference-panel")
     await expect(panel).not.toBeVisible()
 
-    const dialog = page.getByTestId("inputconfigwizard-dialog")
+    const dialog = page.getByTestId("configwizard-dialog")
     const editButton = dialog.getByRole("button", {
       name: "Add reference",
     })
@@ -1475,7 +1475,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
 
     // The add button is now available on the main dialog,
     // which opens the modifier editor
-    const dialog = page.getByTestId("inputconfigwizard-dialog")
+    const dialog = page.getByTestId("configwizard-dialog")
     const addModifierButton = dialog.getByRole("button", {
       name: "Add modifier",
     })
@@ -1537,7 +1537,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
 
     // Bring up the modifier editor by clicking the "Add modifier" button
-    const dialog = page.getByTestId("inputconfigwizard-dialog")
+    const dialog = page.getByTestId("configwizard-dialog")
     const addModifierButton = dialog.getByRole("button", {
       name: "Add modifier",
     })
@@ -1581,7 +1581,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
   }) => {
     await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
 
-    const dialog = page.getByTestId("inputconfigwizard-dialog")
+    const dialog = page.getByTestId("configwizard-dialog")
     const addModifierButton = dialog.getByRole("button", {
       name: "Add modifier",
     })
@@ -1620,7 +1620,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
   }) => {
     await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
 
-    const dialog = page.getByTestId("inputconfigwizard-dialog")
+    const dialog = page.getByTestId("configwizard-dialog")
     const addModifierButton = dialog.getByRole("button", {
       name: "Add modifier",
     })
@@ -1668,7 +1668,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
   }) => {
     await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
 
-    const dialog = page.getByTestId("inputconfigwizard-dialog")
+    const dialog = page.getByTestId("configwizard-dialog")
     const addModifierButton = dialog.getByRole("button", {
       name: "Add modifier",
     })
@@ -6396,7 +6396,7 @@ async function addModifierItemAndReturnEditor(
   modifierLabel: string,
   page: Page,
 ) {
-  const dialog = page.getByTestId("inputconfigwizard-dialog")
+  const dialog = page.getByTestId("configwizard-dialog")
   const addModifierButton = dialog.getByRole("button", {
     name: "Add modifier",
   })
