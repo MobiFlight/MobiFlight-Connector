@@ -111,7 +111,9 @@
       "Merge": "Aus anderem Projekt",
       "Rename": "Umbenennen",
       "Remove": "Entfernen",
-      "Export": "Exportieren"
+      "Export": "Exportieren",
+      "MoveLeft": "Nach links verschieben",
+      "MoveRight": "Nach rechts verschieben"
     },
     "Toolbar": {
       "Save": {
@@ -119,7 +121,8 @@
         "NoChanges": "Keine Änderungen zum Speichern",
         "Success": "Erfolgreich gespeichert"
       },
-      "Settings": "Einstellungen"
+      "Settings": "Einstellungen",
+      "Reload": "Von Festplatte neu laden"
     },
     "Execution": {
       "AutoRun": {

@@ -2200,6 +2200,23 @@ namespace MobiFlight.UI
         } //recentMenuItem_Click()
 
         /// <summary>
+        /// Reloads the current project from its file on disk, discarding in-memory changes.
+        /// The frontend confirms with the user before requesting this when there are unsaved changes.
+        /// </summary>
+        public void ReloadProjectFromDisk()
+        {
+            var filePath = execManager.Project?.FilePath;
+            if (string.IsNullOrEmpty(filePath))
+            {
+                Log.Instance.log("Reload requested but the current project has not been saved to a file yet.", LogSeverity.Warn);
+                return;
+            }
+
+            Log.Instance.log($"Reloading project from disk: {filePath}", LogSeverity.Info);
+            LoadConfig(filePath);
+        }
+
+        /// <summary>
         /// loads the according config given by filename
         /// </summary>        
         public void LoadConfig(string fileName, bool merge = false)

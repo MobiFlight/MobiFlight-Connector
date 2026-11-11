@@ -77,6 +77,8 @@ namespace MobiFlight.Execution
                 return;
             }
 
+            ConfigRefChecker.UpdateStatus(cfg, ConfigItems);
+
             // If not connected to FSUIPC show an error message
             if (cfg.Source is FsuipcSource && !fsuipcCache.IsConnected())
             {

@@ -127,7 +127,7 @@ export interface CommandAddConfigFile extends CommandMessageBase {
 export interface CommandFileContextMenu extends CommandMessageBase {
   key: "CommandFileContextMenu"
   payload: {
-    action: "rename" | "remove" | "export"
+    action: "rename" | "remove" | "export" | "moveLeft" | "moveRight"
     index: number
     file: ConfigFile
   }
@@ -148,6 +148,7 @@ export type CommandMainMenuPayload = {
     | "file.saveas"
     | "file.exit"
     | "file.recent"
+    | "file.reload"
     | "project.edit"
     | "extras.hubhop.download"
     | "extras.msfs.reinstall"

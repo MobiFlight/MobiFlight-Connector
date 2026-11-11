@@ -33,6 +33,9 @@ namespace MobiFlight.BrowserMessages.Incoming.Handler
 
                     _mainForm.LoadConfig(filePath);
                     break;
+                case CommandMainMenuAction.file_reload:
+                    _mainForm.ReloadProjectFromDisk();
+                    break;
                 case CommandMainMenuAction.project_edit:
                     _mainForm.updateProjectSettings(message.Options.Project);
                     break;
