@@ -94,7 +94,7 @@ const ModifierEditor = ({
             title={
               <DrawerBreadcrumb
                 mode={mode}
-                crumbs={[configName, t("Dialog.Modifiers.Editor.Title")]}
+                crumbs={[configName, t("Dialog.Modifiers.Title")]}
               />
             }
             description={t("Dialog.Modifiers.Editor.Description")}

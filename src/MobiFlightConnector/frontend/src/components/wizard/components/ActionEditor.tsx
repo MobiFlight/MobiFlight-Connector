@@ -456,7 +456,7 @@ const ActionEditor = ({
           title={
             <DrawerBreadcrumb
               mode={mode}
-              crumbs={[configName, t(`Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.label`)]}
+              crumbs={[configName, t("Dialog.InputConfigWizard.Action.Title"), t(`Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.label`)]}
             />
           }
           description={t(

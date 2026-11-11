@@ -316,7 +316,7 @@ const PreconditionEditor = ({
               mode={variant}
               crumbs={[
                 configName,
-                t("Dialog.InputConfigWizard.PreconditionEditor.Title"),
+                t("Dialog.InputConfigWizard.Preconditions.Title"),
               ]}
             />
           }

@@ -51,7 +51,7 @@
       }
     },
     "Device": {
-      "Title": "Specify output device settings",
+      "Title": "Output device",
       "Description": "Configure the settings for this output device configuration.",
       "TestPanel": {
         "Title": "Step - Test output device",

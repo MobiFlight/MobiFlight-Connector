@@ -1,3 +1,4 @@
+import DrawerBreadcrumb from "@/components/wizard/common/DrawerTitle"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import WizardSection from "@/components/wizard/common/WizardSection"
 import ConfigWizardTestPanel from "@/components/wizard/components/ConfigWizardTestPanel"
@@ -133,12 +134,20 @@ const OutputDeviceEditor = ({
 
   return (
     <div className="flex flex-col gap-4" data-testid="output-device-editor">
-      <WizardSection>
-        <SectionHeadline
-          title={t("ConfigWizard.Device.Title")}
-          description={t("ConfigWizard.Device.Description")}
-        />
-      </WizardSection>
+      <SectionHeadline
+        title={
+          <DrawerBreadcrumb
+            mode="OutputConfigItem"
+            crumbs={[
+              configItem.Name,
+              t("Dialog.InputConfigWizard.Action.Title"),
+              t("ConfigWizard.Device.Title"),
+            ]}
+          />
+        }
+        description={t("ConfigWizard.Device.Description")}
+      />
+
       <WizardSection>
         <DeviceTypeSelectionPanel
           controllers={completeControllers}

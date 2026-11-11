@@ -173,7 +173,7 @@ const ConfigReferenceEditor = ({
               mode={mode}
               crumbs={[
                 configName,
-                t("Dialog.InputConfigWizard.ConfigReferenceEditor.Title"),
+                t("Dialog.InputConfigWizard.ConfigReferences.Title"),
               ]}
             />
           }
