@@ -71,6 +71,8 @@ const ModifiersPanel = ({
   ) : (
     <div className="flex grow flex-col gap-4">
       <ModifierEditor
+        mode={configItem.Type}
+        configName={configItem.Name}
         modifiers={modifiers}
         onModifierChange={(updatedModifiers) =>
           onConfigChange({

@@ -12,13 +12,19 @@ import { useTranslation } from "react-i18next"
 import { ModifierItem } from "@/components/wizard/Modifier/ModifierItem"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
+import DrawerTitle from "@/components/wizard/common/DrawerTitle"
+import { ConfigItemType } from "@/types/config"
 
 type ModifierEditorProps = {
+  mode: ConfigItemType
+  configName: string
   modifiers: Modifier[]
   onModifierChange: (modifiers: Modifier[]) => void
 }
 
 const ModifierEditor = ({
+  mode,
+  configName,
   modifiers,
   onModifierChange,
 }: ModifierEditorProps) => {
@@ -85,12 +91,12 @@ const ModifierEditor = ({
       <div className="flex flex-row justify-between gap-4">
         <div className="flex flex-col gap-1">
           <SectionHeadline
-            title={t("Dialog.Modifiers.Editor.Title")}
+            title={<DrawerTitle mode={mode} configName={configName} drawerKey="Dialog.Modifiers.Editor.Title" />}
             description={t("Dialog.Modifiers.Editor.Description")}
           />
         </div>
         <DropdownMenu>
-          <DropdownMenuTrigger asChild className="self-end">
+          <DropdownMenuTrigger asChild className="self-center">
             <Button variant="default" className="w-fit" size={"sm"}>
               <IconPlus className="h-4 w-4" />
               {t("Dialog.Modifiers.Editor.AddModifier")}
