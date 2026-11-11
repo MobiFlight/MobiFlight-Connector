@@ -5,7 +5,7 @@ import outputConnectedControllers from "./data/outputconfig/connectedControllers
 import msfsOutputPresetsResponse from "./data/outputconfig/msfspresets.testdata.json" with { type: "json" }
 import xplanePresetsResponse from "./data/inputaction/xplanepresets.testdata.json" with { type: "json" }
 import { Project } from "../src/types"
-import { IConfigItem } from "../src/types/config"
+import { IConfigItem, Source } from "../src/types/config"
 
 // Rows in the config list of the default test project (row 0 is the header)
 const ROW = {
@@ -81,13 +81,27 @@ const createEmptyOutputConfigAndOpenWizard = async (
   configListPage: ConfigListPage,
   page: Page,
   projectOptions?: Partial<Project>,
+) =>
+  createOutputConfigWithSourceAndOpenWizard(
+    configListPage,
+    page,
+    null,
+    projectOptions,
+  )
+
+// Creates a new output config without device that uses the given source
+const createOutputConfigWithSourceAndOpenWizard = async (
+  configListPage: ConfigListPage,
+  page: Page,
+  source: Source | null,
+  projectOptions?: Partial<Project>,
 ) => {
   await initOutputTestData(configListPage, page, projectOptions)
   await configListPage.addNewConfigItem("OutputConfigItem", 0, "default", {
     Name: NEW_OUTPUT_CONFIG_NAME,
     Controller: undefined,
     Device: null,
-    Source: null,
+    Source: source,
     ConfigRefs: [],
     Preconditions: [],
     Modifiers: { Items: [] },
@@ -490,6 +504,30 @@ test.describe("Output Config Wizard - MSFS Source", () => {
 })
 
 test.describe("Output Config Wizard - X-Plane Source", () => {
+  test("Summary shows the X-Plane source of an existing config", async ({
+    configListPage,
+    page,
+  }) => {
+    await createOutputConfigWithSourceAndOpenWizard(
+      configListPage,
+      page,
+      {
+        Type: "XplaneSource",
+        XplaneDataRef: { Path: "ixeg/733/MCP/mcp_vs_dial_ann" },
+      },
+      { Sim: "xplane" },
+    )
+
+    const triggerPanel = page.getByTestId("trigger-panel")
+    await expect(triggerPanel.getByText("X-Plane", { exact: true })).toBeVisible()
+    await expect(
+      triggerPanel.getByText("IXEG B733 MCP VS Display", { exact: true }),
+    ).toBeVisible()
+    await expect(
+      triggerPanel.getByText("ixeg/733/MCP/mcp_vs_dial_ann", { exact: true }),
+    ).toBeVisible()
+  })
+
   test("X-Plane source editor shows only output presets", async ({
     configListPage,
     page,
@@ -590,6 +628,34 @@ test.describe("Output Config Wizard - X-Plane Source", () => {
 })
 
 test.describe("Output Config Wizard - FSUIPC Source", () => {
+  test("Summary shows the FSUIPC source of an existing config", async ({
+    configListPage,
+    page,
+  }) => {
+    await createOutputConfigWithSourceAndOpenWizard(
+      configListPage,
+      page,
+      {
+        Type: "FsuipcSource",
+        FSUIPC: {
+          OffsetType: 0,
+          Size: 4,
+          Offset: 0x66cc,
+          Mask: 0xaabbccdd,
+          BcdMode: true,
+        },
+      },
+      { Sim: "msfs", Features: { FSUIPC: true, ProSim: false } },
+    )
+
+    const triggerPanel = page.getByTestId("trigger-panel")
+    await expect(triggerPanel.getByText("FSUIPC", { exact: true })).toBeVisible()
+    await expect(triggerPanel.getByText("4", { exact: true })).toBeVisible()
+    await expect(triggerPanel.getByText("66CC", { exact: true })).toBeVisible()
+    await expect(triggerPanel.getByText("AABBCCDD", { exact: true })).toBeVisible()
+    await expect(triggerPanel.getByText("True", { exact: true })).toBeVisible()
+  })
+
   test("Newly created FSUIPC source is saved correctly", async ({
     configListPage,
     page,
@@ -675,6 +741,24 @@ test.describe("Output Config Wizard - ProSim Source", () => {
     })
   }
 
+  test("Summary shows the ProSim source of an existing config", async ({
+    configListPage,
+    page,
+  }) => {
+    await createOutputConfigWithSourceAndOpenWizard(
+      configListPage,
+      page,
+      { Type: "ProSimSource", ProSimDataRef: { Path: "autopilot.altitude" } },
+      { Sim: "msfs", Features: { FSUIPC: false, ProSim: true } },
+    )
+
+    const triggerPanel = page.getByTestId("trigger-panel")
+    await expect(triggerPanel.getByText("ProSim", { exact: true })).toBeVisible()
+    await expect(
+      triggerPanel.getByText("autopilot.altitude", { exact: true }),
+    ).toBeVisible()
+  })
+
   test("ProSim source editor shows only readable DataRefs", async ({
     configListPage,
     page,
@@ -744,6 +828,30 @@ test.describe("Output Config Wizard - ProSim Source", () => {
 })
 
 test.describe("Output Config Wizard - Variable Source", () => {
+  test("Summary shows the Variable source of an existing config", async ({
+    configListPage,
+    page,
+  }) => {
+    await createOutputConfigWithSourceAndOpenWizard(configListPage, page, {
+      Type: "VariableSource",
+      MobiFlightVariable: {
+        Name: "MyOutputVar",
+        TYPE: "number",
+        Expression: "",
+        Number: 0,
+        Text: "",
+      },
+    })
+
+    const triggerPanel = page.getByTestId("trigger-panel")
+    await expect(
+      triggerPanel.getByText("MobiFlight - Variable", { exact: true }),
+    ).toBeVisible()
+    await expect(
+      triggerPanel.getByText("MyOutputVar", { exact: true }),
+    ).toBeVisible()
+  })
+
   test("Newly created Variable source is saved correctly", async ({
     configListPage,
     page,
