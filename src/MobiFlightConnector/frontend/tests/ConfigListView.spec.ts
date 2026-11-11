@@ -36,14 +36,46 @@ test.describe("Confirm content and basic functions are working", () => {
   })
 
   test("Confirm active toggle is working", async ({ configListPage, page }) => {
+    const backend = configListPage.mobiFlightPage
+
     await configListPage.gotoPage()
-    await configListPage.mobiFlightPage.initWithTestData()
-    await configListPage.setupConfigItemEditConfirmationResponse()
-    const firstRow = page.locator("tbody tr").nth(1)
-    const toggleSwitch = firstRow.getByRole("switch")
+    await backend.initWithTestData()
+    await backend.trackCommand("CommandConfigBulkAction")
+
+    const row = page.locator("tbody tr").nth(1)
+    const toggleSwitch = row.getByRole("switch")
+    const guid = await row.getAttribute("dnd-itemid")
+
+    if (!guid) {
+      throw new Error("ConfigItem GUID not found")
+    }
+
+    await expect(toggleSwitch).toBeChecked()
+
     await toggleSwitch.click()
+
+    await expect
+      .poll(async () => {
+        const commands = await backend.getTrackedCommands()
+        return commands?.length ?? 0
+      })
+      .toBe(1)
+
+    await configListPage.simulateConfigItemActiveState(guid, false)
+
     await expect(toggleSwitch).not.toBeChecked()
+
     await toggleSwitch.click()
+
+    await expect
+      .poll(async () => {
+        const commands = await backend.getTrackedCommands()
+        return commands?.length ?? 0
+      })
+      .toBe(2)
+
+    await configListPage.simulateConfigItemActiveState(guid, true)
+
     await expect(toggleSwitch).toBeChecked()
   })
 
@@ -1573,16 +1605,16 @@ test.describe("Confirm context menu actions are working", () => {
     const firstRow = page.getByRole("row").nth(1)
 
     const menuOptions = [
-      { label: "Edit", command: true },
-      { label: "Rename", command: false },
-      { label: "Delete", command: true },
-      { label: "Duplicate", command: true },
-      { label: "Test", command: true },
+      { label: "Edit", key: "CommandConfigContextMenu" },
+      { label: "Rename", key: null },
+      { label: "Delete", key: "CommandConfigBulkAction" },
+      { label: "Duplicate", key: "CommandConfigContextMenu" },
+      { label: "Test", key: "CommandConfigContextMenu" },
     ]
 
     configListPage.mobiFlightPage.trackCommand(`CommandConfigContextMenu`)
 
-    for (const { label, command } of menuOptions) {
+    for (const { label, key } of menuOptions) {
       await firstRow.click({ button: "right" })
       const contextMenu = page.getByTestId("config-item-context-menu")
       await expect(contextMenu).toBeVisible()
@@ -1597,12 +1629,20 @@ test.describe("Confirm context menu actions are working", () => {
 
       await menuItem.click()
 
-      if (command) {
+      if (key) {
         const postedCommands =
           await configListPage.mobiFlightPage.getTrackedCommands()
-        const lastCommand = postedCommands!.pop()
-        expect(lastCommand.key).toEqual("CommandConfigContextMenu")
-        expect(lastCommand.payload.action).toEqual(label.toLowerCase())
+        const matchingCommands = postedCommands?.filter(
+          (command) =>
+            command.key === key &&
+            command.payload.action === label.toLowerCase(),
+        )
+
+        expect(matchingCommands).toHaveLength(1)
+
+        if (key === "CommandConfigBulkAction") {
+          expect(matchingCommands![0].payload.items).toHaveLength(1)
+        }
       }
 
       if (label === "Rename") {
@@ -1626,16 +1666,16 @@ test.describe("Confirm context menu actions are working", () => {
       .first()
 
     const menuOptions = [
-      { label: "Edit", command: true },
-      { label: "Rename", command: false },
-      { label: "Delete", command: true },
-      { label: "Duplicate", command: true },
-      { label: "Test", command: true },
+      { label: "Edit", key: "CommandConfigContextMenu" },
+      { label: "Rename", key: null },
+      { label: "Delete", key: "CommandConfigBulkAction" },
+      { label: "Duplicate", key: "CommandConfigContextMenu" },
+      { label: "Test", key: "CommandConfigContextMenu" },
     ]
 
     configListPage.mobiFlightPage.trackCommand(`CommandConfigContextMenu`)
 
-    for (const { label, command } of menuOptions) {
+    for (const { label, key } of menuOptions) {
       await contextMenuButton.click()
       const contextMenu = page.getByTestId("config-item-context-menu")
       await expect(contextMenu).toBeVisible()
@@ -1650,12 +1690,20 @@ test.describe("Confirm context menu actions are working", () => {
 
       await menuItem.click()
 
-      if (command) {
+      if (key) {
         const postedCommands =
           await configListPage.mobiFlightPage.getTrackedCommands()
-        const lastCommand = postedCommands!.pop()
-        expect(lastCommand.key).toEqual("CommandConfigContextMenu")
-        expect(lastCommand.payload.action).toEqual(label.toLowerCase())
+        const matchingCommands = postedCommands?.filter(
+          (command) =>
+            command.key === key &&
+            command.payload.action === label.toLowerCase(),
+        )
+
+        expect(matchingCommands).toHaveLength(1)
+
+        if (key === "CommandConfigBulkAction") {
+          expect(matchingCommands![0].payload.items).toHaveLength(1)
+        }
       }
 
       if (label === "Rename") {

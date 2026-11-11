@@ -268,6 +268,7 @@ test.describe("Config List Global Undo", () => {
     await backend.trackCommand("CommandConfigContextMenu")
     await backend.trackCommand("CommandUpdateConfigItem")
     await backend.trackCommand("CommandUndoConfigList")
+    await backend.trackCommand("CommandConfigBulkAction")
 
     const controls = page.getByTestId("config-list-history-controls")
 
@@ -281,8 +282,6 @@ test.describe("Config List Global Undo", () => {
 
     // Toggle the ConfigItem.
     await toggleSwitch.click()
-
-    await expect(toggleSwitch).not.toBeChecked()
 
     await expect
       .poll(async () => {
@@ -299,7 +298,15 @@ test.describe("Config List Global Undo", () => {
       })
       .toBe(1)
 
-    await backend.trackCommand("CommandConfigBulkAction")
+    const project = await backend.getTestProjectData("inputaction")
+    const guid = project.ConfigFiles[0].ConfigItems[0].GUID
+    await configListPage.simulateConfigItemActiveState(
+      guid,
+      false,
+      "inputaction",
+    )
+
+    await expect(toggleSwitch).not.toBeChecked()
 
     // Simulate the backend recording the Toggle.
     await backend.publishMessage({
@@ -502,6 +509,7 @@ test.describe("Config List Global Undo", () => {
     await backend.trackCommand("CommandConfigContextMenu")
     await backend.trackCommand("CommandUpdateConfigItem")
     await backend.trackCommand("CommandUndoConfigList")
+    await backend.trackCommand("CommandConfigBulkAction")
 
     const controls = page.getByTestId("config-list-history-controls")
 
@@ -510,10 +518,43 @@ test.describe("Config List Global Undo", () => {
     const firstRow = await configListPage.getConfigItemRow(1)
     const toggleSwitch = firstRow.getByRole("switch")
 
+    // Verify the command tracker is actually registered.
+    const trackedKeys = await page.evaluate(
+      () => window.__trackedCommandKeys ?? [],
+    )
+
+    expect(trackedKeys).toContain("CommandConfigBulkAction")
+
     // Toggle an existing ConfigItem.
     await expect(toggleSwitch).toBeChecked()
 
     await toggleSwitch.click()
+
+    // Verify that the frontend publishes the expected command.
+    await expect
+      .poll(async () => {
+        const commands = await backend.getTrackedCommands()
+
+        return (
+          commands?.filter(
+            (command) =>
+              command.key === "CommandConfigBulkAction" &&
+              command.payload.action === "toggle" &&
+              command.payload.items.length === 1,
+          ).length ?? 0
+        )
+      })
+      .toBe(1)
+
+    // Simulate the backend's ConfigValueFullUpdate.
+    const testProject = await backend.getTestProjectData("inputaction")
+    const guid = testProject.ConfigFiles[0].ConfigItems[0].GUID
+
+    await configListPage.simulateConfigItemActiveState(
+      guid,
+      false,
+      "inputaction",
+    )
 
     await expect(toggleSwitch).not.toBeChecked()
 

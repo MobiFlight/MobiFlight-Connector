@@ -78,6 +78,26 @@ export class ConfigListPage {
     )
   }
 
+  async simulateConfigItemActiveState(
+    guid: string,
+    active: boolean,
+    variant: "default" | "inputaction" = "default",
+  ) {
+    const project = await this.mobiFlightPage.getTestProjectData(variant)
+
+    const originalItems = project.ConfigFiles[0].ConfigItems
+
+    if (!originalItems.some((item) => item.GUID === guid)) {
+      throw new Error(`ConfigItem not found: ${guid}`)
+    }
+
+    const updatedItems = originalItems.map((item) =>
+      item.GUID === guid ? { ...item, Active: active } : item,
+    )
+
+    await this.configValueFullUpdate(updatedItems as IConfigItem[], 0)
+  }
+
   async configValueFullUpdate(
     ConfigItems: IConfigItem[],
     configIndex: number = 0,
