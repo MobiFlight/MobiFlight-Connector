@@ -17,6 +17,7 @@ import {
   ProSimDataRefDefinitionUpdate,
   RecentProjects,
   ConfigListUndoState,
+  ProfileMoveUndone,
 } from "@/types/messages"
 import Settings from "@/types/settings"
 import { useRecentProjects, useSettingsStore } from "@/stores/settingsStore"
@@ -81,6 +82,18 @@ export const useBackendStateAppMessages = () => {
     const project = message.payload as Project
     console.log("Project message received", project)
     setProject(project)
+  })
+
+  useAppMessage("ProfileMoveUndone", (message) => {
+    const { FromIndex, ToIndex } = message.payload as ProfileMoveUndone
+    const { activeConfigFileIndex, setActiveConfigFileIndex } =
+      useProjectStore.getState()
+
+    if (activeConfigFileIndex === FromIndex) {
+      setActiveConfigFileIndex(ToIndex)
+    } else if (activeConfigFileIndex === ToIndex) {
+      setActiveConfigFileIndex(FromIndex)
+    }
   })
 
   useAppMessage("RecentProjects", (message) => {

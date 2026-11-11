@@ -37,6 +37,7 @@ export type AppMessageKey =
   | "ShutdownConfirmationRequested"
   | "GoldSponsorsUpdate"
   | "ConfigListUndoState"
+  | "ProfileMoveUndone"
 
 export type AppMessagePayload =
   | StatusBarUpdate
@@ -63,6 +64,7 @@ export type AppMessagePayload =
   | ShutdownConfirmationRequested
   | GoldSponsorsUpdate
   | ConfigListUndoState
+  | ProfileMoveUndone
 
 // AppMessage is the message format
 // when receiving messages from the backend
@@ -167,6 +169,11 @@ export interface ConfigListUndoState {
   CanUndo: boolean
   History: string[]
   HistoryStart: number
+}
+
+export interface ProfileMoveUndone {
+  FromIndex: number
+  ToIndex: number
 }
 
 export type ShutdownConfirmationRequested = Record<string, never>

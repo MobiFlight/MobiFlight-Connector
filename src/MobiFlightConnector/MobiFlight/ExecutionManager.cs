@@ -696,13 +696,22 @@ namespace MobiFlight
                     case CommandFileContextMenuAction.moveLeft:
                     case CommandFileContextMenuAction.moveRight:
                         // Issue 3205: swap the profile with its neighbour
-                        var targetIndex = message.Action == CommandFileContextMenuAction.moveLeft
+                        int targetIndex = message.Action == CommandFileContextMenuAction.moveLeft
                             ? message.Index - 1
                             : message.Index + 1;
-                        var isTargetInRange = targetIndex >= 0 && targetIndex < Project.ConfigFiles.Count;
-                        if (!isTargetInRange) return;
+                        if (targetIndex < 0 || targetIndex >= Project.ConfigFiles.Count) {
+                            return;
+                        }
+
+                        if (!_configListUndoManager.RecordProfileMoved(file, message.Index, targetIndex))
+                        {
+                            return;
+
+                        }
                         Project.ConfigFiles.Move(message.Index, targetIndex);
-                        break;
+                        MessageExchange.Instance.Publish(Project);
+                        return;
+
                     default:
                         return;
                 }

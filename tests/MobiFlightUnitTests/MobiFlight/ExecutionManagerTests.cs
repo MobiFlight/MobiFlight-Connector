@@ -57,7 +57,7 @@ namespace MobiFlight.Tests
             var notificationsBefore = GetPublishedMessages<Notification>()
                 .Count(notification => notification.Event == "ConfigListUndoFailed");
 
-            MessageExchange.Instance.Publish(new CommandUndoConfigList {Steps = 1});
+            MessageExchange.Instance.Publish(new CommandUndoConfigList { Steps = 1 });
             assertProjectUnchanged();
 
             var statesAfter = GetPublishedMessages<ConfigListUndoState>();
@@ -1924,7 +1924,7 @@ namespace MobiFlight.Tests
             MessageExchange.Instance.Publish(
                 new CommandResortConfigItem
                 {
-                    Items = new[] {new OutputConfigItem {GUID = itemA.GUID}},
+                    Items = new[] { new OutputConfigItem { GUID = itemA.GUID } },
                     SourceFileIndex = 0,
                     TargetFileIndex = 1,
                     NewIndex = 0
@@ -1992,7 +1992,7 @@ namespace MobiFlight.Tests
             MessageExchange.Instance.Publish(
                 new CommandResortConfigItem
                 {
-                    Items = new[] {new OutputConfigItem {GUID = itemB.GUID}},
+                    Items = new[] { new OutputConfigItem { GUID = itemB.GUID } },
                     SourceFileIndex = 0,
                     TargetFileIndex = 0,
                     NewIndex = 0
@@ -2348,5 +2348,59 @@ namespace MobiFlight.Tests
             );
         }
 
+
+        [TestMethod]
+        public void CommandFileContextMenu_ProfileMove_UndoRestoresOriginalOrder()
+        {
+            // Arrange
+            var profileA = new ConfigFile { Label = "Profile A" };
+            var profileB = new ConfigFile { Label = "Profile B" };
+            var profileC = new ConfigFile { Label = "Profile C" };
+
+            var project = new Project();
+            project.ConfigFiles.Add(profileA);
+            project.ConfigFiles.Add(profileB);
+            project.ConfigFiles.Add(profileC);
+
+            _executionManager.Project = project;
+            _executionManager.ActiveConfigIndex = 1;
+
+            // Move Profile B to the right
+            MessageExchange.Instance.Publish(
+                new CommandFileContextMenu
+                {
+                    Action = CommandFileContextMenuAction.moveRight,
+                    Index = 1,
+                    File = profileB
+                }
+            );
+            Assert.AreSame(profileA, project.ConfigFiles[0]);
+            Assert.AreSame(profileC, project.ConfigFiles[1]);
+            Assert.AreSame(profileB, project.ConfigFiles[2]);
+
+            var history = GetPublishedMessages<ConfigListUndoState>().Last();
+
+            CollectionAssert.AreEqual(
+                new[] { "ProfileMoved" },
+                history.History
+            );
+
+            // Simulate frontend selecting the moved profile.
+            MessageExchange.Instance.Publish(
+                new CommandActiveConfigFile
+                {
+                    index = 2
+                }
+            );
+
+            // Undo the move.
+            MessageExchange.Instance.Publish(
+                new CommandUndoConfigList { Steps = 1 }
+            );
+            // Assert that the original order is restored.
+            Assert.AreSame(profileA, project.ConfigFiles[0]);
+            Assert.AreSame(profileB, project.ConfigFiles[1]);
+            Assert.AreSame(profileC, project.ConfigFiles[2]);
+        }
     }
 }

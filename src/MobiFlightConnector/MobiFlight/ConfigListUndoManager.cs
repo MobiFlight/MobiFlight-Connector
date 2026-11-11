@@ -35,11 +35,13 @@ namespace MobiFlight
             Duplicate,
             Toggle,
             Resort,
+            ItemUpdated,
             ProfileAdded,
             ProfileRename,
             ProfileDeleted,
             ProfileMerged,
-            ItemUpdated
+            ProfileMoved
+
         }
 
         private sealed class ConfigListUndoItemState
@@ -220,6 +222,34 @@ namespace MobiFlight
             });
         }
 
+        internal bool RecordProfileMoved(ConfigFile file, int originalIndex, int targetIndex)
+        {
+            if (Project == null ||
+                file == null ||
+                originalIndex < 0 ||
+                originalIndex >= Project.ConfigFiles.Count ||
+                targetIndex < 0 ||
+                targetIndex >= Project.ConfigFiles.Count ||
+                Math.Abs(originalIndex - targetIndex) != 1 ||
+                !ReferenceEquals(Project.ConfigFiles[originalIndex], file))
+                {
+                return false;
+            }
+
+            PushConfigListUndo(new ConfigListUndoEntry
+            {
+                Action = ConfigListUndoAction.ProfileMoved,
+                Project = Project,
+                File = file,
+                ConfigIndex = originalIndex,
+                OriginalIndex = originalIndex,
+                TargetConfigIndex = targetIndex,
+                TargetFile = Project.ConfigFiles[targetIndex]
+            });
+
+            return true;
+        }
+
         internal bool RecordConfigListItemEditUndo(IConfigItem originalItem, ConfigFile file, int itemIndex, string change = null)
         {
             bool isLatestCreation = false;
@@ -365,8 +395,12 @@ namespace MobiFlight
                     ? entry.ConfigIndex >= 0 && entry.ConfigIndex <= Project.ConfigFiles.Count
                     : isProfileMerged
                         ? true
-                        : entry.Action == ConfigListUndoAction.ProfileAdded ||
-                          actualProfileIndex == entry.ConfigIndex;
+                        : entry.Action == ConfigListUndoAction.ProfileMoved
+                            ? entry.OriginalIndex >= 0 && entry.OriginalIndex < Project.ConfigFiles.Count &&
+                              actualProfileIndex == entry.TargetConfigIndex &&
+                              ReferenceEquals(Project.ConfigFiles[entry.OriginalIndex], entry.TargetFile)
+                            : entry.Action == ConfigListUndoAction.ProfileAdded ||
+                              actualProfileIndex == entry.ConfigIndex;
 
                 if (!validProject || !validProfile || !validIndex)
                 {
@@ -560,6 +594,23 @@ namespace MobiFlight
                     entry.File.Label = entry.OriginalLabel;
                 }
 
+                else if (entry.Action == ConfigListUndoAction.ProfileMoved)
+                {
+                    int fromIndex = entry.ConfigIndex;
+                    int toIndex = entry.TargetConfigIndex;
+
+                    Project.ConfigFiles.Move(fromIndex, toIndex);
+
+                    if (ActiveConfigIndex == fromIndex)
+                    {
+                        ActiveConfigIndex = toIndex;
+                    }
+                    else if (ActiveConfigIndex == toIndex)
+                    {
+                        ActiveConfigIndex = fromIndex;
+                    }
+                }
+
                 else if (entry.Action == ConfigListUndoAction.ProfileDeleted)
                 {
                     Project.ConfigFiles.Insert(entry.OriginalIndex, entry.File);
@@ -628,7 +679,8 @@ namespace MobiFlight
                     entry.Action == ConfigListUndoAction.ProfileAdded ||
                     entry.Action == ConfigListUndoAction.ProfileRename ||
                     entry.Action == ConfigListUndoAction.ProfileDeleted ||
-                    entry.Action == ConfigListUndoAction.ProfileMerged)
+                    entry.Action == ConfigListUndoAction.ProfileMerged ||
+                    entry.Action == ConfigListUndoAction.ProfileMoved)
                 {
                     MessageExchange.Instance.Publish(Project);
                 }
@@ -654,9 +706,19 @@ namespace MobiFlight
                 if (
                     entry.Action != ConfigListUndoAction.ProfileAdded &&
                     entry.Action != ConfigListUndoAction.ProfileDeleted &&
-                    entry.Action != ConfigListUndoAction.ProfileMerged)
+                    entry.Action != ConfigListUndoAction.ProfileMerged &&
+                    entry.Action != ConfigListUndoAction.ProfileMoved)
                 {
                     _executionManager.NotifyConfigListUndoChanged(items);
+                }
+
+                if (entry.Action == ConfigListUndoAction.ProfileMoved)
+                {
+                    MessageExchange.Instance.Publish(new ProfileMoveUndone
+                    {
+                        FromIndex = entry.TargetConfigIndex,
+                        ToIndex = entry.OriginalIndex
+                    });
                 }
 
                 _executionManager.NotifyConfigListActionUndone();
