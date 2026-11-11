@@ -558,6 +558,16 @@ namespace MobiFlight
                         // this is not subscribed here
                         // see MainForm.cs for the subscription there.
                         break;
+                    case CommandFileContextMenuAction.moveLeft:
+                    case CommandFileContextMenuAction.moveRight:
+                        // Issue 3205: swap the profile with its neighbour
+                        var targetIndex = message.Action == CommandFileContextMenuAction.moveLeft
+                            ? message.Index - 1
+                            : message.Index + 1;
+                        var isTargetInRange = targetIndex >= 0 && targetIndex < Project.ConfigFiles.Count;
+                        if (!isTargetInRange) return;
+                        Project.ConfigFiles.Move(message.Index, targetIndex);
+                        break;
                     default:
                         return;
                 }

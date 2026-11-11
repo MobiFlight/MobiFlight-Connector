@@ -208,6 +208,49 @@ test.describe("Test profile tabs basic features", () => {
     expect(lastCommand.payload.index).toEqual(1)
     expect(lastCommand.payload.file as ConfigFile).not.toBeNull()
   })
+
+  test("Confirm profile tabs can be moved left and right", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+
+    const tabs = page.getByRole("tablist").getByRole("tab")
+    const openTabMenu = (index: number) =>
+      tabs.nth(index).getByRole("button", { name: "Open menu" }).click()
+    const moveLeft = page.getByRole("menuitem", { name: "Move left" })
+    const moveRight = page.getByRole("menuitem", { name: "Move right" })
+
+    await test.step("First tab cannot move left, last tab cannot move right", async () => {
+      await openTabMenu(0)
+      await expect(moveLeft).toBeDisabled()
+      await expect(moveRight).toBeEnabled()
+      await page.keyboard.press("Escape")
+
+      await openTabMenu(2)
+      await expect(moveLeft).toBeEnabled()
+      await expect(moveRight).toBeDisabled()
+      await page.keyboard.press("Escape")
+    })
+
+    await test.step("Moving the active tab right sends the command and keeps it active", async () => {
+      await expect(tabs.nth(0)).toHaveAttribute("aria-selected", "true")
+      await configListPage.mobiFlightPage.trackCommand("CommandFileContextMenu")
+
+      await openTabMenu(0)
+      await moveRight.click()
+
+      const postedCommands =
+        await configListPage.mobiFlightPage.getTrackedCommands()
+      const lastCommand = postedCommands!
+        .filter((c) => c.key === "CommandFileContextMenu")
+        .pop()
+      expect(lastCommand.payload.action).toEqual("moveRight")
+      expect(lastCommand.payload.index).toEqual(0)
+      await expect(tabs.nth(1)).toHaveAttribute("aria-selected", "true")
+    })
+  })
 })
 
 test.describe("Test profile tabs overflow features", () => {

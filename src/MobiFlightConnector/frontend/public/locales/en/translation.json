@@ -107,7 +107,9 @@
       "Merge": "From existing project",
       "Rename": "Rename",
       "Remove": "Remove",
-      "Export": "Export"
+      "Export": "Export",
+      "MoveLeft": "Move left",
+      "MoveRight": "Move right"
     },
     "Toolbar": {
       "Save": {

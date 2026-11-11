@@ -124,7 +124,7 @@ export interface CommandAddConfigFile extends CommandMessageBase {
 export interface CommandFileContextMenu extends CommandMessageBase {
   key: "CommandFileContextMenu"
   payload: {
-    action: "rename" | "remove" | "export"
+    action: "rename" | "remove" | "export" | "moveLeft" | "moveRight"
     index: number
     file: ConfigFile
   }
