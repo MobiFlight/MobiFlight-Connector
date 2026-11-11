@@ -40,6 +40,86 @@ test("Confirm project name can be renamed", async ({
   await expect(projectNameLabel.getByText("Test Project Renamed")).toBeVisible()
 })
 
+test.describe("Project reload from disk", () => {
+  let projectContextMenu: Locator
+
+  test.beforeEach(async ({ configListPage, page }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+    projectContextMenu = page
+      .getByTestId("project-name-label")
+      .getByRole("button", { name: "Open menu" })
+    await configListPage.mobiFlightPage.trackCommand("CommandMainMenu")
+  })
+
+  test("Reload without unsaved changes sends reload command immediately", async ({
+    configListPage,
+    page,
+  }) => {
+    await projectContextMenu.click()
+    await page.getByRole("menuitem", { name: "Reload from disk" }).click()
+
+    await expect(page.getByRole("dialog")).toHaveCount(0)
+    const postedCommands =
+      await configListPage.mobiFlightPage.getTrackedCommands()
+    const lastCommand = postedCommands!.pop()
+    expect(lastCommand.key).toEqual("CommandMainMenu")
+    expect(lastCommand.payload.action).toEqual("file.reload")
+  })
+
+  test("Reload with unsaved changes asks for confirmation and reloads on discard", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.mobiFlightPage.updateProjectState({
+      HasChanged: true,
+      SaveStatus: "idle",
+    })
+
+    await projectContextMenu.click()
+    await page.getByRole("menuitem", { name: "Reload from disk" }).click()
+
+    const dialog = page.getByRole("dialog")
+    await expect(dialog.getByText("Discard changes?")).toBeVisible()
+    let postedCommands =
+      await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(
+      postedCommands!.filter((c) => c.payload.action === "file.reload"),
+    ).toHaveLength(0)
+
+    await dialog.getByRole("button", { name: "Discard changes" }).click()
+    await expect(dialog).toHaveCount(0)
+
+    postedCommands = await configListPage.mobiFlightPage.getTrackedCommands()
+    const lastCommand = postedCommands!.pop()
+    expect(lastCommand.key).toEqual("CommandMainMenu")
+    expect(lastCommand.payload.action).toEqual("file.reload")
+  })
+
+  test("Reload with unsaved changes does nothing when user keeps editing", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.mobiFlightPage.updateProjectState({
+      HasChanged: true,
+      SaveStatus: "idle",
+    })
+
+    await projectContextMenu.click()
+    await page.getByRole("menuitem", { name: "Reload from disk" }).click()
+
+    const dialog = page.getByRole("dialog")
+    await dialog.getByRole("button", { name: "Keep editing" }).click()
+    await expect(dialog).toHaveCount(0)
+
+    const postedCommands =
+      await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(
+      postedCommands!.filter((c) => c.payload.action === "file.reload"),
+    ).toHaveLength(0)
+  })
+})
+
 test.describe("Test execution toolbar", () => {
   let toolbar: Locator
 
@@ -235,6 +315,49 @@ test.describe("Test profile tabs basic features", () => {
     expect(lastCommand.payload.action).toEqual("rename")
     expect(lastCommand.payload.index).toEqual(2)
     expect(lastCommand.payload.file.Label).toEqual("Config 3 Renamed")
+  })
+
+  test("Confirm profile tabs can be moved left and right", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+
+    const tabs = page.getByRole("tablist").getByRole("tab")
+    const openTabMenu = (index: number) =>
+      tabs.nth(index).getByRole("button", { name: "Open menu" }).click()
+    const moveLeft = page.getByRole("menuitem", { name: "Move left" })
+    const moveRight = page.getByRole("menuitem", { name: "Move right" })
+
+    await test.step("First tab cannot move left, last tab cannot move right", async () => {
+      await openTabMenu(0)
+      await expect(moveLeft).toBeDisabled()
+      await expect(moveRight).toBeEnabled()
+      await page.keyboard.press("Escape")
+
+      await openTabMenu(2)
+      await expect(moveLeft).toBeEnabled()
+      await expect(moveRight).toBeDisabled()
+      await page.keyboard.press("Escape")
+    })
+
+    await test.step("Moving the active tab right sends the command and keeps it active", async () => {
+      await expect(tabs.nth(0)).toHaveAttribute("aria-selected", "true")
+      await configListPage.mobiFlightPage.trackCommand("CommandFileContextMenu")
+
+      await openTabMenu(0)
+      await moveRight.click()
+
+      const postedCommands =
+        await configListPage.mobiFlightPage.getTrackedCommands()
+      const lastCommand = postedCommands!
+        .filter((c) => c.key === "CommandFileContextMenu")
+        .pop()
+      expect(lastCommand.payload.action).toEqual("moveRight")
+      expect(lastCommand.payload.index).toEqual(0)
+      await expect(tabs.nth(1)).toHaveAttribute("aria-selected", "true")
+    })
   })
 })
 

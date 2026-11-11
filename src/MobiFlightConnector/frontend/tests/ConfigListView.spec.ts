@@ -1484,6 +1484,153 @@ test.describe("Selection: Select / Deselect actions", () => {
     expect(lastCommand.key).toEqual("CommandConfigBulkAction")
     expect(lastCommand.payload.action).toEqual("toggle")
   })
+
+  test.describe("Context menu on a selection of rows", () => {
+    test.use({ viewport: { width: 1024, height: 800 } })
+
+    test.beforeEach(async ({ configListPage, page }) => {
+      await configListPage.gotoPage()
+      await configListPage.mobiFlightPage.initWithTestData()
+      await configListPage.mobiFlightPage.trackCommand(
+        "CommandConfigBulkAction",
+      )
+
+      await page.getByRole("row").nth(1).click()
+      await page.keyboard.down("Shift")
+      await page.getByRole("row").nth(4).click()
+      await page.keyboard.up("Shift")
+    })
+
+    test("Confirm right click on a selected row keeps the selection", async ({
+      page,
+    }) => {
+      const selectionMenu = page.getByTestId(
+        "config-item-selection-context-menu",
+      )
+
+      await page.getByRole("row").nth(2).click({ button: "right" })
+
+      await expect(selectionMenu).toContainText("4 rows selected")
+      await expect(selectionMenu.getByRole("menuitem")).toHaveText([
+        "Delete selected",
+        "Toggle selected",
+        "Clear selection",
+      ])
+      // the open menu hides the rest of the page from the accessibility tree
+      await expect(
+        page.getByRole("button", {
+          name: "rows selected",
+          includeHidden: true,
+        }),
+      ).toHaveText("4 rows selected")
+    })
+
+    test("Confirm right click on another row selects only that row", async ({
+      page,
+    }) => {
+      await page.getByRole("row").nth(5).click({ button: "right" })
+
+      await expect(page.getByTestId("config-item-context-menu")).toBeVisible()
+      await expect(
+        page.getByTestId("config-item-selection-context-menu"),
+      ).not.toBeVisible()
+      // the open menu hides the rest of the page from the accessibility tree
+      await expect(
+        page.getByRole("button", {
+          name: "rows selected",
+          includeHidden: true,
+        }),
+      ).toHaveText("1 rows selected")
+    })
+
+    test("Confirm `delete` applies to all selected rows", async ({
+      configListPage,
+      page,
+    }) => {
+      await page.getByRole("row").nth(2).click({ button: "right" })
+      await page.getByRole("menuitem", { name: "Delete selected" }).click()
+
+      const postedCommands =
+        await configListPage.mobiFlightPage.getTrackedCommands()
+      expect(postedCommands).toHaveLength(1)
+      expect(postedCommands![0].payload.action).toEqual("delete")
+      expect(postedCommands![0].payload.items).toHaveLength(4)
+      await expect(
+        page.getByRole("button", { name: "rows selected" }),
+      ).not.toBeVisible()
+    })
+
+    test("Confirm `toggle` applies to all selected rows and keeps the selection", async ({
+      configListPage,
+      page,
+    }) => {
+      await page.getByRole("row").nth(2).click({ button: "right" })
+      await page.getByRole("menuitem", { name: "Toggle selected" }).click()
+
+      const postedCommands =
+        await configListPage.mobiFlightPage.getTrackedCommands()
+      expect(postedCommands).toHaveLength(1)
+      expect(postedCommands![0].payload.action).toEqual("toggle")
+      expect(postedCommands![0].payload.items).toHaveLength(4)
+      await expect(
+        page.getByRole("button", { name: "rows selected" }),
+      ).toHaveText("4 rows selected")
+    })
+
+    test("Confirm `clear` removes the selection", async ({ page }) => {
+      await page.getByRole("row").nth(2).click({ button: "right" })
+      await page.getByRole("menuitem", { name: "Clear selection" }).click()
+
+      await expect(
+        page.getByRole("button", { name: "rows selected" }),
+      ).not.toBeVisible()
+    })
+
+    test("Confirm menu keys do not trigger the table shortcuts", async ({
+      configListPage,
+      page,
+    }) => {
+      const selectionMenu = page.getByTestId(
+        "config-item-selection-context-menu",
+      )
+
+      await test.step("Escape closes the menu and keeps the selection", async () => {
+        await page.getByRole("row").nth(2).click({ button: "right" })
+        await expect(selectionMenu).toBeVisible()
+        await page.keyboard.press("Escape")
+        await expect(selectionMenu).not.toBeVisible()
+        await expect(
+          page.getByRole("button", { name: "rows selected" }),
+        ).toHaveText("4 rows selected")
+      })
+
+      await test.step("Delete does not delete the selection", async () => {
+        await page.getByRole("row").nth(2).click({ button: "right" })
+        await expect(selectionMenu).toBeFocused()
+        await page.keyboard.press("Delete")
+        await expect(selectionMenu).toBeVisible()
+
+        const postedCommands =
+          await configListPage.mobiFlightPage.getTrackedCommands()
+        expect(postedCommands).toHaveLength(0)
+      })
+
+      await test.step("Space runs only the focused menu item", async () => {
+        await page.keyboard.press("ArrowDown")
+        await page.keyboard.press("ArrowDown")
+        await expect(
+          selectionMenu.getByRole("menuitem", { name: "Toggle selected" }),
+        ).toBeFocused()
+        await page.keyboard.press("Space")
+        await expect(selectionMenu).not.toBeVisible()
+
+        const postedCommands =
+          await configListPage.mobiFlightPage.getTrackedCommands()
+        expect(postedCommands).toHaveLength(1)
+        expect(postedCommands![0].payload.action).toEqual("toggle")
+      })
+    })
+  })
 })
 
 test.describe("Confirm context menu actions are working", () => {
