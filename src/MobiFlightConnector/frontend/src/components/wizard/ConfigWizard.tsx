@@ -238,6 +238,8 @@ const ConfigWizard = ({
           {hasReferences && (
             <div className="lg:w-1/2">
               <ConfigReferencePanel
+                mode={configItem.Type}
+                configName={configItem.Name}
                 configReferences={configItem.ConfigRefs ?? []}
                 variant="summary"
                 openDetailsPanel={() => navigateToDetailView("configReference")}
@@ -423,6 +425,8 @@ const ConfigWizard = ({
               )}
               {detailView === "configReference" && (
                 <ConfigReferencePanel
+                  mode={configItem.Type}
+                  configName={configItem.Name}
                   onConfigReferencesChange={(configReferences) => {
                     onConfigChange({
                       ...configItem,
@@ -448,6 +452,8 @@ const ConfigWizard = ({
               )}
               {detailView === "action" && (
                 <ActionEditor
+                  mode={configItem.Type}
+                  configName={configItem.Name}
                   event={event}
                   buttonOptions={buttonOptions}
                   action={editAction}

@@ -9,7 +9,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Switch } from "@/components/ui/switch"
-import DrawerTitle from "@/components/wizard/common/DrawerTitle"
+import DrawerBreadcrumb from "@/components/wizard/common/DrawerTitle"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import MoveUpDownButtons from "@/components/wizard/components/MoveUpDownButtons"
 import { preconditionVariants } from "@/components/wizard/variants"
@@ -312,10 +312,12 @@ const PreconditionEditor = ({
       <div className="flex flex-row justify-between gap-4">
         <SectionHeadline
           title={
-            <DrawerTitle
+            <DrawerBreadcrumb
               mode={variant}
-              configName={configName}
-              drawerKey="Dialog.InputConfigWizard.PreconditionEditor.Title"
+              crumbs={[
+                configName,
+                t("Dialog.InputConfigWizard.PreconditionEditor.Title"),
+              ]}
             />
           }
           description={t(

@@ -7,15 +7,20 @@ import { cn } from "@/lib/utils"
 import { useProjectStore } from "@/stores/projectStore"
 import { ConfigReference, IConfigItem } from "@/types/config"
 import { IconEdit, IconPlus } from "@tabler/icons-react"
+import type { ConfigItemType } from "@/types/config"
 import { useTranslation } from "react-i18next"
 
 type ConfigReferencePanelProps = {
+  mode: ConfigItemType
+  configName: string
   configReferences: ConfigReference[]
   onConfigReferencesChange?: (configReferences: ConfigReference[]) => void
   variant: "summary" | "details"
   openDetailsPanel: () => void
 }
 const ConfigReferencePanel = ({
+  mode,
+  configName,
   configReferences,
   onConfigReferencesChange,
   variant,
@@ -84,6 +89,8 @@ const ConfigReferencePanel = ({
     </Card>
   ) : (
     <ConfigReferenceEditor
+      mode={mode}
+      configName={configName}
       outputConfigs={outputConfigs}
       configReferences={configReferences}
       onConfigReferencesChange={onConfigReferencesChange ?? (() => {})}

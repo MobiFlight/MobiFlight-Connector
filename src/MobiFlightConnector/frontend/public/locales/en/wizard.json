@@ -21,13 +21,13 @@
       "OutputDevice": "Output device"
     },
     "Source": {
-      "Title": "Specify source value",
+      "Title": "Source value",
       "Description": "Configure the value for this output configuration.",
       "Label": "Source",
       "Remove": "Remove source"
     },
     "SourceType": {
-      "Title": "Step 1 - Source",
+      "Title": "Step 1 - Select source type",
       "Description": "Select where the value comes from.",
       "Options": {
         "SimConnectSource": { "label": "Microsoft Flight Simulator" },

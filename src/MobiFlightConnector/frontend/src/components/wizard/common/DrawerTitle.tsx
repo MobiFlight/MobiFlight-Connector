@@ -1,29 +1,32 @@
 import { ConfigItemType } from "@/types/config"
 import { IconChevronRight } from "@tabler/icons-react"
-import { useTranslation } from "react-i18next"
 
-const DrawerTitle = ({
+const DrawerBreadcrumb = ({
   mode,
-  configName,
-  drawerKey,
+  crumbs,
 }: {
   mode: ConfigItemType
-  configName: string
-  drawerKey: string
+  crumbs: string[]
 }) => {
-  const { t } = useTranslation("wizard")
   return (
     <div className="flex flex-row items-center gap-2">
       {mode === "InputConfigItem" ? (
-        <div className="h-5 w-2 bg-cfginput"></div>
+        <div className="bg-cfginput h-5 w-2"></div>
       ) : (
-        <div className="h-5 w-2 bg-cfgoutput"></div>
+        <div className="bg-cfgoutput h-5 w-2"></div>
       )}
-      <span className="text-xl">{configName}</span>
-      <IconChevronRight className="w-5 -mx-1 mt-0.5" />
-      <span className="text-xl">{t(drawerKey)}</span>
+      {crumbs.map((crumb, index) => (
+        <>
+          <span key={index} className="text-xl">
+            {crumb}
+          </span>
+          {index < crumbs.length - 1 && (
+            <IconChevronRight className="-mx-1 mt-0.5 w-5" />
+          )}
+        </>
+      ))}
     </div>
   )
 }
 
-export default DrawerTitle
+export default DrawerBreadcrumb

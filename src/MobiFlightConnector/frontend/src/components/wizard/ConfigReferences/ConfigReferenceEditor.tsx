@@ -3,13 +3,16 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Switch } from "@/components/ui/switch"
+import DrawerBreadcrumb from "@/components/wizard/common/DrawerTitle"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import { configReferenceVariants } from "@/components/wizard/variants"
-import { ConfigReference, IConfigItem } from "@/types/config"
+import { ConfigItemType, ConfigReference, IConfigItem } from "@/types/config"
 import { IconPlus, IconTrash } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 
 export interface ConfigReferenceEditorProps {
+  mode: ConfigItemType
+  configName: string
   outputConfigs: IConfigItem[]
   configReferences: ConfigReference[]
   onConfigReferencesChange: (configReferences: ConfigReference[]) => void
@@ -130,6 +133,8 @@ const EMPTY_CONFIG_REFERENCE: ConfigReference = {
 }
 
 const ConfigReferenceEditor = ({
+  mode,
+  configName,
   outputConfigs,
   configReferences,
   onConfigReferencesChange,
@@ -163,7 +168,15 @@ const ConfigReferenceEditor = ({
     >
       <div className="flex flex-row justify-between gap-4">
         <SectionHeadline
-          title={t("Dialog.InputConfigWizard.ConfigReferenceEditor.Title")}
+          title={
+            <DrawerBreadcrumb
+              mode={mode}
+              crumbs={[
+                configName,
+                t("Dialog.InputConfigWizard.ConfigReferenceEditor.Title"),
+              ]}
+            />
+          }
           description={t(
             "Dialog.InputConfigWizard.ConfigReferenceEditor.Description",
           )}

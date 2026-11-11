@@ -18,14 +18,18 @@ import { SourceDefaults } from "@/types/defaults"
 import { useTranslation } from "react-i18next"
 import { msfsSourceAdapter, xplaneSourceAdapter } from "@/types/presets"
 import XplanePresetPanel from "@/components/wizard/common/XplanePresetPanel"
-import DrawerTitle from "@/components/wizard/common/DrawerTitle"
+import DrawerBreadcrumb from "@/components/wizard/common/DrawerTitle"
 
 export interface SourceEditorProps {
   configName: string
   source: Source | null
   onSourceChange: (source: Source | null) => void
 }
-const SourceEditor = ({ configName, source, onSourceChange }: SourceEditorProps) => {
+const SourceEditor = ({
+  configName,
+  source,
+  onSourceChange,
+}: SourceEditorProps) => {
   const { t } = useTranslation("wizard")
   const selectedSourceType = source
     ? SourceTypeOptions.find((option) => option.value === source.Type)
@@ -34,7 +38,16 @@ const SourceEditor = ({ configName, source, onSourceChange }: SourceEditorProps)
   return (
     <div className="flex flex-col gap-4" data-testid="source-editor">
       <SectionHeadline
-        title={<DrawerTitle mode={"OutputConfigItem"} configName={configName} drawerKey="ConfigWizard.Source.Title" />}
+        title={
+          <DrawerBreadcrumb
+            mode={"OutputConfigItem"}
+            crumbs={[
+              configName,
+              t(`Dialog.InputConfigWizard.ConfigTrigger.Title`),
+              t("ConfigWizard.Source.Title"),
+            ]}
+          />
+        }
         description={t("ConfigWizard.Source.Description")}
       />
       <WizardSection>

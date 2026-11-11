@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next"
 import { ModifierItem } from "@/components/wizard/Modifier/ModifierItem"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
-import DrawerTitle from "@/components/wizard/common/DrawerTitle"
+import DrawerBreadcrumb from "@/components/wizard/common/DrawerTitle"
 import { ConfigItemType } from "@/types/config"
 
 type ModifierEditorProps = {
@@ -91,7 +91,12 @@ const ModifierEditor = ({
       <div className="flex flex-row justify-between gap-4">
         <div className="flex flex-col gap-1">
           <SectionHeadline
-            title={<DrawerTitle mode={mode} configName={configName} drawerKey="Dialog.Modifiers.Editor.Title" />}
+            title={
+              <DrawerBreadcrumb
+                mode={mode}
+                crumbs={[configName, t("Dialog.Modifiers.Editor.Title")]}
+              />
+            }
             description={t("Dialog.Modifiers.Editor.Description")}
           />
         </div>

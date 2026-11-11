@@ -21,6 +21,7 @@ import {
   Action,
   ButtonHoldOptions,
   ButtonLongReleaseOptions,
+  ConfigItemType,
   EventIdInputAction,
   FsuipcOffsetInputAction,
   JeehellInputAction,
@@ -38,7 +39,10 @@ import {
   msfsInputActionAdapter,
   xplaneInputActionAdapter,
 } from "@/types/presets"
+import DrawerBreadcrumb from "@/components/wizard/common/DrawerTitle"
 export interface ActionEditorProps {
+  mode: ConfigItemType
+  configName: string
   event: { variant: string; event: string }
   buttonOptions?: Partial<ButtonHoldOptions> & Partial<ButtonLongReleaseOptions>
   action: Action | null
@@ -334,7 +338,7 @@ const ButtonOnHoldOptions = ({
   buttonOptions,
   action,
   onActionChange,
-}: ActionEditorProps) => {
+}: Omit<ActionEditorProps, "mode" | "configName">) => {
   const { t } = useTranslation()
   return (
     <div className="flex flex-1 flex-col gap-1">
@@ -396,7 +400,7 @@ const ButtonOnLongReleaseOptions = ({
   buttonOptions,
   action,
   onActionChange,
-}: ActionEditorProps) => {
+}: Omit<ActionEditorProps, "mode" | "configName">) => {
   const { t } = useTranslation()
   return (
     <div className="flex flex-1 flex-col gap-1">
@@ -430,6 +434,8 @@ const ButtonOnLongReleaseOptions = ({
 }
 
 const ActionEditor = ({
+  mode,
+  configName,
   event,
   buttonOptions,
   action,
@@ -439,34 +445,45 @@ const ActionEditor = ({
   const selectedActionType = action
     ? ActionTypeOptions.find((option) => option.value === action.Type)
     : undefined
+
+  const isButton = event.variant === "button"
+  const hasExtraOptions =
+    event.event === "onHold" || event.event === "onLongRelease"
   return (
     <div className="flex flex-col gap-4" data-testid="action-editor">
-      <WizardSection>
+      <div className="flex flex-col gap-2">
         <SectionHeadline
-          title={t(
-            `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.label`,
-          )}
+          title={
+            <DrawerBreadcrumb
+              mode={mode}
+              crumbs={[configName, t(`Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.label`)]}
+            />
+          }
           description={t(
             `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.description`,
           )}
         />
-        {event.variant === "button" && event.event === "onHold" && (
-          <ButtonOnHoldOptions
-            event={event}
-            buttonOptions={buttonOptions}
-            action={action}
-            onActionChange={onActionChange}
-          />
-        )}
-        {event.variant === "button" && event.event === "onLongRelease" && (
-          <ButtonOnLongReleaseOptions
-            event={event}
-            buttonOptions={buttonOptions}
-            action={action}
-            onActionChange={onActionChange}
-          />
-        )}
-      </WizardSection>
+      </div>
+      {isButton && hasExtraOptions && (
+        <WizardSection>
+          {event.event === "onHold" && (
+            <ButtonOnHoldOptions
+              event={event}
+              buttonOptions={buttonOptions}
+              action={action}
+              onActionChange={onActionChange}
+            />
+          )}
+          {event.event === "onLongRelease" && (
+            <ButtonOnLongReleaseOptions
+              event={event}
+              buttonOptions={buttonOptions}
+              action={action}
+              onActionChange={onActionChange}
+            />
+          )}
+        </WizardSection>
+      )}
       <WizardSection>
         <div className="flex flex-col gap-4">
           <div className="flex flex-row items-end justify-between">
