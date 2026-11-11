@@ -122,6 +122,24 @@ const openWizardAndReturnActionPanel = async (
 }
 
 test.describe("General Input Config Wizard Tests", () => {
+  test("Dialog title shows the config type and name", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+    await openDialogForRow(configListPage, page, 1)
+
+    const dialogTitle = page.getByTestId("dialog-config-name")
+    await expect(dialogTitle).toContainText("Configuration")
+    await expect(dialogTitle).toContainText("MSFS Input Action")
+    await expect(
+      page.getByText(
+        "Edit all settings for this input configuration in this dialog.",
+      ),
+    ).toBeVisible()
+  })
+
   test("Dialog open for input config items - via Edit button", async ({
     configListPage,
     page,
@@ -129,9 +147,9 @@ test.describe("General Input Config Wizard Tests", () => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
 
-    await expect(page.getByText("Edit Input Configuration")).not.toBeVisible()
+    await expect(page.getByTestId("configwizard-dialog")).not.toBeVisible()
     await openDialogForRow(configListPage, page, 1)
-    await expect(page.getByText("Edit Input Configuration")).toBeVisible()
+    await expect(page.getByTestId("configwizard-dialog")).toBeVisible()
   })
 
   test("Dialog open for input config items - via double click", async ({
@@ -142,9 +160,9 @@ test.describe("General Input Config Wizard Tests", () => {
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
     const firstRow = await configListPage.getConfigItemRow(1)
 
-    await expect(page.getByText("Edit Input Configuration")).not.toBeVisible()
+    await expect(page.getByTestId("configwizard-dialog")).not.toBeVisible()
     await firstRow.dblclick()
-    await expect(page.getByText("Edit Input Configuration")).toBeVisible()
+    await expect(page.getByTestId("configwizard-dialog")).toBeVisible()
   })
 
   test("Dialog open for input config items - via context menu", async ({
@@ -155,7 +173,7 @@ test.describe("General Input Config Wizard Tests", () => {
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
     const firstRow = await configListPage.getConfigItemRow(1)
 
-    await expect(page.getByText("Edit Input Configuration")).not.toBeVisible()
+    await expect(page.getByTestId("configwizard-dialog")).not.toBeVisible()
 
     const contextMenuButton = firstRow
       .getByRole("button", { name: "Open menu" })
@@ -167,7 +185,7 @@ test.describe("General Input Config Wizard Tests", () => {
     await expect(menuItem).toBeVisible()
     await menuItem.click()
     
-    await expect(page.getByText("Edit Input Configuration")).toBeVisible()
+    await expect(page.getByTestId("configwizard-dialog")).toBeVisible()
   })
 
   test("Dialog open for input config items - via 'Add Input Config' button", async ({
@@ -178,7 +196,7 @@ test.describe("General Input Config Wizard Tests", () => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
 
-    await expect(page.getByText("Edit Input Configuration")).not.toBeVisible()
+    await expect(page.getByTestId("configwizard-dialog")).not.toBeVisible()
 
     const addInputConfigButton = page.getByRole("button", {
       name: "Add Input Config",
@@ -186,7 +204,7 @@ test.describe("General Input Config Wizard Tests", () => {
     await addInputConfigButton.click()
     await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction")
     
-    await expect(page.getByText("Edit Input Configuration")).toBeVisible()
+    await expect(page.getByTestId("configwizard-dialog")).toBeVisible()
   })
 
   test("Apply changes button is working as expected", async ({
@@ -207,7 +225,7 @@ test.describe("General Input Config Wizard Tests", () => {
     await applyChangesButton.click()
 
     // After clicking the dialog closes
-    await expect(page.getByText("Edit Input Configuration")).not.toBeVisible()
+    await expect(page.getByTestId("configwizard-dialog")).not.toBeVisible()
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
   })
@@ -432,7 +450,7 @@ test.describe("Input Config Wizard - Edit name", () => {
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
     await addInputConfigButton.click()
     await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction")
-    await expect(page.getByText("Edit Input Configuration")).toBeVisible()
+    await expect(page.getByTestId("configwizard-dialog")).toBeVisible()
 
     const nameLabel = page.getByTestId("dialog-config-name").getByRole("button")
     const nameInput = page
@@ -483,7 +501,7 @@ test.describe("Input Config Wizard - Edit name", () => {
     await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction", {
       Name: "New Input Config With Non-Default Name",
     })
-    await expect(page.getByText("Edit Input Configuration")).toBeVisible()
+    await expect(page.getByTestId("configwizard-dialog")).toBeVisible()
     await expect(
       page.getByTestId("dialog-config-name").getByRole("textbox"),
     ).toBeVisible()
@@ -511,7 +529,7 @@ test.describe("Input Config Wizard - Edit name", () => {
     // Simulate the backend response after duplicating the item.
     await configListPage.duplicateConfigItem(0, "inputaction")
 
-    await expect(page.getByText("Edit Input Configuration")).toBeVisible()
+    await expect(page.getByTestId("configwizard-dialog")).toBeVisible()
     const nameInput = page
       .getByTestId("dialog-config-name")
       .getByRole("textbox")
@@ -555,7 +573,7 @@ test.describe("Input Config Wizard - Edit name", () => {
       .getByRole("button", { name: "Edit" })
       .click()
 
-    await expect(page.getByText("Edit Input Configuration")).toBeVisible()
+    await expect(page.getByTestId("configwizard-dialog")).toBeVisible()
     // Label should be visible
     await expect(
       page
@@ -4258,7 +4276,7 @@ test.describe("Input Config Wizard - Keyboard Input Action Panel", () => {
         ],
       } as ConfigValueFullUpdate,
     })
-    await expect(page.getByText("Edit Input Configuration")).toBeVisible()
+    await expect(page.getByTestId("configwizard-dialog")).toBeVisible()
 
     const scanForInputButton = page.getByRole("button", {
       name: "Scan for input",
@@ -6022,7 +6040,7 @@ test.describe("Input Config Wizard - Action Binding Panels", () => {
       })
       await addInputConfigButton.click()
       await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction")
-      await expect(page.getByText("Edit Input Configuration")).toBeVisible()
+      await expect(page.getByTestId("configwizard-dialog")).toBeVisible()
 
       // Scan for input for device with respective input device type
       const triggerPanel = page.getByTestId("trigger-panel")
@@ -6324,7 +6342,7 @@ async function CreateNewInputConfigItemAndWaitForDialog(
   })
   await addInputConfigButton.click()
   await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction")
-  await expect(page.getByText("Edit Input Configuration")).toBeVisible()
+  await expect(page.getByTestId("configwizard-dialog")).toBeVisible()
 }
 
 async function CreateNewInputConfigItemAndReturnActionEditor(

@@ -169,21 +169,32 @@ const selectComboBoxOption = async (
 }
 
 test.describe("General Output Config Wizard Tests", () => {
-  test("Dialog open for output config items - via Edit button", async ({
+  test("Dialog title shows the config type and name", async ({
     configListPage,
     page,
   }) => {
     await openWizardForRow(configListPage, page, ROW.Output)
 
-    await expect(page.getByTestId("dialog-config-name")).toContainText(
-      "Edit output configuration",
-    )
+    const dialogTitle = page.getByTestId("dialog-config-name")
+    await expect(dialogTitle).toContainText("Configuration")
+    await expect(dialogTitle).toContainText("LED 1")
     await expect(
       page.getByText(
         "Edit all settings for your output configuration in this dialog.",
       ),
     ).toBeVisible()
-    await expect(page.getByTestId("dialog-config-name")).toContainText("LED 1")
+  })
+
+  test("Dialog open for output config items - via Edit button", async ({
+    configListPage,
+    page,
+  }) => {
+    await initOutputTestData(configListPage, page)
+    const dialog = page.getByTestId("configwizard-dialog")
+
+    await expect(dialog).not.toBeVisible()
+    await configListPage.clickEditButtonForRow(ROW.Output)
+    await expect(dialog).toBeVisible()
   })
 
   test("Dialog open for output config items - via double click", async ({
@@ -192,10 +203,11 @@ test.describe("General Output Config Wizard Tests", () => {
   }) => {
     await initOutputTestData(configListPage, page)
     const row = await configListPage.getConfigItemRow(ROW.Output)
+    const dialog = page.getByTestId("configwizard-dialog")
 
-    await expect(page.getByText("Edit output configuration")).not.toBeVisible()
+    await expect(dialog).not.toBeVisible()
     await row.dblclick()
-    await expect(page.getByText("Edit output configuration")).toBeVisible()
+    await expect(dialog).toBeVisible()
   })
 
   test("Apply changes button sends the config item to the backend", async ({
@@ -290,7 +302,15 @@ test.describe("Output Config Wizard - Source Panel", () => {
     await selectValueButton.click()
     const sourceEditor = page.getByTestId("source-editor")
     await expect(sourceEditor).toBeVisible()
-    await expect(sourceEditor.getByText("Specify source value")).toBeVisible()
+
+    // Breadcrumb: config name > Trigger > Source value
+    await expect(
+      sourceEditor.getByText(NEW_OUTPUT_CONFIG_NAME, { exact: true }),
+    ).toBeVisible()
+    await expect(sourceEditor.getByText("Trigger", { exact: true })).toBeVisible()
+    await expect(
+      sourceEditor.getByText("Source value", { exact: true }),
+    ).toBeVisible()
   })
 
   test("Double click on the source summary opens the source editor", async ({
