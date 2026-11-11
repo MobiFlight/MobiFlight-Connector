@@ -489,7 +489,6 @@
       }
     },
     "InputConfigWizard": {
-      "Title": "Configuration",
       "Description": "Edit all settings for this input configuration in this dialog.",
       "DrawerTitle": "Settings",
       "ConfigTrigger": {

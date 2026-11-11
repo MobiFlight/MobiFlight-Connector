@@ -11,7 +11,6 @@
       "ModifierCount": "{{count}} modifiers"
     },
     "Output": {
-      "Title": "Configuration",
       "Description": "Edit all settings for your output configuration in this dialog.",
       "InputAction": {
         "Button": "Button action",

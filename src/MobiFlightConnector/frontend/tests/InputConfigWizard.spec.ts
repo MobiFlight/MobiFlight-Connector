@@ -131,7 +131,7 @@ test.describe("General Input Config Wizard Tests", () => {
     await openDialogForRow(configListPage, page, 1)
 
     const dialogTitle = page.getByTestId("dialog-config-name")
-    await expect(dialogTitle).toContainText("Configuration")
+    await expect(dialogTitle).toContainText("Input Configuration")
     await expect(dialogTitle).toContainText("MSFS Input Action")
     await expect(
       page.getByText(

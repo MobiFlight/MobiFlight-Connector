@@ -486,7 +486,6 @@
       }
     },
     "InputConfigWizard": {
-      "Title": "構成",
       "Description": "この会話で入力設定のすべての項目を編集します。",
       "DrawerTitle": "設定",
       "ConfigTrigger": {

@@ -166,7 +166,12 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
             ) : (
               <div className="bg-cfginput h-6 w-2"></div>
             )}
-            {t(`${i18nPrefix}.Title`)} <IconChevronRight className="mt-1" />
+            {t(
+              isOutputConfig
+                ? "Types.OutputConfigItem"
+                : "Types.InputConfigItem",
+            )}{" "}
+            <IconChevronRight className="mt-1" />
             <InlineEditLabel
               labelClassName="text-2xl px-4.5 -ml-5"
               inputClassName="h-8 w-fit text-2xl! -ml-3 h-12 -my-2"

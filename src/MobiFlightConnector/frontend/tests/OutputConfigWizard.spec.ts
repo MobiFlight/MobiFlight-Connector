@@ -176,7 +176,7 @@ test.describe("General Output Config Wizard Tests", () => {
     await openWizardForRow(configListPage, page, ROW.Output)
 
     const dialogTitle = page.getByTestId("dialog-config-name")
-    await expect(dialogTitle).toContainText("Configuration")
+    await expect(dialogTitle).toContainText("Output Configuration")
     await expect(dialogTitle).toContainText("LED 1")
     await expect(
       page.getByText(

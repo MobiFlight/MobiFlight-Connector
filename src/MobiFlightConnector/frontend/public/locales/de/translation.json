@@ -495,7 +495,6 @@
       }
     },
     "InputConfigWizard": {
-      "Title": "Eingabekonfiguration bearbeiten",
       "Description": "Bearbeite alle Einstellungen für diese Eingabekonfiguration in diesem Dialog.",
       "DrawerTitle": "Einstellungen",
       "ConfigTrigger": {
