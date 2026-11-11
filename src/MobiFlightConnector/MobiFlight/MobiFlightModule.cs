@@ -5,6 +5,7 @@ using MobiFlight.Transport;
 using MobiFlight.UI.Panels.Settings.Device;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO.Ports;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -1268,6 +1269,11 @@ namespace MobiFlight
             return result;
         }
 
+        // Sorts device names so numbers compare by value ("InputShifter:2" before "InputShifter:10").
+        // Invariant culture keeps the order the same whatever the user's regional settings are.
+        private static readonly StringComparer DeviceNameComparer =
+            StringComparer.Create(CultureInfo.InvariantCulture, CompareOptions.NumericOrdering);
+
         public IEnumerable<Firmware.BaseDevice> GetConnectedOutputDevices()
         {
             List<Firmware.BaseDevice> result = new List<Firmware.BaseDevice>();
@@ -1288,7 +1294,7 @@ namespace MobiFlight
                 }
             }
 
-            result.Sort((a, b) => { return a.Name.CompareTo(b.Name); });
+            result.Sort((a, b) => DeviceNameComparer.Compare(a.Name, b.Name));
             return result;
         }
 
@@ -1302,7 +1308,7 @@ namespace MobiFlight
                 result.AddRange(range);
             }
 
-            result.Sort((a, b) => { return a.Name.CompareTo(b.Name); });
+            result.Sort((a, b) => DeviceNameComparer.Compare(a.Name, b.Name));
             return result;
         }
 
