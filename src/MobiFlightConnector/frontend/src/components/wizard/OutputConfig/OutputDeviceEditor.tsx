@@ -137,7 +137,7 @@ const OutputDeviceEditor = ({
       <SectionHeadline
         title={
           <DrawerBreadcrumb
-            mode="OutputConfigItem"
+            mode={configItem.Type}
             crumbs={[
               configItem.Name,
               t("Dialog.InputConfigWizard.Action.Title"),

@@ -1,5 +1,6 @@
 import { ConfigItemType } from "@/types/config"
 import { IconChevronRight } from "@tabler/icons-react"
+import { Fragment } from "react"
 
 const DrawerBreadcrumb = ({
   mode,
@@ -16,14 +17,14 @@ const DrawerBreadcrumb = ({
         <div className="bg-cfgoutput h-5 w-2"></div>
       )}
       {crumbs.map((crumb, index) => (
-        <>
-          <span key={index} className="text-xl">
+        <Fragment key={index}>
+          <span className="text-xl">
             {crumb}
           </span>
           {index < crumbs.length - 1 && (
             <IconChevronRight className="-mx-1 mt-0.5 w-5" />
           )}
-        </>
+        </Fragment>
       ))}
     </div>
   )
