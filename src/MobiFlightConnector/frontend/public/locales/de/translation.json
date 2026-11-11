@@ -117,7 +117,8 @@
         "NoChanges": "Keine Änderungen zum Speichern",
         "Success": "Erfolgreich gespeichert"
       },
-      "Settings": "Einstellungen"
+      "Settings": "Einstellungen",
+      "Reload": "Von Festplatte neu laden"
     },
     "Execution": {
       "AutoRun": {
