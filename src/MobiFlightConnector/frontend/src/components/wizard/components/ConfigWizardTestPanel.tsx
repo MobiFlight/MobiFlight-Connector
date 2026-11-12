@@ -62,7 +62,9 @@ const ConfigWizardTestPanel = ({
   // so changes to the config restart the test with the new settings.
   // The delay avoids sending a command on every keystroke.
   useEffect(() => {
-    if (!latest.current.isTesting || !configItem) return
+    const isTestRunning = latest.current.isTesting
+    const hasConfig = !!configItem
+    if (!isTestRunning || !hasConfig) return
     const timeout = setTimeout(
       () =>
         publish({

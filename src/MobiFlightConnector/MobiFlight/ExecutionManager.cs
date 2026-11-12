@@ -1526,20 +1526,29 @@ namespace MobiFlight
         /// </summary>
         internal static bool IsSameTestTarget(OutputConfigItem previous, OutputConfigItem next)
         {
-            if (previous == null || next == null) return false;
-            if (previous.GUID != next.GUID) return false;
-            if (previous.Controller?.Serial != next.Controller?.Serial) return false;
+            var isTestRunning = previous != null;
+            var hasNewConfig = next != null;
+            if (!isTestRunning || !hasNewConfig) return false;
+
+            var isSameConfig = previous.GUID == next.GUID;
+            var isSameController = previous.Controller?.Serial == next.Controller?.Serial;
+            if (!isSameConfig || !isSameController) return false;
 
             var previousDevice = previous.Device;
             var nextDevice = next.Device;
-            if (previousDevice == null || nextDevice == null) return previousDevice == nextDevice;
-            if (previousDevice.GetType() != nextDevice.GetType()) return false;
-            if (previousDevice.Name != nextDevice.Name) return false;
+            var hasBothDevices = previousDevice != null && nextDevice != null;
+            if (!hasBothDevices) return previousDevice == nextDevice;
+
+            var isSameDeviceType = previousDevice.GetType() == nextDevice.GetType();
+            var isSameDevice = isSameDeviceType && previousDevice.Name == nextDevice.Name;
+            if (!isSameDevice) return false;
 
             // Turning a stepper or servo off moves it, so setting changes on the same device just update it
-            if (nextDevice is OutputConfig.Stepper || nextDevice is OutputConfig.Servo) return true;
+            var turningOffMovesDevice = nextDevice is OutputConfig.Stepper || nextDevice is OutputConfig.Servo;
+            if (turningOffMovesDevice) return true;
 
-            return previousDevice.Equals(nextDevice);
+            var hasSameSettings = previousDevice.Equals(nextDevice);
+            return hasSameSettings;
         }
 
         private void ExecuteWizardTest()
