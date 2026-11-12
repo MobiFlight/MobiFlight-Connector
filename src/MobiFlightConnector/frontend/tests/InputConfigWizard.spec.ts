@@ -5978,7 +5978,7 @@ test.describe("Input Config Wizard - ProSim Input Action Panel", () => {
     await expect(presetRow).toBeVisible()
     await presetRow.click()
 
-    const pathValue = actionEditor.getByTestId("pathValue")
+    const pathValue = actionEditor.getByTestId("prosim-path")
     await expect(pathValue).toBeVisible()
     await expect(pathValue).toHaveText("aircraft.heading")
 

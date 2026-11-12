@@ -76,7 +76,7 @@ const ProSimInputActionPanel = ({
           <div
             id="path"
             className="rounded border p-2 text-sm"
-            data-testid="pathValue"
+            data-testid="prosim-path"
           >
             {config?.Path && config?.Path !== ""
               ? config?.Path
