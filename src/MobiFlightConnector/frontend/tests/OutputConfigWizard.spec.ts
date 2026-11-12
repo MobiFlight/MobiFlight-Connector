@@ -1377,6 +1377,146 @@ test.describe("Output Config Wizard - Stepper Device", () => {
     await expect(deviceEditor.getByLabel("Speed")).toHaveValue("467")
     await expect(resetButton).toHaveCount(0)
   })
+
+  test.describe("Calibration", () => {
+    // Opens the device editor of the existing stepper config
+    // and starts tracking the calibration commands
+    const openStepperCalibration = async (
+      configListPage: ConfigListPage,
+      page: Page,
+    ) => {
+      await openWizardForRow(configListPage, page, ROW.Stepper)
+      await page.getByTestId("action-panel").getByRole("button").last().click()
+      const deviceEditor = page.getByTestId("output-device-editor")
+      await expect(deviceEditor).toBeVisible()
+      await configListPage.mobiFlightPage.trackCommand(
+        "CommandStepperCalibration",
+      )
+      return deviceEditor
+    }
+
+    const getCalibrationPayloads = async (configListPage: ConfigListPage) => {
+      const commands =
+        (await configListPage.mobiFlightPage.getTrackedCommands()) ?? []
+      await configListPage.mobiFlightPage.clearTrackedCommands()
+      return commands.map((command) => command.payload)
+    }
+
+    const expectedTarget = {
+      controller: { Name: "ProtoBoard-v2", Serial: "SN-5FC-1CF" },
+      stepper: { Type: "Stepper", Address: "Stepper 1" },
+    }
+
+    test("Calibration section shows the jog buttons and the hint", async ({
+      configListPage,
+      page,
+    }) => {
+      const deviceEditor = await openStepperCalibration(configListPage, page)
+
+      await expect(
+        deviceEditor.getByText("Step 3 - Calibrate stepper"),
+      ).toBeVisible()
+      for (const step of ["-50", "-10", "-1", "+1", "+10", "+50"]) {
+        await expect(
+          deviceEditor.getByRole("button", { name: step, exact: true }),
+        ).toBeVisible()
+      }
+      await expect(
+        deviceEditor.getByRole("button", { name: "Set home position" }),
+      ).toBeVisible()
+      await expect(
+        deviceEditor.getByText(
+          "Use the arrow keys to select the step size. Use space to move the stepper. Use enter to set the home position.",
+        ),
+      ).toBeVisible()
+    })
+
+    test("Jog buttons move the stepper and set home resets it", async ({
+      configListPage,
+      page,
+    }) => {
+      const deviceEditor = await openStepperCalibration(configListPage, page)
+
+      await test.step("Jog buttons send a move with their step count", async () => {
+        await deviceEditor
+          .getByRole("button", { name: "-10", exact: true })
+          .click()
+        await deviceEditor
+          .getByRole("button", { name: "+50", exact: true })
+          .click()
+
+        const payloads = await getCalibrationPayloads(configListPage)
+        expect(payloads).toHaveLength(2)
+        expect(payloads[0]).toMatchObject({
+          ...expectedTarget,
+          action: "move",
+          steps: -10,
+        })
+        expect(payloads[1]).toMatchObject({
+          ...expectedTarget,
+          action: "move",
+          steps: 50,
+        })
+      })
+
+      await test.step("Set home position sends home", async () => {
+        await deviceEditor
+          .getByRole("button", { name: "Set home position" })
+          .click()
+
+        const payloads = await getCalibrationPayloads(configListPage)
+        expect(payloads).toHaveLength(1)
+        expect(payloads[0]).toMatchObject({ ...expectedTarget, action: "home" })
+      })
+    })
+
+    test("Keyboard selects the step size, moves and sets home", async ({
+      configListPage,
+      page,
+    }) => {
+      const deviceEditor = await openStepperCalibration(configListPage, page)
+      const minusOne = deviceEditor.getByRole("button", {
+        name: "-1",
+        exact: true,
+      })
+      const plusOne = deviceEditor.getByRole("button", {
+        name: "+1",
+        exact: true,
+      })
+
+      await test.step("Arrow keys move the focus between the step sizes", async () => {
+        await minusOne.focus()
+        await page.keyboard.press("ArrowRight")
+        await expect(plusOne).toBeFocused()
+
+        // focusing a button does not move the stepper
+        expect(await getCalibrationPayloads(configListPage)).toHaveLength(0)
+      })
+
+      await test.step("Space moves the stepper exactly once per press", async () => {
+        await page.keyboard.press("Space")
+        await page.keyboard.press("Space")
+
+        const payloads = await getCalibrationPayloads(configListPage)
+        expect(payloads).toHaveLength(2)
+        for (const payload of payloads) {
+          expect(payload).toMatchObject({
+            ...expectedTarget,
+            action: "move",
+            steps: 1,
+          })
+        }
+      })
+
+      await test.step("Enter sets the home position", async () => {
+        await page.keyboard.press("Enter")
+
+        const payloads = await getCalibrationPayloads(configListPage)
+        expect(payloads).toHaveLength(1)
+        expect(payloads[0]).toMatchObject({ ...expectedTarget, action: "home" })
+      })
+    })
+  })
 })
 
 test.describe("Output Config Wizard - 7-Segment Device", () => {
