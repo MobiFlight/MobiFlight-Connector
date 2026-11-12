@@ -10,8 +10,11 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
-
-import { Table } from "@/components/ui/table"
+import {
+  useVirtualizer,
+  defaultRangeExtractor,
+  Range,
+} from "@tanstack/react-virtual"
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { DataTableToolbar } from "./data-table-toolbar"
@@ -96,25 +99,53 @@ export function ConfigItemTable<TValue>({
     id: "config-item-table-header",
     data: { type: "header" },
   })
-  // const { rows } = table.getRowModel()
-  // Virtualization setup
-  // const virtualizer = useVirtualizer({
-  //   count: rows.length,
-  //   getScrollElement: () => parentRef.current,
-  //   estimateSize: () => 50,
-  //   overscan: 5
-  // });
-
+  const parentRef = useRef<HTMLDivElement>(null)
+  const { rows } = table.getRowModel()
+  const virtualizer = useVirtualizer({
+    count: rows.length,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => 48,
+    overscan: 5,
+    rangeExtractor: useCallback(
+      (range: Range) => {
+        const activeIndex = rows.findIndex((r) => r.id === dragItemId)
+        const rendered = defaultRangeExtractor(range)
+        if (activeIndex !== -1 && !rendered.includes(activeIndex)) {
+          rendered.push(activeIndex)
+        }
+        return rendered
+      },
+      [rows, dragItemId],
+    ),
+  })
   const { publish } = messageExchange
   const tableRef = useRef<HTMLTableElement>(null)
   const tableBodyRef = useRef<HTMLTableSectionElement>(null)
   const previousData = useRef(data)
   const lastAction = useRef<"add" | "duplicate" | null>(null)
   const showInvisibleToastOnDialogClose = useRef<string | null>(null)
+  const nameEditActions = useRef(new Map<string, () => void>())
 
-  const handleDuplicate = () => {
+  const handleDuplicate = useCallback(() => {
     lastAction.current = "duplicate"
-  }
+  }, [])
+  const registerNameEdit = useCallback(
+    (itemId: string, editFn: (() => void) | null) => {
+      if (editFn) {
+        nameEditActions.current.set(itemId, editFn)
+      } else {
+        nameEditActions.current.delete(itemId)
+      }
+    },
+    [],
+  )
+  const startNameEdit = useCallback((itemId: string) => {
+    nameEditActions.current.get(itemId)?.()
+  }, [])
+  const contextValue = useMemo(
+    () => ({ onDuplicate: handleDuplicate, registerNameEdit, startNameEdit }),
+    [handleDuplicate, registerNameEdit, startNameEdit],
+  )
   const { setTable, setTableContainerRef, dragState } =
     useConfigItemDragContext()
   // Register this table with the drag context
@@ -200,27 +231,17 @@ export function ConfigItemTable<TValue>({
 
     lastAction.current = null
 
-    const rowElement = tableRef.current?.querySelector(
-      `[dnd-itemid="${newItem.GUID}"]`,
-    )
+    const rowIndex = table
+      .getRowModel()
+      .rows.findIndex((r) => r.id === newItem.GUID)
 
-    if (rowElement) {
-      rowElement.scrollIntoView({
+    if (rowIndex !== -1) {
+      virtualizer.scrollToIndex(rowIndex, {
+        align: "center",
         behavior: "smooth",
-        block: "center",
       })
-
-      const row = table.getRowModel().rows.find((r) => r.id === newItem.GUID)
-
-      if (row) {
-        table.setRowSelection({ [row.id]: true })
-      }
+      table.setRowSelection({ [newItem.GUID]: true })
     } else {
-      // If the newly added item's row element is not found,
-      // it means the item is not visible due to active filters.
-      // Store its GUID so that when the dialog closes,
-      // we can show a toast notification to inform the user
-      // and offer to reset the filters.
       showInvisibleToastOnDialogClose.current = newItem.GUID
     }
 
@@ -239,7 +260,7 @@ export function ConfigItemTable<TValue>({
         },
       } as CommandConfigContextMenu)
     }
-  }, [publish, navigate, table, data])
+  }, [publish, navigate, table, data, virtualizer])
   const { t } = useTranslation()
 
   const handleAddOutputConfig = useCallback(() => {
@@ -316,12 +337,12 @@ export function ConfigItemTable<TValue>({
   ])
 
   return (
-    <ConfigItemTableContext.Provider value={{ onDuplicate: handleDuplicate }}>
+    <ConfigItemTableContext.Provider value={contextValue}>
       <div
-        className="flex grow flex-col gap-2 overflow-y-auto px-2"
+        className="flex grow flex-col gap-2 min-h-0 overflow-hidden px-2"
         data-testid="config-item-table"
       >
-        <div className="flex grow flex-col gap-2 overflow-y-auto">
+        <div className="flex grow flex-col gap-2 min-h-0 flex-1">
           <div className="p-1">
             <DataTableToolbar
               disabled={!showTable}
@@ -334,8 +355,11 @@ export function ConfigItemTable<TValue>({
           </div>
           {showTable ? (
             table.getRowModel().rows?.length ? (
-              <div className="border-primary flex flex-col overflow-y-auto rounded-lg border">
-                <Table ref={tableRef} className="table-fixed">
+              <div
+                ref={parentRef}
+                className="border-primary flex flex-col min-h-0 max-h-full overflow-y-auto rounded-lg border"
+              >
+                <table ref={tableRef} className="w-full caption-bottom text-sm table-fixed">
                   <ConfigItemTableHeader
                     ref={setTableHeaderRef}
                     headerGroups={table.getHeaderGroups()}
@@ -344,10 +368,11 @@ export function ConfigItemTable<TValue>({
                     ref={handleTableBodyRef}
                     table={table}
                     dragItemId={dragItemId}
+                    virtualizer={virtualizer}
                     onDeleteSelected={deleteSelected}
                     onToggleSelected={toggleSelected}
                   />
-                </Table>
+                </table>
               </div>
             ) : (
               <div className="border-primary flex flex-col gap-2 rounded-lg border-2 border-solid pb-6">
