@@ -11,7 +11,14 @@ import messageExchange from "@/lib/messageExchange"
 import { cn } from "@/lib/utils"
 import { ConfigFile } from "@/types"
 import { CommandFileContextMenu } from "@/types/commands"
-import { IconDotsVertical, IconPencil, IconTrash } from "@tabler/icons-react"
+import { useProjectStore } from "@/stores/projectStore"
+import {
+  IconArrowLeft,
+  IconArrowRight,
+  IconDotsVertical,
+  IconPencil,
+  IconTrash,
+} from "@tabler/icons-react"
 import { VariantProps } from "class-variance-authority"
 import { RefObject } from "react"
 import { useTranslation } from "react-i18next"
@@ -33,6 +40,26 @@ const ProfileTabContextMenu = ({
 }: ProfileTabContextMenuProps) => {
   const { t } = useTranslation()
   const { publish } = messageExchange
+  const { project, activeConfigFileIndex, setActiveConfigFileIndex } =
+    useProjectStore()
+  const profileCount = project?.ConfigFiles?.length ?? 0
+
+  const moveProfile = (direction: "moveLeft" | "moveRight") => {
+    const targetIndex = direction === "moveLeft" ? index - 1 : index + 1
+    publish({
+      key: "CommandFileContextMenu",
+      payload: {
+        action: direction,
+        index: index,
+        file: file,
+      },
+    } as CommandFileContextMenu)
+
+    // Keep the same profile active after it swaps places with its neighbour
+    if (activeConfigFileIndex === index) setActiveConfigFileIndex(targetIndex)
+    else if (activeConfigFileIndex === targetIndex)
+      setActiveConfigFileIndex(index)
+  }
 
   return (
     <div className="relative">
@@ -57,6 +84,20 @@ const ProfileTabContextMenu = ({
           >
             <IconPencil />
             {t("Project.File.Action.Rename")}
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            disabled={index === 0}
+            onClick={() => moveProfile("moveLeft")}
+          >
+            <IconArrowLeft />
+            {t("Project.File.Action.MoveLeft")}
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            disabled={index >= profileCount - 1}
+            onClick={() => moveProfile("moveRight")}
+          >
+            <IconArrowRight />
+            {t("Project.File.Action.MoveRight")}
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => {

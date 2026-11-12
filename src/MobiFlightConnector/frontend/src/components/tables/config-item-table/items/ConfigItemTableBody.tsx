@@ -8,6 +8,7 @@ import { useState, useEffect, forwardRef } from "react"
 import { IConfigItem } from "@/types"
 import { ContextMenu, ContextMenuTrigger } from "@/components/ui/context-menu"
 import ConfigItemRowContextMenu from "@/components/ConfigItemRowContextMenu"
+import ConfigItemSelectionContextMenu from "@/components/ConfigItemSelectionContextMenu"
 import { useNavigate } from "react-router"
 import { Virtualizer } from "@tanstack/react-virtual"
 interface ConfigItemTableBodyProps<TData> {
@@ -48,6 +49,9 @@ const ConfigItemTableBody = forwardRef<
         ]
 
         if (!supportedKeyPress.includes(e.key)) return
+
+        // Already handled, e.g. by an open menu that closes on Escape
+        if (e.defaultPrevented) return
 
         e.preventDefault() // Prevent default spacebar behavior (scrolling)
         e.stopPropagation()
@@ -123,8 +127,11 @@ const ConfigItemTableBody = forwardRef<
                     className={dragClassName}
                     data-state={row.getIsSelected() && "selected"}
                     dnd-itemid={row.id}
-                    onContextMenu={() => {
-                      table.setRowSelection({ [row.id]: true })
+                    onContextMenu={(e) => {
+                      e.stopPropagation()
+                      // Right-clicking a selected row keeps the selection, so
+                      // that the context menu can act on all of its rows
+                      if (!isSelected) table.setRowSelection({ [row.id]: true })
                       setLastSelected(row)
                       setContextMenuItem(item)
                     }}
@@ -211,9 +218,21 @@ const ConfigItemTableBody = forwardRef<
             </SortableContext>
           </TableBody>
         </ContextMenuTrigger>
-        {contextMenuItem && (
-          <ConfigItemRowContextMenu item={contextMenuItem} variant="context" />
-        )}
+        {contextMenuItem &&
+          (selectedRows.length > 1 &&
+          selectedRows.some((r) => r.id === contextMenuItem.GUID) ? (
+            <ConfigItemSelectionContextMenu
+              selectedCount={selectedRows.length}
+              onDeleteSelected={onDeleteSelected}
+              onToggleSelected={onToggleSelected}
+              onClearSelected={() => table.resetRowSelection()}
+            />
+          ) : (
+            <ConfigItemRowContextMenu
+              item={contextMenuItem}
+              variant="context"
+            />
+          ))}
       </ContextMenu>
     )
   },
