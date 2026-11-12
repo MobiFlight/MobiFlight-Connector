@@ -216,6 +216,9 @@ test.describe("General Input Config Wizard Tests", () => {
 
     await openDialogForRow(configListPage, page, 1)
 
+    // Make a change so the apply button is shown
+    await page.getByRole("button", { name: "Clear input" }).click()
+
     const applyChangesButton = page.getByRole("button", {
       name: "Apply changes",
     })
@@ -239,6 +242,9 @@ test.describe("General Input Config Wizard Tests", () => {
 
     const dialog = await openDialogForRow(configListPage, page, 1)
 
+    // Make a change so the cancel button is shown
+    await page.getByRole("button", { name: "Clear input" }).click()
+
     const cancelButton = page.getByRole("button", { name: "Cancel" })
     await expect(cancelButton).toBeVisible()
 
@@ -252,6 +258,45 @@ test.describe("General Input Config Wizard Tests", () => {
     // No commands should have been sent to the backend
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands?.length).toBe(0)
+  })
+
+  test("Dialog without pending changes only shows a Close button", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+
+    const dialog = await openDialogForRow(configListPage, page, 1)
+    const footer = page.getByTestId("configwizard-dialog-footer")
+
+    await test.step("No changes: only Close is offered", async () => {
+      await expect(footer.getByRole("button")).toHaveCount(1)
+      await expect(footer.getByRole("button", { name: "Close" })).toBeVisible()
+    })
+
+    await test.step("After a change: Cancel and Apply changes are offered", async () => {
+      await page.getByRole("button", { name: "Clear input" }).click()
+      await expect(footer.getByRole("button", { name: "Cancel" })).toBeVisible()
+      await expect(
+        footer.getByRole("button", { name: "Apply changes" }),
+      ).toBeVisible()
+    })
+
+    await test.step("Close without changes sends no update", async () => {
+      await footer.getByRole("button", { name: "Cancel" }).click()
+      await expect(dialog).not.toBeVisible()
+
+      await openDialogForRow(configListPage, page, 1)
+      await configListPage.mobiFlightPage.trackCommand(
+        "CommandUpdateConfigItem",
+      )
+      await footer.getByRole("button", { name: "Close" }).click()
+      await expect(dialog).not.toBeVisible()
+
+      const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+      expect(commands?.length).toBe(0)
+    })
   })
 
   test("Dialog without pending changes can be closed by hitting ESC", async ({

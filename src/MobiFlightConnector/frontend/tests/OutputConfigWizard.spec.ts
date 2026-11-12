@@ -125,6 +125,16 @@ const applyChangesAndReturnPayload = async (
   return commands?.pop()?.payload
 }
 
+// Footer only offers Cancel and Apply changes once the config has been edited
+const renameConfig = async (page: Page, name: string) => {
+  const configName = page.getByTestId("dialog-config-name")
+  await configName.getByRole("button").dblclick()
+  const nameInput = configName.getByRole("textbox")
+  await nameInput.fill(name)
+  await nameInput.press("Enter")
+  await expect(nameInput).not.toBeVisible()
+}
+
 // The remove button of the source summary is only visible on hover
 const removeSource = async (page: Page) => {
   const triggerPanel = page.getByTestId("trigger-panel")
@@ -270,10 +280,12 @@ test.describe("General Output Config Wizard Tests", () => {
     page,
   }) => {
     await openWizardForRow(configListPage, page, ROW.Output)
+    await renameConfig(page, "Renamed output")
 
     const payload = await applyChangesAndReturnPayload(configListPage, page)
     expect(payload.item.GUID).toBe("f79f75dd-0d45-4c91-870d-599cfc75ede1")
     expect(payload.item.Type).toBe("OutputConfigItem")
+    expect(payload.item.Name).toBe("Renamed output")
   })
 
   test("Dialog cancel button discards changes", async ({
@@ -281,6 +293,7 @@ test.describe("General Output Config Wizard Tests", () => {
     page,
   }) => {
     const dialog = await openWizardForRow(configListPage, page, ROW.Output)
+    await renameConfig(page, "Renamed output")
     await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
 
     await page.getByRole("button", { name: "Cancel" }).click()
@@ -288,6 +301,48 @@ test.describe("General Output Config Wizard Tests", () => {
 
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands?.length).toBe(0)
+  })
+
+  test("Dialog without pending changes only shows a Close button", async ({
+    configListPage,
+    page,
+  }) => {
+    const dialog = await openWizardForRow(configListPage, page, ROW.Output)
+    const footer = page.getByTestId("configwizard-dialog-footer")
+
+    await test.step("No changes: only Close is offered", async () => {
+      await expect(footer.getByRole("button", { name: "Close" })).toBeVisible()
+      await expect(
+        footer.getByRole("button", { name: "Apply changes" }),
+      ).toHaveCount(0)
+      await expect(footer.getByRole("button", { name: "Cancel" })).toHaveCount(
+        0,
+      )
+    })
+
+    await test.step("After a change: Cancel and Apply changes are offered", async () => {
+      await renameConfig(page, "Renamed output")
+      await expect(footer.getByRole("button", { name: "Cancel" })).toBeVisible()
+      await expect(
+        footer.getByRole("button", { name: "Apply changes" }),
+      ).toBeVisible()
+      await expect(footer.getByRole("button", { name: "Close" })).toHaveCount(0)
+    })
+
+    await test.step("Close without changes sends no update", async () => {
+      await footer.getByRole("button", { name: "Cancel" }).click()
+      await expect(dialog).not.toBeVisible()
+
+      await openDialogForRow(configListPage, page, ROW.Output)
+      await configListPage.mobiFlightPage.trackCommand(
+        "CommandUpdateConfigItem",
+      )
+      await footer.getByRole("button", { name: "Close" }).click()
+      await expect(dialog).not.toBeVisible()
+
+      const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+      expect(commands?.length).toBe(0)
+    })
   })
 
   test("Dialog without pending changes can be closed by hitting ESC", async ({
