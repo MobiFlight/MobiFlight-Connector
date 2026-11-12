@@ -74,13 +74,15 @@ namespace MobiFlight
 
         /// <summary>
         /// Creates the outputs and displays of an Arcaze from its extension settings.
-        /// Without settings, the same defaults are used as for connecting the module.
+        /// Without settings, no extension is assumed and only the base board outputs are created.
         /// </summary>
         public List<Base.ControllerDevice> GetControllerDevices(string serial)
         {
             var hasSettings = serial != null && arcazeSettings.ContainsKey(serial);
-            var settings = hasSettings ? arcazeSettings[serial] : new ArcazeModuleSettings();
+            if (!hasSettings)
+                return DeviceReferenceFactory.CreateForArcaze(DeviceReferenceFactory.ArcazeExtension.None, 0);
 
+            var settings = arcazeSettings[serial];
             var extension = settings.type switch
             {
                 ArcazeCommand.ExtModuleType.LedDriver2 => DeviceReferenceFactory.ArcazeExtension.LedDriver,
