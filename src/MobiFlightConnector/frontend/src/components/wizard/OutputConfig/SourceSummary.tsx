@@ -9,6 +9,7 @@ import { msfsSourceAdapter, xplaneSourceAdapter } from "@/types/presets"
 import XplanePresetPanel from "@/components/wizard/common/XplanePresetPanel"
 import { useTranslation } from "react-i18next"
 import ProSimInputActionPanel from "@/components/wizard/components/InputActions/ProSimInputActionPanel"
+import { VariablePanel } from "@/components/wizard/common/VariablePanel"
 
 export interface SourceSummaryProps {
   source: Source
@@ -65,21 +66,12 @@ const SourceSummary = ({
           )}
 
           {source.Type === "VariableSource" && (
-            <div className="flex flex-col gap-1">
-              <Label htmlFor="variable">
-                {t(
-                  "Dialog.InputConfigWizard.InputActions.Variable.VariableNameLabel",
-                )}
-              </Label>
-              <div className="flex flex-row items-center gap-2">
-                <span className="text-sm">
-                  {source.MobiFlightVariable?.Name ?? "N/A"}
-                </span>
-                <Badge variant="outline">
-                  {source.MobiFlightVariable?.TYPE ?? "N/A"}
-                </Badge>
-              </div>
-            </div>
+            <VariablePanel
+              variant="summary"
+              mode="OutputConfigItem"
+              currentVariable={source.MobiFlightVariable}
+              onVariableChange={() => {}}
+            />
           )}
 
           {source.Type === "FsuipcSource" && (

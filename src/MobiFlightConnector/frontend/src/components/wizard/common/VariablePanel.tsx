@@ -1,7 +1,7 @@
 import ComboBox from "@/components/ComboBox"
 import { Input } from "@/components/ui/input"
 import { useVariableStore } from "@/stores/variableStore"
-import { MobiFlightVariable } from "@/types/config"
+import { ConfigItemType, MobiFlightVariable } from "@/types/config"
 import { Label } from "@/components/ui/label"
 import { Trans, useTranslation } from "react-i18next"
 import { Separator } from "@/components/ui/separator"
@@ -12,7 +12,7 @@ import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import WizardSection from "@/components/wizard/common/WizardSection"
 export type VariablePanelProps = {
   variant: "summary" | "details"
-  triggerType: "input" | "output"
+  mode: ConfigItemType
   currentVariable?: MobiFlightVariable
   onVariableChange: (variable: MobiFlightVariable) => void
 }
@@ -26,10 +26,10 @@ const defaultVariable = {
 export const VariablePanel = ({
   variant,
   currentVariable,
-  triggerType,
+  mode,
   onVariableChange,
 }: VariablePanelProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const variableTypeOptions = [
     {
       value: "number",
@@ -60,6 +60,9 @@ export const VariablePanel = ({
 
   const variable = currentVariable
   const availableVariables = variables ?? []
+  const variableTypeLabel =
+    variableTypeOptions.find((option) => option.value === variable.TYPE)
+      ?.label ?? variable.TYPE
 
   if (variant === "summary") {
     return (
@@ -72,20 +75,22 @@ export const VariablePanel = ({
           </Label>
           <div className="flex flex-row items-center gap-2">
             <span className="text-sm">{variable.Name}</span>
-            <Badge variant="outline">{variable.TYPE}</Badge>
+            <Badge variant="outline">{variableTypeLabel}</Badge>
           </div>
         </div>
-        <div className="flex grow flex-col gap-1">
-          <Label htmlFor="code">
-            {t("Dialog.InputConfigWizard.InputActions.Common.CodeLabel")}
-          </Label>
-          <CodeValueLabel id="code" className="max-w-100">
-            {variable.Expression ??
-              t(
-                "Dialog.InputConfigWizard.InputActions.Variable.ExpressionNone",
-              )}
-          </CodeValueLabel>
-        </div>
+        {mode === "InputConfigItem" && (
+          <div className="flex w-1/2 flex-col gap-1">
+            <Label htmlFor="code">
+              {t("Dialog.InputConfigWizard.InputActions.Variable.ExpressionLabel")}
+            </Label>
+            <CodeValueLabel id="code" className="max-w-100">
+              {variable.Expression ??
+                t(
+                  "Dialog.InputConfigWizard.InputActions.Variable.ExpressionNone",
+                )}
+            </CodeValueLabel>
+          </div>
+        )}
       </div>
     )
   }
@@ -168,7 +173,7 @@ export const VariablePanel = ({
               )}
             />
           </div>
-          {triggerType === "input" && variable && (
+          {mode === "InputConfigItem" && variable && (
             <div className="flex flex-col gap-2">
               <Label>
                 {t(

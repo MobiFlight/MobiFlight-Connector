@@ -102,7 +102,7 @@ export const ActionSummary = ({ action }: ActionSummaryProps) => {
         {selectedActionType?.value === "VariableInputAction" && (
           <VariablePanel
             variant="summary"
-            triggerType="input"
+            mode="InputConfigItem"
             currentVariable={
               action ? (action as MobiFlightVariableAction).Variable : undefined
             }
@@ -208,7 +208,7 @@ const ActionPanel = ({
       return (
         <VariablePanel
           variant="details"
-          triggerType="input"
+          mode="InputConfigItem"
           currentVariable={
             action ? (action as MobiFlightVariableAction).Variable : undefined
           }

@@ -99,7 +99,7 @@ const SourceEditor = ({
       {selectedSourceType?.value === "VariableSource" && (
         <VariablePanel
           variant="details"
-          triggerType="output"
+          mode="OutputConfigItem"
           currentVariable={(source as VariableSource).MobiFlightVariable}
           onVariableChange={(variable) => {
             onSourceChange({
