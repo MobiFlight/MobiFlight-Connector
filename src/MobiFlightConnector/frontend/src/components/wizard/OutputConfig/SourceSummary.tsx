@@ -84,14 +84,20 @@ const SourceSummary = ({
 
           {source.Type === "FsuipcSource" && (
             <div className="flex grow flex-row items-center justify-between">
-              <FsuipcOffsetSummary config={source.FSUIPC} />
+              <FsuipcOffsetSummary
+                mode="OutputConfigItem"
+                config={source.FSUIPC}
+              />
             </div>
           )}
 
           {source.Type === "ProSimSource" && (
             <ProSimInputActionPanel
+              mode="OutputConfigItem"
               variant="summary"
-              config={{ Path: source.ProSimDataRef?.Path ?? "" } as ProSimInputAction}
+              config={
+                { Path: source.ProSimDataRef?.Path ?? "" } as ProSimInputAction
+              }
               onConfigChange={() => {}}
             />
           )}

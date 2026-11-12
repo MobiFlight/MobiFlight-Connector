@@ -1,5 +1,9 @@
 import { Input } from "@/components/ui/input"
-import { FsuipcOffset, FsuipcOffsetInputAction } from "@/types/config"
+import {
+  ConfigItemType,
+  FsuipcOffset,
+  FsuipcOffsetInputAction,
+} from "@/types/config"
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import ComboBox from "@/components/ComboBox"
@@ -57,10 +61,12 @@ const filterHexInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
 }
 
 export interface FsuipcOffsetSummaryProps {
+  mode: ConfigItemType
   config: FsuipcOffset
   value?: string
 }
 export const FsuipcOffsetSummary = ({
+  mode,
   config,
   value,
 }: FsuipcOffsetSummaryProps) => {
@@ -71,7 +77,9 @@ export const FsuipcOffsetSummary = ({
         <Label htmlFor="size">
           {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.SizeLabel")}
         </Label>
-        <Badge variant="secondary" className="w-fit">{config.Size.toString()}</Badge>
+        <Badge variant="secondary" className="w-fit">
+          {config.Size.toString()}
+        </Badge>
       </div>
       <div className="flex flex-col gap-1">
         <Label htmlFor="offset">
@@ -97,12 +105,14 @@ export const FsuipcOffsetSummary = ({
           {config.BcdMode ? "True" : "False"}
         </Badge>
       </div>
-      <div className="flex grow flex-col gap-1">
-        <Label htmlFor="value">
-          {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.ValueLabel")}
-        </Label>
-        <CodeValueLabel>{value ?? " "}</CodeValueLabel>
-      </div>
+      {mode === "InputConfigItem" && (
+        <div className="flex flex-col gap-1">
+          <Label htmlFor="value">
+            {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.ValueLabel")}
+          </Label>
+          <CodeValueLabel>{value ?? " "}</CodeValueLabel>
+        </div>
+      )}
     </div>
   )
 }
@@ -256,6 +266,7 @@ const FsuipcOffsetInputActionPanel = ({
   if (variant === "summary") {
     return (
       <FsuipcOffsetSummary
+        mode="InputConfigItem"
         config={currentConfig.FSUIPC}
         value={currentConfig.Value}
       />
