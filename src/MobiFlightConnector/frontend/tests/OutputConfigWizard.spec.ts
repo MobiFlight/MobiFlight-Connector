@@ -1106,6 +1106,58 @@ test.describe("Output Config Wizard - Device Test Panel", () => {
       })
       .toEqual(["testStart", "testStop"])
   })
+
+  test("Changing the config during a test restarts the test with the new settings", async ({
+    configListPage,
+    page,
+  }) => {
+    await openWizardForRow(configListPage, page, ROW.Output)
+    await page.getByTestId("action-panel").getByRole("button").last().click()
+
+    const deviceEditor = page.getByTestId("output-device-editor")
+    await deviceEditor.getByPlaceholder("Enter raw value").fill("42")
+    await deviceEditor.getByPlaceholder("Enter raw value").blur()
+
+    await configListPage.mobiFlightPage.trackCommand("CommandConfigContextMenu")
+    await deviceEditor.getByRole("button", { name: "Test" }).click()
+    await expect(deviceEditor.getByRole("button", { name: "Stop" })).toBeVisible()
+
+    await deviceEditor.getByRole("checkbox", { name: "LED 1" }).click()
+
+    await expect
+      .poll(async () => {
+        const commands =
+          await configListPage.mobiFlightPage.getTrackedCommands()
+        return commands?.map((command) => command.payload.action)
+      })
+      .toEqual(["testStart", "testStart"])
+
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    const payload = commands?.pop()?.payload
+    expect(payload.item.Device.Pin).toContain("LED 1")
+    // the test value is kept
+    expect(payload.item.TestValue).toMatchObject({ Float64: 42 })
+  })
+
+  test("Changing the config without a running test does not start a test", async ({
+    configListPage,
+    page,
+  }) => {
+    await openWizardForRow(configListPage, page, ROW.Output)
+    await page.getByTestId("action-panel").getByRole("button").last().click()
+
+    const deviceEditor = page.getByTestId("output-device-editor")
+    await configListPage.mobiFlightPage.trackCommand("CommandConfigContextMenu")
+    await deviceEditor.getByRole("checkbox", { name: "LED 1" }).click()
+    await expect(
+      deviceEditor.getByRole("checkbox", { name: "LED 1" }),
+    ).toBeChecked()
+
+    // wait longer than the delay before a test is restarted
+    await page.waitForTimeout(500)
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands ?? []).toHaveLength(0)
+  })
 })
 
 test.describe("Output Config Wizard - Output Device", () => {

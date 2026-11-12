@@ -1374,5 +1374,94 @@ namespace MobiFlight.Tests
             var result2 = executors.Count;
             Assert.AreEqual(0, result2);
         }
+            private static OutputConfigItem CreateTestTarget(IDeviceConfig device, string serial = "SN-1", string guid = "guid-1")
+        {
+            return new OutputConfigItem
+            {
+                GUID = guid,
+                Controller = new Controller { Name = "Board", Serial = serial },
+                Device = device
+            };
+        }
+
+        [TestMethod]
+        public void IsSameTestTarget_ShouldBeTrue_WhenOutputIsUnchanged()
+        {
+            var previous = CreateTestTarget(new OutputConfig.Output { Pin = "Output 1", Brightness = 255 });
+            var next = CreateTestTarget(new OutputConfig.Output { Pin = "Output 1", Brightness = 255 });
+
+            Assert.IsTrue(ExecutionManager.IsSameTestTarget(previous, next));
+        }
+
+        [TestMethod]
+        public void IsSameTestTarget_ShouldBeFalse_WhenPinChanges()
+        {
+            var previous = CreateTestTarget(new OutputConfig.Output { Pin = "Output 1", Brightness = 255 });
+            var next = CreateTestTarget(new OutputConfig.Output { Pin = "Output 2", Brightness = 255 });
+
+            Assert.IsFalse(ExecutionManager.IsSameTestTarget(previous, next));
+        }
+
+        [TestMethod]
+        public void IsSameTestTarget_ShouldBeFalse_WhenBrightnessOfOutputChanges()
+        {
+            var previous = CreateTestTarget(new OutputConfig.Output { Pin = "Output 1", Brightness = 255 });
+            var next = CreateTestTarget(new OutputConfig.Output { Pin = "Output 1", Brightness = 100 });
+
+            Assert.IsFalse(ExecutionManager.IsSameTestTarget(previous, next));
+        }
+
+        [TestMethod]
+        public void IsSameTestTarget_ShouldBeFalse_WhenControllerChanges()
+        {
+            var previous = CreateTestTarget(new OutputConfig.Output { Pin = "Output 1" }, serial: "SN-1");
+            var next = CreateTestTarget(new OutputConfig.Output { Pin = "Output 1" }, serial: "SN-2");
+
+            Assert.IsFalse(ExecutionManager.IsSameTestTarget(previous, next));
+        }
+
+        [TestMethod]
+        public void IsSameTestTarget_ShouldBeFalse_WhenGuidChanges()
+        {
+            var previous = CreateTestTarget(new OutputConfig.Output { Pin = "Output 1" }, guid: "guid-1");
+            var next = CreateTestTarget(new OutputConfig.Output { Pin = "Output 1" }, guid: "guid-2");
+
+            Assert.IsFalse(ExecutionManager.IsSameTestTarget(previous, next));
+        }
+
+        [TestMethod]
+        public void IsSameTestTarget_ShouldBeFalse_WhenDeviceTypeChanges()
+        {
+            var previous = CreateTestTarget(new OutputConfig.Servo { Address = "Servo 1" });
+            var next = CreateTestTarget(new OutputConfig.Stepper { Address = "Servo 1" });
+
+            Assert.IsFalse(ExecutionManager.IsSameTestTarget(previous, next));
+        }
+
+        [TestMethod]
+        public void IsSameTestTarget_ShouldBeTrue_WhenStepperSettingsChangeOnSameStepper()
+        {
+            var previous = CreateTestTarget(new OutputConfig.Stepper { Address = "Stepper 1", Speed = 100 });
+            var next = CreateTestTarget(new OutputConfig.Stepper { Address = "Stepper 1", Speed = 200 });
+
+            Assert.IsTrue(ExecutionManager.IsSameTestTarget(previous, next));
+        }
+
+        [TestMethod]
+        public void IsSameTestTarget_ShouldBeFalse_WhenStepperChanges()
+        {
+            var previous = CreateTestTarget(new OutputConfig.Stepper { Address = "Stepper 1" });
+            var next = CreateTestTarget(new OutputConfig.Stepper { Address = "Stepper 2" });
+
+            Assert.IsFalse(ExecutionManager.IsSameTestTarget(previous, next));
+        }
+
+        [TestMethod]
+        public void IsSameTestTarget_ShouldBeFalse_WhenNoTestIsRunning()
+        {
+            var next = CreateTestTarget(new OutputConfig.Output { Pin = "Output 1" });
+
+            Assert.IsFalse(ExecutionManager.IsSameTestTarget(null, next));
+        }
     }
 }

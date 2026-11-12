@@ -484,7 +484,7 @@ namespace MobiFlight
                         if (cfg == null || !(cfg is OutputConfigItem)) break;
 
                         // a value change on the same config keeps the device on
-                        if (ConfigItemInTestMode?.GUID != cfg.GUID)
+                        if (!IsSameTestTarget(ConfigItemInTestMode, cfg as OutputConfigItem))
                         {
                             try
                             {
@@ -1517,6 +1517,29 @@ namespace MobiFlight
                                                   inputActionExecutionCache,
                                                   ConfigItemInTestMode);
             executor.ExecuteTestOff(cfg);
+        }
+
+        /// <summary>
+        /// Checks if a new wizard test can update the running test without turning the device off first.
+        /// The wizard sends the draft config again on every change, so the GUID alone is not enough:
+        /// a different device, pin or digit would keep the previous one lit.
+        /// </summary>
+        internal static bool IsSameTestTarget(OutputConfigItem previous, OutputConfigItem next)
+        {
+            if (previous == null || next == null) return false;
+            if (previous.GUID != next.GUID) return false;
+            if (previous.Controller?.Serial != next.Controller?.Serial) return false;
+
+            var previousDevice = previous.Device;
+            var nextDevice = next.Device;
+            if (previousDevice == null || nextDevice == null) return previousDevice == nextDevice;
+            if (previousDevice.GetType() != nextDevice.GetType()) return false;
+            if (previousDevice.Name != nextDevice.Name) return false;
+
+            // Turning a stepper or servo off moves it, so setting changes on the same device just update it
+            if (nextDevice is OutputConfig.Stepper || nextDevice is OutputConfig.Servo) return true;
+
+            return previousDevice.Equals(nextDevice);
         }
 
         private void ExecuteWizardTest()

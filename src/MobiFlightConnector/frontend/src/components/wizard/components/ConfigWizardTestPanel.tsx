@@ -21,6 +21,8 @@ export interface ConfigWizardTestPanelProps {
   description: string
 }
 
+const CONFIG_CHANGE_TEST_DELAY = 150
+
 // These two methods should be moved
 // to a utility file for handling ConnectorValue conversions
 const toText = (value?: ConnectorValue) =>
@@ -51,10 +53,32 @@ const ConfigWizardTestPanel = ({
 
   // On closing the wizard, ensure the test is stopped if it was running
   // We have to keep track of the latest state across renders
-  const latest = useRef({ isTesting, configItem })
+  const latest = useRef({ isTesting, configItem, testValue })
   useEffect(() => {
-    latest.current = { isTesting, configItem }
+    latest.current = { isTesting, configItem, testValue }
   })
+
+  // A running test always shows the current draft,
+  // so changes to the config restart the test with the new settings.
+  // The delay avoids sending a command on every keystroke.
+  useEffect(() => {
+    if (!latest.current.isTesting || !configItem) return
+    const timeout = setTimeout(
+      () =>
+        publish({
+          key: "CommandConfigContextMenu",
+          payload: {
+            action: "testStart",
+            item: {
+              ...configItem,
+              TestValue: toConnectorValue(latest.current.testValue),
+            },
+          },
+        } as CommandConfigContextMenu),
+      CONFIG_CHANGE_TEST_DELAY,
+    )
+    return () => clearTimeout(timeout)
+  }, [configItem, publish])
 
   // This runs only on unmount
   useEffect(
