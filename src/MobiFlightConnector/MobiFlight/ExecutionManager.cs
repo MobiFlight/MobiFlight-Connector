@@ -415,6 +415,17 @@ namespace MobiFlight
                 OnConfigHasChanged?.Invoke(ConfigItems, null);
             });
 
+            MessageExchange.Instance.Subscribe<CommandStepperCalibration>((message) =>
+            {
+                if (message.Action == StepperCalibrationAction.home)
+                {
+                    getMobiFlightModuleCache().ResetStepper(message.Controller.Serial, message.Stepper.Name);
+                } else if (message.Action == StepperCalibrationAction.move)
+                {
+                    getMobiFlightModuleCache().MoveStepper(message.Controller, message.Stepper, message.Steps ?? 0);
+                }
+            });
+
             MessageExchange.Instance.SubscribeOnUiThread<CommandConfigContextMenu>((message) =>
             {
                 IConfigItem cfg;

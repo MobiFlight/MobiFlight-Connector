@@ -67,7 +67,12 @@
         "OutputRevolution": "Output revolution",
         "TestValue": "Test value",
         "Acceleration": "Acceleration",
-        "Speed": "Speed"
+        "Speed": "Speed",
+        "Calibrate": {
+          "Title": "Step 3 - Calibrate stepper",
+          "Description": "Use the jog buttons to adjust the stepper position and set home position.",
+          "Hint": "Use the arrow keys to select the step size. Use space to move the stepper. Use enter to set the home position."
+        }
       },
       "Servo": {
         "Title": "Step 2 - Servo settings",

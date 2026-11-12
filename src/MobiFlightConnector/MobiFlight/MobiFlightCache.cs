@@ -1,5 +1,9 @@
-﻿using MobiFlight.Firmware;
+﻿using FSUIPC;
+using MobiFlight.Base;
+using MobiFlight.CustomDevices;
+using MobiFlight.Firmware;
 using MobiFlight.Monitors;
+using MobiFlight.OutputConfig;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -671,6 +675,27 @@ namespace MobiFlight
             }
         }
 
+        public void MoveStepper(Controller controller, OutputConfig.Stepper configStepper, int steps)
+        {
+            MobiFlightModule module = GetModuleBySerial(controller.Serial);
+
+            if (module == null) return;
+
+            MobiFlightStepper stepper = module.GetStepper(configStepper.Address);
+
+            int CurrentValue = stepper.Position();
+            int NextValue = (CurrentValue + steps);
+
+            SetStepper(
+                controller.Serial,
+                configStepper.Address,
+                (NextValue).ToString(),
+                configStepper.OutputRev,
+                configStepper.OutputRev,
+                configStepper.CompassMode
+            );
+        }
+
         /// <summary>
         /// set the display module
         /// </summary>
@@ -908,5 +933,6 @@ namespace MobiFlight
             KeepAwakeTimer.Stop();
             ActivateConnectedModulePowerSave();
         }
+
     }
 }
