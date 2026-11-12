@@ -1406,9 +1406,18 @@ test.describe("Output Config Wizard - Stepper Device", () => {
       return deviceEditor
     }
 
-    const getCalibrationPayloads = async (configListPage: ConfigListPage) => {
-      const commands =
+    // Waits until the expected number of commands has been sent,
+    // because they are tracked asynchronously
+    const getCalibrationPayloads = async (
+      configListPage: ConfigListPage,
+      expectedCount: number,
+    ) => {
+      const getCommands = async () =>
         (await configListPage.mobiFlightPage.getTrackedCommands()) ?? []
+      await expect.poll(async () => (await getCommands()).length).toBe(
+        expectedCount,
+      )
+      const commands = await getCommands()
       await configListPage.mobiFlightPage.clearTrackedCommands()
       return commands.map((command) => command.payload)
     }
@@ -1456,7 +1465,7 @@ test.describe("Output Config Wizard - Stepper Device", () => {
           .getByRole("button", { name: "+50", exact: true })
           .click()
 
-        const payloads = await getCalibrationPayloads(configListPage)
+        const payloads = await getCalibrationPayloads(configListPage, 2)
         expect(payloads).toHaveLength(2)
         expect(payloads[0]).toMatchObject({
           ...expectedTarget,
@@ -1475,7 +1484,7 @@ test.describe("Output Config Wizard - Stepper Device", () => {
           .getByRole("button", { name: "Set home position" })
           .click()
 
-        const payloads = await getCalibrationPayloads(configListPage)
+        const payloads = await getCalibrationPayloads(configListPage, 1)
         expect(payloads).toHaveLength(1)
         expect(payloads[0]).toMatchObject({ ...expectedTarget, action: "home" })
       })
@@ -1501,14 +1510,14 @@ test.describe("Output Config Wizard - Stepper Device", () => {
         await expect(plusOne).toBeFocused()
 
         // focusing a button does not move the stepper
-        expect(await getCalibrationPayloads(configListPage)).toHaveLength(0)
+        expect(await getCalibrationPayloads(configListPage, 0)).toHaveLength(0)
       })
 
       await test.step("Space moves the stepper exactly once per press", async () => {
         await page.keyboard.press("Space")
         await page.keyboard.press("Space")
 
-        const payloads = await getCalibrationPayloads(configListPage)
+        const payloads = await getCalibrationPayloads(configListPage, 2)
         expect(payloads).toHaveLength(2)
         for (const payload of payloads) {
           expect(payload).toMatchObject({
@@ -1522,7 +1531,7 @@ test.describe("Output Config Wizard - Stepper Device", () => {
       await test.step("Enter sets the home position", async () => {
         await page.keyboard.press("Enter")
 
-        const payloads = await getCalibrationPayloads(configListPage)
+        const payloads = await getCalibrationPayloads(configListPage, 1)
         expect(payloads).toHaveLength(1)
         expect(payloads[0]).toMatchObject({ ...expectedTarget, action: "home" })
       })
@@ -1593,6 +1602,85 @@ test.describe("Output Config Wizard - 7-Segment Device", () => {
       DisplayLedPadding: true,
       DisplayLedPaddingChar: " ",
       DisplayLedReverseDigits: true,
+    })
+  })
+
+  test("Brightness can be controlled by another output config", async ({
+    configListPage,
+    page,
+  }) => {
+    await openWizardForRow(configListPage, page, ROW.SevenSegment)
+
+    const actionPanel = page.getByTestId("action-panel")
+    await actionPanel.getByRole("button").last().click()
+    const deviceEditor = page.getByTestId("output-device-editor")
+    await expect(deviceEditor).toBeVisible()
+
+    const brightnessComboBox = deviceEditor
+      .getByRole("combobox")
+      .filter({ hasText: /^None$/ })
+
+    await test.step("Other output configs are offered as brightness source", async () => {
+      await brightnessComboBox.click()
+      await expect(
+        page.getByRole("option", { name: "LED 1", exact: true }),
+      ).toBeVisible()
+      // a config can't control its own brightness
+      await expect(
+        page.getByRole("option", { name: "7-Segment", exact: true }),
+      ).not.toBeVisible()
+      // input configs don't provide a value
+      await expect(
+        page.getByRole("option", { name: "Button", exact: true }),
+      ).not.toBeVisible()
+      await page.getByRole("option", { name: "LED 1", exact: true }).click()
+      await expect(
+        deviceEditor.getByRole("combobox").filter({ hasText: /^LED 1$/ }),
+      ).toBeVisible()
+    })
+
+    await closeDrawer(page)
+    await expect(deviceEditor).not.toBeVisible()
+
+    await test.step("Summary shows the brightness source", async () => {
+      await expect(actionPanel.getByText("Brightness: LED 1")).toBeVisible()
+    })
+
+    const payload = await applyChangesAndReturnPayload(configListPage, page)
+    expect(payload.item.Device).toMatchObject({
+      Type: "LedModule",
+      DisplayLedBrightnessReference: "f79f75dd-0d45-4c91-870d-599cfc75ede1",
+    })
+  })
+
+  test("Brightness source can be removed again", async ({
+    configListPage,
+    page,
+  }) => {
+    await openWizardForRow(configListPage, page, ROW.SevenSegment)
+
+    const actionPanel = page.getByTestId("action-panel")
+    await actionPanel.getByRole("button").last().click()
+    const deviceEditor = page.getByTestId("output-device-editor")
+
+    await selectComboBoxOption(
+      page,
+      deviceEditor.getByRole("combobox").filter({ hasText: /^None$/ }),
+      "LED 1",
+    )
+    await selectComboBoxOption(
+      page,
+      deviceEditor.getByRole("combobox").filter({ hasText: /^LED 1$/ }),
+      "None",
+    )
+
+    await closeDrawer(page)
+    await expect(actionPanel.getByText("Brightness: LED 1")).not.toBeVisible()
+
+    const payload = await applyChangesAndReturnPayload(configListPage, page)
+    expect(payload.item.Device).toMatchObject({
+      Type: "LedModule",
+      DisplayLedBrightnessReference: "",
     })
   })
 })
