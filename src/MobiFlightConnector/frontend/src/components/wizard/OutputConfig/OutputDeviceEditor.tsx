@@ -8,6 +8,7 @@ import LcdDisplayPanel from "@/components/wizard/OutputConfig/OutputDevices/LcdD
 import LedModulePanel from "@/components/wizard/OutputConfig/OutputDevices/LedModulePanel"
 import OutputPanel from "@/components/wizard/OutputConfig/OutputDevices/OutputPanel"
 import ServoPanel from "@/components/wizard/OutputConfig/OutputDevices/ServoPanel"
+import ShiftRegisterPanel from "@/components/wizard/OutputConfig/OutputDevices/ShiftRegisterPanel"
 import StepperPanel from "@/components/wizard/OutputConfig/OutputDevices/StepperPanel"
 import { useControllerStore } from "@/stores/controllerStore"
 import {
@@ -20,6 +21,7 @@ import {
   StepperConfig,
   OutputDeviceConfig,
   CustomDeviceConfig,
+  ShiftRegisterConfig,
 } from "@/types/config"
 import {
   DeviceReference,
@@ -186,6 +188,15 @@ const OutputDeviceEditor = ({
           config={configItem.Device as OutputConfig}
           controller={configItem.Controller}
           devices={devices.filter((device) => device.Type === "Output")}
+          onChange={(device) => updateConfigItem(configItem.Controller, device)}
+        />
+      )}
+      {configItem.Device && configItem.Device.Type === "ShiftRegister" && (
+        <ShiftRegisterPanel
+          variant="details"
+          config={configItem.Device as ShiftRegisterConfig}
+          controller={configItem.Controller}
+          devices={devices.filter((device) => device.Type === "ShiftRegister")}
           onChange={(device) => updateConfigItem(configItem.Controller, device)}
         />
       )}

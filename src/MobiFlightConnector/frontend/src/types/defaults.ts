@@ -8,6 +8,7 @@ import {
   OutputDeviceConfig,
   ProSimSource,
   ServoConfig,
+  ShiftRegisterConfig,
   SimConnectSource,
   StepperConfig,
   VariableSource,
@@ -76,6 +77,8 @@ export const OutputDeviceConfigDefaults = {
         return OutputDeviceConfigDefaults.createStepperConfig(name, capability!)
       case "CustomDevice":
         return OutputDeviceConfigDefaults.createCustomDeviceConfig(name)
+      case "ShiftRegister":
+        return OutputDeviceConfigDefaults.createShiftRegisterConfig(name)
       default:
         throw new Error(`Unsupported output device type: ${type}`)
     }
@@ -86,6 +89,12 @@ export const OutputDeviceConfigDefaults = {
     Brightness: 255,
     PwmMode: false,
     Pin: name
+  }),
+  createShiftRegisterConfig: (name: string): ShiftRegisterConfig => ({
+    Type: "ShiftRegister",
+    Name: name,
+    Address: name,
+    Pin: "Output 0"
   }),
   createLedModuleConfig: (name: string): LedModuleConfig => ({
     Type: "LedModule",

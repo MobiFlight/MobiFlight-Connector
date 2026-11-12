@@ -54,6 +54,18 @@
         "Capabilities": { "Digits": 8 }
       },
       {
+        "Name": "ShiftRegister 1",
+        "Label": "ShiftRegister 1",
+        "Type": "ShiftRegister",
+        "Capabilities": { "Pins": 8 }
+      },
+      {
+        "Name": "ShiftRegister 2",
+        "Label": "ShiftRegister 2",
+        "Type": "ShiftRegister",
+        "Capabilities": { "Pins": 16 }
+      },
+      {
         "Capabilities": {
           "MessageTypes": [
             {

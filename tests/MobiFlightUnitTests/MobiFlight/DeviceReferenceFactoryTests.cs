@@ -111,18 +111,21 @@ namespace MobiFlight.Tests
         #region ShiftRegister
 
         [TestMethod]
-        public void Create_ShouldCreateEightOutputsPerModuleWithoutPwm_WhenDeviceIsShiftRegister()
+        [DataRow("2", 16)]
+        [DataRow("", 8)]
+        public void Create_ShouldCreateOneDeviceWithEightPinsPerModule_WhenDeviceIsShiftRegister(string numModules, int expectedPins)
         {
             // Arrange
-            var sr = new ShiftRegister { Name = "SR", NumModules = "2" };
+            var sr = new ShiftRegister { Name = "SR", NumModules = numModules };
 
             // Act
             var result = DeviceReferenceFactory.Create(sr);
 
             // Assert
-            Assert.HasCount(16, result);
-            Assert.AreEqual(DeviceType.Output, result[0].Type);
-            Assert.IsFalse(result[0].Capabilities.Pwm);
+            Assert.HasCount(1, result);
+            Assert.AreEqual("SR", result[0].Name);
+            Assert.AreEqual(DeviceType.ShiftRegister, result[0].Type);
+            Assert.AreEqual(expectedPins, result[0].Capabilities.Pins);
         }
 
         #endregion

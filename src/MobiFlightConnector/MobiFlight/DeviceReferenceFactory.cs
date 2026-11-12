@@ -62,8 +62,7 @@ namespace MobiFlight
                 case DeviceType.ShiftRegister:
                     var sr = dev as ShiftRegister;
                     int srPinCount = int.TryParse(sr?.NumModules, out int numModules) ? numModules * 8 : 8;
-                    for (int i = 0; i < srPinCount; i++)
-                        result.Add(CreateDevice($"{dev.Name}:{i}", DeviceType.Output, new DeviceCapability { Pwm = false }));
+                    result.Add(CreateDevice(dev.Name, DeviceType.ShiftRegister, new DeviceCapability { Pins = srPinCount }));
                     break;
             }
             return result;

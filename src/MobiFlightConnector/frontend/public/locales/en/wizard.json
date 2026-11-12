@@ -89,6 +89,14 @@
         "StaticBrightness": "Static brightness",
         "StaticBrightnessDescription": "Set the static brightness for all values other than 0."
       },
+      "ShiftRegister": {
+        "Title": "Step 2 - Output shift register settings",
+        "Description": "Select the shift register and one or more of its outputs.",
+        "Label": "Output Shift Register",
+        "Device": "Shift register",
+        "List": "List of available outputs",
+        "Pins": "Outputs"
+      },
       "SevenSegment": {
         "Title": "Step 2 - 7-Segment settings",
         "Description": "Select the module and configure which digits show the value.",

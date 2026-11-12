@@ -18,6 +18,8 @@ namespace MobiFlight.Base
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public int? Digits { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public int? Pins { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public StepperProfilePreset Profile { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public bool? AutoZero { get; set; }

@@ -44,6 +44,7 @@ export type DeviceCapability = {
   Rows?: number | null
   Columns?: number | null
   Digits?: number | null
+  Pins?: number | null
   Profile?: StepperProfilePreset | null
   AutoZero?: boolean | null
   MessageTypes?: CustomDeviceMessageType[] | null

@@ -281,6 +281,12 @@ export interface OutputConfig extends OutputDeviceConfig {
   PwmMode: boolean
 }
 
+export interface ShiftRegisterConfig extends OutputDeviceConfig {
+  Type: "ShiftRegister"
+  Address: string
+  Pin: string
+}
+
 export interface LedModuleConfig extends OutputDeviceConfig {
   Type: "LedModule"
   DisplayLedAddress: string

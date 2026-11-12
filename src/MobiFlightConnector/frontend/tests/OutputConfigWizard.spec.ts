@@ -1014,6 +1014,7 @@ test.describe("Output Config Wizard - Output Device Panel", () => {
         "Stepper",
         "LCD Display",
         "7-Segment Display",
+        "Output Shift Register",
         "Custom Device",
       ])
       await page.keyboard.press("Escape")
@@ -1441,6 +1442,114 @@ test.describe("Output Config Wizard - 7-Segment Device", () => {
       DisplayLedPadding: true,
       DisplayLedPaddingChar: " ",
       DisplayLedReverseDigits: true,
+    })
+  })
+})
+
+test.describe("Output Config Wizard - Shift Register Device", () => {
+  // Opens the device editor of a new config
+  // and selects the shift register device type of ProtoBoard-v2
+  const selectShiftRegisterDevice = async (
+    configListPage: ConfigListPage,
+    page: Page,
+  ) => {
+    await openWizardForRow(configListPage, page, ROW.NoDevice)
+    await page
+      .getByTestId("action-panel")
+      .getByRole("button", { name: "Output device" })
+      .click()
+
+    const deviceEditor = page.getByTestId("output-device-editor")
+    await selectComboBoxOption(
+      page,
+      deviceEditor.getByRole("combobox").first(),
+      "ProtoBoard-v2",
+    )
+    await selectComboBoxOption(
+      page,
+      deviceEditor.getByRole("combobox").nth(1),
+      "Output Shift Register",
+    )
+    return deviceEditor
+  }
+
+  test("Outputs are based on the pins of the selected shift register", async ({
+    configListPage,
+    page,
+  }) => {
+    const deviceEditor = await selectShiftRegisterDevice(configListPage, page)
+    const outputs = deviceEditor.getByRole("checkbox")
+
+    await test.step("First shift register and its first output are preselected", async () => {
+      await expect(
+        deviceEditor.getByRole("combobox").filter({ hasText: "ShiftRegister 1" }),
+      ).toBeVisible()
+      await expect(outputs).toHaveCount(8)
+      await expect(
+        deviceEditor.getByRole("checkbox", { name: "Output 0", exact: true }),
+      ).toBeChecked()
+    })
+
+    await test.step("Second shift register offers 16 outputs", async () => {
+      await selectComboBoxOption(
+        page,
+        deviceEditor.getByRole("combobox").filter({ hasText: "ShiftRegister 1" }),
+        "ShiftRegister 2",
+      )
+      await expect(outputs).toHaveCount(16)
+    })
+  })
+
+  test("Selected outputs are shown in the summary and saved correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const deviceEditor = await selectShiftRegisterDevice(configListPage, page)
+
+    await test.step("Changing the shift register resets the outputs", async () => {
+      await deviceEditor
+        .getByRole("checkbox", { name: "Output 1", exact: true })
+        .click()
+      await selectComboBoxOption(
+        page,
+        deviceEditor.getByRole("combobox").filter({ hasText: "ShiftRegister 1" }),
+        "ShiftRegister 2",
+      )
+      await expect(
+        deviceEditor.getByRole("checkbox", { name: "Output 1", exact: true }),
+      ).not.toBeChecked()
+    })
+
+    await test.step("Select outputs", async () => {
+      await deviceEditor
+        .getByRole("checkbox", { name: "Output 0", exact: true })
+        .click()
+      await deviceEditor
+        .getByRole("checkbox", { name: "Output 12", exact: true })
+        .click()
+    })
+
+    await closeDrawer(page)
+    await expect(deviceEditor).not.toBeVisible()
+
+    const actionPanel = page.getByTestId("action-panel")
+    await test.step("Summary shows the shift register and its outputs", async () => {
+      await expect(actionPanel.getByText("Output Shift Register")).toBeVisible()
+      await expect(
+        actionPanel.getByText("ShiftRegister 2", { exact: true }),
+      ).toBeVisible()
+      await expect(actionPanel.getByText("Output 0", { exact: true })).toBeVisible()
+      await expect(
+        actionPanel.getByText("Output 12", { exact: true }),
+      ).toBeVisible()
+    })
+
+    const payload = await applyChangesAndReturnPayload(configListPage, page)
+    expect(payload.item.Device).toEqual({
+      Type: "ShiftRegister",
+      Name: "ShiftRegister 2",
+      Address: "ShiftRegister 2",
+      Pin: "Output 0|Output 12",
     })
   })
 })
