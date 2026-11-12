@@ -13,7 +13,7 @@ const ProSimSourcePanel = ({
   return (
     <WizardSection>
       <ProSimDataRefPanel
-        variant={"output"}
+        mode={"OutputConfigItem"}
         selectedPath={source.ProSimDataRef.Path}
         onPresetChange={(prosimDataRef) => {
           // Handle the change here, for example, update the source object

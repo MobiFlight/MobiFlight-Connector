@@ -4,17 +4,19 @@ import { Separator } from "@/components/ui/separator"
 import WizardSection from "@/components/wizard/common/WizardSection"
 import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
 import ProSimDataRefPanel from "@/components/wizard/components/InputActions/ProsimDataRefPanel"
-import { ProSimInputAction } from "@/types/config"
+import { ConfigItemType, ProSimInputAction } from "@/types/config"
 import { useTranslation } from "react-i18next"
 
 export type ProSimInputActionPanelProps = {
   variant: "summary" | "details"
+  mode: ConfigItemType
   config: ProSimInputAction | null
   onConfigChange: (config: ProSimInputAction) => void
 }
 
 const ProSimInputActionPanel = ({
   variant,
+  mode,
   config,
   onConfigChange,
 }: ProSimInputActionPanelProps) => {
@@ -35,16 +37,20 @@ const ProSimInputActionPanel = ({
                 )}
           </div>
         </div>
-        <div className="flex grow flex-col gap-1">
-          <Label htmlFor="code">
-            {t("Dialog.InputConfigWizard.InputActions.ProSim.ParameterLabel")}
-          </Label>
-          <CodeValueLabel id="code">
-            {config?.Expression
-              ? config?.Expression
-              : t("Dialog.InputConfigWizard.InputActions.ProSim.ParameterNone")}
-          </CodeValueLabel>
-        </div>
+        {mode === "InputConfigItem" && (
+          <div className="flex grow flex-col gap-1">
+            <Label htmlFor="code">
+              {t("Dialog.InputConfigWizard.InputActions.ProSim.ParameterLabel")}
+            </Label>
+            <CodeValueLabel id="code">
+              {config?.Expression
+                ? config?.Expression
+                : t(
+                    "Dialog.InputConfigWizard.InputActions.ProSim.ParameterNone",
+                  )}
+            </CodeValueLabel>
+          </div>
+        )}
       </div>
     )
   }
@@ -53,7 +59,7 @@ const ProSimInputActionPanel = ({
     <WizardSection>
       <div className="flex flex-col gap-4">
         <ProSimDataRefPanel
-          variant="input"
+          mode={"InputConfigItem"}
           selectedPath={config?.Path ?? null}
           onPresetChange={(preset) =>
             onConfigChange({

@@ -135,6 +135,7 @@ export const ActionSummary = ({ action }: ActionSummaryProps) => {
         )}
         {selectedActionType?.value === "ProSimInputAction" && (
           <ProSimInputActionPanel
+            mode="InputConfigItem"
             variant="summary"
             config={action ? (action as ProSimInputAction) : null}
             onConfigChange={() => {}}
@@ -266,6 +267,7 @@ const ActionPanel = ({
     case "ProSimInputAction":
       return (
         <ProSimInputActionPanel
+          mode="InputConfigItem"
           variant="details"
           config={action ? (action as ProSimInputAction) : null}
           onConfigChange={(config) =>
