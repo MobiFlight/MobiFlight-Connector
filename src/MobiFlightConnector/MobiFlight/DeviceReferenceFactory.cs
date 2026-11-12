@@ -68,6 +68,69 @@ namespace MobiFlight
             return result;
         }
 
+        /// <summary>Extension board connected to an Arcaze. An Arcaze has at most one type of extension.</summary>
+        public enum ArcazeExtension
+        {
+            None,
+            LedDriver,
+            DisplayDriver
+        }
+
+        private const int ArcazeBasePinCount = 20;
+        private const int ArcazeDisplayDigits = 8;
+        private static readonly string[] ArcazeBasePorts = { "A", "B" };
+
+        // Each LED driver module provides three ports with 20, 20 and 8 outputs.
+        private static readonly (string Port, int PinCount)[][] ArcazeLedDriverModulePorts =
+        {
+            new[] { ("C", 20), ("D", 20), ("E", 8) },
+            new[] { ("F", 20), ("G", 20), ("H", 8) },
+            new[] { ("I", 20), ("J", 20), ("K", 8) },
+            new[] { ("L", 20), ("M", 20), ("N", 8) },
+        };
+
+        private static readonly string[] ArcazeDisplayAddresses =
+            { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F" };
+        private static readonly int[] ArcazeDisplayConnectors = { 1, 2 };
+
+        /// <summary>
+        /// Arcaze boards don't report their devices,
+        /// so outputs and displays are created from the configured extension.
+        /// Only as many extension modules as configured are created.
+        /// </summary>
+        public static List<ControllerDevice> CreateForArcaze(ArcazeExtension extension, int numModules)
+        {
+            var result = new List<ControllerDevice>();
+
+            foreach (var port in ArcazeBasePorts)
+                result.AddRange(CreateArcazeOutputs(port, ArcazeBasePinCount));
+
+            switch (extension)
+            {
+                case ArcazeExtension.LedDriver:
+                    var ledDriverPorts = ArcazeLedDriverModulePorts.Take(numModules).SelectMany(module => module);
+                    foreach (var (port, pinCount) in ledDriverPorts)
+                        result.AddRange(CreateArcazeOutputs(port, pinCount));
+                    break;
+
+                case ArcazeExtension.DisplayDriver:
+                    var displayCapability = new DeviceCapability { Digits = ArcazeDisplayDigits };
+                    foreach (var address in ArcazeDisplayAddresses.Take(numModules))
+                        foreach (var connector in ArcazeDisplayConnectors)
+                            result.Add(CreateDevice($"{address}:{connector}", DeviceType.LedModule, displayCapability));
+                    break;
+            }
+
+            return result;
+        }
+
+        private static IEnumerable<ControllerDevice> CreateArcazeOutputs(string port, int pinCount)
+        {
+            // Arcaze pins are stored as port and two digit pin, e.g. "A01"
+            return Enumerable.Range(1, pinCount)
+                .Select(pin => CreateDevice($"{port}{pin:00}", DeviceType.Output, new DeviceCapability { Pwm = false }));
+        }
+
         private static ControllerDevice CreateDevice(string name, DeviceType type, DeviceCapability capability = null)
         {
             return new ControllerDevice { Name = name, Label = name, Type = type, Capabilities = capability };

@@ -281,7 +281,9 @@ namespace MobiFlight
                 connectedControllers.Add(new Controller()
                 {
                     Name = controller.Name,
-                    Serial = controller.Serial
+                    Serial = controller.Serial,
+                    Devices = arcazeCache.GetControllerDevices(controller.Serial)
+                                         .ToList<DeviceReference>()
                 });
             });
 #endif

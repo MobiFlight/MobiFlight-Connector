@@ -199,5 +199,90 @@ namespace MobiFlight.Tests
         }
 
         #endregion
+    
+
+        #region Arcaze
+
+        [TestMethod]
+        public void CreateForArcaze_ShouldCreateBaseBoardOutputsOnly_WhenNoExtensionIsConfigured()
+        {
+            // Act
+            var result = DeviceReferenceFactory.CreateForArcaze(DeviceReferenceFactory.ArcazeExtension.None, 1);
+
+            // Assert
+            Assert.HasCount(40, result);
+            Assert.IsTrue(result.TrueForAll(device => device.Type == DeviceType.Output));
+            Assert.AreEqual("A01", result[0].Name);
+            Assert.AreEqual("A20", result[19].Name);
+            Assert.AreEqual("B01", result[20].Name);
+            Assert.AreEqual("B20", result[39].Name);
+        }
+
+        [TestMethod]
+        [DataRow(1, 88, "E08")]
+        [DataRow(2, 136, "H08")]
+        [DataRow(4, 232, "N08")]
+        public void CreateForArcaze_ShouldCreateOutputsOfConfiguredLedDriverModules(int numModules, int expectedCount, string expectedLastPin)
+        {
+            // Act
+            var result = DeviceReferenceFactory.CreateForArcaze(DeviceReferenceFactory.ArcazeExtension.LedDriver, numModules);
+
+            // Assert
+            Assert.HasCount(expectedCount, result);
+            Assert.IsTrue(result.TrueForAll(device => device.Type == DeviceType.Output));
+            Assert.AreEqual(expectedLastPin, result[^1].Name);
+        }
+
+        [TestMethod]
+        public void CreateForArcaze_ShouldCreatePortsWith20And8Pins_WhenLedDriverIsConfigured()
+        {
+            // Act
+            var result = DeviceReferenceFactory.CreateForArcaze(DeviceReferenceFactory.ArcazeExtension.LedDriver, 1);
+            var names = result.ConvertAll(device => device.Name);
+
+            // Assert
+            CollectionAssert.Contains(names, "C20");
+            CollectionAssert.Contains(names, "D20");
+            CollectionAssert.Contains(names, "E08");
+            CollectionAssert.DoesNotContain(names, "E09");
+            CollectionAssert.DoesNotContain(names, "F01");
+        }
+
+        [TestMethod]
+        public void CreateForArcaze_ShouldCreateDisplaysForEachAddressAndConnector_WhenDisplayDriverIsConfigured()
+        {
+            // Act
+            var result = DeviceReferenceFactory.CreateForArcaze(DeviceReferenceFactory.ArcazeExtension.DisplayDriver, 2);
+            var displays = result.FindAll(device => device.Type == DeviceType.LedModule);
+
+            // Assert
+            Assert.HasCount(44, result);
+            CollectionAssert.AreEqual(
+                new List<string> { "0:1", "0:2", "1:1", "1:2" },
+                displays.ConvertAll(display => display.Name));
+            Assert.IsTrue(displays.TrueForAll(display => display.Capabilities.Digits == 8));
+        }
+
+        [TestMethod]
+        public void CreateForArcaze_ShouldNotCreateDisplays_WhenLedDriverIsConfigured()
+        {
+            // Act
+            var result = DeviceReferenceFactory.CreateForArcaze(DeviceReferenceFactory.ArcazeExtension.LedDriver, 1);
+
+            // Assert
+            Assert.IsFalse(result.Exists(device => device.Type == DeviceType.LedModule));
+        }
+
+        [TestMethod]
+        public void CreateForArcaze_ShouldNotSupportPwm()
+        {
+            // Act
+            var result = DeviceReferenceFactory.CreateForArcaze(DeviceReferenceFactory.ArcazeExtension.None, 1);
+
+            // Assert
+            Assert.IsTrue(result.TrueForAll(device => device.Capabilities.Pwm == false));
+        }
+
+        #endregion
     }
 }
