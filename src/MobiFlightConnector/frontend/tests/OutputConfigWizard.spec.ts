@@ -674,6 +674,8 @@ test.describe("Output Config Wizard - FSUIPC Source", () => {
     await expect(triggerPanel.getByText("66CC", { exact: true })).toBeVisible()
     await expect(triggerPanel.getByText("AABBCCDD", { exact: true })).toBeVisible()
     await expect(triggerPanel.getByText("True", { exact: true })).toBeVisible()
+    // A source only reads the offset, so there is no value to write
+    await expect(triggerPanel.getByText("Value", { exact: true })).not.toBeVisible()
   })
 
   test("Newly created FSUIPC source is saved correctly", async ({
@@ -777,6 +779,8 @@ test.describe("Output Config Wizard - ProSim Source", () => {
     await expect(
       triggerPanel.getByText("autopilot.altitude", { exact: true }),
     ).toBeVisible()
+    // Parameters are only used by input actions
+    await expect(triggerPanel.getByText("Parameter (optional)")).not.toBeVisible()
   })
 
   test("ProSim source editor shows only readable DataRefs", async ({
@@ -799,6 +803,7 @@ test.describe("Output Config Wizard - ProSim Source", () => {
       "ProSim",
     )
 
+    await expect(sourceEditor.getByText("Step 2 - Select preset")).toBeVisible()
     await expect(sourceEditor.getByText("Aircraft Heading")).toBeVisible()
     await expect(sourceEditor.getByText("Autopilot Altitude")).toBeVisible()
     await expect(sourceEditor.getByText("System Reset")).not.toBeVisible()
@@ -857,7 +862,7 @@ test.describe("Output Config Wizard - Variable Source", () => {
       MobiFlightVariable: {
         Name: "MyOutputVar",
         TYPE: "number",
-        Expression: "",
+        Expression: "$ * 2",
         Number: 0,
         Text: "",
       },
@@ -870,6 +875,12 @@ test.describe("Output Config Wizard - Variable Source", () => {
     await expect(
       triggerPanel.getByText("MyOutputVar", { exact: true }),
     ).toBeVisible()
+    await expect(triggerPanel.getByText("Number", { exact: true })).toBeVisible()
+    // The expression is only used by input actions
+    await expect(triggerPanel.getByText("Expression", { exact: true })).not.toBeVisible()
+    await expect(
+      triggerPanel.getByText("$ * 2", { exact: true }),
+    ).not.toBeVisible()
   })
 
   test("Newly created Variable source is saved correctly", async ({

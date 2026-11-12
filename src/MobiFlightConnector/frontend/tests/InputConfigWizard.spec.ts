@@ -4009,9 +4009,9 @@ test.describe("Input Config Wizard - Variable Input Action Panel", () => {
     // Action type is shown in the summary
     await expect(actionPanel.getByText("Variable")).toBeVisible()
 
-    // The variable name is shown in the summary
+    // The variable name and its translated type are shown in the summary
     await expect(
-      actionPanel.getByText("MyVarnumber", { exact: true }),
+      actionPanel.getByText("MyVarNumber", { exact: true }),
     ).toBeVisible()
 
     // The code is shown in the summary
@@ -5870,6 +5870,7 @@ test.describe("Input Config Wizard - ProSim Input Action Panel", () => {
     ).toBeVisible()
 
     // The optional parameter value is shown in the summary
+    await expect(actionPanel.getByText("Parameter (optional)")).toBeVisible()
     await expect(actionPanel.getByText("$", { exact: true })).toBeVisible()
   })
 
