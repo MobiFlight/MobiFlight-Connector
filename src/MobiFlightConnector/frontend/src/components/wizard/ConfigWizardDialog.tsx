@@ -24,7 +24,7 @@ import { useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useLocation, useNavigate } from "react-router"
 
-export type InputConfigDialogProps = {
+export type ConfigWizardDialogProps = {
   configId: string
 }
 
@@ -45,7 +45,7 @@ const resetTriggersBasedOnDeviceType = (
   }
 }
 
-const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
+const ConfigWizardDialog = ({ configId }: ConfigWizardDialogProps) => {
   const { t } = useTranslation("wizard")
   const navigate = useNavigate()
   const location = useLocation()
@@ -235,4 +235,4 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
     </Dialog>
   )
 }
-export default InputConfigDialog
+export default ConfigWizardDialog
