@@ -1113,7 +1113,8 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
 
       const preconditionTypeOptions =
         preconditionTypeOptionMenu.getByRole("menuitem")
-      await expect(preconditionTypeOptions).toHaveCount(3)
+      // Arcaze pin preconditions can't be created anymore
+      await expect(preconditionTypeOptions).toHaveText(["Variable", "Config"])
       await preconditionTypeOptions.filter({ hasText: label }).click()
 
       let preconditionItems = preconditionEditor.getByTestId(
@@ -1177,24 +1178,16 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
     const secondPreconditionItem = page
       .getByTestId("precondition-item-row")
       .nth(1)
-    const thirdPreconditionItem = page
-      .getByTestId("precondition-item-row")
-      .nth(2)
 
     const firstLabel =
       preconditionTypeLabels[PRECONDITION_TYPES[0] as PreconditionType]
     const secondLabel =
       preconditionTypeLabels[PRECONDITION_TYPES[1] as PreconditionType]
-    const thirdLabel =
-      preconditionTypeLabels[PRECONDITION_TYPES[2] as PreconditionType]
     await expect(
       firstPreconditionItem.getByText(firstLabel, { exact: true }),
     ).toBeVisible()
     await expect(
       secondPreconditionItem.getByText(secondLabel, { exact: true }),
-    ).toBeVisible()
-    await expect(
-      thirdPreconditionItem.getByText(thirdLabel, { exact: true }),
     ).toBeVisible()
 
     const firstMoveUpButton = firstPreconditionItem.getByRole("button", {
@@ -1219,9 +1212,6 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
     await expect(
       secondPreconditionItem.getByText(firstLabel, { exact: true }),
     ).toBeVisible()
-    await expect(
-      thirdPreconditionItem.getByText(thirdLabel, { exact: true }),
-    ).toBeVisible()
 
     const secondMoveUpButton = secondPreconditionItem.getByRole("button", {
       name: "Move up precondition",
@@ -1229,46 +1219,23 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
     await expect(secondMoveUpButton).toBeVisible()
     await expect(secondMoveUpButton).toBeEnabled()
 
+    // last item cannot be moved down, so the button should be disabled
     const secondMoveDownButton = secondPreconditionItem.getByRole("button", {
       name: "Move down precondition",
     })
     await expect(secondMoveDownButton).toBeVisible()
-    await expect(secondMoveDownButton).toBeEnabled()
-
-    // move down
-    await secondMoveDownButton.click()
-
-    // Verify that the second and third items have swapped positions
-    await expect(
-      firstPreconditionItem.getByText(secondLabel, { exact: true }),
-    ).toBeVisible()
-    await expect(
-      secondPreconditionItem.getByText(thirdLabel, { exact: true }),
-    ).toBeVisible()
-    await expect(
-      thirdPreconditionItem.getByText(firstLabel, { exact: true }),
-    ).toBeVisible()
+    await expect(secondMoveDownButton).toBeDisabled()
 
     // move up
     await secondMoveUpButton.click()
 
-    // Verify that the first and second items have swapped positions back
+    // Verify that the items have swapped positions back
     await expect(
-      firstPreconditionItem.getByText(thirdLabel, { exact: true }),
+      firstPreconditionItem.getByText(firstLabel, { exact: true }),
     ).toBeVisible()
     await expect(
       secondPreconditionItem.getByText(secondLabel, { exact: true }),
     ).toBeVisible()
-
-    // Verify last move down button is disabled
-    const lastPreconditionItem = page
-      .getByTestId("precondition-item-row")
-      .last()
-    const lastMoveDownButton = lastPreconditionItem.getByRole("button", {
-      name: "Move down precondition",
-    })
-    await expect(lastMoveDownButton).toBeVisible()
-    await expect(lastMoveDownButton).toBeDisabled()
   })
 
   test("Preconditions summary only shows when at least one reference is defined", async ({
@@ -1300,7 +1267,7 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
     await expect(preconditionTypeOptionMenu).toBeVisible()
     const preconditionTypeOptions =
       preconditionTypeOptionMenu.getByRole("menuitem")
-    await expect(preconditionTypeOptions).toHaveCount(3)
+    await expect(preconditionTypeOptions).toHaveCount(2)
     await preconditionTypeOptions.filter({ hasText: "Variable" }).click()
 
     const items = editor.getByTestId("precondition-item-row")

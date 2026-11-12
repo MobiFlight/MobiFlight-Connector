@@ -999,6 +999,7 @@ test.describe("Output Config Wizard - Output Device Panel", () => {
     await expect(page.getByRole("option")).toHaveText([
       "ProtoBoard-v2",
       "Mega Output Board",
+      "Arcaze v5.54",
     ])
   })
 
@@ -1035,6 +1036,16 @@ test.describe("Output Config Wizard - Output Device Panel", () => {
       await selectComboBoxOption(page, controllerComboBox, "Mega Output Board")
       await deviceTypeComboBox.click()
       await expect(page.getByRole("option")).toHaveText(["Output"])
+      await page.keyboard.press("Escape")
+    })
+
+    await test.step("Arcaze with display driver offers Output and 7-Segment", async () => {
+      await selectComboBoxOption(page, controllerComboBox, "Arcaze v5.54")
+      await deviceTypeComboBox.click()
+      await expect(page.getByRole("option")).toHaveText([
+        "Output",
+        "7-Segment Display",
+      ])
       await page.keyboard.press("Escape")
     })
   })
@@ -1734,6 +1745,68 @@ test.describe("Output Config Wizard - 7-Segment Device", () => {
       Type: "LedModule",
       DisplayLedBrightnessReference: "",
     })
+  })
+})
+
+test.describe("Output Config Wizard - Arcaze", () => {
+  // Opens the device editor of a new config
+  // and selects the given device type of the Arcaze
+  const selectArcazeDevice = async (
+    configListPage: ConfigListPage,
+    page: Page,
+    deviceType: string,
+  ) => {
+    await openWizardForRow(configListPage, page, ROW.NoDevice)
+    await page
+      .getByTestId("action-panel")
+      .getByRole("button", { name: "Output device" })
+      .click()
+
+    const deviceEditor = page.getByTestId("output-device-editor")
+    await selectComboBoxOption(
+      page,
+      deviceEditor.getByRole("combobox").first(),
+      "Arcaze v5.54",
+    )
+    await selectComboBoxOption(
+      page,
+      deviceEditor.getByRole("combobox").nth(1),
+      deviceType,
+    )
+    return deviceEditor
+  }
+
+  test("Outputs are the pins of the Arcaze ports", async ({
+    configListPage,
+    page,
+  }) => {
+    const deviceEditor = await selectArcazeDevice(configListPage, page, "Output")
+
+    await expect(deviceEditor.getByRole("checkbox")).toHaveCount(40)
+    await expect(
+      deviceEditor.getByRole("checkbox", { name: "A01", exact: true }),
+    ).toBeVisible()
+    await expect(
+      deviceEditor.getByRole("checkbox", { name: "B20", exact: true }),
+    ).toBeVisible()
+  })
+
+  test("Displays are the address and connector of the display driver", async ({
+    configListPage,
+    page,
+  }) => {
+    const deviceEditor = await selectArcazeDevice(
+      configListPage,
+      page,
+      "7-Segment Display",
+    )
+
+    const displayComboBox = deviceEditor
+      .getByRole("combobox")
+      .filter({ hasText: "0:1" })
+    await expect(displayComboBox).toBeVisible()
+    await displayComboBox.click()
+    await expect(page.getByRole("option")).toHaveText(["0:1", "0:2"])
   })
 })
 

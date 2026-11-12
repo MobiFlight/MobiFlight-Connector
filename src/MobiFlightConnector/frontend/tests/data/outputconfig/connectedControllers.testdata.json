@@ -116,5 +116,263 @@
     "ImageUrl": null,
     "certified": false,
     "Devices": [{ "Name": "1", "Label": "Button 1", "Type": "Button" }]
+  },
+  {
+    "Name": "Arcaze v5.54",
+    "Serial": "0123456789AB",
+    "Devices": [
+      {
+        "Name": "A01",
+        "Label": "A01",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "A02",
+        "Label": "A02",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "A03",
+        "Label": "A03",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "A04",
+        "Label": "A04",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "A05",
+        "Label": "A05",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "A06",
+        "Label": "A06",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "A07",
+        "Label": "A07",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "A08",
+        "Label": "A08",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "A09",
+        "Label": "A09",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "A10",
+        "Label": "A10",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "A11",
+        "Label": "A11",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "A12",
+        "Label": "A12",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "A13",
+        "Label": "A13",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "A14",
+        "Label": "A14",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "A15",
+        "Label": "A15",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "A16",
+        "Label": "A16",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "A17",
+        "Label": "A17",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "A18",
+        "Label": "A18",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "A19",
+        "Label": "A19",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "A20",
+        "Label": "A20",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "B01",
+        "Label": "B01",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "B02",
+        "Label": "B02",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "B03",
+        "Label": "B03",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "B04",
+        "Label": "B04",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "B05",
+        "Label": "B05",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "B06",
+        "Label": "B06",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "B07",
+        "Label": "B07",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "B08",
+        "Label": "B08",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "B09",
+        "Label": "B09",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "B10",
+        "Label": "B10",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "B11",
+        "Label": "B11",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "B12",
+        "Label": "B12",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "B13",
+        "Label": "B13",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "B14",
+        "Label": "B14",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "B15",
+        "Label": "B15",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "B16",
+        "Label": "B16",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "B17",
+        "Label": "B17",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "B18",
+        "Label": "B18",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "B19",
+        "Label": "B19",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "B20",
+        "Label": "B20",
+        "Type": "Output",
+        "Capabilities": { "Pwm": false }
+      },
+      {
+        "Name": "0:1",
+        "Label": "0:1",
+        "Type": "LedModule",
+        "Capabilities": { "Digits": 8 }
+      },
+      {
+        "Name": "0:2",
+        "Label": "0:2",
+        "Type": "LedModule",
+        "Capabilities": { "Digits": 8 }
+      }
+    ]
   }
 ]

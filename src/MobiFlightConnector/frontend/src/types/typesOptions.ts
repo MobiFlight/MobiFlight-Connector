@@ -16,4 +16,6 @@ export const OutputDeviceTypes: OutputDeviceType[] = [
   "CustomDevice",
 ]
 
-export const PRECONDITION_TYPES = ["variable", "config", "pin"] as PreconditionType[]
+// Arcaze pin preconditions are not offered for new preconditions,
+// existing ones are still shown
+export const PRECONDITION_TYPES = ["variable", "config"] as PreconditionType[]
