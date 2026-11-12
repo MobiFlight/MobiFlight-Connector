@@ -27,16 +27,19 @@ export interface StepperCalibrationProps {
   config: StepperConfig
 }
 
-const StepperCalibration = ({ controller, config }: StepperCalibrationProps) => {
+const StepperCalibration = ({
+  controller,
+  config,
+}: StepperCalibrationProps) => {
   const { publish } = messageExchange
-  const AVAILABLE_STEPS = [-50, -10, -1, 1, 10, 50]
+  const AVAILABLE_STEPS = ["-50", "-10", "-1", "+1", "+10", "+50"]
   const ICON_MAP = {
     "-50": IconPlayerTrackPrevFilled,
     "-10": IconPlayerTrackPrev,
     "-1": IconPlayerPlay,
-    "1": IconPlayerPlay,
-    "10": IconPlayerTrackNext,
-    "50": IconPlayerTrackNextFilled,
+    "+1": IconPlayerPlay,
+    "+10": IconPlayerTrackNext,
+    "+50": IconPlayerTrackNextFilled,
   } as Record<string, React.ComponentType<{ className?: string }>>
 
   const { t } = useTranslation("wizard")
@@ -54,10 +57,14 @@ const StepperCalibration = ({ controller, config }: StepperCalibrationProps) => 
   }
 
   const move = (step: number) => {
-    // Implement the move logic here
     publish({
       key: "CommandStepperCalibration",
-      payload: { controller: controller, stepper: config, action: "move", step: step },
+      payload: {
+        controller: controller,
+        stepper: config,
+        action: "move",
+        steps: step,
+      },
     })
   }
 
@@ -65,7 +72,7 @@ const StepperCalibration = ({ controller, config }: StepperCalibrationProps) => 
     e: React.KeyboardEvent<HTMLButtonElement>,
     step: number,
   ) => {
-    switch (e.key) {
+    switch (e.code) {
       case "Enter":
         e.preventDefault()
         e.stopPropagation()
@@ -84,15 +91,17 @@ const StepperCalibration = ({ controller, config }: StepperCalibrationProps) => 
       <div className="flex flex-row justify-between gap-4">
         <Toolbar.Root className="flex flex-row gap-2">
           {AVAILABLE_STEPS.map((step) => {
+            const stepValue = parseInt(step)
             const Icon = ICON_MAP[step.toString()]
             return (
               <Toolbar.Button key={step} asChild>
                 <Button
-                  variant={activeStepCount == step ? "default" : "outline"}
-                  onClick={() => calibrate(step)}
-                  onKeyDown={(e) => handleKeyInput(e, step)}
+                  variant={activeStepCount == stepValue ? "default" : "outline"}
+                  onClick={() => calibrate(stepValue)}
+                  onFocus={() => setActiveStepCount(stepValue)}
+                  onKeyDown={(e) => handleKeyInput(e, stepValue)}
                 >
-                  <Icon className={step == -1 ? "rotate-180" : ""} />
+                  <Icon className={stepValue == -1 ? "rotate-180" : ""} />
                   {step}
                 </Button>
               </Toolbar.Button>
@@ -102,13 +111,13 @@ const StepperCalibration = ({ controller, config }: StepperCalibrationProps) => 
         <div>
           <Button variant={"secondary"} onClick={setHome}>
             <IconHome />
-            Set home position
+            {t("ConfigWizard.Device.Stepper.Calibrate.SetHome")}
           </Button>
         </div>
       </div>
       <div className="flex flex-row items-center gap-2">
         <p className="text-muted-foreground text-sm">
-          {t("ConfigWizard.Device.Stepper.Calibration.Hint")}
+          {t("ConfigWizard.Device.Stepper.Calibrate.Hint")}
         </p>
       </div>
     </div>
@@ -246,13 +255,17 @@ const StepperPanel = ({
             </Label>
           </div>
         </WizardSection>
-        <WizardSection>
-          <SectionHeadline
-            title={t("ConfigWizard.Device.Stepper.Calibrate.Title")}
-            description={t("ConfigWizard.Device.Stepper.Calibrate.Description")}
-          />
-          <StepperCalibration controller={controller} config={config} />
-        </WizardSection>
+        {config.Address && (
+          <WizardSection>
+            <SectionHeadline
+              title={t("ConfigWizard.Device.Stepper.Calibrate.Title")}
+              description={t(
+                "ConfigWizard.Device.Stepper.Calibrate.Description",
+              )}
+            />
+            <StepperCalibration controller={controller} config={config} />
+          </WizardSection>
+        )}
       </>
     )
   }

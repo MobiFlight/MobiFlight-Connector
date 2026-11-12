@@ -1,9 +1,5 @@
-﻿using FSUIPC;
-using MobiFlight.Base;
-using MobiFlight.CustomDevices;
-using MobiFlight.Firmware;
+﻿using MobiFlight.Base;
 using MobiFlight.Monitors;
-using MobiFlight.OutputConfig;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -677,23 +673,27 @@ namespace MobiFlight
 
         public void MoveStepper(Controller controller, OutputConfig.Stepper configStepper, int steps)
         {
-            MobiFlightModule module = GetModuleBySerial(controller.Serial);
+            try
+            {
+                MobiFlightModule module = GetModuleBySerial(controller?.Serial);
+                MobiFlightStepper stepper = module.GetStepper(configStepper?.Address);
+                
+                int CurrentValue = stepper.Position();
+                int NextValue = (CurrentValue + steps);
 
-            if (module == null) return;
-
-            MobiFlightStepper stepper = module.GetStepper(configStepper.Address);
-
-            int CurrentValue = stepper.Position();
-            int NextValue = (CurrentValue + steps);
-
-            SetStepper(
-                controller.Serial,
-                configStepper.Address,
-                (NextValue).ToString(),
-                configStepper.OutputRev,
-                configStepper.OutputRev,
-                configStepper.CompassMode
-            );
+                SetStepper(
+                    controller.Serial,
+                    configStepper.Address,
+                    (NextValue).ToString(),
+                    configStepper.OutputRev,
+                    configStepper.OutputRev,
+                    configStepper.CompassMode
+                );
+            }
+            catch (Exception e)
+            {
+                throw new ArcazeCommandExecutionException(i18n._tr("ConfigErrorException_SettingStepper"), e);
+            }
         }
 
         /// <summary>

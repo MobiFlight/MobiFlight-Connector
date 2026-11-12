@@ -256,6 +256,6 @@ export interface CommandStepperCalibration extends CommandMessageBase {
     controller: Partial<Controller>
     stepper: Partial<StepperConfig>
     action: "move" | "home"
-    step?: number
+    steps?: number
   }
 }

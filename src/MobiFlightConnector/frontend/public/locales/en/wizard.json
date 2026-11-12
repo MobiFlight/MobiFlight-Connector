@@ -71,7 +71,8 @@
         "Calibrate": {
           "Title": "Step 3 - Calibrate stepper",
           "Description": "Use the jog buttons to adjust the stepper position and set home position.",
-          "Hint": "Use the arrow keys to select the step size. Use space to move the stepper. Use enter to set the home position."
+          "Hint": "Use the arrow keys to select the step size. Use space to move the stepper. Use enter to set the home position.",
+          "SetHome": "Set home position"
         }
       },
       "Servo": {
