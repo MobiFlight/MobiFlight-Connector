@@ -72,6 +72,9 @@ const LcdDisplayPanel = ({
               onChange={(e) => updateLine(index, e.target.value)}
             />
           ))}
+          <div className="text-muted-foreground text-sm">
+            {t("Dialog.InputConfigWizard.InputActions.Common.SupportedPlaceholders")}
+          </div>
         </div>
       </WizardSection>
     )
@@ -87,7 +90,8 @@ const LcdDisplayPanel = ({
         <div className="flex flex-col gap-1">
           <Label>{t("ConfigWizard.General.DisplayType")}</Label>
           <span className="flex flex-row gap-2">
-            <DeviceIcon variant="LcdDisplay" /> {t("ConfigWizard.Device.LcdDisplay.Label")}
+            <DeviceIcon variant="LcdDisplay" />{" "}
+            {t("ConfigWizard.Device.LcdDisplay.Label")}
           </span>
         </div>
         <div className="flex flex-col gap-1">
