@@ -117,6 +117,12 @@
           "Padding": "Padding with",
           "PaddingSpace": "Space",
           "ReverseDigits": "Reverse digits"
+        },
+        "Brightness": {
+          "Label": "Brightness",
+          "Description": "Use the value of another output config to set the brightness of the display.",
+          "None": "None",
+          "Summary": "Brightness: {{name}}"
         }
       },
       "LcdDisplay": {

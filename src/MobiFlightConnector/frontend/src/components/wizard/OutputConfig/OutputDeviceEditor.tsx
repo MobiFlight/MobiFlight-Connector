@@ -206,6 +206,7 @@ const OutputDeviceEditor = ({
           config={configItem.Device as LedModuleConfig}
           controller={configItem.Controller}
           devices={devices.filter((device) => device.Type === "LedModule")}
+          configId={configItem.GUID}
           onChange={(device) => updateConfigItem(configItem.Controller, device)}
         />
       )}

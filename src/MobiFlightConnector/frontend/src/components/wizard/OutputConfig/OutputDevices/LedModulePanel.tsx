@@ -1,5 +1,5 @@
 import DeviceIcon from "@/components/icons/DeviceIcon"
-import { LedModuleConfig } from "@/types/config"
+import { IConfigItem, LedModuleConfig } from "@/types/config"
 import { DeviceReference, Controller } from "@/types/controller"
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
@@ -9,6 +9,7 @@ import OutputDeviceComboBox from "@/components/wizard/OutputConfig/OutputDevices
 import { Separator } from "@/components/ui/separator"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import WizardSection from "@/components/wizard/common/WizardSection"
+import { useProjectStore } from "@/stores/projectStore"
 import { useTranslation } from "react-i18next"
 
 type Option = { label: string; value: string }
@@ -41,6 +42,8 @@ export interface LedModulePanelProps {
   controller?: Partial<Controller>
   // only used by the details variant
   devices?: DeviceReference[]
+  // the config of this panel, which can't be its own brightness reference
+  configId?: string
   onChange?: (config: LedModuleConfig) => void
 }
 
@@ -49,9 +52,24 @@ const LedModulePanel = ({
   variant,
   controller,
   devices = [],
+  configId,
   onChange,
 }: LedModulePanelProps) => {
   const { t } = useTranslation("wizard")
+  const { project, activeConfigFileIndex } = useProjectStore()
+
+  // any other output config can provide the brightness value
+  const brightnessReferences: IConfigItem[] =
+    project?.ConfigFiles[activeConfigFileIndex]?.ConfigItems.filter(
+      (item) => item.Type === "OutputConfigItem" && item.GUID !== configId,
+    ) ?? []
+  const brightnessReference = brightnessReferences.find(
+    (item) => item.GUID === config.DisplayLedBrightnessReference,
+  )
+  const noBrightnessReference = {
+    GUID: "",
+    Name: t("ConfigWizard.Device.SevenSegment.Brightness.None"),
+  } as IConfigItem
 
   const paddingCharOptions: Option[] = [
     { label: "0", value: "0" },
@@ -215,6 +233,32 @@ const LedModulePanel = ({
             <Label htmlFor="led-reverse-digits">{t("ConfigWizard.Device.SevenSegment.AdvancedOptions.ReverseDigits")}</Label>
           </div>
         </div>
+        <Separator />
+        <div className="flex flex-row items-center justify-between gap-4">
+          <div className="flex flex-col gap-1">
+            <Label>
+              {t("ConfigWizard.Device.SevenSegment.Brightness.Label")}
+            </Label>
+            <div className="text-muted-foreground text-sm">
+              {t("ConfigWizard.Device.SevenSegment.Brightness.Description")}
+            </div>
+          </div>
+          <ComboBox
+            widthClass="w-56"
+            align="end"
+            items={[noBrightnessReference, ...brightnessReferences]}
+            selected={brightnessReference ?? noBrightnessReference}
+            getValue={(item) => item.GUID}
+            getLabel={(item) => item.Name}
+            isSelected={(item, selected) => item.GUID === selected?.GUID}
+            setSelected={(item) =>
+              onChange?.({
+                ...config,
+                DisplayLedBrightnessReference: item?.GUID ?? "",
+              })
+            }
+          />
+        </div>
       </WizardSection>
     )
   }
@@ -240,7 +284,9 @@ const LedModulePanel = ({
           <Label>{t("ConfigWizard.Device.SevenSegment.Digits")}</Label>
           <Badge variant="secondary">{config.DisplayLedModuleSize}</Badge>
         </div>
-        {(config.DisplayLedPadding || config.DisplayLedReverseDigits) && (
+        {(config.DisplayLedPadding ||
+          config.DisplayLedReverseDigits ||
+          brightnessReference) && (
           <div className="flex flex-col gap-1">
             <Label>{t("ConfigWizard.General.Options")}</Label>
             <span className="flex flex-row gap-1">
@@ -249,6 +295,13 @@ const LedModulePanel = ({
               )}
               {config.DisplayLedReverseDigits && (
                 <Badge variant="secondary">{t("ConfigWizard.Device.SevenSegment.AdvancedOptions.ReverseDigits")}</Badge>
+              )}
+              {brightnessReference && (
+                <Badge variant="secondary">
+                  {t("ConfigWizard.Device.SevenSegment.Brightness.Summary", {
+                    name: brightnessReference.Name,
+                  })}
+                </Badge>
               )}
             </span>
           </div>
