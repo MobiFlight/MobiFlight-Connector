@@ -56,6 +56,7 @@
         "Title": "Step - Test output device",
         "Description": "Test the functionality of this output device configuration."
       },
+      "Edit": "Edit output device",
       "Stepper": {
         "Title": "Step 2 - Stepper settings",
         "Description": "Select the stepper and configure how values map to its movement.",

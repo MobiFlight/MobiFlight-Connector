@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next"
 import {
   CustomDeviceConfig,
   LcdDisplayConfig,
@@ -28,118 +29,78 @@ export interface OutputDeviceSummaryProps {
 const OutputDeviceSummary = ({
   config,
   controller,
-  onEdit
+  onEdit,
 }: OutputDeviceSummaryProps) => {
+  const { t } = useTranslation("wizard")
+  
   if (config == null) {
     return null
   }
-  
-  if (config.Type == "Output") {
-    return (
-      <div className="flex grow flex-row items-center gap-2">
+
+  return (
+    <div className="flex grow flex-row items-center gap-2">
+      {config.Type === "Output" && (
         <OutputPanel
           variant="summary"
           config={config as OutputConfig}
           controller={controller}
         />
-        <Button size={"sm"} variant="ghost" onClick={onEdit}>
-          <IconEdit size={16} />
-        </Button>
-      </div>
-    )
-  }
+      )}
 
-  if (config.Type == "ShiftRegister") {
-    return (
-      <div className="flex grow flex-row items-center gap-2">
+      {config.Type === "ShiftRegister" && (
         <ShiftRegisterPanel
           variant="summary"
           config={config as ShiftRegisterConfig}
           controller={controller}
         />
-        <Button size={"sm"} variant="ghost" onClick={onEdit}>
-          <IconEdit size={16} />
-        </Button>
-      </div>
-    )
-  }
+      )}
 
-  if (config.Type == "LedModule") {
-    return (
-      <div className="flex grow flex-row items-center gap-2">
+      {config.Type === "LedModule" && (
         <LedModulePanel
           variant="summary"
           config={config as LedModuleConfig}
           controller={controller}
         />
-        <Button size={"sm"} variant="ghost" onClick={onEdit}>
-          <IconEdit size={16} />
-        </Button>
-      </div>
-    )
-  }
+      )}
 
-  if (config.Type == "LcdDisplay") {
-    return (
-      <div className="flex grow flex-row items-center gap-2">
+      {config.Type === "LcdDisplay" && (
         <LcdDisplayPanel
           variant="summary"
           config={config as LcdDisplayConfig}
           controller={controller}
         />
-        <Button size={"sm"} variant="ghost" onClick={onEdit}>
-          <IconEdit size={16} />
-        </Button>
-      </div>
-    )
-  }
+      )}
 
-  if (config.Type == "Servo") {
-    return (
-      <div className="flex grow flex-row items-center gap-2">
+      {config.Type === "Servo" && (
         <ServoPanel
           variant="summary"
           config={config as ServoConfig}
           controller={controller}
         />
-        <Button size={"sm"} variant="ghost" onClick={onEdit}>
-          <IconEdit size={16} />
-        </Button>
-      </div>
-    )
-  }
+      )}
 
-  if (config.Type == "Stepper") {
-    return (
-      <div className="flex grow flex-row items-center gap-2">
+      {config.Type === "Stepper" && (
         <StepperPanel
           variant="summary"
           config={config as StepperConfig}
           controller={controller}
         />
-        <Button size={"sm"} variant="ghost" onClick={onEdit}>
-          <IconEdit size={16} />
-        </Button>
-      </div>
-    )
-  }
+      )}
 
-  if (config.Type == "CustomDevice") {
-    return (
-      <div className="flex grow flex-row items-center gap-2">
+      {config.Type === "CustomDevice" && (
         <CustomDevicePanel
           variant="summary"
           config={config as CustomDeviceConfig}
           controller={controller}
         />
-        <Button size={"sm"} variant="ghost" onClick={onEdit}>
-          <IconEdit size={16} />
-        </Button>
-      </div>
-    )
-  }
+      )}
 
-  return null
+      <Button size={"sm"} variant="ghost" onClick={onEdit}>
+        <IconEdit size={16} />
+        <span className="sr-only">{t("ConfigWizard.Device.Edit")}</span>
+      </Button>
+    </div>
+  )
 }
 
 export default OutputDeviceSummary
