@@ -88,25 +88,6 @@ namespace MobiFlight.InputConfig
                 reader.Read();
         }
 
-        public void SetInputActionByName(string name, InputAction inputAction)
-        {
-            switch (name)
-            {
-                case "onPress":
-                    onPress = inputAction;
-                    break;
-                case "onRelease":
-                    onRelease = inputAction;
-                    break;
-                case "onLongRelease":
-                    onLongRelease = inputAction;
-                    break;
-                case "onHold":
-                    onHold = inputAction;
-                    break;
-            }
-        }
-
         public List<InputAction> GetInputActionsByType(Type type)
         {
             List<InputAction> result = new List<InputAction>();
