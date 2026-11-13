@@ -188,7 +188,8 @@ const MsfsInputActionPanel = ({
               </Label>
               <Textarea
                 name="code"
-                className="dark:focus:bg-input/20 font-mono text-sm whitespace-nowrap dark:bg-transparent"
+                spellCheck={false}
+                className="dark:focus:bg-input/20 font-mono text-sm break-words dark:bg-transparent"
                 placeholder={t(
                   "Dialog.InputConfigWizard.InputActions.Common.Preset.Code.Placeholder",
                 )}
