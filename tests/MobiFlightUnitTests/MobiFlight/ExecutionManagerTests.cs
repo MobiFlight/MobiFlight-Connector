@@ -225,7 +225,7 @@ namespace MobiFlight.Tests
 
             var message = new CommandConfigContextMenu
             {
-                Action = "duplicate",
+                Action = CommandConfigContextMenuAction.duplicate,
                 Item = project.ConfigFiles[0].ConfigItems.First() as ConfigItem
             };
 

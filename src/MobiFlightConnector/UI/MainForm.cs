@@ -286,18 +286,6 @@ namespace MobiFlight.UI
                 }
             });
 
-            // Not marked OnUiThread: OpenOutputConfigWizardForId marshals onto the UI thread
-            // itself (InvokeRequired/Invoke) before touching WinForms controls.
-            MessageExchange.Instance.Subscribe<CommandConfigContextMenu>((message) =>
-            {
-                var msg = message;
-                if (msg.Action != "edit") return;
-                if (msg.Item.Type == typeof(OutputConfigItem).Name)
-                {
-                    OpenOutputConfigWizardForId(message.Item.GUID);
-                }
-            });
-
             // OnUiThread: AddNewFileToProject / mergeToolStripMenuItem_Click touch WinForms state.
             MessageExchange.Instance.SubscribeOnUiThread<CommandAddConfigFile>((message) =>
             {

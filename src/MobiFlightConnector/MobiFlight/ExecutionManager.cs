@@ -433,25 +433,25 @@ namespace MobiFlight
                 IConfigItem cfg;
                 switch (message.Action)
                 {
-                    case "delete":
+                    case CommandConfigContextMenuAction.delete:
                         ConfigItems.RemoveAll(i => i.GUID == message.Item.GUID);
                         OnInputConfigSettingsChanged(this, null); // else InputEventExecutor's cache keeps the deleted item bound
                         break;
 
-                    case "toggle":
+                    case CommandConfigContextMenuAction.toggle:
                         cfg = ConfigItems.Find(i => i.GUID == message.Item.GUID);
                         if (cfg == null) break;
                         cfg.Active = !cfg.Active;
                         break;
 
-                    case "duplicate":
+                    case CommandConfigContextMenuAction.duplicate:
                         var index = ConfigItems.FindIndex(i => i.GUID == message.Item.GUID);
                         if (index == -1) break;
                         var dup = ConfigItems[index].Duplicate();
                         ConfigItems.Insert(index + 1, dup);
                         break;
 
-                    case "test":
+                    case CommandConfigContextMenuAction.test:
                         cfg = ConfigItems.Find(i => i.GUID == message.Item.GUID);
                         if (cfg == null || !(cfg is OutputConfigItem)) break;
                         var toggleTest = cfg.AreEqual(ConfigItemInTestMode);
@@ -481,7 +481,7 @@ namespace MobiFlight
 
                         return;
 
-                    case "testStart":
+                    case CommandConfigContextMenuAction.testStart:
                         cfg = message.Item;
                         if (cfg == null || !(cfg is OutputConfigItem)) break;
 
@@ -506,7 +506,7 @@ namespace MobiFlight
 
                         return;
 
-                    case "testStop":
+                    case CommandConfigContextMenuAction.testStop:
                         cfg = message.Item;
                         if (cfg == null || !(cfg is OutputConfigItem)) break;
 
@@ -533,7 +533,7 @@ namespace MobiFlight
 
                         return;
 
-                    case "settings":
+                    case CommandConfigContextMenuAction.settings:
                         cfg = ConfigItems.Find(i => i.GUID == message.Item.GUID);
                         if (cfg == null) return;
 
