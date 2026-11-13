@@ -81,11 +81,13 @@ const ModifiersPanel = ({
           })
         }
       />
-      <ConfigWizardTestPanel
-        configItem={configItem}
-        title={t("Dialog.Modifiers.Editor.TestPanel.Title")}
-        description={t("Dialog.Modifiers.Editor.TestPanel.Description")}
-      />
+      {configItem.Type === "OutputConfigItem" && (
+        <ConfigWizardTestPanel
+          configItem={configItem}
+          title={t("Dialog.Modifiers.Editor.TestPanel.Title")}
+          description={t("Dialog.Modifiers.Editor.TestPanel.Description")}
+        />
+      )}
     </div>
   )
 }

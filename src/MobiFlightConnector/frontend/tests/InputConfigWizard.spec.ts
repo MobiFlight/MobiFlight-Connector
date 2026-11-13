@@ -1560,6 +1560,28 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(modifierEditor).toBeVisible()
   })
 
+  test("Input modifiers don't show a test panel (yet)", async ({
+    configListPage,
+    page,
+  }) => {
+    await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
+
+    // Bring up the modifier editor by clicking the "Add modifier" button
+    const dialog = page.getByTestId("configwizard-dialog")
+    const addModifierButton = dialog.getByRole("button", {
+      name: "Add modifier",
+    })
+    await expect(dialog).toBeVisible()
+    await expect(addModifierButton).toBeVisible()
+    await addModifierButton.click()
+
+    const modifierEditor = page.getByTestId("modifier-editor")
+    await expect(modifierEditor).toBeVisible()
+
+    const testPanel = page.getByTestId("configwizard-test-panel")
+    await expect(testPanel).not.toBeVisible()
+  })
+
   test("Modifiers are sorted alphabetically in the add modifier dropdown", async ({
     configListPage,
     page,

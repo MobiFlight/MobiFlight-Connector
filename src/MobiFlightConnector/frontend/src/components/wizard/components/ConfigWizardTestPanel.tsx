@@ -125,7 +125,7 @@ const ConfigWizardTestPanel = ({
   }
 
   return (
-    <WizardSection>
+    <WizardSection data-testid="configwizard-test-panel">
       <SectionHeadline title={title} description={description} />
       <div className="flex grow flex-row items-end gap-2">
         <div className="flex flex-col gap-1">
