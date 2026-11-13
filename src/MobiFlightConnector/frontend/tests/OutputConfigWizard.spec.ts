@@ -166,6 +166,13 @@ const selectComboBoxOption = async (
   await page.getByRole("option", { name: option, exact: true }).click()
 }
 
+const openOutputDevicePanel = async (page: Page) => {
+  await page
+    .getByTestId("action-panel")
+    .getByRole("button", { name: "Output device", exact: true })
+    .click()
+}
+
 test.describe("General Output Config Wizard Tests", () => {
   test("Dialog title shows the config type and name", async ({
     configListPage,
@@ -996,7 +1003,7 @@ test.describe("Output Config Wizard - Output Device Panel", () => {
 
     // There is a device, so no add buttons are shown
     await expect(
-      actionPanel.getByRole("button", { name: "Output device" }),
+      actionPanel.getByRole("button", { name: "Output device", exact: true }),
     ).not.toBeVisible()
   })
 
@@ -1008,7 +1015,7 @@ test.describe("Output Config Wizard - Output Device Panel", () => {
 
     const actionPanel = page.getByTestId("action-panel")
     await expect(
-      actionPanel.getByRole("button", { name: "Output device" }),
+      actionPanel.getByRole("button", { name: "Output device", exact: true }),
     ).toBeVisible()
     await expect(
       actionPanel.getByRole("button", { name: "Button action" }),
@@ -1029,7 +1036,7 @@ test.describe("Output Config Wizard - Output Device Panel", () => {
     await actionPanel.getByRole("button", { name: "Remove input action" }).click()
 
     await expect(
-      actionPanel.getByRole("button", { name: "Output device" }),
+      actionPanel.getByRole("button", { name: "Output device", exact: true }),
     ).toBeVisible()
 
     const payload = await applyChangesAndReturnPayload(configListPage, page)
@@ -1042,10 +1049,7 @@ test.describe("Output Config Wizard - Output Device Panel", () => {
     page,
   }) => {
     await openWizardForRow(configListPage, page, ROW.NoDevice)
-    await page
-      .getByTestId("action-panel")
-      .getByRole("button", { name: "Output device" })
-      .click()
+    await openOutputDevicePanel(page)
 
     const deviceEditor = page.getByTestId("output-device-editor")
     await expect(deviceEditor).toBeVisible()
@@ -1063,10 +1067,7 @@ test.describe("Output Config Wizard - Output Device Panel", () => {
     page,
   }) => {
     await openWizardForRow(configListPage, page, ROW.NoDevice)
-    await page
-      .getByTestId("action-panel")
-      .getByRole("button", { name: "Output device" })
-      .click()
+    await openOutputDevicePanel(page)
 
     const deviceEditor = page.getByTestId("output-device-editor")
     const controllerComboBox = deviceEditor.getByRole("combobox").first()
@@ -1233,7 +1234,7 @@ test.describe("Output Config Wizard - Output Device", () => {
   }) => {
     await createEmptyOutputConfigAndOpenWizard(configListPage, page)
     const actionPanel = page.getByTestId("action-panel")
-    await actionPanel.getByRole("button", { name: "Output device" }).click()
+    await openOutputDevicePanel(page)
 
     const deviceEditor = page.getByTestId("output-device-editor")
     await selectComboBoxOption(
@@ -1301,10 +1302,7 @@ test.describe("Output Config Wizard - Output Device", () => {
     page,
   }) => {
     await openWizardForRow(configListPage, page, ROW.NoDevice)
-    await page
-      .getByTestId("action-panel")
-      .getByRole("button", { name: "Output device" })
-      .click()
+    await openOutputDevicePanel(page)
 
     const deviceEditor = page.getByTestId("output-device-editor")
     await selectComboBoxOption(
@@ -1457,10 +1455,7 @@ test.describe("Output Config Wizard - Stepper Device", () => {
     page,
   }) => {
     await createEmptyOutputConfigAndOpenWizard(configListPage, page)
-    await page
-      .getByTestId("action-panel")
-      .getByRole("button", { name: "Output device" })
-      .click()
+    await openOutputDevicePanel(page)
 
     const deviceEditor = page.getByTestId("output-device-editor")
     await selectComboBoxOption(
@@ -1812,10 +1807,7 @@ test.describe("Output Config Wizard - Arcaze", () => {
     deviceType: string,
   ) => {
     await openWizardForRow(configListPage, page, ROW.NoDevice)
-    await page
-      .getByTestId("action-panel")
-      .getByRole("button", { name: "Output device" })
-      .click()
+    await openOutputDevicePanel(page)
 
     const deviceEditor = page.getByTestId("output-device-editor")
     await selectComboBoxOption(
@@ -1873,10 +1865,7 @@ test.describe("Output Config Wizard - Shift Register Device", () => {
     page: Page,
   ) => {
     await openWizardForRow(configListPage, page, ROW.NoDevice)
-    await page
-      .getByTestId("action-panel")
-      .getByRole("button", { name: "Output device" })
-      .click()
+    await openOutputDevicePanel(page)
 
     const deviceEditor = page.getByTestId("output-device-editor")
     await selectComboBoxOption(
@@ -2032,7 +2021,7 @@ test.describe("Output Config Wizard - Custom Device", () => {
   }) => {
     await createEmptyOutputConfigAndOpenWizard(configListPage, page)
     const actionPanel = page.getByTestId("action-panel")
-    await actionPanel.getByRole("button", { name: "Output device" }).click()
+    await openOutputDevicePanel(page)
 
     const deviceEditor = page.getByTestId("output-device-editor")
     await selectComboBoxOption(
@@ -2105,7 +2094,7 @@ test.describe("Output Config Wizard - Input Action Panel", () => {
       ).toBeVisible()
     }
     await expect(
-      actionPanel.getByRole("button", { name: "Output device" }),
+      actionPanel.getByRole("button", { name: "Output device", exact: true }),
     ).not.toBeVisible()
 
     const payload = await applyChangesAndReturnPayload(configListPage, page)
@@ -2124,7 +2113,7 @@ test.describe("Output Config Wizard - Input Action Panel", () => {
     await actionPanel.getByRole("button", { name: "Analog action" }).click()
 
     await expect(
-      actionPanel.getByRole("button", { name: "Output device" }),
+      actionPanel.getByRole("button", { name: "Output device", exact: true }),
     ).not.toBeVisible()
 
     const payload = await applyChangesAndReturnPayload(configListPage, page)
@@ -2186,7 +2175,7 @@ test.describe("Output Config Wizard - Input Action Panel", () => {
       .click()
 
     await expect(
-      actionPanel.getByRole("button", { name: "Output device" }),
+      actionPanel.getByRole("button", { name: "Output device", exact: true }),
     ).toBeVisible()
 
     const payload = await applyChangesAndReturnPayload(configListPage, page)

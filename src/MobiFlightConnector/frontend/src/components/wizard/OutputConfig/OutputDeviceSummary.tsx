@@ -33,7 +33,7 @@ const OutputDeviceSummary = ({
 }: OutputDeviceSummaryProps) => {
   const { t } = useTranslation("wizard")
   
-  if (config == null) {
+  if (config === null) {
     return null
   }
 
