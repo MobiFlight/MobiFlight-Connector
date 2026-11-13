@@ -226,27 +226,27 @@ export const useBackendStateAppMessages = () => {
       ;(async () => {
         const testProject = (
           await import("@/../tests/data/project.testdata.json", {
-            assert: { type: "json" },
+            with: { type: "json" },
           })
         ).default as Project
         const testJsDefinitions = (
           await import("@/../tests/data/joystick.definition.json", {
-            assert: { type: "json" },
+            with: { type: "json" },
           })
         ).default as JoystickDefinition[]
         const testMidiDefinition = (
           await import("@/../tests/data/midicontroller.definition.json", {
-            assert: { type: "json" },
+            with: { type: "json" },
           })
         ).default as MidiControllerDefinition
         const testRecentProjects = (
           await import("@/../tests/data/recentProjects.testdata.json", {
-            assert: { type: "json" },
+            with: { type: "json" },
           })
         ).default as ProjectInfo[]
         const testControllers = (
           await import("@/../tests/data/connectedControllers.testdata.json", {
-            assert: { type: "json" },
+            with: { type: "json" },
           })
         ).default as Controller[]
 
