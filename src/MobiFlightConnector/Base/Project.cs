@@ -653,7 +653,7 @@ namespace MobiFlight.Base
 
         /// <summary>
         /// Creates a new project that contains only the configuration file at the specified index.
-        /// The project settings (sim, aircraft and features) are kept, and the content of the
+        /// The project settings are kept, and the content of the
         /// configuration file is embedded so that the new project is self-contained.
         /// </summary>
         /// <param name="index">The index of the configuration file to take over.</param>
@@ -668,16 +668,15 @@ namespace MobiFlight.Base
 
             var configFile = ConfigFiles[index];
 
-            var project = new Project
+            // The copy constructor keeps all project properties,
+            // so that new project properties are taken over automatically.
+            var project = new Project(this)
             {
                 Name = configFile.Label ?? Name,
-                Sim = Sim,
-                Features = Features.Clone(),
-                Aircraft = Aircraft != null ?
-                            new ObservableCollection<AircraftInfo>(Aircraft) :
-                            null
+                FilePath = null
             };
 
+            project.ConfigFiles.Clear();
             project.ConfigFiles.Add(new ConfigFile
             {
                 Label = configFile.Label,

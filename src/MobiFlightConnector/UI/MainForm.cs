@@ -2137,38 +2137,34 @@ namespace MobiFlight.UI
         /// <param name="index">The index of the profile to export.</param>
         private void OpenExportConfigFileDialog(int index)
         {
-            // Show a modal dialog after the current event handler is completed, to avoid potential reentrancy caused by running a nested message loop in the WebView2 event handler.
-            System.Threading.SynchronizationContext.Current.Post((_) =>
+            // the invalid index is already logged by the ExecutionManager
+            if (index < 0 || index >= execManager.Project.ConfigFiles.Count) return;
+
+            var label = execManager.Project.ConfigFiles[index].Label;
+            var fileName = string.Join("_", (label ?? string.Empty).Split(Path.GetInvalidFileNameChars()));
+
+            SaveFileDialog fd = new SaveFileDialog
             {
-                // the invalid index is already logged by the ExecutionManager
-                if (index < 0 || index >= execManager.Project.ConfigFiles.Count) return;
+                FileName = fileName,
+                Filter = fileExtensionSaveFilter
+            };
 
-                var label = execManager.Project.ConfigFiles[index].Label;
-                var fileName = string.Join("_", (label ?? string.Empty).Split(Path.GetInvalidFileNameChars()));
+            if (execManager.Project.FilePath != null)
+            {
+                fd.InitialDirectory = Path.GetDirectoryName(execManager.Project.FilePath);
+            }
 
-                SaveFileDialog fd = new SaveFileDialog
-                {
-                    FileName = fileName,
-                    Filter = fileExtensionSaveFilter
-                };
+            if (DialogResult.OK != fd.ShowDialog()) return;
 
-                if (execManager.Project.FilePath != null)
-                {
-                    fd.InitialDirectory = Path.GetDirectoryName(execManager.Project.FilePath);
-                }
-
-                if (DialogResult.OK != fd.ShowDialog()) return;
-
-                try
-                {
-                    execManager.Project.ExportConfigFile(index, fd.FileName);
-                    Log.Instance.log($"Exported profile \"{label}\" to {fd.FileName}", LogSeverity.Info);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Unable to save: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }, null);
+            try
+            {
+                execManager.Project.ExportConfigFile(index, fd.FileName);
+                Log.Instance.log($"Exported profile \"{label}\" to {fd.FileName}", LogSeverity.Info);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Unable to save: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         /// <summary>

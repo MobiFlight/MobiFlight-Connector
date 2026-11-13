@@ -545,6 +545,7 @@ namespace MobiFlight.Base.Tests
             var project = new Project
             {
                 Name = "Source Project",
+                FilePath = "source.mfproj",
                 Sim = "msfs"
             };
             project.Features.FSUIPC = true;
@@ -564,6 +565,7 @@ namespace MobiFlight.Base.Tests
 
             // Assert
             Assert.AreEqual("Second Profile", exportedProject.Name);
+            Assert.IsNull(exportedProject.FilePath);
             Assert.AreEqual("msfs", exportedProject.Sim);
             Assert.IsTrue(exportedProject.Features.FSUIPC);
             Assert.AreNotSame(project.Features, exportedProject.Features);

@@ -295,17 +295,33 @@ test.describe("Test profile tabs basic features", () => {
   }) => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData()
+
+    const tabs = page.getByRole("tablist").getByRole("tab")
+    const firstTab = tabs.nth(0)
+    const secondTab = tabs.nth(1)
+    await expect(firstTab).toHaveAttribute("aria-selected", "true")
+    await expect(secondTab).toHaveAttribute("aria-selected", "false")
+
+    // Export the active tab
     await configListPage.mobiFlightPage.trackCommand("CommandFileContextMenu")
+    await firstTab.getByRole("button", { name: "Open menu" }).click()
+    await page.getByRole("menuitem", { name: "Export..." }).click()
+
+    let postedCommands =
+      await configListPage.mobiFlightPage.getTrackedCommands()
+    let lastCommand = postedCommands!.pop()
+    expect(lastCommand.key).toEqual("CommandFileContextMenu")
+    expect(lastCommand.payload.action).toEqual("export")
+    expect(lastCommand.payload.index).toEqual(0)
+    expect(lastCommand.payload.file as ConfigFile).not.toBeNull()
 
     // Export a tab that is not active
-    const secondTab = page.getByRole("tablist").getByRole("tab").nth(1)
-    await expect(secondTab).toHaveAttribute("aria-selected", "false")
+    await configListPage.mobiFlightPage.trackCommand("CommandFileContextMenu")
     await secondTab.getByRole("button", { name: "Open menu" }).click()
     await page.getByRole("menuitem", { name: "Export..." }).click()
 
-    const postedCommands =
-      await configListPage.mobiFlightPage.getTrackedCommands()
-    const lastCommand = postedCommands!.pop()
+    postedCommands = await configListPage.mobiFlightPage.getTrackedCommands()
+    lastCommand = postedCommands!.pop()
     expect(lastCommand.key).toEqual("CommandFileContextMenu")
     expect(lastCommand.payload.action).toEqual("export")
     expect(lastCommand.payload.index).toEqual(1)
