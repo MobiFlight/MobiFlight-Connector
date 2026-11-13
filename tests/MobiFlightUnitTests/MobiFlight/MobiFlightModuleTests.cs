@@ -202,13 +202,6 @@ namespace MobiFlight.Tests
 
         [TestMethod()]
         [Ignore]
-        public void GetConnectedInputDevicesTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        [Ignore]
         public void GenerateNewSerialTest()
         {
             Assert.Fail();
@@ -327,13 +320,6 @@ namespace MobiFlight.Tests
         [TestMethod()]
         [Ignore]
         public void getPwmPinsTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        [Ignore]
-        public void GetConnectedOutputDevicesTest()
         {
             Assert.Fail();
         }
@@ -705,6 +691,84 @@ namespace MobiFlight.Tests
             outputs.Add("Output1", new TestOutput { OnSet = setValues.Add });
 
             return module;
+        }
+
+        #endregion
+
+        #region Device List Sorting Tests
+
+        private static MobiFlightModule CreateModuleWithDevices(params Firmware.BaseDevice[] devices)
+        {
+            BoardDefinitions.LoadDefinitions();
+            var board = BoardDefinitions.GetBoardByMobiFlightType("MobiFlight Mega");
+            var module = new MobiFlightModule("COM1", board);
+            module.Config = new Firmware.Config();
+            module.Config.Items.AddRange(devices);
+            return module;
+        }
+
+        [TestMethod]
+        [DataRow(DeviceType.InputShiftRegister)]
+        [DataRow(DeviceType.InputMultiplexer)]
+        public void GetConnectedInputDevices_ShouldSortPinsNumerically_WhenDeviceHasMoreThanTenPins(DeviceType deviceType)
+        {
+            // Arrange
+            Firmware.BaseDevice device = deviceType == DeviceType.InputShiftRegister
+                ? new Firmware.InputShiftRegister() { Name = "Panel", NumModules = "2" }
+                : new Firmware.InputMultiplexer() { Name = "Panel", NumBytes = "2" };
+            var module = CreateModuleWithDevices(device);
+            var expected = Enumerable.Range(0, 16).Select(i => $"Panel:{i}").ToList();
+
+            // Act
+            var names = module.GetConnectedInputDevices().Select(d => d.Name).ToList();
+
+            // Assert
+            CollectionAssert.AreEqual(expected, names, "Pin 10 must come after pin 9, not after pin 1");
+        }
+
+        [TestMethod]
+        public void GetConnectedInputDevices_ShouldSortNamesNumerically_WhenNamesEndInNumbers()
+        {
+            // Arrange
+            var module = CreateModuleWithDevices(
+                new Firmware.Button() { Name = "Button 10", Pin = "2" },
+                new Firmware.Button() { Name = "Button 2", Pin = "3" },
+                new Firmware.Button() { Name = "Button 1", Pin = "4" });
+
+            // Act
+            var names = module.GetConnectedInputDevices().Select(d => d.Name).ToList();
+
+            // Assert
+            CollectionAssert.AreEqual(new List<string> { "Button 1", "Button 2", "Button 10" }, names);
+        }
+
+        [TestMethod]
+        public void GetConnectedInputDevices_ShouldReturnEmpty_WhenNoDevicesConfigured()
+        {
+            // Arrange
+            var module = CreateModuleWithDevices();
+
+            // Act
+            var devices = module.GetConnectedInputDevices();
+
+            // Assert
+            Assert.IsEmpty(devices);
+        }
+
+        [TestMethod]
+        public void GetConnectedOutputDevices_ShouldSortNamesNumerically_WhenNamesEndInNumbers()
+        {
+            // Arrange
+            var module = CreateModuleWithDevices(
+                new Firmware.Output() { Name = "LED 10", Pin = "2" },
+                new Firmware.Output() { Name = "LED 2", Pin = "3" },
+                new Firmware.Output() { Name = "LED 1", Pin = "4" });
+
+            // Act
+            var names = module.GetConnectedOutputDevices().Select(d => d.Name).ToList();
+
+            // Assert
+            CollectionAssert.AreEqual(new List<string> { "LED 1", "LED 2", "LED 10" }, names);
         }
 
         #endregion
