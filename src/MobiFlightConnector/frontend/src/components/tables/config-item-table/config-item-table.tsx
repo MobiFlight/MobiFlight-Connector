@@ -19,9 +19,7 @@ import { IConfigItem } from "@/types"
 import { Button } from "@/components/ui/button"
 import { useAppMessage } from "@/lib/hooks/appMessage"
 import messageExchange from "@/lib/messageExchange"
-import {
-  CommandAddConfigItem
-} from "@/types/commands"
+import { CommandAddConfigItem } from "@/types/commands"
 import { useTranslation } from "react-i18next"
 import ConfigItemTableHeader from "./items/ConfigItemTableHeader"
 import ConfigItemTableBody from "./items/ConfigItemTableBody"
@@ -32,7 +30,7 @@ import { useConfigItemDragContext } from "@/lib/hooks/useConfigItemDragContext"
 import ConfigItemNoResultsDroppable from "./items/ConfigItemNoResultsDroppable"
 import { useDroppable } from "@dnd-kit/core"
 import { useErrorFallbackTest } from "@/lib/hooks/useErrorFallbackTest"
-import { useNavigate } from "react-router"
+import { useLocation, useNavigate } from "react-router"
 import { ConfigItemTableContext } from "./ConfigItemTableContext"
 
 interface DataTableProps<TData, TValue> {
@@ -147,41 +145,64 @@ export function ConfigItemTable<TValue>({
   }, [table])
 
   useAppMessage("Project", handleProjectMessage)
-  useAppMessage("OverlayState", (message) => {
-    const isClosing =
-      (message.payload as { Visible: boolean }).Visible === false
-    if (!isClosing) return
 
-    if (showInvisibleToastOnDialogClose.current == null) return
+  const { t } = useTranslation()
 
-    const lastGuid = showInvisibleToastOnDialogClose.current
-    showInvisibleToastOnDialogClose.current = null
-
-    toast({
-      title: t("ConfigList.Notification.NewConfigNotVisible.Message"),
-      description: t("ConfigList.Notification.NewConfigNotVisible.Description"),
-      id: "reset-filter",
-      button: {
-        label: t("ConfigList.Notification.NewConfigNotVisible.Action"),
-        onClick: () => {
-          table.resetColumnFilters()
-          setTimeout(() => {
-            const row = table.getRowModel().rows.find((r) => r.id === lastGuid)
-            if (row) {
-              const rowElement = tableRef.current?.querySelector(
-                `[dnd-itemid="${lastGuid}"]`,
-              )
-              rowElement?.scrollIntoView({
-                behavior: "smooth",
-                block: "center",
-              })
-              table.setRowSelection({ [row.id]: true })
-            }
-          }, 500)
+  const showNewConfigNotVisibleToast = useCallback(
+    (lastGuid: string) =>
+      toast({
+        title: t("ConfigList.Notification.NewConfigNotVisible.Message"),
+        description: t(
+          "ConfigList.Notification.NewConfigNotVisible.Description",
+        ),
+        id: "reset-filter",
+        button: {
+          label: t("ConfigList.Notification.NewConfigNotVisible.Action"),
+          onClick: () => {
+            table.resetColumnFilters()
+            setTimeout(() => {
+              const row = table
+                .getRowModel()
+                .rows.find((r) => r.id === lastGuid)
+              if (row) {
+                const rowElement = tableRef.current?.querySelector(
+                  `[dnd-itemid="${lastGuid}"]`,
+                )
+                rowElement?.scrollIntoView({
+                  behavior: "smooth",
+                  block: "center",
+                })
+                table.setRowSelection({ [row.id]: true })
+              }
+            }, 500)
+          },
         },
-      },
-    })
-  })
+      }),
+    [t, table],
+  )
+
+  // New configs open in the config wizard.
+  // If they are hidden by the active filters,
+  // the toast is shown once the wizard of the new config closes.
+  const location = useLocation()
+  const isWizardOfNewConfigOpen = useRef(false)
+  useEffect(() => {
+    const pendingGuid = showInvisibleToastOnDialogClose.current
+    if (pendingGuid == null) return
+
+    const isShowingNewConfig = location.pathname.endsWith(`/${pendingGuid}`)
+    if (isShowingNewConfig) {
+      isWizardOfNewConfigOpen.current = true
+      return
+    }
+
+    const wizardHasClosed = isWizardOfNewConfigOpen.current
+    if (!wizardHasClosed) return
+
+    isWizardOfNewConfigOpen.current = false
+    showInvisibleToastOnDialogClose.current = null
+    showNewConfigNotVisibleToast(pendingGuid)
+  }, [location.pathname, showNewConfigNotVisibleToast])
 
   useEffect(() => {
     const newItemWasCreatedOrDuplicated = lastAction.current !== null
@@ -226,8 +247,7 @@ export function ConfigItemTable<TValue>({
     navigate(`/config/${newItem.GUID}`, {
       state: { editName: true },
     })
-  }, [publish, navigate, table, data])
-  const { t } = useTranslation()
+  }, [navigate, table, data])
 
   const handleAddOutputConfig = useCallback(() => {
     lastAction.current = "add"
