@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        shard: [1/2, 2/2]
+        shard: ${{ fromJSON(vars.CI_PLAYWRIGHT_SHARDS || '["1/2","2/2"]') }}
     defaults:
       run:
         working-directory: src/MobiFlightConnector/frontend
@@ -40,7 +40,7 @@ jobs:
       run: npm run lint
     - name: Run Playwright tests
       env:
-        CI_WORKERS: ${{ inputs.workers || vars.CI_WORKERS || env.DEFAULT_CI_WORKERS }}
+        CI_WORKERS: ${{ inputs.workers || vars.CI_PLAYWRIGHT_WORKERS || env.DEFAULT_CI_WORKERS }}
         TESTS_MEMBER_EMAIL: ${{ vars.TESTS_MEMBER_EMAIL }}
         TESTS_MEMBER_NAME: ${{ vars.TESTS_MEMBER_NAME }}
         TESTS_MEMBER_PASSWORD: ${{ secrets.TESTS_MEMBER_PASSWORD }}
