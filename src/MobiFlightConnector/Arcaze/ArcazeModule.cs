@@ -190,65 +190,6 @@ namespace MobiFlight
                 throw new ArcazeCommandExecutionException(i18n._tr("ConfigErrorException_WritingDisplay"), e);
             }
         }
-
-        /*
-        public bool SetDisplay(int module, int pos, string value)
-        {
-            String cacheSerial = serial + "LED" + address;
-            String portAndPin = connector.ToString();
-
-            // if value has not changed since the last time, then we continue to next item to prevent 
-            // unnecessary communication with Arcaze USB
-            if (lastArcazeValue.ContainsKey(cacheSerial) &&
-                lastArcazeValue[cacheSerial].ContainsKey(portAndPin) &&
-                lastArcazeValue[cacheSerial][portAndPin] == value) return;
-
-            // otherwise store it
-            if (!lastArcazeValue.ContainsKey(cacheSerial))
-            {
-                lastArcazeValue[cacheSerial] = new Dictionary<string, string>();
-                _initLedDisplay(serial, address);
-            }
-
-            if (!lastArcazeValue[cacheSerial].ContainsKey(portAndPin))
-            {
-                // nothing to do here right now
-            }
-
-            lastArcazeValue[cacheSerial][portAndPin] = value;
-
-            try
-            {
-                DeviceInfoAndCache dev = SelectArcazeBySerial(serial);
-                if (null != dev)
-                {
-                    ArcazeLedDigit led = new ArcazeLedDigit();
-
-                    led.setConnector(connector);
-
-                    foreach (string digit in digits)
-                    {
-                        led.setActive(ushort.Parse(digit));
-                    }
-
-                    foreach (string decimalPoint in decimalPoints)
-                    {
-                        led.setDecimalPoint(ushort.Parse(decimalPoint));
-                    }
-
-                    dev.m_arcazeHid.Command.CmdMax7219WriteDigits(
-                            Int16.Parse(address.Replace("0x", ""), System.Globalization.NumberStyles.HexNumber),
-                            led.convert(value),
-                            led.getMask()
-                    );
-                }
-            }
-            catch (Exception e)
-            {
-                throw new ArcazeCommandExecutionException(i18n._tr("ConfigErrorException_WritingDisplay"), e);
-            }
-        }
-        */
         
         public string getValue(string portAndPin, string trigger) {
             string result = null;
