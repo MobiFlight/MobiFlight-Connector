@@ -103,11 +103,22 @@ namespace MobiFlight.Execution
 
             ConnectorValue value;
             ConnectorValue processedValue;
-            
+
             // Read value from source - wrap in try-catch to handle source read errors
             try
             {
-                value = ExecuteRead(cfg);
+                if (cfg.Source != null)
+                {
+                    value = ExecuteRead(cfg);
+                }
+                else
+                {
+                    // this case is new since we can unset the source in the UI
+                    // without source, a config can still be processed
+                    // and modifiers and config references can be evaluated
+                    // and the final value can be sent to the device
+                    value = new();
+                }
                 processedValue = value;
                 cfg.RawValue = value.ToString();
                 cfg.Value = processedValue.ToString();
@@ -117,7 +128,7 @@ namespace MobiFlight.Execution
                 // Error reading from source (FSUIPC, SimConnect, XPlane, ProSim, Variables)
                 Log.Instance.log($"Source read error ({cfg.Name}): {ex.Message}", LogSeverity.Error);
                 cfg.Status[ConfigItemStatusType.Source] = "ReadError";
-                
+
                 // Add to updatedValues and stop further evaluation
                 if (!originalCfg.Equals(cfg))
                 {
@@ -177,7 +188,7 @@ namespace MobiFlight.Execution
                 if (precondition)
                 {
                     cfg.Status.Remove(ConfigItemStatusType.Precondition);
-                    
+
                     // Execute display - wrap in try-catch as device errors occur here
                     try
                     {

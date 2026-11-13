@@ -184,6 +184,17 @@ namespace MobiFlight.Tests
             Assert.AreEqual(s, result, "The both strings are not equal");
         }
 
+        [TestMethod]
+        public void OutputConfigItem_IsInitializedCorrectly()
+        {
+            OutputConfigItem o = new OutputConfigItem();
+            Assert.IsNull(o.Source, "Source should be null");
+            Assert.IsNotNull(o.Modifiers, "Modifiers should not be null");
+            Assert.IsNull(o.Device, "Device should be null");
+            Assert.IsNotNull(o.Preconditions, "Preconditions should not be null");
+            Assert.IsNotNull(o.ConfigRefs, "ConfigRefs should not be null");
+        }
+
         [TestMethod()]
         public void CloneTest()
         {

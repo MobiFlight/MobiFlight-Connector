@@ -78,6 +78,25 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod]
+        public void Execute_ShouldExecute_WhenNoSourceIsSet()
+        {
+            // Arrange
+            var cfg = new OutputConfigItem { Active = true };
+            cfg.Modifiers.Items.Add(new Transformation() { Active = true, Expression = "123" });
+
+            var updatedValues = new ConcurrentDictionary<string, IConfigItem>();
+
+            // Act
+            executor.Execute(cfg, updatedValues);
+
+            // Assert
+            Assert.HasCount(1, updatedValues);
+            Assert.AreEqual(new ConnectorValue().ToString(), cfg.RawValue, "RawValue should be the default ConnectorValue");
+            Assert.AreEqual("123", cfg.Value, "The modifier should have set it to 123");
+            Assert.IsFalse(cfg.Status.ContainsKey(ConfigItemStatusType.Source), "There should not be the error status for an empty source");
+        }
+
+        [TestMethod]
         public void Execute_ShouldUpdateStatus_WhenFsuipcNotConnected()
         {
             // Arrange

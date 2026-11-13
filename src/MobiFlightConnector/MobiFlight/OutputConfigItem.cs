@@ -35,7 +35,7 @@ namespace MobiFlight
 
         public OutputConfigItem()
         {
-            Source = new SimConnectSource();
+            Source = null;
             TestValue = new ConnectorValue() { type = FSUIPCOffsetType.Float, Float64 = 1 };
             Modifiers = new ModifierList();
             Device = null;
