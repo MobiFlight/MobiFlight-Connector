@@ -308,7 +308,7 @@ const ProjectCard = ({
         </div>
       ) : (
         <div className="flex flex-col gap-4">
-          <div>{t("Project.Card.Main.NoActiveProjectHint")}</div>
+          <div>{t("Project.Card.NoActiveProjectHint")}</div>
         </div>
       )}
     </div>

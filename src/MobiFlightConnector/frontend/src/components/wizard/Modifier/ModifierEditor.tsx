@@ -11,13 +11,20 @@ import { IconPlus } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 import { ModifierItem } from "@/components/wizard/Modifier/ModifierItem"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import SectionHeadline from "@/components/wizard/common/SectionHeadline"
+import DrawerBreadcrumb from "@/components/wizard/common/DrawerTitle"
+import { ConfigItemType } from "@/types/config"
 
 type ModifierEditorProps = {
+  mode: ConfigItemType
+  configName: string
   modifiers: Modifier[]
   onModifierChange: (modifiers: Modifier[]) => void
 }
 
 const ModifierEditor = ({
+  mode,
+  configName,
   modifiers,
   onModifierChange,
 }: ModifierEditorProps) => {
@@ -83,15 +90,18 @@ const ModifierEditor = ({
     <div className="flex grow flex-col gap-4" data-testid="modifier-editor">
       <div className="flex flex-row justify-between gap-4">
         <div className="flex flex-col gap-1">
-          <div className="text-lg font-semibold">
-            {t("Dialog.Modifiers.Editor.Title")}
-          </div>
-          <div className="text-muted-foreground text-sm">
-            {t("Dialog.Modifiers.Editor.Description")}
-          </div>
+          <SectionHeadline
+            title={
+              <DrawerBreadcrumb
+                mode={mode}
+                crumbs={[configName, t("Dialog.Modifiers.Title")]}
+              />
+            }
+            description={t("Dialog.Modifiers.Editor.Description")}
+          />
         </div>
         <DropdownMenu>
-          <DropdownMenuTrigger asChild className="self-end">
+          <DropdownMenuTrigger asChild className="self-center">
             <Button variant="default" className="w-fit" size={"sm"}>
               <IconPlus className="h-4 w-4" />
               {t("Dialog.Modifiers.Editor.AddModifier")}

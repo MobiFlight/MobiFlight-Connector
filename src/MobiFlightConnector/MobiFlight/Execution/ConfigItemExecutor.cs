@@ -103,11 +103,22 @@ namespace MobiFlight.Execution
 
             ConnectorValue value;
             ConnectorValue processedValue;
-            
+
             // Read value from source - wrap in try-catch to handle source read errors
             try
             {
-                value = ExecuteRead(cfg);
+                if (cfg.Source != null)
+                {
+                    value = ExecuteRead(cfg);
+                }
+                else
+                {
+                    // this case is new since we can unset the source in the UI
+                    // without source, a config can still be processed
+                    // and modifiers and config references can be evaluated
+                    // and the final value can be sent to the device
+                    value = new();
+                }
                 processedValue = value;
                 cfg.RawValue = value.ToString();
                 cfg.Value = processedValue.ToString();
@@ -117,7 +128,7 @@ namespace MobiFlight.Execution
                 // Error reading from source (FSUIPC, SimConnect, XPlane, ProSim, Variables)
                 Log.Instance.log($"Source read error ({cfg.Name}): {ex.Message}", LogSeverity.Error);
                 cfg.Status[ConfigItemStatusType.Source] = "ReadError";
-                
+
                 // Add to updatedValues and stop further evaluation
                 if (!originalCfg.Equals(cfg))
                 {
@@ -177,7 +188,7 @@ namespace MobiFlight.Execution
                 if (precondition)
                 {
                     cfg.Status.Remove(ConfigItemStatusType.Precondition);
-                    
+
                     // Execute display - wrap in try-catch as device errors occur here
                     try
                     {
@@ -262,7 +273,8 @@ namespace MobiFlight.Execution
             }
 
             cfg.Status[ConfigItemStatusType.Test] = "TEST_EXECUTION";
-            MessageExchange.Instance.Publish(new ConfigValuePartialUpdate(cfg));
+            // value-only update, cfg may be an unsaved draft of the listed item
+            MessageExchange.Instance.Publish(new ConfigValueRawAndFinalUpdate(new ConfigValueOnlyItem(cfg)));
         }
 
         public void ExecuteTestOff(OutputConfigItem cfg)
@@ -298,7 +310,7 @@ namespace MobiFlight.Execution
             }
 
             cfg.Status.Remove(ConfigItemStatusType.Test);
-            MessageExchange.Instance.Publish(new ConfigValuePartialUpdate(cfg));
+            MessageExchange.Instance.Publish(new ConfigValueRawAndFinalUpdate(new ConfigValueOnlyItem(cfg)));
         }
 
         private ConnectorValue ExecuteRead(OutputConfigItem cfg)
@@ -456,10 +468,11 @@ namespace MobiFlight.Execution
                     case LedModule device:
                         var val = value.PadRight(device.DisplayLedDigits.Count, device.DisplayLedPaddingChar[0]);
                         if (device.DisplayLedPadding) val = value.PadLeft(device.DisplayLedPadding ? device.DisplayLedDigits.Count : 0, device.DisplayLedPaddingChar[0]);
+                        var (arcazeAddress, arcazeConnector) = device.SplitAddress();
                         arcazeCache.setDisplay(
                             serial,
-                            device.DisplayLedAddress,
-                            device.DisplayLedConnector,
+                            arcazeAddress,
+                            arcazeConnector,
                             device.DisplayLedDigits,
                             device.DisplayLedDecimalPoints,
                             val);
@@ -479,6 +492,7 @@ namespace MobiFlight.Execution
                 {
                     case LedModule device:
 
+                        var (ledName, ledModule) = device.SplitAddress();
                         var decimalCount = value.Count(c => c == '.');
 
                         var val = value.PadRight(device.DisplayLedDigits.Count + decimalCount, device.DisplayLedPaddingChar[0]);
@@ -497,8 +511,8 @@ namespace MobiFlight.Execution
 
                             mobiFlightCache.SetDisplayBrightness(
                                 serial,
-                                device.DisplayLedAddress,
-                                device.DisplayLedConnector,
+                                ledName,
+                                ledModule,
                                 refValue
                                 );
                         }
@@ -507,8 +521,8 @@ namespace MobiFlight.Execution
 
                         mobiFlightCache.SetDisplay(
                             serial,
-                            device.DisplayLedAddress,
-                            device.DisplayLedConnector,
+                            ledName,
+                            ledModule,
                             device.DisplayLedDigits,
                             decimalPoints,
                             val,

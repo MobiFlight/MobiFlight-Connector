@@ -9,9 +9,12 @@ import {
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Switch } from "@/components/ui/switch"
+import DrawerBreadcrumb from "@/components/wizard/common/DrawerTitle"
+import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import MoveUpDownButtons from "@/components/wizard/components/MoveUpDownButtons"
 import { preconditionVariants } from "@/components/wizard/variants"
 import {
+  ConfigItemType,
   IConfigItem,
   MobiFlightVariable,
   Precondition,
@@ -22,6 +25,8 @@ import { IconPlus, IconTrash } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 
 export interface PreconditionEditorProps {
+  configName: string
+  mode: ConfigItemType
   variables: MobiFlightVariable[]
   outputConfigs: IConfigItem[]
   preconditions: Precondition[]
@@ -256,6 +261,8 @@ const EMPTY_PRECONDITION: Precondition = {
 }
 
 const PreconditionEditor = ({
+  mode: variant,
+  configName,
   variables,
   outputConfigs,
   preconditions,
@@ -303,16 +310,22 @@ const PreconditionEditor = ({
   return (
     <div className="flex grow flex-col gap-4" data-testid="precondition-editor">
       <div className="flex flex-row justify-between gap-4">
-        <div className="flex flex-col gap-2">
-          <div className="text-lg font-semibold">
-            {t("Dialog.InputConfigWizard.PreconditionEditor.Title")}
-          </div>
-          <div className="text-muted-foreground text-sm">
-            {t("Dialog.InputConfigWizard.PreconditionEditor.Description")}
-          </div>
-        </div>
+        <SectionHeadline
+          title={
+            <DrawerBreadcrumb
+              mode={variant}
+              crumbs={[
+                configName,
+                t("Dialog.InputConfigWizard.Preconditions.Title"),
+              ]}
+            />
+          }
+          description={t(
+            "Dialog.InputConfigWizard.PreconditionEditor.Description",
+          )}
+        />
         <DropdownMenu>
-          <DropdownMenuTrigger asChild className="self-end">
+          <DropdownMenuTrigger asChild className="self-center">
             <Button variant="default" className="w-fit" size={"sm"}>
               <IconPlus className="h-4 w-4" />
               {t("Dialog.InputConfigWizard.PreconditionEditor.AddPrecondition")}

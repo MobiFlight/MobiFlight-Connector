@@ -73,6 +73,28 @@ namespace MobiFlight
         }
 
         /// <summary>
+        /// Creates the outputs and displays of an Arcaze from its extension settings.
+        /// Without settings, no extension is assumed and only the base board outputs are created.
+        /// </summary>
+        public List<Base.ControllerDevice> GetControllerDevices(string serial)
+        {
+            var hasSettings = serial != null && arcazeSettings.ContainsKey(serial);
+            if (!hasSettings)
+                return DeviceReferenceFactory.CreateForArcaze(DeviceReferenceFactory.ArcazeExtension.None, 0);
+
+            var settings = arcazeSettings[serial];
+            var extension = settings.type switch
+            {
+                ArcazeCommand.ExtModuleType.LedDriver2 => DeviceReferenceFactory.ArcazeExtension.LedDriver,
+                ArcazeCommand.ExtModuleType.LedDriver3 => DeviceReferenceFactory.ArcazeExtension.LedDriver,
+                ArcazeCommand.ExtModuleType.DisplayDriver => DeviceReferenceFactory.ArcazeExtension.DisplayDriver,
+                _ => DeviceReferenceFactory.ArcazeExtension.None
+            };
+
+            return DeviceReferenceFactory.CreateForArcaze(extension, settings.numModules);
+        }
+
+        /// <summary>
         /// indicates the status of the module connection
         /// </summary>
         /// <returns>true if connected, false if not</returns>
@@ -234,16 +256,24 @@ namespace MobiFlight
         /// sets the pins in the arcaze modules according to the given value
         /// </summary>
         /// <param name="serial">the device's serial</param>
-        /// <param name="portAndPin">the port letter and pin number, e.g. A01</param>
+        /// <param name="portAndPin">the port letter and pin number, e.g. A01, or several of them, e.g. A01|C05</param>
         /// <param name="value">the value to be used</param>
         public void setValue (string serial, string portAndPin, string value)
         {
             if (portAndPin == null || portAndPin == "") return;
-            ArcazeIoBasic io = new ArcazeIoBasic(portAndPin);
+            var ios = portAndPin.Split('|')
+                                .Select(pin => pin.Trim())
+                                .Where(pin => pin != "")
+                                .Select(pin => new ArcazeIoBasic(pin))
+                                .ToList();
 
             try
             {
-                Modules[serial].SetPin(io.Port, io.Pin, UInt16.Parse(value));
+                var pinValue = UInt16.Parse(value);
+                foreach (var io in ios)
+                {
+                    Modules[serial].SetPin(io.Port, io.Pin, pinValue);
+                }
             }
             catch (FormatException e)
             {

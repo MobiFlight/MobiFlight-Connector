@@ -31,7 +31,6 @@ const EventIdPresetsPanel = ({
     variant === "default"
       ? presetUrls.default
       : presetUrls.pmdg[aircraft || "B737"]
-  // In MsfsPresetPanel (or a dedicated hook)
   const { data: presets = [] /*, isLoading */ } = useQuery({
     queryKey: [`presets-${variant}-${aircraft}`],
     queryFn: () =>

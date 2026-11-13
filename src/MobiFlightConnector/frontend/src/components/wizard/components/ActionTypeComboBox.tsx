@@ -1,4 +1,5 @@
 import ComboBox from "@/components/ComboBox"
+import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import { ActionTypeOptions } from "@/lib/configWizard"
 import { useProjectStore } from "@/stores/projectStore"
 import { Project } from "@/types"
@@ -27,14 +28,10 @@ const ActionTypeComboBox = ({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-col">
-        <div className="text-lg font-semibold">
-          {t("Dialog.InputConfigWizard.ActionType.Title")}
-        </div>
-        <div className="text-muted-foreground text-sm">
-          {t("Dialog.InputConfigWizard.ActionType.Description")}
-        </div>
-      </div>
+      <SectionHeadline
+        title={t("Dialog.InputConfigWizard.ActionType.Title")}
+        description={t("Dialog.InputConfigWizard.ActionType.Description")}
+      />
       <ComboBox
         data-testid="action-type-combobox"
         selected={selectedActionType}

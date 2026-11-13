@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
+import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import { ActionSummary } from "@/components/wizard/components/ActionEditor"
 import {
   Action,
@@ -12,9 +13,15 @@ import {
   ButtonTrigger,
   EncoderTrigger,
 } from "@/types/config"
-import { IconEdit, IconInfoCircle, IconPlus, IconTrash } from "@tabler/icons-react"
+import {
+  IconEdit,
+  IconInfoCircle,
+  IconPlus,
+  IconTrash,
+} from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 export type ActionTrigger = ButtonTrigger | EncoderTrigger | AnalogTrigger
+
 export type ActionBindingPanelProps = {
   variant: "button" | "encoder" | "analog" | "none"
   trigger?: ActionTrigger
@@ -28,20 +35,30 @@ export type ActionBindingPanelProps = {
     ) => void,
   ) => void
   onTriggerChange: (trigger: ActionTrigger) => void
+  // shows a button to remove the whole trigger, e.g. to switch to another kind
+  onRemove?: () => void
 }
+
 const eventActionMap = {
   button: ["onPress", "onRelease", "onHold", "onLongRelease"],
   encoder: ["onLeft", "onRight", "onLeftFast", "onRightFast"],
   analog: ["onChange"],
   none: [],
-}
+} as const
+
+type EventActionMap = typeof eventActionMap
+type EventActionLabelKey = {
+  [V in keyof EventActionMap]: `Dialog.InputConfigWizard.${V}.Event.${EventActionMap[V][number]}.label`
+}[keyof EventActionMap]
+
 const ActionBindingPanel = ({
   variant,
   trigger,
   onActionEdit,
   onTriggerChange,
+  onRemove,
 }: ActionBindingPanelProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const events = eventActionMap[variant]
   const defaultButtonTrigger: ButtonTrigger &
     Partial<ButtonHoldOptions> &
@@ -82,16 +99,22 @@ const ActionBindingPanel = ({
       className="border-primary shadow-md transition-shadow hover:shadow-lg"
     >
       <CardContent className="flex flex-col gap-2 py-4">
-        <div className="flex flex-col gap-1">
-          <div className="text-lg font-semibold">
-            {t(`Dialog.InputConfigWizard.Action.Title`)}
-          </div>
-          <div className="text-muted-foreground text-sm">
-            {t(`Dialog.InputConfigWizard.Action.Description`)}
-          </div>
+        <div className="flex flex-row items-start justify-between gap-2">
+          <SectionHeadline
+            title={t(`Dialog.InputConfigWizard.Action.Title`)}
+            description={t(`Dialog.InputConfigWizard.Action.Description`)}
+          />
+          {onRemove && (
+            <Button size={"sm"} variant="ghost" onClick={onRemove}>
+              <IconTrash />
+              <span className="sr-only">
+                {t(`ConfigWizard.Output.InputAction.Remove`)}
+              </span>
+            </Button>
+          )}
         </div>
         {variant === "none" && (
-          <div className="flex flex-row items-center gap-2 text-muted-foreground justify-center">
+          <div className="text-muted-foreground flex flex-row items-center justify-center gap-2">
             <IconInfoCircle className="text-primary" />
             <div className="text-muted-foreground text-sm">
               {t(`Dialog.InputConfigWizard.Action.NoTriggerDefined`)}
@@ -104,7 +127,7 @@ const ActionBindingPanel = ({
             | undefined
           const isLast = index === events.length - 1
           const eventLabel = t(
-            `Dialog.InputConfigWizard.${variant}.Event.${event}.label`,
+            `Dialog.InputConfigWizard.${variant}.Event.${event}.label` as EventActionLabelKey,
           )
           return (
             action?.Type && (
@@ -117,13 +140,15 @@ const ActionBindingPanel = ({
                     )
                   }
                 >
-                  <div className="flex w-32 flex-col gap-1">
-                    <Label>Event</Label>
-                    <Badge className="w-fit" variant={"secondary"}>
-                      {eventLabel}
-                    </Badge>
+                  <div className="flex flex-row grow">
+                    <div className="flex w-1/4 flex-col gap-1">
+                      <Label>Event</Label>
+                      <Badge className="w-fit" variant={"secondary"}>
+                        {eventLabel}
+                      </Badge>
+                    </div>
+                    <ActionSummary action={action} />
                   </div>
-                  <ActionSummary action={action} />
                   <div className="flex w-20 flex-row justify-end pt-4">
                     <Button
                       size={"sm"}
@@ -176,8 +201,9 @@ const ActionBindingPanel = ({
               | Action
               | undefined
             const eventLabel = t(
-              `Dialog.InputConfigWizard.${variant}.Event.${event}.label`,
+              `Dialog.InputConfigWizard.${variant}.Event.${event}.label` as EventActionLabelKey,
             )
+
             return (
               !action?.Type && (
                 <Button

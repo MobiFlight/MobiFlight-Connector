@@ -2,11 +2,6 @@ import { ControllerType } from "./config"
 
 export type OutputDeviceType = "Output" | "LedModule" | "LcdDisplay" | "Servo" | "Stepper" | "ShiftRegister" | "CustomDevice"
 export type InputDeviceType = "Button" | "Encoder" | "AnalogInput"
-export type BaseDevice = {
-  Name: string
-  Label: string
-  Type: InputDeviceType | OutputDeviceType
-}
 
 export type Controller = {
   Name: string
@@ -19,7 +14,7 @@ export type Controller = {
   ImageUrl: string | null
   certified: boolean
   firmwareUpdate?: boolean
-  Devices: BaseDevice[]
+  Devices: DeviceReference[]
 }
 
 export type ControllerBinding = {
@@ -28,10 +23,38 @@ export type ControllerBinding = {
   OriginalController: Partial<Controller>
 }
 
+export type CustomDeviceMessageType = {
+  Id: number
+  Label: string
+  Description: string
+}
+
+export type StepperProfilePreset = {
+  id: number
+  Mode: number
+  StepsPerRevolution: number
+  Speed: number
+  Acceleration: number
+  BacklashCompensation: number
+  Deactivate: boolean
+}
+
+export type DeviceCapability = {
+  Pwm?: boolean | null
+  Rows?: number | null
+  Columns?: number | null
+  Digits?: number | null
+  Pins?: number | null
+  Profile?: StepperProfilePreset | null
+  AutoZero?: boolean | null
+  MessageTypes?: CustomDeviceMessageType[] | null
+}
+
 export type DeviceReference = {
   Name: string
   Label: string
   Type: InputDeviceType | OutputDeviceType
+  Capabilities?: DeviceCapability | null
 }
 
 export type ControllerBindingStatus = "Match" | "AutoBind" | "Missing" | "RequiresManualBind"

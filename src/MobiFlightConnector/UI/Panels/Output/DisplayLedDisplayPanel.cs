@@ -40,10 +40,11 @@ namespace MobiFlight.UI.Panels
             if (!(config.Device is OutputConfig.LedModule)) return;
 
             var ledModule = config.Device as OutputConfig.LedModule;
+            var (ledName, ledModuleIndex) = ledModule.SplitAddress();
             // preselect display stuff
-            if (ledModule.DisplayLedAddress != null) 
+            if (ledModule.DisplayLedAddress != null)
             {
-                if (!ComboBoxHelper.SetSelectedItem(displayLedAddressComboBox, ledModule.DisplayLedAddress.ToString())) 
+                if (!ComboBoxHelper.SetSelectedItem(displayLedAddressComboBox, ledName))
                 {
                     // TODO: provide error message
                     Log.Instance.log("Exception on selecting item in LED address ComboBox.", LogSeverity.Error);
@@ -53,16 +54,16 @@ namespace MobiFlight.UI.Panels
                 }
             }
 
-            if (ledModule.DisplayLedAddress != null) 
+            if (ledModule.DisplayLedAddress != null)
             {
-                if (!ComboBoxHelper.SetSelectedItem(displayLedConnectorComboBox, ledModule.DisplayLedConnector.ToString())) 
+                if (!ComboBoxHelper.SetSelectedItem(displayLedConnectorComboBox, ledModuleIndex.ToString()))
                 {
                     // TODO: provide error message
                     Log.Instance.log("Exception on selecting item in LED connector ComboBox.", LogSeverity.Error);
                 }
             }
 
-            if (!ComboBoxHelper.SetSelectedItem(displayLedModuleSizeComboBox, ledModule.DisplayLedModuleSize.ToString())) 
+            if (!ComboBoxHelper.SetSelectedItem(displayLedModuleSizeComboBox, ledModule.DisplayLedModuleSize.ToString()))
             {
                 // TODO: provide error message
                 Log.Instance.log("Exception on selecting item in LED module size ComboBox.", LogSeverity.Error);
@@ -188,7 +189,11 @@ namespace MobiFlight.UI.Panels
             var ledModule = config.Device as OutputConfig.LedModule;
 
             if (displayLedAddressComboBox.SelectedValue as String != null)
-                ledModule.DisplayLedAddress = displayLedAddressComboBox.SelectedValue as String;
+            {
+                // the module is part of the address, the connector defaults to the first module
+                var connector = byte.TryParse(displayLedConnectorComboBox.Text, out var parsedConnector) ? parsedConnector : (byte)1;
+                ledModule.DisplayLedAddress = $"{displayLedAddressComboBox.SelectedValue}:{connector}";
+            }
 
             if (brightnessDropDown.SelectedValue!=null)
                 ledModule.DisplayLedBrightnessReference = brightnessDropDown.SelectedValue.ToString();
@@ -198,7 +203,6 @@ namespace MobiFlight.UI.Panels
             ledModule.DisplayLedPaddingChar = GetPaddingChar();
             try 
             {
-                ledModule.DisplayLedConnector = byte.Parse(displayLedConnectorComboBox.Text);
                 ledModule.DisplayLedModuleSize = byte.Parse(displayLedModuleSizeComboBox.Text);
             }
             catch (FormatException ex) 

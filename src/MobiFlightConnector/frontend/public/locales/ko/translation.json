@@ -380,6 +380,7 @@
       "Cancel": "취소",
       "Close": "닫기",
       "Save": "저장",
+      "Done": "완료",
       "SaveChanges": "변경 사항 저장",
       "ApplyChanges": "변경 사항 적용",
       "DiscardChanges": "변경 사항 취소",
@@ -477,11 +478,14 @@
         "NoModifiers": "정의된 수정자가 없습니다.",
         "DeleteModifier": "수정자 제거",
         "MoveUp": "수정자를 위로 이동",
-        "MoveDown": "수정자를 아래로 이동"
+        "MoveDown": "수정자를 아래로 이동",
+        "TestPanel": {
+          "Title": "수정자 테스트",
+          "Description": "구성된 수정자의 기능을 테스트합니다."
+        }
       }
     },
     "InputConfigWizard": {
-      "Title": "입력 설정 편집",
       "Description": "이 대화상자에서 입력 설정의 모든 항목을 편집합니다.",
       "DrawerTitle": "설정",
       "ConfigTrigger": {
@@ -805,10 +809,16 @@
           "Description": "사용하려는 변수를 정의합니다. 새로 만들거나 기존 변수를 사용할 수 있습니다.",
           "ExistingVariable": "기존 변수 사용",
           "VariableTypeLabel": "유형",
+          "VariableType": {
+            "Number": "숫자",
+            "String": "텍스트"
+          },
           "VariableNameLabel": "이름",
           "VariableNamePlaceholder": "변수 이름 입력...",
+          "DefaultName": "새 변수",
           "ExpressionLabel": "식",
           "ExpressionPlaceholder": "식 입력...",
+          "ExpressionNone": "없음",
           "ExpressionHelp": "식에서 변수 값을 나타내려면 <1>$</1>를 사용하세요. 예: 숫자 변수를 두 배로 만들려면 <3>$ * 2</3>"
         },
         "ProSimDataRef": {

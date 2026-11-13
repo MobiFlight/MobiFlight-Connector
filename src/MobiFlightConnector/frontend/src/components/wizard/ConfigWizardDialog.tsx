@@ -24,7 +24,7 @@ import { useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useLocation, useNavigate } from "react-router"
 
-export type InputConfigDialogProps = {
+export type ConfigWizardDialogProps = {
   configId: string
 }
 
@@ -45,8 +45,8 @@ const resetTriggersBasedOnDeviceType = (
   }
 }
 
-const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
-  const { t } = useTranslation()
+const ConfigWizardDialog = ({ configId }: ConfigWizardDialogProps) => {
+  const { t } = useTranslation("wizard")
   const navigate = useNavigate()
   const location = useLocation()
   const { project, activeConfigFileIndex } = useProjectStore()
@@ -122,10 +122,15 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
     }, 100)
   }
 
+  const isOutputConfig = draftConfigItem?.Type === "OutputConfigItem"
+  const i18nPrefix = isOutputConfig
+    ? "ConfigWizard.Output"
+    : "Dialog.InputConfigWizard"
+
   return (
     <Dialog open={true} onOpenChange={closeDialog}>
       <DialogContent
-        data-testid="inputconfigwizard-dialog"
+        data-testid="configwizard-dialog"
         // prevents focusing on the inactive inline edit label
         onInteractOutside={(e) => {
           if (!hasChanged()) return
@@ -156,7 +161,16 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
             className="flex flex-row items-center gap-2 text-2xl"
             data-testid="dialog-config-name"
           >
-            {t("Dialog.InputConfigWizard.Title")}{" "}
+            {isOutputConfig ? (
+              <div className="bg-cfgoutput h-6 w-2"></div>
+            ) : (
+              <div className="bg-cfginput h-6 w-2"></div>
+            )}
+            {t(
+              isOutputConfig
+                ? "Types.OutputConfigItem"
+                : "Types.InputConfigItem",
+            )}{" "}
             <IconChevronRight className="mt-1" />
             <InlineEditLabel
               labelClassName="text-2xl px-4.5 -ml-5"
@@ -171,7 +185,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
             />
           </DialogTitle>
           <DialogDescription className="vsm:block hidden">
-            {t("Dialog.InputConfigWizard.Description")}
+            {t(`${i18nPrefix}.Description`)}
           </DialogDescription>
         </DialogHeader>
         <div className="relative flex grow flex-col gap-2">
@@ -179,6 +193,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
             <div className="pr-3">
               {draftConfigItem && (
                 <ConfigWizard
+                  variant={draftConfigItem.Type}
                   configItem={draftConfigItem}
                   onConfigChange={(item) => {
                     setCurrentConfigItem(item)
@@ -194,8 +209,8 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
           </ScrollArea>
         </div>
         <DialogFooter
-          className="flex flex-row justify-between"
-          data-testid="inputconfigwizard-dialog-footer"
+          className={`flex flex-row ${isOutputConfig ? "justify-between" : "justify-end"}`}
+          data-testid="configwizard-dialog-footer"
         >
           <div className="flex grow flex-row items-center gap-1">
             {showPendingChangesMessage && (
@@ -220,4 +235,4 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
     </Dialog>
   )
 }
-export default InputConfigDialog
+export default ConfigWizardDialog

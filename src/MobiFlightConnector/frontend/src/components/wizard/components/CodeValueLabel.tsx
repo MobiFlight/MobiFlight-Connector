@@ -9,7 +9,7 @@ const CodeValueLabel = ({ children, ...props }: CodeValueLabelProps) => {
     <div
       {...props}
       className={cn(
-        "bg-secondary min-h-7 truncate rounded px-2 py-1 pt-1.5 text-code",
+        "bg-secondary truncate rounded px-2 text-code whitespace-nowrap",
         props.className,
       )}
     >

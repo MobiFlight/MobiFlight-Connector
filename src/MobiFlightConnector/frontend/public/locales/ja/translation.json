@@ -380,6 +380,7 @@
       "Cancel": "キャンセル",
       "Close": "閉じる",
       "Save": "保存",
+      "Done": "完了",
       "SaveChanges": "変更を保存",
       "ApplyChanges": "変更を適用",
       "DiscardChanges": "変更を削除",
@@ -477,11 +478,14 @@
         "NoModifiers": "定義された修飾子はありません。",
         "DeleteModifier": "修飾子を削除",
         "MoveUp": "修飾子を上へ移動",
-        "MoveDown": "修飾子を下へ移動"
+        "MoveDown": "修飾子を下へ移動",
+        "TestPanel": {
+          "Title": "修飾子をテスト",
+          "Description": "設定した修飾子の動作をテストします。"
+        }
       }
     },
     "InputConfigWizard": {
-      "Title": "入力設定を編集",
       "Description": "この会話で入力設定のすべての項目を編集します。",
       "DrawerTitle": "設定",
       "ConfigTrigger": {
@@ -805,10 +809,16 @@
           "Description": "使用したい変数を定義します。新規作成することも、既存の変数を使用することもできます。",
           "ExistingVariable": "既存の変数を使用",
           "VariableTypeLabel": "タイプ",
+          "VariableType": {
+            "Number": "数値",
+            "String": "テキスト"
+          },
           "VariableNameLabel": "名前",
           "VariableNamePlaceholder": "変数名を入力...",
+          "DefaultName": "新しい変数",
           "ExpressionLabel": "式",
           "ExpressionPlaceholder": "式を入力...",
+          "ExpressionNone": "なし",
           "ExpressionHelp": "式内で変数値を表すには <1>$</1> を使用します。例: 数値変数を 2 倍にするには <3>$ * 2</3>"
         },
         "ProSimDataRef": {

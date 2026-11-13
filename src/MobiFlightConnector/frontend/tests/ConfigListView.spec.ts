@@ -947,17 +947,14 @@ test.describe("Filter toolbar tests", () => {
     // simulate a newly created item
     await configListPage.addNewConfigItem("OutputConfigItem")
 
-    // the config wizard opens and triggers this state
-    await configListPage.setOverlayState({ Visible: true })
-    const loaderOverlay = page.getByTestId("loader-overlay")
-    await expect(loaderOverlay).toBeVisible()
-    await expect(page.getByText("Opening wizard...")).toBeVisible()
-
-    // the config wizard closes and triggers this state
-    await configListPage.setOverlayState({ Visible: false })
-    await expect(loaderOverlay).not.toBeVisible()
-
+    const dialog = page.getByTestId("configwizard-dialog")
+    await expect(dialog).toBeVisible()
     const notification = page.getByRole("alert")
+    await expect(notification).not.toBeVisible()
+
+    await page.getByTestId("dialog-config-name").getByRole("textbox").press("Enter")
+    await page.keyboard.press("Escape")
+    await expect(dialog).not.toBeVisible()
     await expect(
       notification.getByText("New config created but not visible."),
     ).toBeVisible()
@@ -1646,7 +1643,7 @@ test.describe("Confirm context menu actions are working", () => {
     const firstRow = page.getByRole("row").nth(1)
 
     const menuOptions = [
-      { label: "Edit", command: true },
+      { label: "Edit", command: false },
       { label: "Rename", command: false },
       { label: "Delete", command: true },
       { label: "Duplicate", command: true },
@@ -1678,6 +1675,13 @@ test.describe("Confirm context menu actions are working", () => {
         expect(lastCommand.payload.action).toEqual(label.toLowerCase())
       }
 
+      if (label === "Edit") {
+        const dialog = page.getByTestId("configwizard-dialog")
+        await expect(dialog).toBeVisible()
+        await page.keyboard.press("Escape")
+        await expect(dialog).not.toBeVisible()
+      }
+
       if (label === "Rename") {
         const inlineEdit = firstRow.getByRole("textbox")
         await expect(inlineEdit).toBeVisible()
@@ -1699,7 +1703,7 @@ test.describe("Confirm context menu actions are working", () => {
       .first()
 
     const menuOptions = [
-      { label: "Edit", command: true },
+      { label: "Edit", command: false },
       { label: "Rename", command: false },
       { label: "Delete", command: true },
       { label: "Duplicate", command: true },
@@ -1729,6 +1733,13 @@ test.describe("Confirm context menu actions are working", () => {
         const lastCommand = postedCommands!.pop()
         expect(lastCommand.key).toEqual("CommandConfigContextMenu")
         expect(lastCommand.payload.action).toEqual(label.toLowerCase())
+      }
+
+      if (label === "Edit") {
+        const dialog = page.getByTestId("configwizard-dialog")
+        await expect(dialog).toBeVisible()
+        await page.keyboard.press("Escape")
+        await expect(dialog).not.toBeVisible()
       }
 
       if (label === "Rename") {

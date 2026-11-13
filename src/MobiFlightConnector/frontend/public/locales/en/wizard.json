@@ -1,0 +1,144 @@
+{
+  "ConfigWizard": {
+    "General": {
+      "Controller": "Controller",
+      "DisplayType": "Display type",
+      "Device": "Device",
+      "Options": "Options"
+    },
+    "TestPanel": {
+      "RawValuePlaceholder": "Enter raw value",
+      "ModifierCount": "{{count}} modifiers"
+    },
+    "Output": {
+      "Description": "Edit all settings for your output configuration in this dialog.",
+      "InputAction": {
+        "Button": "Button action",
+        "Analog": "Analog action",
+        "Remove": "Remove input action"
+      },
+      "OutputDevice": "Output device"
+    },
+    "Source": {
+      "Title": "Source value",
+      "Description": "Configure the value for this output configuration.",
+      "Label": "Source",
+      "Remove": "Remove source"
+    },
+    "SourceType": {
+      "Title": "Step 1 - Select source type",
+      "Description": "Select where the value comes from.",
+      "Options": {
+        "SimConnectSource": { "label": "Microsoft Flight Simulator" },
+        "XplaneSource": { "label": "X-Plane" },
+        "ProSimSource": { "label": "ProSim" },
+        "VariableSource": { "label": "MobiFlight - Variable" },
+        "FsuipcSource": { "label": "FSUIPC" }
+      }
+    },
+    "DeviceType": {
+      "Title": "Step 1 - Display type",
+      "Description": "Select the type of device you want to configure.",
+      "Options": {
+        "Output": { "label": "Output" },
+        "LedModule": { "label": "7-Segment Display" },
+        "LcdDisplay": { "label": "LCD Display" },
+        "Servo": { "label": "Servo" },
+        "Stepper": { "label": "Stepper" },
+        "ShiftRegister": { "label": "Output Shift Register" },
+        "CustomDevice": { "label": "Custom Device" }
+      }
+    },
+    "Device": {
+      "Title": "Output device",
+      "Description": "Configure the settings for this output device configuration.",
+      "TestPanel": {
+        "Title": "Step - Test output device",
+        "Description": "Test the functionality of this output device configuration."
+      },
+      "Stepper": {
+        "Title": "Step 2 - Stepper settings",
+        "Description": "Select the stepper and configure how values map to its movement.",
+        "Label": "Stepper",
+        "Reset": "Reset",
+        "CompassMode": "Compass mode",
+        "Steps": "Steps",
+        "InputRevolution": "Input revolution",
+        "OutputRevolution": "Output revolution",
+        "TestValue": "Test value",
+        "Acceleration": "Acceleration",
+        "Speed": "Speed",
+        "Calibrate": {
+          "Title": "Step 3 - Calibrate stepper",
+          "Description": "Use the jog buttons to adjust the stepper position and set home position.",
+          "Hint": "Use the arrow keys to select the step size. Use space to move the stepper. Use enter to set the home position.",
+          "SetHome": "Set home position"
+        }
+      },
+      "Servo": {
+        "Title": "Step 2 - Servo settings",
+        "Description": "Select the servo and map the value range to its rotation.",
+        "Label": "Servo",
+        "MinValue": "Min value",
+        "MaxValue": "Max value",
+        "MaxRotation": "Max rotation (%)",
+        "Range": "Range"
+      },
+      "Output": {
+        "Title": "Step 2 - Output settings",
+        "Description": "Select one or more pins and configure the brightness.",
+        "Label": "Output",
+        "List": "List of available outputs",
+        "DynamicBrightness": "Dynamic brightness",
+        "DynamicBrightnessDescription": "Dynamic brightness is controlled by current value ($)",
+        "NoDimmablePins": "No dimmable pins available.",
+        "StaticBrightness": "Static brightness",
+        "StaticBrightnessDescription": "Set the static brightness for all values other than 0."
+      },
+      "ShiftRegister": {
+        "Title": "Step 2 - Output shift register settings",
+        "Description": "Select the shift register and one or more of its outputs.",
+        "Label": "Output Shift Register",
+        "Device": "Shift register",
+        "List": "List of available outputs",
+        "Pins": "Outputs"
+      },
+      "SevenSegment": {
+        "Title": "Step 2 - 7-Segment settings",
+        "Description": "Select the module and configure which digits show the value.",
+        "Label": "7-Segment",
+        "Display": "Display",
+        "Digits": "Digits",
+        "UseDigits": "Use digits",
+        "DecimalPoints": "Decimal points",
+        "AdvancedOptions": {
+          "Title": "Advanced options",
+          "Description": "Configure advanced display options for the 7-segment module.",
+          "Padding": "Padding with",
+          "PaddingSpace": "Space",
+          "ReverseDigits": "Reverse digits"
+        },
+        "Brightness": {
+          "Label": "Brightness",
+          "Description": "Use the value of another output config to set the brightness of the display.",
+          "None": "None",
+          "Summary": "Brightness: {{name}}"
+        }
+      },
+      "LcdDisplay": {
+        "Title": "Step 2 - LCD Display settings",
+        "Description": "Select the LCD display and configure its settings.",
+        "Label": "LCD Display",
+        "Lines": "Lines"
+      },
+      "CustomDevice": {
+        "Title": "Step 2 - Custom Device settings",
+        "Description": "Select the device and the message that receives the value.",
+        "Label": "Custom Device",
+        "MessageType": "Message type",
+        "Value": "Value",
+        "Type": "Custom type"
+      }
+    }
+  }
+}

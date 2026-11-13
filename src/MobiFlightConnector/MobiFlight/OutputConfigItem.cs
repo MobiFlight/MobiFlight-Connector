@@ -35,7 +35,7 @@ namespace MobiFlight
 
         public OutputConfigItem()
         {
-            Source = new SimConnectSource();
+            Source = null;
             TestValue = new ConnectorValue() { type = FSUIPCOffsetType.Float, Float64 = 1 };
             Modifiers = new ModifierList();
             Device = null;
@@ -300,7 +300,7 @@ namespace MobiFlight
                     (this.Source as XplaneSource).XplaneDataRef.WriteXml(writer);
                 else if (Source is SimConnectSource)
                     (this.Source as SimConnectSource).SimConnectValue.WriteXml(writer);
-                else
+                else if (Source is ProSimSource)
                     (this.Source as ProSimSource).ProSimDataRef.WriteXml(writer);
             writer.WriteEndElement();
 
