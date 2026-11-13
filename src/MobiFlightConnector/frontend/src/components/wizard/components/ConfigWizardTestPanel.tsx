@@ -19,6 +19,7 @@ export interface ConfigWizardTestPanelProps {
   configItem: IConfigItem | null
   title: string
   description: string
+  onTestValueChange: (value: ConnectorValue) => void
 }
 
 const CONFIG_CHANGE_TEST_DELAY = 150
@@ -41,6 +42,7 @@ const ConfigWizardTestPanel = ({
   configItem,
   title,
   description,
+  onTestValueChange
 }: ConfigWizardTestPanelProps) => {
   const { t } = useTranslation("wizard")
   const { publish } = messageExchange
@@ -105,6 +107,7 @@ const ConfigWizardTestPanel = ({
 
   const handleValueChange = (value: string) => {
     setTestValue(value)
+    onTestValueChange(toConnectorValue(value))
     if (isTesting) publishTestStart(value)
   }
 

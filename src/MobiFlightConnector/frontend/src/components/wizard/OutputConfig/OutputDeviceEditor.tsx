@@ -251,6 +251,12 @@ const OutputDeviceEditor = ({
           configItem={configItem}
           title={t("ConfigWizard.Device.TestPanel.Title")}
           description={t("ConfigWizard.Device.TestPanel.Description")}
+          onTestValueChange={(value) =>
+            onConfigChange({
+              ...configItem,
+              TestValue: value,
+            })
+          }
         />
       )}
     </div>
