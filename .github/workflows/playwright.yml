@@ -9,10 +9,21 @@ on:
       - "src/MobiFlightConnector/frontend/**"
 
   workflow_dispatch:
+    inputs:
+      workers:
+        description: "Playwright workers per shard (e.g. 2 or 50%)"
+        required: false
+
+env:
+  DEFAULT_CI_WORKERS: 2
+
 jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        shard: [1/2, 2/2]
     defaults:
       run:
         working-directory: src/MobiFlightConnector/frontend
@@ -29,16 +40,11 @@ jobs:
       run: npm run lint
     - name: Run Playwright tests
       env:
+        CI_WORKERS: ${{ inputs.workers || vars.CI_WORKERS || env.DEFAULT_CI_WORKERS }}
         TESTS_MEMBER_EMAIL: ${{ vars.TESTS_MEMBER_EMAIL }}
         TESTS_MEMBER_NAME: ${{ vars.TESTS_MEMBER_NAME }}
         TESTS_MEMBER_PASSWORD: ${{ secrets.TESTS_MEMBER_PASSWORD }}
         TESTS_BASIC_EMAIL: ${{ vars.TESTS_BASIC_EMAIL }}
         TESTS_BASIC_NAME: ${{ vars.TESTS_BASIC_NAME }}
         TESTS_BASIC_PASSWORD: ${{ secrets.TESTS_BASIC_PASSWORD }}
-      run: npx playwright test
-    - uses: actions/upload-artifact@v7
-      if: ${{ !cancelled() }}
-      with:
-        name: playwright-report
-        path: src/MobiFlightConnector/frontend/playwright-report/
-        retention-days: 30
+      run: npx playwright test --shard=${{ matrix.shard }}
