@@ -8,6 +8,7 @@ namespace MobiFlight.Joysticks.Tests
         class TestableJoystick : Joystick
         {
             public bool HasPovButtons { get; set; } = false;
+            public bool OutputUpdateRequired => RequiresOutputUpdate;
             public TestableJoystick(SharpDX.DirectInput.Joystick joystick, JoystickDefinition definition) : base(joystick, definition)
             {
             }
@@ -226,6 +227,35 @@ namespace MobiFlight.Joysticks.Tests
             Assert.AreEqual(DeviceType.LcdDisplay, display.Type);
             Assert.AreEqual(1, display.Capabilities.Rows);
             Assert.AreEqual(16, display.Capabilities.Columns);
+        }
+
+        [TestMethod()]
+        public void SetOutputDeviceState_AcceptsNameOfAvailableOutputDevice()
+        {
+            // Arrange
+            SharpDX.DirectInput.Joystick dxJoystick = null;
+            var definition = new JoystickDefinition
+            {
+                InstanceName = "Test Joystick",
+                ProductId = 0x1234,
+                VendorId = 0x5678,
+                Outputs = new List<JoystickOutput>
+                {
+                    new JoystickOutput { Id = "AP.hdg", Label = "AP Mode - HDG", Type = "Output", Byte = 1, Bit = 0 },
+                    new JoystickOutput { Id = "lcd.1", Label = "LCD 1", Type = "LcdDisplay", Cols = 16, Lines = 1 }
+                }
+            };
+            var joystick = new TestableJoystick(dxJoystick, definition);
+            joystick.Connect(IntPtr.Zero);
+
+            // Act
+            var devices = joystick.GetAvailableOutputDevices();
+            joystick.SetOutputDeviceState(devices[0].Name, 1);
+
+            // Assert
+            Assert.AreEqual("AP Mode - HDG", devices[0].Name, "Outputs are referenced by label until configs are migrated to IDs.");
+            Assert.IsTrue(joystick.OutputUpdateRequired, "The output should be updated when addressed by its published name.");
+            Assert.AreEqual("lcd.1", devices[1].Name, "LCD displays are referenced by ID.");
         }
 
         #region Stop Tests

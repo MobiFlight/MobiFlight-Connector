@@ -112,7 +112,7 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
             Assert.AreEqual(1, lcd.Capabilities.Rows);
 
             var led = outputs.Single(o => o is DeviceReference && (o as DeviceReference).Type == DeviceType.Output) as DeviceReference;
-            Assert.AreEqual("led1", led.Name);
+            Assert.AreEqual("LED 1", led.Name);
         }
 
         [TestMethod()]

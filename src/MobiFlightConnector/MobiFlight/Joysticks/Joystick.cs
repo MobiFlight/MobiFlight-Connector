@@ -330,7 +330,8 @@ namespace MobiFlight
 
                 // No capabilities for other output devices needed
                 // default outputs are not PWM capable
-                result.Add(item);
+                // Name is the label until existing configs are migrated from labels to IDs
+                result.Add(new JoystickOutputDevice() { Name = item.Label, Label = item.Label, Type = item.Type, Byte = item.Byte, Bit = item.Bit });
             });
             return result;
         }
