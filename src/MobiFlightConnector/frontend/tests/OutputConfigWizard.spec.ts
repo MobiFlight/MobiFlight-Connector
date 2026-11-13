@@ -75,8 +75,8 @@ const openWizardForRow = async (
   return openDialogForRow(configListPage, page, row)
 }
 
-// The "Add Output Config" button still opens the legacy dialog,
-// so we add an empty output config directly and open it via its row.
+// Adds an empty output config directly and opens it via its row,
+// unlike the "Add Output Config" button, which starts with editing the name.
 const createEmptyOutputConfigAndOpenWizard = async (
   configListPage: ConfigListPage,
   page: Page,
@@ -208,6 +208,64 @@ test.describe("General Output Config Wizard Tests", () => {
     await expect(dialog).not.toBeVisible()
     await row.dblclick()
     await expect(dialog).toBeVisible()
+  })
+
+  test("Dialog open for output config items - via context menu", async ({
+    configListPage,
+    page,
+  }) => {
+    await initOutputTestData(configListPage, page)
+    const row = await configListPage.getConfigItemRow(ROW.Output)
+    const dialog = page.getByTestId("configwizard-dialog")
+
+    await expect(dialog).not.toBeVisible()
+    await row.getByRole("button", { name: "Open menu" }).first().click()
+    const contextMenu = page.getByTestId("config-item-context-menu")
+    await contextMenu.getByRole("menuitem", { name: "Edit" }).click()
+
+    await expect(dialog).toBeVisible()
+    await expect(page.getByTestId("dialog-config-name")).toContainText("LED 1")
+  })
+
+  test("Dialog open for output config items - via 'Add Output Config' button", async ({
+    configListPage,
+    page,
+  }) => {
+    await initOutputTestData(configListPage, page)
+    const dialog = page.getByTestId("configwizard-dialog")
+
+    await expect(dialog).not.toBeVisible()
+    await page.getByRole("button", { name: "Add Output Config" }).click()
+    // Simulate the backend response after adding the item
+    await configListPage.addNewConfigItem("OutputConfigItem", 0, "default", {
+      Name: NEW_OUTPUT_CONFIG_NAME,
+    })
+
+    await expect(dialog).toBeVisible()
+    // New configs most likely need a new name, so editing starts right away
+    const nameInput = page.getByTestId("dialog-config-name").getByRole("textbox")
+    await expect(nameInput).toBeFocused()
+    await expect(nameInput).toHaveValue(NEW_OUTPUT_CONFIG_NAME)
+  })
+
+  test("Dialog open for output config items - via duplicate", async ({
+    configListPage,
+    page,
+  }) => {
+    await initOutputTestData(configListPage, page)
+    const row = await configListPage.getConfigItemRow(ROW.SevenSegment)
+    const dialog = page.getByTestId("configwizard-dialog")
+
+    await row.getByRole("button", { name: "Open menu" }).first().click()
+    const contextMenu = page.getByTestId("config-item-context-menu")
+    await contextMenu.getByRole("menuitem", { name: "Duplicate" }).click()
+    // Simulate the backend response after duplicating the item
+    await configListPage.duplicateConfigItem(0)
+
+    await expect(dialog).toBeVisible()
+    const nameInput = page.getByTestId("dialog-config-name").getByRole("textbox")
+    await expect(nameInput).toBeFocused()
+    await expect(nameInput).toHaveValue("7-Segment")
   })
 
   test("Apply changes button sends the config item to the backend", async ({
