@@ -101,33 +101,6 @@ namespace MobiFlight
             return result;
         }
 
-        /// <summary>
-        /// return valid ports
-        /// </summary>  
-        /// <remarks>
-        /// this should be refactored to the ArcazeIoBasic-class
-        /// </remarks>
-        public static String[] getPorts()
-        {
-            return new String[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N" };
-        }
-
-        /// <summary>
-        /// return valid addresses
-        /// </summary>  
-        /// <remarks>
-        /// this should be refactored to the ArcazeIoBasic-class
-        /// </remarks>
-        public static String[] getDisplayAddresses()
-        {
-            return new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F" };
-        }
-
-        public static String[] getDisplayConnectors()
-        {
-            return new String[] { "1", "2" };
-        }
-
         public bool SetPin(int port, int pin, int value)
         {
             string portAndPin = port.ToString() + "_" + pin.ToString();
@@ -361,25 +334,6 @@ namespace MobiFlight
             {
                 this.ConnectionLost(this, new EventArgs());
             }
-        }
-
-        internal void setBcd4056(List<string> list, string value)
-        {
-            ArcazeBcd4056 display = new ArcazeBcd4056();
-            List<byte> vals = display.convert(value);
-            ArcazeIoBasic io = new ArcazeIoBasic(list[0]);
-            ArcazeIoBasic io1 = new ArcazeIoBasic(list[1]);
-            ArcazeIoBasic io2 = new ArcazeIoBasic(list[2]);
-            ArcazeIoBasic io3 = new ArcazeIoBasic(list[3]);
-            ArcazeIoBasic io4 = new ArcazeIoBasic(list[4]);
-            // set the value
-            SetPin(io1.Port, io1.Pin, vals[0]);
-            SetPin(io2.Port, io2.Pin, vals[1]);
-            SetPin(io3.Port, io3.Pin, vals[2]);
-            SetPin(io4.Port, io4.Pin, vals[3]);
-            // store the value (strobe on -> off)
-            SetPin(io.Port, io1.Pin, 1);
-            SetPin(io.Port, io1.Pin, 0);
         }
     }
 }

@@ -215,7 +215,6 @@ namespace MobiFlight
 
             if (!Enabled) return result;
 
-
             if (!_initialized && Modules.Count == 0) _lookupArcazeModules();
             foreach (ArcazeModule module in Modules.Values)
             {
@@ -332,11 +331,6 @@ namespace MobiFlight
         internal void flush()
         {
             throw new NotImplementedException();
-        }
-
-        internal void setBcd4056(string serial, List<string> list, string value)
-        {
-            Modules[serial].setBcd4056(list, value);
         }
 
         /// <summary>

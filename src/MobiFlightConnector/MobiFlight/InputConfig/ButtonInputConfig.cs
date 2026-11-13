@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using Newtonsoft.Json;
 
 namespace MobiFlight.InputConfig
 {
@@ -105,23 +104,6 @@ namespace MobiFlight.InputConfig
                 case "onHold":
                     onHold = inputAction;
                     break;
-            }
-        }
-
-        public InputAction GetInputActionByName(string name)
-        {
-            switch (name)
-            {
-                case "onPress":
-                    return onPress;
-                case "onRelease":
-                    return onRelease;
-                case "onLongRelease":
-                    return onLongRelease;
-                case "onHold":
-                    return onHold;
-                default:
-                    return null;
             }
         }
 
