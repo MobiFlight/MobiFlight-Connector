@@ -138,7 +138,6 @@ export const useProjectStore = create<ProjectState>((set) => ({
       return { project: { ...state.project, ControllerBindings: bindings } }
     })
   },
-
   actions: {
     moveItemsBetweenConfigs: (
       draggedItems: IConfigItem[],

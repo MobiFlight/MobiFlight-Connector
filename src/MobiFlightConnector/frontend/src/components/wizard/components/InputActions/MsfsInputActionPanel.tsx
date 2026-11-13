@@ -11,11 +11,12 @@ import { Button } from "@/components/ui/button"
 import IconBrandHubHopLogo from "@/components/icons/IconBrandHubHopLogo"
 import { IconExclamationCircle } from "@tabler/icons-react"
 import useOpenUrl from "@/lib/hooks/useOpenUrl"
+import { HistoryAction } from "@/types/history"
 
 export type MsfsInputActionPanelProps = {
   variant: "summary" | "details"
   config: MsfsInputAction | null
-  onConfigChange: (config: MsfsInputAction) => void
+  onConfigChange: (config: MsfsInputAction, actionLabel?: HistoryAction) => void
 }
 
 const MsfsInputActionPanel = ({
@@ -32,7 +33,7 @@ const MsfsInputActionPanel = ({
     // presets don't change at runtime; HubHopState drives invalidation
     staleTime: Infinity,
   })
-  
+
   const preset = presets.find((p) => p.id === config?.PresetId) ?? null
 
   if (variant === "summary") {
@@ -82,11 +83,14 @@ const MsfsInputActionPanel = ({
         isLoading={isLoading}
         selectedPresetId={config?.PresetId ?? null}
         setSelectedPreset={(preset) =>
-          onConfigChange({
-            ...(config as MsfsInputAction),
-            PresetId: preset ? preset.id : null,
-            Command: preset ? preset.code : null,
-          } as MsfsInputAction)
+          onConfigChange(
+            {
+              ...(config as MsfsInputAction),
+              PresetId: preset ? preset.id : null,
+              Command: preset ? preset.code : null,
+            } as MsfsInputAction,
+            "Dialog.InputConfigWizard.History.ActionPresetChanged",
+          )
         }
       />
       <Card>
@@ -94,7 +98,6 @@ const MsfsInputActionPanel = ({
           className="flex flex-col gap-4 pt-4"
           data-testid="preset-code-panel"
         >
-        
           <div className="flex flex-col">
             <div className="text-lg font-semibold">
               {t(
@@ -195,11 +198,14 @@ const MsfsInputActionPanel = ({
                 )}
                 value={config?.Command ?? ""}
                 onChange={(e) => {
-                  onConfigChange({
-                    ...(config as MsfsInputAction),
-                    Command: e.target.value,
-                    PresetId: "", // Clear preset if user manually edits command
-                  } as MsfsInputAction)
+                  onConfigChange(
+                    {
+                      ...(config as MsfsInputAction),
+                      Command: e.target.value,
+                      PresetId: "", // Clear preset if user manually edits command
+                    } as MsfsInputAction,
+                    "Dialog.InputConfigWizard.History.ActionCodeChanged",
+                  )
                 }}
               />
               <div className="text-muted-foreground text-sm">

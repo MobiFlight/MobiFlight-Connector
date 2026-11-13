@@ -65,6 +65,7 @@ export class ConfigListPage {
       async (message) => {
         const item = (message as CommandUpdateConfigItem).payload
           .item as IConfigItem
+
         const response = {
           key: "ConfigValuePartialUpdate",
           payload: {
@@ -72,9 +73,29 @@ export class ConfigListPage {
           } as ConfigValuePartialUpdate,
         }
 
-        ;(window as Window).postMessage(response, "*")
+        window.postMessage(response, "*")
       },
     )
+  }
+
+  async simulateConfigItemActiveState(
+    guid: string,
+    active: boolean,
+    variant: "default" | "inputaction" = "default",
+  ) {
+    const project = await this.mobiFlightPage.getTestProjectData(variant)
+
+    const originalItems = project.ConfigFiles[0].ConfigItems
+
+    if (!originalItems.some((item) => item.GUID === guid)) {
+      throw new Error(`ConfigItem not found: ${guid}`)
+    }
+
+    const updatedItems = originalItems.map((item) =>
+      item.GUID === guid ? { ...item, Active: active } : item,
+    )
+
+    await this.configValueFullUpdate(updatedItems as IConfigItem[], 0)
   }
 
   async configValueFullUpdate(
@@ -108,14 +129,17 @@ export class ConfigListPage {
       Name: "Empty Input Config Item",
       Type: "InputConfigItem",
     }
-    const templateItem = itemType === "InputConfigItem" ? templateInputConfig : configItems.find((i) => i.Type === itemType)
+    const templateItem =
+      itemType === "InputConfigItem"
+        ? templateInputConfig
+        : configItems.find((i) => i.Type === itemType)
     if (!templateItem)
       throw new Error(`No test data found for item type ${itemType}`)
 
-    const newItem = { 
+    const newItem = {
       ...templateItem,
       ...{
-        GUID:  crypto.randomUUID(),
+        GUID: crypto.randomUUID(),
         Name: `New ${itemType} (created from test)`,
       },
       ...configItemProps,

@@ -4,6 +4,7 @@ import { IconMathFunction } from "@tabler/icons-react"
 import { Label } from "@/components/ui/label"
 import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
 import { useTranslation } from "react-i18next"
+import type { HistoryAction } from "@/types/history"
 
 export const TransformationPanelTrigger = ({
   modifier,
@@ -28,7 +29,7 @@ export const TransformationPanelContent = ({
   onChange,
 }: {
   modifier: Transformation
-  onChange: (updated: Transformation) => void
+  onChange: (updated: Transformation, actionLabel?: HistoryAction) => void
 }) => {
   const { t } = useTranslation()
   return (
@@ -47,7 +48,15 @@ export const TransformationPanelContent = ({
               className="text-code pl-8"
               value={modifier.Expression}
               onChange={(e) =>
-                onChange({ ...modifier, Expression: e.target.value })
+                onChange(
+                  { ...modifier, Expression: e.target.value },
+                  {
+                    key: "Dialog.InputConfigWizard.History.ModifierExpressionChanged",
+                    params: {
+                      type: modifier.Type,
+                    },
+                  },
+                )
               }
             />
             <IconMathFunction className="stroke-muted-foreground bg-accent absolute rounded-l-sm px-1" />

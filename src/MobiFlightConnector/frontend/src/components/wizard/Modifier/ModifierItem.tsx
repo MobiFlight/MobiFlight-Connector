@@ -34,10 +34,11 @@ import { IconChevronDown, IconTrash } from "@tabler/icons-react"
 import { Switch } from "@/components/ui/switch"
 import { Button } from "@/components/ui/button"
 import MoveUpDownButtons from "@/components/wizard/components/MoveUpDownButtons"
+import { HistoryAction } from "@/types/history"
 
 type ModifierItemProps = {
   modifier: Modifier
-  onChange: (updated: Modifier) => void
+  onChange: (updated: Modifier, actionLabel?: HistoryAction) => void
   onDelete: () => void
   onMoveUp?: () => void
   onMoveDown?: () => void
@@ -106,7 +107,17 @@ export const ModifierItem = ({
             id="active"
             checked={modifier.Active}
             onCheckedChange={(checked) =>
-              onChange({ ...modifier, Active: checked })
+              onChange(
+                { ...modifier, Active: checked },
+                {
+                  key: checked
+                    ? "Dialog.InputConfigWizard.History.ModifierEnabled"
+                    : "Dialog.InputConfigWizard.History.ModifierDisabled",
+                  params: {
+                    type: modifier.Type,
+                  },
+                },
+              )
             }
           />
           <CollapsibleTrigger className="flex grow flex-row items-center justify-between">
@@ -126,7 +137,7 @@ export const ModifierItem = ({
             </span>
           </Button>
         </div>
-        <CollapsibleContent className="data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down flex flex-col gap-4 overflow-hidden pt-2 pr-7 pb-2 pl-7 data-[state=open]:duration-500 border-t shadow-inner">
+        <CollapsibleContent className="data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down flex flex-col gap-4 overflow-hidden border-t pt-2 pr-7 pb-2 pl-7 shadow-inner data-[state=open]:duration-500">
           {modifierContent}
         </CollapsibleContent>
       </Collapsible>

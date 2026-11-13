@@ -17,6 +17,7 @@ import {
   Precondition,
   PreconditionType,
 } from "@/types/config"
+import { HistoryAction } from "@/types/history"
 import { PRECONDITION_TYPES } from "@/types/typesOptions"
 import { IconPlus, IconTrash } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
@@ -25,7 +26,10 @@ export interface PreconditionEditorProps {
   variables: MobiFlightVariable[]
   outputConfigs: IConfigItem[]
   preconditions: Precondition[]
-  onPreconditionsChange: (preconditions: Precondition[]) => void
+  onPreconditionsChange: (
+    preconditions: Precondition[],
+    actionLabel?: HistoryAction,
+  ) => void
 }
 
 const OPERAND_OPTIONS: Precondition["Operand"][] = [
@@ -53,7 +57,7 @@ type PreconditionItemRowProps = {
   precondition: Precondition
   variables: MobiFlightVariable[]
   outputConfigs: IConfigItem[]
-  onChange: (updated: Precondition) => void
+  onChange: (updated: Precondition, actionLabel?: HistoryAction) => void
   onDelete: () => void
   showLogic: boolean
   onMoveUp: () => void
@@ -118,7 +122,12 @@ const PreconditionItemRow = ({
       <Switch
         checked={precondition.Active}
         onCheckedChange={(checked) =>
-          onChange({ ...precondition, Active: !!checked })
+          onChange(
+            { ...precondition, Active: !!checked },
+            checked
+              ? "Dialog.InputConfigWizard.History.PreconditionEnabled"
+              : "Dialog.InputConfigWizard.History.PreconditionDisabled",
+          )
         }
       />
 
@@ -262,20 +271,31 @@ const PreconditionEditor = ({
   onPreconditionsChange,
 }: PreconditionEditorProps) => {
   const { t } = useTranslation()
-  const handleChange = (index: number, updated: Precondition) => {
+  const handleChange = (
+    index: number,
+    updated: Precondition,
+    actionLabel?: HistoryAction,
+  ) => {
     onPreconditionsChange(
       preconditions.map((p, i) => (i === index ? updated : p)),
+      actionLabel ?? "Dialog.InputConfigWizard.History.PreconditionChanged",
     )
   }
 
   const handleDelete = (index: number) => {
-    onPreconditionsChange(preconditions.filter((_, i) => i !== index))
+    onPreconditionsChange(
+      preconditions.filter((_, i) => i !== index),
+      "Dialog.InputConfigWizard.History.PreconditionRemoved",
+    )
   }
 
   const handleAdd = (preconditionType: PreconditionType) => {
     // create the right precondition type
     const newPrecondition = { ...EMPTY_PRECONDITION, Type: preconditionType }
-    onPreconditionsChange([...preconditions, newPrecondition])
+    onPreconditionsChange(
+      [...preconditions, newPrecondition],
+      "Dialog.InputConfigWizard.History.PreconditionAdded",
+    )
   }
 
   const preconditionTypes = PRECONDITION_TYPES as PreconditionType[]
@@ -287,7 +307,10 @@ const PreconditionEditor = ({
     const temp = newPreconditions[index - 1]
     newPreconditions[index - 1] = newPreconditions[index]
     newPreconditions[index] = temp
-    onPreconditionsChange(newPreconditions)
+    onPreconditionsChange(
+      newPreconditions,
+      "Dialog.InputConfigWizard.History.PreconditionChanged",
+    )
   }
 
   const onMoveDown = (index: number) => {
@@ -297,7 +320,10 @@ const PreconditionEditor = ({
     const temp = newPreconditions[index + 1]
     newPreconditions[index + 1] = newPreconditions[index]
     newPreconditions[index] = temp
-    onPreconditionsChange(newPreconditions)
+    onPreconditionsChange(
+      newPreconditions,
+      "Dialog.InputConfigWizard.History.PreconditionChanged",
+    )
   }
 
   return (
@@ -346,7 +372,9 @@ const PreconditionEditor = ({
                 precondition={precondition}
                 variables={variables}
                 outputConfigs={outputConfigs}
-                onChange={(updated) => handleChange(index, updated)}
+                onChange={(updated, actionLabel) =>
+                  handleChange(index, updated, actionLabel)
+                }
                 onDelete={() => handleDelete(index)}
                 showLogic={index < preconditions.length - 1}
                 isFirst={index === 0}

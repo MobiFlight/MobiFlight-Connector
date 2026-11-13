@@ -44,7 +44,9 @@ const PreconditionSummary = ({
               <span className="max-w-30 truncate text-sm font-normal">
                 {label}
               </span>
-              <span className="text-sm font-normal">{precondition.Operand}</span>
+              <span className="text-sm font-normal">
+                {precondition.Operand}
+              </span>
               <span className="text-sm font-bold">{precondition.Value}</span>
             </Badge>
             {!isLast && (

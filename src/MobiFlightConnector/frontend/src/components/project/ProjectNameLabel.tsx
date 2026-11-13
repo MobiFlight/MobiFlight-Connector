@@ -24,6 +24,9 @@ import { Project } from "@/types"
 import { useProjectModal } from "@/lib/hooks/useProjectModal"
 import { ProjectInfo } from "@/types/project"
 import { useModal } from "@/lib/hooks/useModal"
+import { CommandUndoConfigList } from "@/types/commands"
+import { useHistoryStore } from "@/stores/historyStore"
+import HistoryControls from "@/components/wizard/components/HistoryControls"
 
 export type ProjectNameLabelProps = {
   project: Project | null
@@ -32,10 +35,15 @@ export type ProjectNameLabelProps = {
 const ProjectNameLabel = () => {
   const { t } = useTranslation()
   const { project, hasChanged } = useProjectStore()
+  const {
+    canUndoConfigList,
+    configListUndoHistory,
+    configListUndoHistoryStart,
+  } = useHistoryStore()
   const { publish } = messageExchange
   const label = project?.Name ?? "Untitled Project"
   const [optimisticLabel, setOptimisticLabel] = useState(label)
-  const { showOverlay : showModalOverlay } = useModal()
+  const { showOverlay: showModalOverlay } = useModal()
 
   // Sync optimisticLabel when label changes from backend
   useEffect(() => {
@@ -65,6 +73,30 @@ const ProjectNameLabel = () => {
   const { showOverlay } = useProjectModal()
   const handleSettingsClick = () => {
     showOverlay({ mode: "edit", project: project as ProjectInfo })
+  }
+
+  const historyCount = configListUndoHistory.length
+
+  const getHistoryLabel = (action: string) => {
+    const translationKey = action === "rename" ? "ItemRename" : action
+    return t(`ConfigList.History.${translationKey}`, {
+      defaultValue: action,
+    })
+  }
+  const listHistory = [
+    { action: "" },
+    ...configListUndoHistory.map((action) => ({
+      action: getHistoryLabel(action),
+    })),
+  ]
+
+  const undoSteps = (steps: number) => {
+    if (steps <= 0 || !canUndoConfigList) return
+
+    publish({
+      key: "CommandUndoConfigList",
+      payload: { steps },
+    } as CommandUndoConfigList)
   }
 
   // A project that was never saved has no file to reload from
@@ -107,6 +139,19 @@ const ProjectNameLabel = () => {
         saveTooltip={t("Project.Toolbar.Save.HasChanges")}
         successTooltip={t("Project.Toolbar.Save.Success")}
         noChangesTooltip={t("Project.Toolbar.Save.NoChanges")}
+      />
+
+      <HistoryControls
+        history={listHistory}
+        cursor={historyCount}
+        historyStart={configListUndoHistoryStart}
+        onUndo={() => undoSteps(1)}
+        onJump={(index) => undoSteps(historyCount - index)}
+        testIdPrefix="config-list"
+        side="bottom"
+        undoShortcut={null}
+        showUndoLabel={false}
+        showFrame={false}
       />
 
       <div className="relative">
