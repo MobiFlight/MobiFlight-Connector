@@ -4,7 +4,6 @@
     "target": "ES2020",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    // TypeScript 6 no longer includes all @types packages by default
     "types": ["node"],
     "module": "ESNext",
     "skipLibCheck": true,
