@@ -947,13 +947,11 @@ test.describe("Filter toolbar tests", () => {
     // simulate a newly created item
     await configListPage.addNewConfigItem("OutputConfigItem")
 
-    // the new config opens in the config wizard, starting with editing the name
     const dialog = page.getByTestId("configwizard-dialog")
     await expect(dialog).toBeVisible()
     const notification = page.getByRole("alert")
     await expect(notification).not.toBeVisible()
 
-    // the notification is shown once the config wizard is closed
     await page.getByTestId("dialog-config-name").getByRole("textbox").press("Enter")
     await page.keyboard.press("Escape")
     await expect(dialog).not.toBeVisible()
@@ -1645,7 +1643,6 @@ test.describe("Confirm context menu actions are working", () => {
     const firstRow = page.getByRole("row").nth(1)
 
     const menuOptions = [
-      // Edit opens the config wizard instead of sending a command
       { label: "Edit", command: false },
       { label: "Rename", command: false },
       { label: "Delete", command: true },
@@ -1706,7 +1703,6 @@ test.describe("Confirm context menu actions are working", () => {
       .first()
 
     const menuOptions = [
-      // Edit opens the config wizard instead of sending a command
       { label: "Edit", command: false },
       { label: "Rename", command: false },
       { label: "Delete", command: true },

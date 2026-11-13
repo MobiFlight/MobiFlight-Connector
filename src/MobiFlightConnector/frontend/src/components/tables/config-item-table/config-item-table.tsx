@@ -181,9 +181,7 @@ export function ConfigItemTable<TValue>({
     [t, table],
   )
 
-  // New configs open in the config wizard.
-  // If they are hidden by the active filters,
-  // the toast is shown once the wizard of the new config closes.
+  // hidden new configs get the toast once their wizard closes
   const location = useLocation()
   const isWizardOfNewConfigOpen = useRef(false)
   useEffect(() => {

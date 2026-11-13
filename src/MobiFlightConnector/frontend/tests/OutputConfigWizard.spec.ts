@@ -75,8 +75,6 @@ const openWizardForRow = async (
   return openDialogForRow(configListPage, page, row)
 }
 
-// Adds an empty output config directly and opens it via its row,
-// unlike the "Add Output Config" button, which starts with editing the name.
 const createEmptyOutputConfigAndOpenWizard = async (
   configListPage: ConfigListPage,
   page: Page,
@@ -242,7 +240,6 @@ test.describe("General Output Config Wizard Tests", () => {
     })
 
     await expect(dialog).toBeVisible()
-    // New configs most likely need a new name, so editing starts right away
     const nameInput = page.getByTestId("dialog-config-name").getByRole("textbox")
     await expect(nameInput).toBeFocused()
     await expect(nameInput).toHaveValue(NEW_OUTPUT_CONFIG_NAME)
