@@ -2852,8 +2852,6 @@ namespace MobiFlight.UI
             {
                 if (await updater.DownloadHubHopPresets())
                 {
-                    Msfs2020HubhopPresetListSingleton.Instance.Clear();
-                    XplaneHubhopPresetListSingleton.Instance.Clear();
                     HubHopState.Result = "Success";
 
                     var lastModification = WasmModuleUpdater.HubHopPresetTimestamp();

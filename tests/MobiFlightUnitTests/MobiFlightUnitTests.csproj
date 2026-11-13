@@ -39,11 +39,9 @@
 
 		<MakeDir Directories="$(TargetDir)assets\Base\ConfigFile" />
 
-		<Copy SourceFiles="@(MccFiles)" DestinationFolder="$(TargetDir)assets\Base\ConfigFile"
-			SkipUnchangedFiles="true" />
+		<Copy SourceFiles="@(MccFiles)" DestinationFolder="$(TargetDir)assets\Base\ConfigFile" SkipUnchangedFiles="true" />
 
-		<Copy SourceFiles="$(SolutionDir)lib\x86\SimConnect.dll" DestinationFolder="$(TargetDir)"
-			SkipUnchangedFiles="true" />
+		<Copy SourceFiles="$(SolutionDir)lib\x86\SimConnect.dll" DestinationFolder="$(TargetDir)" SkipUnchangedFiles="true" />
 	</Target>
 
 </Project>

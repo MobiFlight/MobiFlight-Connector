@@ -349,6 +349,25 @@ namespace MobiFlight.Tests
         }
 
 
+        private static void SetInputActionByName(ButtonInputConfig button, string name, InputAction inputAction)
+        {
+            switch (name)
+            {
+                case "onPress":
+                    button.onPress = inputAction;
+                    break;
+                case "onRelease":
+                    button.onRelease = inputAction;
+                    break;
+                case "onLongRelease":
+                    button.onLongRelease = inputAction;
+                    break;
+                case "onHold":
+                    button.onHold = inputAction;
+                    break;
+            }
+        }
+
         [TestMethod()]
         [DataRow((int)MobiFlightButton.InputEvent.PRESS, "onPress")]
         [DataRow((int)MobiFlightButton.InputEvent.RELEASE, "onRelease")]
@@ -366,7 +385,7 @@ namespace MobiFlight.Tests
                 button = new ButtonInputConfig()
             };
 
-            config.button.SetInputActionByName(actionName, action);
+            SetInputActionByName(config.button, actionName, action);
 
             var args = new InputEventArgs
             {

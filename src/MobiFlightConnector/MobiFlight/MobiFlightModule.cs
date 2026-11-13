@@ -1208,11 +1208,6 @@ namespace MobiFlight
             return result;
         }
 
-        public List<MobiFlightPin> getPwmPins()
-        {
-            return Board.Pins.FindAll(x => x.isPWM);
-        }
-
         public IEnumerable<DeviceType> GetConnectedOutputDeviceTypes()
         {
             List<DeviceType> result = new List<DeviceType>();
