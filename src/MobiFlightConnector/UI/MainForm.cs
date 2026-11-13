@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
-using System.Diagnostics;
 #if ARCAZE
 #endif
 using System.Runtime.InteropServices;
@@ -32,9 +31,6 @@ using MobiFlight.Controllers;
 using MobiFlight.UI.StateBadge;
 using MobiFlight.Base.LogAppender;
 using MobiFlight.Base.Legacy;
-using MobiFlight.BrowserMessages.Incoming.Handler;
-using MobiFlight.BrowserMessages.Incoming;
-using MobiFlight.BrowserMessages.Outgoing;
 
 namespace MobiFlight.UI
 {
@@ -384,62 +380,6 @@ namespace MobiFlight.UI
                     });
                 }
             });
-        }
-
-        private void OpenOutputConfigWizardForId(string guid)
-        {
-            if (this.InvokeRequired)
-            {
-                this.Invoke((Action)(() => OpenOutputConfigWizardForId(guid)));
-                return;
-            }
-
-            var cfg = execManager.ConfigItems.Find(c => c.GUID == guid);
-            if (cfg == null) return;
-            if (!(cfg is OutputConfigItem)) return;
-
-            // Show a modal dialog after the current event handler is completed, to avoid potential reentrancy caused by running a nested message loop in the WebView2 event handler.
-            System.Threading.SynchronizationContext.Current.Post((_) =>
-            {
-                EditConfigWithWizard(cfg as OutputConfigItem, false);
-            }, null);
-        }
-
-        private void EditConfigWithWizard(OutputConfigItem cfg, bool create)
-        {
-            // refactor!!! dependency to arcaze cache etc not nice
-            ConfigWizard wizard = new ConfigWizard(execManager,
-                                            cfg,
-#if ARCAZE
-                                            execManager.getModuleCache(),
-                                            execManager.getModuleCache().GetArcazeModuleSettings(),
-#endif
-                                            execManager.ConfigItems.Where(item => item is OutputConfigItem).Cast<OutputConfigItem>().ToList(),
-                                            execManager.GetAvailableVariables(),
-                                            execManager.Project.ToProjectInfo()
-                                          )
-            {
-                StartPosition = FormStartPosition.CenterParent
-            };
-            wizard.SettingsDialogRequested += ConfigPanel_SettingsDialogRequested;
-
-            MessageExchange.Instance.Publish(new OverlayState() { Visible = true });
-
-            if (wizard.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                if (wizard.ConfigHasChanged())
-                {
-                    // we have to update the config
-                    // using the duplicated config 
-                    // that the user edited with the wizard
-                    var index = execManager.ConfigItems.FindIndex(c => c.GUID == cfg.GUID);
-                    execManager.ConfigItems[index] = wizard.Config;
-                    MessageExchange.Instance.Publish(new ConfigValuePartialUpdate() { ConfigItems = new List<IConfigItem>() { wizard.Config } });
-                    OnConfigItemHasChanged(wizard.Config, null);
-                }
-            }
-
-            MessageExchange.Instance.Publish(new OverlayState() { Visible = false });
         }
 
         private void InitializeTracking()
@@ -1256,6 +1196,8 @@ namespace MobiFlight.UI
                 dlg.MobiFlightModulesForUpdate = BoardsForUpdate;
 
             SettingsDialogActive = true;
+            MessageExchange.Instance.Publish(new OverlayState() { Visible = true });
+
             var dialogResult = dlg.ShowDialog();
             execManager.OnModuleConnected -= dlg.UpdateConnectedModule;
             execManager.OnModuleRemoved -= dlg.UpdateRemovedModule;
@@ -1264,6 +1206,7 @@ namespace MobiFlight.UI
             // Update status bar and new frontend
             UpdateStatusBarModuleInformation();
             execManager.PublishConnectedDevices();
+            MessageExchange.Instance.Publish(new OverlayState() { Visible = false });
 
             return dialogResult;
         }
