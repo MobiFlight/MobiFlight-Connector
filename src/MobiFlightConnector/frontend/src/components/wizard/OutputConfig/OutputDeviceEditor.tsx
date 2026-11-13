@@ -134,6 +134,26 @@ const OutputDeviceEditor = ({
     })
   }
 
+  const onDeviceTypeChange = (deviceType: OutputDeviceType | null) => {
+    // deselecting the current device type clears the device
+    if (!deviceType) {
+      updateConfigItem(configItem.Controller, undefined)
+      return
+    }
+
+    const first = completeDevices.find((device) => device.Type === deviceType)
+    const isSameDeviceType = first?.Type === configItem.Device?.Type
+
+    const device = isSameDeviceType
+      ? ({ ...configItem.Device, ...first } as OutputDeviceConfig)
+      : OutputDeviceConfigDefaults.createByType(
+          deviceType,
+          first?.Name ?? "",
+          first?.Capabilities ?? undefined,
+        )
+    updateConfigItem(configItem.Controller, device)
+  }
+
   return (
     <div className="flex flex-col gap-4" data-testid="output-device-editor">
       <SectionHeadline
@@ -159,27 +179,7 @@ const OutputDeviceEditor = ({
           }}
           deviceTypes={deviceTypes}
           selectedDeviceType={selectedDeviceType}
-          onDeviceTypeChange={(deviceType) => {
-            // deselecting the current device type clears the device
-            if (!deviceType) {
-              updateConfigItem(configItem.Controller, undefined)
-              return
-            }
-
-            const first = completeDevices.find(
-              (device) => device.Type === deviceType,
-            )
-            const isSameDeviceType = first?.Type === configItem.Device?.Type
-
-            const device = isSameDeviceType
-              ? ({ ...configItem.Device, ...first } as OutputDeviceConfig)
-              : OutputDeviceConfigDefaults.createByType(
-                  deviceType,
-                  first?.Name ?? "",
-                  first?.Capabilities ?? undefined,
-                )
-            updateConfigItem(configItem.Controller, device)
-          }}
+          onDeviceTypeChange={onDeviceTypeChange}
         />
       </WizardSection>
       {configItem.Device && configItem.Device.Type === "Output" && (
