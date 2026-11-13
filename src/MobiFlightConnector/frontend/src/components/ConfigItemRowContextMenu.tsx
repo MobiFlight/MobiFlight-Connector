@@ -41,20 +41,13 @@ function MenuItems({
   const navigate = useNavigate()
   const { startNameEdit } = useRowInteraction()
   const context = useContext(ConfigItemTableContext)
-  const isInputConfig = item.Type === "InputConfigItem"
   return (
     <>
       <Label>Actions</Label>
       <Item
         onClick={() => {
-          if (isInputConfig) {
-            navigate("/config/" + item.GUID)
+          navigate("/config/" + item.GUID)
             return
-          }
-          publish({
-            key: "CommandConfigContextMenu",
-            payload: { action: "edit", item },
-          } as CommandConfigContextMenu)
         }}
       >
         <div className="flex items-center gap-2 [&_svg]:size-4">

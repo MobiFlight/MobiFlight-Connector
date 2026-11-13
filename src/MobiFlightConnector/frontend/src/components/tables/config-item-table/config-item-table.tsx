@@ -20,8 +20,7 @@ import { Button } from "@/components/ui/button"
 import { useAppMessage } from "@/lib/hooks/appMessage"
 import messageExchange from "@/lib/messageExchange"
 import {
-  CommandAddConfigItem,
-  CommandConfigContextMenu,
+  CommandAddConfigItem
 } from "@/types/commands"
 import { useTranslation } from "react-i18next"
 import ConfigItemTableHeader from "./items/ConfigItemTableHeader"
@@ -224,21 +223,9 @@ export function ConfigItemTable<TValue>({
       showInvisibleToastOnDialogClose.current = newItem.GUID
     }
 
-    if (newItem.Type === "InputConfigItem") {
-      // New and duplicated configs most likely need a new name,
-      // so the dialog starts editing the name right away.
-      navigate(`/config/${newItem.GUID}`, {
-        state: { editName: true },
-      })
-    } else {
-      publish({
-        key: "CommandConfigContextMenu",
-        payload: {
-          action: "edit",
-          item: newItem,
-        },
-      } as CommandConfigContextMenu)
-    }
+    navigate(`/config/${newItem.GUID}`, {
+      state: { editName: true },
+    })
   }, [publish, navigate, table, data])
   const { t } = useTranslation()
 
