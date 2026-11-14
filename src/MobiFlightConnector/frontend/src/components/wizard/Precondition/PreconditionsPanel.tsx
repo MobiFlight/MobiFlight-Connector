@@ -51,9 +51,9 @@ const PreconditionsPanel = ({
       <CardContent className="flex flex-col gap-1 pt-4">
         <div className="flex flex-row items-start justify-between gap-4">
           <SectionHeadline
-            title={t("Dialog.InputConfigWizard.Preconditions.Title")}
+            title={t("ConfigWizard.Preconditions.Title")}
             description={t(
-              "Dialog.InputConfigWizard.Preconditions.Description",
+              "ConfigWizard.Preconditions.Description",
             )}
           />
           {hasPreconditions && (
@@ -62,7 +62,7 @@ const PreconditionsPanel = ({
               size={"sm"}
               onClick={openDetailsPanel}
               aria-label={t(
-                "Dialog.InputConfigWizard.Preconditions.EditButton",
+                "ConfigWizard.Preconditions.EditButton",
               )}
             >
               <IconEdit className="" />

@@ -208,10 +208,10 @@ const ConfigWizard = ({
           variant="outline"
           size={"sm"}
           onClick={() => navigateToDetailView("precondition")}
-          aria-label={t("Dialog.InputConfigWizard.Preconditions.AddButton")}
+          aria-label={t("ConfigWizard.Preconditions.AddButton")}
         >
           <IconPlus className="" />
-          {t("Dialog.InputConfigWizard.Preconditions.Label")}
+          {t("ConfigWizard.Preconditions.Label")}
         </Button>
         <Button
           variant="outline"
