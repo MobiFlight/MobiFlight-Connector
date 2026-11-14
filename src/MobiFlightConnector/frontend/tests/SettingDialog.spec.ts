@@ -453,6 +453,109 @@ test.describe("Cloud Settings Sync", () => {
       expect(requests.some((r) => r.method === "PUT")).toBe(false)
     })
 
+    test("Confirm auto-upload when cloud is unchanged and only local settings changed", async ({
+      configListPage,
+      page,
+    }) => {
+      // Initialize synced hash and settings in localStorage
+      await page.addInitScript(() => {
+        localStorage.setItem("cloud_last_synced_hash", "hash")
+        localStorage.setItem(
+          "cloud_last_synced_settings",
+          JSON.stringify({
+            CloudSettingsSyncEnabled: true,
+            BetaUpdates: false,
+          }),
+        )
+      })
+
+      // Cloud returns matching hash with original settings
+      const requests = await mockCloudSettingsApi(page, {
+        getStatus: 200,
+        getContent: {
+          ...(defaultSettings as Settings),
+          CloudSettingsSyncEnabled: true,
+          BetaUpdates: false,
+        },
+      })
+
+      await configListPage.gotoPage()
+      // Apply local change
+      await configListPage.mobiFlightPage.sendSettings({
+        CloudSettingsSyncEnabled: true,
+        BetaUpdates: true,
+      })
+
+      // Verify local change is auto-uploaded with baseHash
+      await expect
+        .poll(() => requests.find((r) => r.method === "PUT"))
+        .toBeDefined()
+      const put = requests.find((r) => r.method === "PUT")!
+      expect(put.body).toMatchObject({
+        schemaVersion: 1,
+        baseHash: "hash",
+        content: { BetaUpdates: true },
+      })
+
+      // Verify saved notification is shown and conflict dialog is not opened
+      await expect(
+        page.getByRole("heading", { name: "Settings saved" }),
+      ).toBeVisible()
+      await expect(
+        page.getByRole("dialog", { name: "Settings conflict" }),
+      ).not.toBeVisible()
+    })
+
+    test("Confirm auto-download when cloud changed remotely and local is untouched", async ({
+      configListPage,
+      page,
+    }) => {
+      // Initialize an older base hash in localStorage
+      await page.addInitScript(() => {
+        localStorage.setItem("cloud_last_synced_hash", "old-hash")
+        localStorage.setItem(
+          "cloud_last_synced_settings",
+          JSON.stringify({
+            ...(defaultSettings as Settings),
+            CloudSettingsSyncEnabled: true,
+            BetaUpdates: false,
+          }),
+        )
+      })
+
+      // Cloud has newer settings and different hash ("hash" from mock)
+      await mockCloudSettingsApi(page, {
+        getStatus: 200,
+        getContent: {
+          ...(defaultSettings as Settings),
+          CloudSettingsSyncEnabled: true,
+          BetaUpdates: true,
+        },
+      })
+
+      await configListPage.gotoPage()
+      await configListPage.mobiFlightPage.trackCommand("CommandUpdateSettings")
+      // Local settings remain untouched matching last synced state
+      await configListPage.mobiFlightPage.sendSettings({
+        CloudSettingsSyncEnabled: true,
+        BetaUpdates: false,
+      })
+
+      // Verify cloud settings were auto-applied locally
+      const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+      expect(commands?.at(-1)?.payload).toMatchObject({
+        Settings: { BetaUpdates: true },
+      })
+
+      // Verify restored notification is shown and conflict dialog is not opened
+      await expect(
+        page.getByRole("heading", { name: "Settings restored" }),
+      ).toBeVisible()
+      await expect(
+        page.getByRole("dialog", { name: "Settings conflict" }),
+      ).not.toBeVisible()
+    })
+
     test.describe("Conflict", () => {
       const cloudContent = {
         ...(defaultSettings as Settings),
@@ -467,7 +570,7 @@ test.describe("Cloud Settings Sync", () => {
         )
       })
 
-      test("Confirm Keep local disables sync", async ({
+      test("Confirm Turn off cloud sync disables sync", async ({
         configListPage,
         page,
       }) => {
@@ -485,7 +588,7 @@ test.describe("Cloud Settings Sync", () => {
         })
         await expect(conflictDialog).toBeVisible()
         await conflictDialog
-          .getByRole("button", { name: /Keep local settings/ })
+          .getByRole("button", { name: /Turn off cloud sync/ })
           .click()
         await expect(conflictDialog).not.toBeVisible()
 
@@ -495,6 +598,33 @@ test.describe("Cloud Settings Sync", () => {
           Settings: { CloudSettingsSyncEnabled: false, BetaUpdates: false },
         })
         expect(requests.some((r) => r.method === "PUT")).toBe(false)
+      })
+
+      test("Confirm closing conflict dialog via close button disables sync", async ({
+        configListPage,
+        page,
+      }) => {
+        await mockCloudSettingsApi(page, {
+          getStatus: 200,
+          getContent: cloudContent,
+        })
+        await configListPage.mobiFlightPage.sendSettings({
+          CloudSettingsSyncEnabled: true,
+          BetaUpdates: false,
+        })
+
+        const conflictDialog = page.getByRole("dialog", {
+          name: "Settings conflict",
+        })
+        await expect(conflictDialog).toBeVisible()
+        await conflictDialog.getByRole("button", { name: "Close" }).click()
+        await expect(conflictDialog).not.toBeVisible()
+
+        const commands =
+          await configListPage.mobiFlightPage.getTrackedCommands()
+        expect(commands?.at(-1)?.payload).toMatchObject({
+          Settings: { CloudSettingsSyncEnabled: false, BetaUpdates: false },
+        })
       })
 
       test("Confirm Use cloud applies cloud settings", async ({
@@ -528,7 +658,7 @@ test.describe("Cloud Settings Sync", () => {
         ).toBeVisible()
       })
 
-      test("Confirm Upload local overwrites cloud", async ({
+      test("Confirm Use local settings overwrites cloud", async ({
         configListPage,
         page,
       }) => {
@@ -545,7 +675,7 @@ test.describe("Cloud Settings Sync", () => {
           name: "Settings conflict",
         })
         await conflictDialog
-          .getByRole("button", { name: /Upload local to cloud/ })
+          .getByRole("button", { name: /Use local settings/ })
           .click()
         await expect(conflictDialog).not.toBeVisible()
 
@@ -554,6 +684,47 @@ test.describe("Cloud Settings Sync", () => {
         await expect(
           page.getByRole("heading", { name: "Settings synced" }),
         ).toBeVisible()
+      })
+
+      test("Confirm conflict dialog opens when server returns 409 Conflict", async ({
+        configListPage,
+        page,
+      }) => {
+        // Initialize synced hash matching cloud
+        await page.addInitScript(() => {
+          localStorage.setItem("cloud_last_synced_hash", "hash")
+          localStorage.setItem(
+            "cloud_last_synced_settings",
+            JSON.stringify({
+              CloudSettingsSyncEnabled: true,
+              BetaUpdates: false,
+            }),
+          )
+        })
+
+        // Server responds 409 on PUT due to concurrent modification
+        await mockCloudSettingsApi(page, {
+          getStatus: 200,
+          putStatus: 409,
+          getContent: {
+            ...(defaultSettings as Settings),
+            CloudSettingsSyncEnabled: true,
+            BetaUpdates: false,
+          },
+        })
+
+        await configListPage.gotoPage()
+        // Local change triggers auto-upload
+        await configListPage.mobiFlightPage.sendSettings({
+          CloudSettingsSyncEnabled: true,
+          BetaUpdates: true,
+        })
+
+        // Verify conflict dialog is shown on 409 response
+        const conflictDialog = page.getByRole("dialog", {
+          name: "Settings conflict",
+        })
+        await expect(conflictDialog).toBeVisible()
       })
     })
 

@@ -5,6 +5,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog"
+import { Button } from "@/components/ui/button"
 import { IconCloud } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 
@@ -27,8 +28,15 @@ export function SettingsConflictDialog({
 }: SettingsConflictDialogProps) {
   const { t } = useTranslation()
 
+  const handleOpenChange = (open: boolean) => {
+    if (!open) {
+      onKeepLocal()
+    }
+    onOpenChange?.(open)
+  }
+
   return (
-    <Dialog open={isOpen} onOpenChange={onOpenChange}>
+    <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogContent className="sm:max-w-[480px] p-6 rounded-2xl gap-6">
         <div className="flex items-start gap-4">
           {/* Cloud conflict icon badge */}
@@ -57,59 +65,62 @@ export function SettingsConflictDialog({
 
         {/* Action cards - 3 options */}
         <div className="flex flex-col gap-3">
-          {/* Option 1: Use cloud settings */}
-          <button
+          {/* Option 1: Use local settings */}
+          <Button
             type="button"
-            disabled={isProcessing}
-            onClick={onUseCloud}
-            className="w-full rounded-xl bg-blue-600 p-4 text-left shadow-sm transition-all hover:bg-blue-700 active:scale-[0.99] focus:outline-none focus-visible:ring-2 focus-visible:ring-ring dark:bg-blue-600 dark:hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
-          >
-            <div className="text-base font-semibold text-white">
-              {t("Settings.Conflict.UseCloud", "Use cloud settings")}
-            </div>
-            <div className="mt-0.5 text-sm text-blue-100">
-              {t(
-                "Settings.Conflict.UseCloudDesc",
-                "Replace local settings with the version saved in the cloud.",
-              )}
-            </div>
-          </button>
-
-          {/* Option 2: Keep local settings */}
-          <button
-            type="button"
-            disabled={isProcessing}
-            onClick={onKeepLocal}
-            className="w-full rounded-xl border border-border bg-card p-4 text-left transition-all hover:bg-accent/40 hover:border-primary/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50 disabled:pointer-events-none"
-          >
-            <div className="text-base font-semibold text-foreground">
-              {t("Settings.Conflict.KeepLocal", "Keep local settings")}
-            </div>
-            <div className="mt-0.5 text-sm text-muted-foreground">
-              {t(
-                "Settings.Conflict.KeepLocalDesc",
-                "Keep settings on this device and disable cloud sync.",
-              )}
-            </div>
-          </button>
-
-          {/* Option 3: Upload local to cloud */}
-          <button
-            type="button"
+            variant="default"
             disabled={isProcessing}
             onClick={onUploadLocal}
-            className="w-full rounded-xl border border-border bg-card p-4 text-left transition-all hover:bg-accent/40 hover:border-primary/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50 disabled:pointer-events-none"
+            className="h-auto w-full flex-col items-start justify-start p-4 text-left whitespace-normal rounded-xl"
           >
-            <div className="text-base font-semibold text-foreground">
-              {t("Settings.Conflict.UploadLocal", "Upload local to cloud")}
+            <div className="text-base font-semibold">
+              {t("Settings.Conflict.UseLocal", "Use local settings")}
             </div>
-            <div className="mt-0.5 text-sm text-muted-foreground">
+            <div className="mt-0.5 text-sm font-normal text-primary-foreground/90">
               {t(
-                "Settings.Conflict.UploadLocalDesc",
-                "Replace cloud settings with the version saved on this device.",
+                "Settings.Conflict.UseLocalDesc",
+                "Save them to the cloud, replacing the cloud version.",
               )}
             </div>
-          </button>
+          </Button>
+
+          {/* Option 2: Use cloud settings */}
+          <Button
+            type="button"
+            variant="outline"
+            disabled={isProcessing}
+            onClick={onUseCloud}
+            className="h-auto w-full flex-col items-start justify-start p-4 text-left whitespace-normal rounded-xl"
+          >
+            <div className="text-base font-semibold text-foreground">
+              {t("Settings.Conflict.UseCloud", "Use cloud settings")}
+            </div>
+            <div className="mt-0.5 text-sm font-normal text-muted-foreground">
+              {t(
+                "Settings.Conflict.UseCloudDesc",
+                "Replace the local settings with the cloud version.",
+              )}
+            </div>
+          </Button>
+
+          {/* Option 3: Turn off cloud sync */}
+          <Button
+            type="button"
+            variant="ghost"
+            disabled={isProcessing}
+            onClick={onKeepLocal}
+            className="h-auto w-full flex-col items-start justify-start p-4 text-left whitespace-normal rounded-xl border border-border"
+          >
+            <div className="text-base font-semibold text-foreground">
+              {t("Settings.Conflict.TurnOffSync", "Turn off cloud sync")}
+            </div>
+            <div className="mt-0.5 text-sm font-normal text-muted-foreground">
+              {t(
+                "Settings.Conflict.TurnOffSyncDesc",
+                "Keep your local settings and don't update the cloud version.",
+              )}
+            </div>
+          </Button>
         </div>
       </DialogContent>
     </Dialog>

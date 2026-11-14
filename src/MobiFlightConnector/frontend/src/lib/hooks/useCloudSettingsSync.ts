@@ -21,6 +21,7 @@ export const useCloudSettingsSync = () => {
 
   const hasCheckedRef = useRef(false)
   const prevUserIdRef = useRef<string | undefined>(undefined)
+  const cloudHashRef = useRef<string | undefined>(undefined)
 
   const userId =
     auth.user?.profile?.sub ||
@@ -30,15 +31,25 @@ export const useCloudSettingsSync = () => {
   const isLoggedIn =
     !auth.isLoading && auth.isAuthenticated && Boolean(auth.user?.id_token)
 
-  // Reset sync check flag when user logs out or switches accounts
   useEffect(() => {
     if (!isLoggedIn) {
       hasCheckedRef.current = false
       prevUserIdRef.current = undefined
+      cloudHashRef.current = undefined
       setIsConflictOpen(false)
       setCloudSettings(null)
-    } else if (prevUserIdRef.current !== userId) {
-      hasCheckedRef.current = false
+      localStorage.removeItem("cloud_last_synced_hash")
+      localStorage.removeItem("cloud_last_synced_settings")
+      localStorage.removeItem("cloud_last_synced_user_id")
+    } else if (userId) {
+      const storedUserId = localStorage.getItem("cloud_last_synced_user_id")
+      if (storedUserId && storedUserId !== userId) {
+        hasCheckedRef.current = false
+        cloudHashRef.current = undefined
+        localStorage.removeItem("cloud_last_synced_hash")
+        localStorage.removeItem("cloud_last_synced_settings")
+      }
+      localStorage.setItem("cloud_last_synced_user_id", userId)
       prevUserIdRef.current = userId
     }
   }, [isLoggedIn, userId, setIsConflictOpen, setCloudSettings])
@@ -63,10 +74,17 @@ export const useCloudSettingsSync = () => {
             "[useCloudSettingsSync] No cloud settings found. Performing initial upload...",
           )
           try {
-            await uploadCloudSettings(auth, {
+            const uploadRes = await uploadCloudSettings(auth, {
               schemaVersion: 1,
               content: current,
             })
+            if (uploadRes?.contentHash) {
+              localStorage.setItem("cloud_last_synced_hash", uploadRes.contentHash)
+              localStorage.setItem(
+                "cloud_last_synced_settings",
+                JSON.stringify(current),
+              )
+            }
             console.log(
               "[useCloudSettingsSync] Initial settings uploaded to cloud successfully.",
             )
@@ -78,22 +96,109 @@ export const useCloudSettingsSync = () => {
             )
             showSyncNotification("failed_upload")
           }
+
           return
         }
 
-        // Case 2: Local settings are already identical to cloud settings
+        const lastSyncedHash = localStorage.getItem("cloud_last_synced_hash")
+        const lastSyncedSettingsRaw = localStorage.getItem(
+          "cloud_last_synced_settings",
+        )
         const isMatch = isEqual(current, cloudData.content)
+
+        // Case 2: Local settings are already identical to cloud settings
         if (isMatch) {
+          if (cloudData.contentHash) {
+            localStorage.setItem("cloud_last_synced_hash", cloudData.contentHash)
+            localStorage.setItem(
+              "cloud_last_synced_settings",
+              JSON.stringify(current),
+            )
+          }
           console.log(
             "[useCloudSettingsSync] Local settings are already up to date with cloud.",
           )
           return
         }
 
-        // Case 3: Conflict detected -> prompt user with 3 options
+        // Check if local settings were modified since last sync
+        let localModified = false
+        if (lastSyncedSettingsRaw) {
+          try {
+            const lastSyncedSettings = JSON.parse(lastSyncedSettingsRaw)
+            localModified = !isEqual(current, lastSyncedSettings)
+          } catch {
+            localModified = true
+          }
+        }
+
+        // Case 3: Cloud unchanged since last sync, only local changed (Auto-upload)
+        if (lastSyncedHash && cloudData.contentHash === lastSyncedHash) {
+          console.log(
+            "[useCloudSettingsSync] Cloud unchanged since last sync. Uploading local changes...",
+          )
+          try {
+            const uploadRes = await uploadCloudSettings(auth, {
+              schemaVersion: 1,
+              baseHash: lastSyncedHash,
+              content: current,
+            })
+            if (uploadRes?.contentHash) {
+              localStorage.setItem("cloud_last_synced_hash", uploadRes.contentHash)
+              localStorage.setItem(
+                "cloud_last_synced_settings",
+                JSON.stringify(current),
+              )
+            }
+            showSyncNotification("saved")
+          } catch (uploadErr: unknown) {
+            const isConflict =
+              (uploadErr as { status?: number })?.status === 409
+            if (isConflict) {
+              console.log(
+                "[useCloudSettingsSync] Server reported concurrent conflict. Prompting user...",
+              )
+              cloudHashRef.current = cloudData.contentHash
+              setCloudSettings(cloudData.content)
+              setIsConflictOpen(true)
+            } else {
+              console.error(
+                "[useCloudSettingsSync] Failed to upload local changes:",
+                uploadErr,
+              )
+              showSyncNotification("failed_upload")
+            }
+          }
+          return
+        }
+
+        // Case 4: Only Cloud changed from another device, local is untouched (Auto-download)
+        if (lastSyncedHash && !localModified && cloudData.contentHash !== lastSyncedHash) {
+          console.log(
+            "[useCloudSettingsSync] Cloud updated remotely and local is untouched. Auto-downloading...",
+          )
+          const newSettings: Settings = { ...current, ...cloudData.content }
+          setSettings(newSettings)
+          messageExchange.publish({
+            key: "CommandUpdateSettings",
+            payload: {
+              Settings: newSettings,
+            },
+          })
+          localStorage.setItem("cloud_last_synced_hash", cloudData.contentHash)
+          localStorage.setItem(
+            "cloud_last_synced_settings",
+            JSON.stringify(newSettings),
+          )
+          showSyncNotification("restored")
+          return
+        }
+
+        // Case 5: Both Local and Cloud changed (or no baseline hash exists) -> Conflict
         console.log(
           "[useCloudSettingsSync] Settings conflict detected. Prompting user...",
         )
+        cloudHashRef.current = cloudData.contentHash
         setCloudSettings(cloudData.content)
         setIsConflictOpen(true)
       } catch (err: unknown) {
@@ -149,7 +254,14 @@ export const useCloudSettingsSync = () => {
     console.log(
       "[useCloudSettingsSync] User chose to use cloud settings. Applying...",
     )
+    if (cloudHashRef.current) {
+      localStorage.setItem("cloud_last_synced_hash", cloudHashRef.current)
+    }
     const newSettings: Settings = { ...settings, ...cloudSettings }
+    localStorage.setItem(
+      "cloud_last_synced_settings",
+      JSON.stringify(newSettings),
+    )
     setSettings(newSettings)
     messageExchange.publish({
       key: "CommandUpdateSettings",
@@ -171,10 +283,19 @@ export const useCloudSettingsSync = () => {
       console.log(
         "[useCloudSettingsSync] User chose to overwrite cloud with local settings. Uploading...",
       )
-      await uploadCloudSettings(auth, {
+      const lastSyncedHash = localStorage.getItem("cloud_last_synced_hash")
+      const uploadRes = await uploadCloudSettings(auth, {
         schemaVersion: 1,
+        baseHash: lastSyncedHash || undefined,
         content: settings,
       })
+      if (uploadRes?.contentHash) {
+        localStorage.setItem("cloud_last_synced_hash", uploadRes.contentHash)
+        localStorage.setItem(
+          "cloud_last_synced_settings",
+          JSON.stringify(settings),
+        )
+      }
       console.log(
         "[useCloudSettingsSync] Cloud settings overwritten with local settings successfully.",
       )

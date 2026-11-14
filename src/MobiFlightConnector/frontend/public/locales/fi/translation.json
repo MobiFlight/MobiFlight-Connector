@@ -979,12 +979,12 @@
     "Conflict": {
       "Title": "Asetusristiriita",
       "Description": "Löysimme eri versiot asetuksistasi tältä laitteelta ja pilvestä. Valitse kumman version haluat säilyttää.",
-      "KeepLocal": "Säilytä paikalliset asetukset",
-      "KeepLocalDesc": "Pidä asetukset tällä laitteella ja poista pilvisynkronointi käytöstä.",
       "UseCloud": "Käytä pilviasetuksia",
-      "UseCloudDesc": "Korvaa paikalliset asetukset pilveen tallennetulla versiolla.",
-      "UploadLocal": "Lataa paikallinen pilveen",
-      "UploadLocalDesc": "Korvaa pilviasetukset tällä laitteella tallennetulla versiolla."
+      "UseCloudDesc": "Korvaa paikalliset asetukset pilviversiolla.",
+      "UseLocal": "Käytä paikallisia asetuksia",
+      "UseLocalDesc": "Tallenna ne pilveen ja korvaa pilviversio.",
+      "TurnOffSync": "Poista pilvisynkronointi käytöstä",
+      "TurnOffSyncDesc": "Pidä paikalliset asetukset äläkä päivitä pilviversiota."
     },
     "Sync": {
       "Notifications": {

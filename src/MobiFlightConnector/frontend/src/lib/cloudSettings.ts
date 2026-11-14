@@ -15,6 +15,7 @@ export interface CloudSettingsPayload {
 
 export interface UploadCloudSettingsPayload {
   schemaVersion?: number
+      baseHash?: string
   content: Partial<Settings>
 }
 
@@ -125,9 +126,12 @@ export const uploadCloudSettings = async (
     ? AbortSignal.any([options.signal, timeoutController.signal])
     : timeoutController.signal
 
-  const requestBody = {
+  const requestBody: Record<string, unknown> = {
     schemaVersion,
     content: payload.content,
+  }
+  if (payload.baseHash) {
+    requestBody.baseHash = payload.baseHash
   }
 
   try {
@@ -140,6 +144,19 @@ export const uploadCloudSettings = async (
       },
       body: JSON.stringify(requestBody),
     })
+
+    if (response.status === 409) {
+      let conflictData: unknown
+      try {
+        conflictData = await response.json()
+      } catch {
+        // ignore
+      }
+      const err = new Error("Settings conflict detected on cloud")
+      ;(err as unknown as { status: number; conflictData: unknown }).status = 409
+      ;(err as unknown as { status: number; conflictData: unknown }).conflictData = conflictData
+      throw err
+    }
 
     if (response.status === 401) {
       let serverError = ""

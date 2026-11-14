@@ -979,12 +979,12 @@
     "Conflict": {
       "Title": "Conflito de configurações",
       "Description": "Encontramos versões diferentes das suas configurações neste dispositivo e na nuvem. Escolha qual versão deseja manter.",
-      "KeepLocal": "Manter configurações locais",
-      "KeepLocalDesc": "Manter as configurações neste dispositivo e desativar a sincronização na nuvem.",
       "UseCloud": "Usar configurações da nuvem",
-      "UseCloudDesc": "Substituir as configurações locais pela versão salva na nuvem.",
-      "UploadLocal": "Enviar local para a nuvem",
-      "UploadLocalDesc": "Substituir as configurações na nuvem pela versão salva neste dispositivo."
+      "UseCloudDesc": "Substituir as configurações locais pela versão da nuvem.",
+      "UseLocal": "Usar configurações locais",
+      "UseLocalDesc": "Salvá-las na nuvem, substituindo a versão na nuvem.",
+      "TurnOffSync": "Desactivar sincronização na nuvem",
+      "TurnOffSyncDesc": "Manter suas configurações locais e não atualizar a versão na nuvem."
     },
     "Sync": {
       "Notifications": {

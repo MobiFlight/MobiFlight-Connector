@@ -985,12 +985,12 @@
     "Conflict": {
       "Title": "Einstellungskonflikt",
       "Description": "Wir haben unterschiedliche Versionen Ihrer Einstellungen auf diesem Gerät und in der Cloud gefunden. Wählen Sie, welche Version Sie behalten möchten.",
-      "KeepLocal": "Lokale Einstellungen behalten",
-      "KeepLocalDesc": "Einstellungen auf diesem Gerät behalten und Cloud-Synchronisierung deaktivieren.",
       "UseCloud": "Cloud-Einstellungen verwenden",
-      "UseCloudDesc": "Lokale Einstellungen durch die in der Cloud gespeicherte Version ersetzen.",
-      "UploadLocal": "Lokale Einstellungen in die Cloud hochladen",
-      "UploadLocalDesc": "Cloud-Einstellungen durch die auf diesem Gerät gespeicherte Version ersetzen."
+      "UseCloudDesc": "Lokale Einstellungen durch die Cloud-Version ersetzen.",
+      "UseLocal": "Lokale Einstellungen verwenden",
+      "UseLocalDesc": "In der Cloud speichern und die Cloud-Version ersetzen.",
+      "TurnOffSync": "Cloud-Synchronisierung deaktivieren",
+      "TurnOffSyncDesc": "Lokale Einstellungen behalten und die Cloud-Version nicht aktualisieren."
     },
     "Sync": {
       "Notifications": {

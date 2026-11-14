@@ -19,9 +19,9 @@ import { ScrollArea } from "../ui/scroll-area"
 import { Badge } from "@/components/ui/badge"
 import { useAuth } from "react-oidc-context"
 import { uploadCloudSettings } from "@/lib/cloudSettings"
-import useCloudSettingsSync from "@/lib/hooks/useCloudSettingsSync";
-import { showSyncNotification } from "@/components/settings/SyncNotification";
-import { IconCloud, IconCloudOff, IconCheck } from "@tabler/icons-react";
+import useCloudSettingsSync from "@/lib/hooks/useCloudSettingsSync"
+import { showSyncNotification } from "@/components/settings/SyncNotification"
+import { IconCloud, IconCloudOff, IconCheck } from "@tabler/icons-react"
 
 export type SettingsDialogProps = {
   isOpen: boolean
@@ -75,12 +75,24 @@ export default function SettingsDialog({
 
       if (isEnablingSync) {
         triggerSyncCheck(draftSettings)
-      } else if (auth.isAuthenticated && draftSettings.CloudSettingsSyncEnabled) {
+      } else if (
+        auth.isAuthenticated &&
+        draftSettings.CloudSettingsSyncEnabled
+      ) {
+        const lastSyncedHash = localStorage.getItem("cloud_last_synced_hash")
         uploadCloudSettings(auth, {
           schemaVersion: 1,
+          baseHash: lastSyncedHash || undefined,
           content: draftSettings,
         })
-          .then(() => {
+          .then((res) => {
+            if (res?.contentHash) {
+              localStorage.setItem("cloud_last_synced_hash", res.contentHash)
+              localStorage.setItem(
+                "cloud_last_synced_settings",
+                JSON.stringify(draftSettings),
+              )
+            }
             showSyncNotification("saved")
           })
           .catch((err: unknown) => {
@@ -105,10 +117,18 @@ export default function SettingsDialog({
   const renderSyncStatus = () => {
     if (!auth.isAuthenticated) {
       return (
-        <div className="flex items-center gap-2 text-xs text-muted-foreground select-none">
-          <IconCloudOff className="h-5 w-5 text-muted-foreground/70" />
-          <span>{t("Settings.Sync.Status.SignInToSync", "Sign in to sync settings")}</span>
-        </div>
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          className="h-auto px-2 py-1 flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground"
+          onClick={() => auth.signinRedirect()}
+        >
+          <IconCloudOff className="h-4 w-4" />
+          <span>
+            {t("Settings.Sync.Status.SignInToSync", "Sign in to sync settings")}
+          </span>
+        </Button>
       )
     }
 
@@ -230,7 +250,7 @@ export default function SettingsDialog({
             </TabsContent>
           </Tabs>
 
-          <DialogFooter className="shrink-0 flex flex-row items-center justify-between sm:justify-between w-full">
+          <DialogFooter className="flex w-full shrink-0 flex-row items-center justify-between sm:justify-between">
             {renderSyncStatus()}
             <div className="flex items-center gap-2">
               <Button variant="secondary" onClick={handleRequestClose}>
