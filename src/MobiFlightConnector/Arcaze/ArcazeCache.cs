@@ -255,24 +255,16 @@ namespace MobiFlight
         /// sets the pins in the arcaze modules according to the given value
         /// </summary>
         /// <param name="serial">the device's serial</param>
-        /// <param name="portAndPin">the port letter and pin number, e.g. A01, or several of them, e.g. A01|C05</param>
+        /// <param name="portAndPin">the port letter and pin number, e.g. A01</param>
         /// <param name="value">the value to be used</param>
-        public void setValue (string serial, string portAndPin, string value)
+        public virtual void setValue (string serial, string portAndPin, string value)
         {
             if (portAndPin == null || portAndPin == "") return;
-            var ios = portAndPin.Split('|')
-                                .Select(pin => pin.Trim())
-                                .Where(pin => pin != "")
-                                .Select(pin => new ArcazeIoBasic(pin))
-                                .ToList();
+            var io = new ArcazeIoBasic(portAndPin);
 
             try
             {
-                var pinValue = UInt16.Parse(value);
-                foreach (var io in ios)
-                {
-                    Modules[serial].SetPin(io.Port, io.Pin, pinValue);
-                }
+                Modules[serial].SetPin(io.Port, io.Pin, UInt16.Parse(value));
             }
             catch (FormatException e)
             {

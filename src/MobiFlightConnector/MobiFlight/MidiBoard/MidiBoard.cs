@@ -407,7 +407,7 @@ namespace MobiFlight
             return Outputs.Values.ToList();
         }
 
-        public void SetOutputDeviceState(string name, byte state)
+        public virtual void SetOutputDeviceState(string name, byte state)
         {            
             if (Outputs.ContainsKey(name))
             {

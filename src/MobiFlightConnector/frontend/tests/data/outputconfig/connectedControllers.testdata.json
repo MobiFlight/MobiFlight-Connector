@@ -374,5 +374,35 @@
         "Capabilities": { "Digits": 8 }
       }
     ]
+  },
+  {
+    "Name": "Bravo Throttle Quadrant",
+    "Serial": "JS-b0875190-3b89-11ed-8007-444553540000",
+    "Vendor": "Honeycomb",
+    "ProductId": "",
+    "VendorId": "",
+    "Type": "Joystick",
+    "Connected": true,
+    "ImageUrl": null,
+    "certified": false,
+    "Devices": [
+      { "Name": "AP Mode - HDG", "Label": "AP Mode - HDG", "Type": "Output" },
+      { "Name": "AP Mode - NAV", "Label": "AP Mode - NAV", "Type": "Output" }
+    ]
+  },
+  {
+    "Name": "Korg nanoKONTROL",
+    "Serial": "MI-nanoKONTROL",
+    "Vendor": "Korg",
+    "ProductId": "",
+    "VendorId": "",
+    "Type": "Midi",
+    "Connected": true,
+    "ImageUrl": null,
+    "certified": false,
+    "Devices": [
+      { "Name": "Play LED", "Label": "Play LED", "Type": "Output" },
+      { "Name": "Record LED", "Label": "Record LED", "Type": "Output" }
+    ]
   }
 ]

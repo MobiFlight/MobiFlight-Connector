@@ -1,6 +1,7 @@
 ﻿using MobiFlight.Firmware;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MobiFlight.Base
 {
@@ -41,6 +42,17 @@ namespace MobiFlight.Base
         // temporary property, will be removed before merging with the main branch
         public string Label { get; set; }
         public DeviceType Type { get; set; }
+
+        public const char NameSeparator = '|';
+
+        /// <summary>Splits a config value that references several devices, e.g. "A01|C05", into their names.</summary>
+        public static List<string> SplitNames(string names)
+        {
+            if (string.IsNullOrEmpty(names)) return [];
+            return [.. names.Split(NameSeparator)
+                        .Select(name => name.Trim())
+                        .Where(name => name != "")];
+        }
 
         public DeviceReference() { }
         public DeviceReference(DeviceType type, string name)

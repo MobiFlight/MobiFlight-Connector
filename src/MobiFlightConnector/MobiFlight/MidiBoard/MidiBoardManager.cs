@@ -296,7 +296,7 @@ namespace MobiFlight
             VirtualButtonEvents.ResolveTimings = resolver;
         }
 
-        public MidiBoard GetMidiBoardBySerial(string serial)
+        public virtual MidiBoard GetMidiBoardBySerial(string serial)
         {
             MidiBoard result = null;
             result = MidiBoards.Find(mb => mb.Serial == serial);

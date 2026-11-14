@@ -506,20 +506,8 @@ namespace MobiFlight
                 MobiFlightModule module = GetModuleBySerial(serial);
                 if (module == null) return;
 
-                if (name != null && name.Contains("|")) {
-                    var pins = name.Split('|');
-                    foreach(string pin in pins) {
-                        if (!string.IsNullOrEmpty(pin.Trim()))
-                        {
-                            var iValue = (Int32)Math.Round(Double.Parse(value));
-                            module.SetPin("base", pin, iValue);
-                        }
-                    };
-                } else
-                {
-                    var iValue = (Int32)Math.Round(Double.Parse(value));
-                    module.SetPin("base", name, iValue);
-                }
+                var iValue = (Int32)Math.Round(Double.Parse(value));
+                module.SetPin("base", name, iValue);
 
             }
             catch (FormatException e)
