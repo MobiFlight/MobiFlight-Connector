@@ -113,7 +113,7 @@ const openWizardAndReturnActionPanel = async (
 
   await openDialogForRow(configListPage, page, row)
   const actionPanel = page.getByTestId("action-panel")
-  
+
   // expect it to become visible
   // this ensures that react render has completed and, e.g., useEffects have run
   await expect(actionPanel).toBeVisible()
@@ -184,7 +184,7 @@ test.describe("General Input Config Wizard Tests", () => {
     const menuItem = contextMenu.getByRole("menuitem", { name: "Edit" })
     await expect(menuItem).toBeVisible()
     await menuItem.click()
-    
+
     await expect(page.getByTestId("configwizard-dialog")).toBeVisible()
   })
 
@@ -203,7 +203,7 @@ test.describe("General Input Config Wizard Tests", () => {
     })
     await addInputConfigButton.click()
     await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction")
-    
+
     await expect(page.getByTestId("configwizard-dialog")).toBeVisible()
   })
 
@@ -603,7 +603,7 @@ test.describe("Input Config Wizard - Trigger Panel", () => {
     await configListPage.mobiFlightPage.trackCommand("CommandScanForInput")
 
     await openDialogForRow(configListPage, page, 1)
-    
+
     const triggerPanel = page.getByTestId("trigger-panel")
     await expect(triggerPanel).toBeVisible()
 
@@ -956,7 +956,7 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
     const preconditionEditButton = preconditionsPanel.getByRole("button", {
       name: "Preconditions",
     })
-    
+
     await openDialogForRow(configListPage, page, 1)
     await expect(preconditionsPanel).toBeVisible()
     await expect(preconditionEditButton).toBeVisible()
@@ -1064,9 +1064,9 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
   }) => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
-    
+
     const dialog = await openDialogForRow(configListPage, page, 1)
-    
+
     const panel = dialog.getByTestId("precondition-panel")
     const editor = page.getByTestId("precondition-editor")
 
@@ -1089,7 +1089,7 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
     const preconditionEditButton = preconditionsPanel.getByRole("button", {
       name: "Preconditions",
     })
-    
+
     await openDialogForRow(configListPage, page, 1)
     await expect(preconditionEditButton).toBeVisible()
     await preconditionEditButton.click()

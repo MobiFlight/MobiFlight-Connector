@@ -86,6 +86,12 @@ const ModifiersPanel = ({
           configItem={configItem}
           title={t("Dialog.Modifiers.Editor.TestPanel.Title")}
           description={t("Dialog.Modifiers.Editor.TestPanel.Description")}
+          onTestValueChange={(value) => {
+            onConfigChange({
+              ...configItem,
+              TestValue: value
+            })
+          }}
         />
       )}
     </div>
