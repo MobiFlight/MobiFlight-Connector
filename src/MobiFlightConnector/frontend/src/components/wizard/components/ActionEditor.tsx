@@ -11,7 +11,7 @@ import JeehellInputActionPanel from "@/components/wizard/components/InputActions
 import KeyboardInputActionPanel from "@/components/wizard/components/InputActions/KeyboardInputActionPanel"
 import LuaMacroInputActionPanel from "@/components/wizard/components/InputActions/LuaMacroInputActionPanel"
 import MsfsPresetPanel from "@/components/wizard/common/MsfsPresetPanel"
-import ProSimInputActionPanel from "@/components/wizard/components/InputActions/ProSimInputActionPanel"
+import ProSimPresetPanel from "@/components/wizard/components/InputActions/ProSimInputActionPanel"
 import RetriggerPanel from "@/components/wizard/components/InputActions/RetriggerPanel"
 import { VariablePanel } from "@/components/wizard/common/VariablePanel"
 import VJoyInputActionPanel from "@/components/wizard/components/InputActions/VJoyInputActionPanel"
@@ -38,6 +38,7 @@ import { useTranslation } from "react-i18next"
 import {
   msfsInputActionAdapter,
   xplaneInputActionAdapter,
+  proSimInputActionAdapter,
 } from "@/types/presets"
 import DrawerBreadcrumb from "@/components/wizard/common/DrawerTitle"
 export interface ActionEditorProps {
@@ -134,7 +135,7 @@ export const ActionSummary = ({ action }: ActionSummaryProps) => {
           />
         )}
         {selectedActionType?.value === "ProSimInputAction" && (
-          <ProSimInputActionPanel
+          <ProSimPresetPanel
             mode="InputConfigItem"
             variant="summary"
             config={action ? (action as ProSimInputAction) : null}
@@ -266,10 +267,11 @@ const ActionPanel = ({
       )
     case "ProSimInputAction":
       return (
-        <ProSimInputActionPanel
+        <ProSimPresetPanel
           mode="InputConfigItem"
           variant="details"
-          config={action ? (action as ProSimInputAction) : null}
+          adapter={proSimInputActionAdapter}
+          config={(action as ProSimInputAction)}
           onConfigChange={(config) =>
             onActionChange({
               ...(action as ProSimInputAction),

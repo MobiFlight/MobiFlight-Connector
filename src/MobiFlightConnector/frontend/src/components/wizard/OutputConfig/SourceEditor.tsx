@@ -3,7 +3,6 @@ import WizardSection from "@/components/wizard/common/WizardSection"
 import { FsuipcOffsetPanel } from "@/components/wizard/components/InputActions/FsuipcOffsetInputActionPanel"
 import { VariablePanel } from "@/components/wizard/common/VariablePanel"
 import MsfsPresetPanel from "@/components/wizard/common/MsfsPresetPanel"
-import ProSimSourcePanel from "@/components/wizard/OutputConfig/Sources/ProSimSourcePanel"
 import SourceTypeComboBox from "@/components/wizard/OutputConfig/SourceTypeComboBox"
 import { SourceTypeOptions } from "@/lib/configWizard"
 import {
@@ -19,6 +18,7 @@ import { useTranslation } from "react-i18next"
 import { msfsSourceAdapter, xplaneSourceAdapter } from "@/types/presets"
 import XplanePresetPanel from "@/components/wizard/common/XplanePresetPanel"
 import DrawerBreadcrumb from "@/components/wizard/common/DrawerTitle"
+import ProSimPresetsPanel from "@/components/wizard/components/InputActions/ProsimDataRefPanel"
 
 export interface SourceEditorProps {
   configName: string
@@ -131,9 +131,17 @@ const SourceEditor = ({
         </WizardSection>
       )}
       {selectedSourceType?.value === "ProSimSource" && (
-        <ProSimSourcePanel
-          source={source as ProSimSource}
-          onSourceChange={onSourceChange}
+        <ProSimPresetsPanel
+          mode={"OutputConfigItem"}
+          selectedPath={(source as ProSimSource).ProSimDataRef.Path}
+          onPresetChange={(prosimDataRef) => {
+            onSourceChange({
+              ...source,
+              ProSimDataRef: {
+                Path: prosimDataRef.Name,
+              },
+            } as ProSimSource)
+          }}
         />
       )}
     </div>

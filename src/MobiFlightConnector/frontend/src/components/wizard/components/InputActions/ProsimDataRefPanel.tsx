@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
+import WizardSection from "@/components/wizard/common/WizardSection"
 import messageExchange from "@/lib/messageExchange"
 import { cn } from "@/lib/utils"
 import {
@@ -17,7 +18,7 @@ export type ProSimDataRefPanelProps = {
   onPresetChange: (preset: ProSimDataRefDefinition) => void
 }
 
-const ProSimDataRefPanel = ({
+const ProSimPresetsPanel = ({
   mode,
   selectedPath,
   onPresetChange,
@@ -43,6 +44,7 @@ const ProSimDataRefPanel = ({
   })
 
   const refreshPresets = () => {
+    console.log("Refreshing ProSim presets")
     publish({
       key: "CommandRefreshPresets",
       payload: {
@@ -52,10 +54,12 @@ const ProSimDataRefPanel = ({
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <WizardSection>
       <SectionHeadline
         title={t("Dialog.InputConfigWizard.InputActions.Common.Preset.Title")}
-        description={t("Dialog.InputConfigWizard.InputActions.Common.Preset.Description")}
+        description={t(
+          "Dialog.InputConfigWizard.InputActions.Common.Preset.Description",
+        )}
       />
       {filteredPresets.length > 0 ? (
         <div className="flex flex-col gap-4">
@@ -108,8 +112,7 @@ const ProSimDataRefPanel = ({
           </Button>
         </div>
       )}
-      <div></div>
-    </div>
+    </WizardSection>
   )
 }
-export default ProSimDataRefPanel
+export default ProSimPresetsPanel

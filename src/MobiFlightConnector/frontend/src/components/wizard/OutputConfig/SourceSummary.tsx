@@ -8,7 +8,7 @@ import { IconEdit, IconTrash } from "@tabler/icons-react"
 import { msfsSourceAdapter, xplaneSourceAdapter } from "@/types/presets"
 import XplanePresetPanel from "@/components/wizard/common/XplanePresetPanel"
 import { useTranslation } from "react-i18next"
-import ProSimInputActionPanel from "@/components/wizard/components/InputActions/ProSimInputActionPanel"
+import ProSimPresetPanel from "@/components/wizard/components/InputActions/ProSimInputActionPanel"
 import { VariablePanel } from "@/components/wizard/common/VariablePanel"
 
 export interface SourceSummaryProps {
@@ -84,7 +84,7 @@ const SourceSummary = ({
           )}
 
           {source.Type === "ProSimSource" && (
-            <ProSimInputActionPanel
+            <ProSimPresetPanel
               mode="OutputConfigItem"
               variant="summary"
               config={

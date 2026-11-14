@@ -1,3 +1,5 @@
+import { ProSimDataRefDefinition } from "@/stores/prosimDataRefStore"
+
 export type Preset = {
   id: string
   vendor: string
@@ -58,3 +60,17 @@ export type XplaneOutputPresetAdapter<T> = PresetAdapter<T, XplanePreset> & {
 export type XplanePresetAdapter<T> =
   | XplaneInputPresetAdapter<T>
   | XplaneOutputPresetAdapter<T>
+
+export type ProSimOutputPresetAdapter<T> = PresetAdapter<T, ProSimDataRefDefinition> & {
+  mode: "output"
+}
+
+export type ProSimInputPresetAdapter<T> = PresetAdapter<T, ProSimDataRefDefinition> & {
+  mode: "input"
+  getValue: (config: T) => string | null | undefined
+  withValue: (config: T, value: string) => T
+}
+
+export type ProSimPresetAdapter<T> =
+  | ProSimInputPresetAdapter<T>
+  | ProSimOutputPresetAdapter<T>

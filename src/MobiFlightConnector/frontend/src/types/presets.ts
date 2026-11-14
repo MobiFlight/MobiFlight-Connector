@@ -1,6 +1,15 @@
-import { MsfsInputAction, SimConnectSource, XplaneInputAction, XplaneSource } from "@/types/config"
+import {
+  MsfsInputAction,
+  ProSimInputAction,
+  ProSimSource,
+  SimConnectSource,
+  XplaneInputAction,
+  XplaneSource,
+} from "@/types/config"
 import type {
   MsfsPresetAdapter,
+  ProSimInputPresetAdapter,
+  ProSimOutputPresetAdapter,
   XplaneInputPresetAdapter,
   XplaneOutputPresetAdapter,
 } from "@/types/preset"
@@ -25,7 +34,7 @@ export const msfsSourceAdapter: MsfsPresetAdapter<SimConnectSource> = {
   // SimConnectValue is spread, so properties like VarType are kept.
   withPreset: (source, preset) =>
     ({
-      ...source,  
+      ...source,
       SimConnectValue: {
         ...source.SimConnectValue,
         UUID: preset?.id ?? null,
@@ -38,22 +47,23 @@ export const msfsSourceAdapter: MsfsPresetAdapter<SimConnectSource> = {
   }),
 }
 
-export const xplaneInputActionAdapter: XplaneInputPresetAdapter<XplaneInputAction> = {
-  mode: "input",
-  getPresetId: (action) => action.Path,
-  getCode: (action) => action.Path,
-  getCodeType: (action) => action.InputType,
-  getValue: (action) => action.Expression,
-  withPreset: (action, preset) =>
-    ({
-      ...action,
-      Path: preset?.code ?? null,
-      InputType: preset?.codeType ?? null,
-    }) as XplaneInputAction,
-  withCode: (action, code) => ({ ...action, Path: code }),
-  withCodeType: (action, codeType) => ({ ...action, InputType: codeType }),
-  withValue: (action, value) => ({ ...action, Expression: value }),
-}
+export const xplaneInputActionAdapter: XplaneInputPresetAdapter<XplaneInputAction> =
+  {
+    mode: "input",
+    getPresetId: (action) => action.Path,
+    getCode: (action) => action.Path,
+    getCodeType: (action) => action.InputType,
+    getValue: (action) => action.Expression,
+    withPreset: (action, preset) =>
+      ({
+        ...action,
+        Path: preset?.code ?? null,
+        InputType: preset?.codeType ?? null,
+      }) as XplaneInputAction,
+    withCode: (action, code) => ({ ...action, Path: code }),
+    withCodeType: (action, codeType) => ({ ...action, InputType: codeType }),
+    withValue: (action, value) => ({ ...action, Expression: value }),
+  }
 
 export const xplaneSourceAdapter: XplaneOutputPresetAdapter<XplaneSource> = {
   mode: "output",
@@ -71,5 +81,37 @@ export const xplaneSourceAdapter: XplaneOutputPresetAdapter<XplaneSource> = {
   withCode: (source, code) => ({
     ...source,
     XplaneDataRef: { ...source.XplaneDataRef, Path: code },
-  })
+  }),
+}
+
+export const proSimInputActionAdapter: ProSimInputPresetAdapter<ProSimInputAction> =
+  {
+    mode: "input",
+    getPresetId: (action) => action.Path,
+    getCode: (action) => action.Path,
+    getValue: (action) => action.Expression,
+    withPreset: (action, preset) =>
+      ({
+        ...action,
+        Path: preset?.Name ?? null,
+      }) as ProSimInputAction,
+    withCode: (action, code) => ({ ...action, Path: code }),
+    withValue: (action, value) => ({ ...action, Expression: value }),
+  }
+
+export const proSimSourceAdapter: ProSimOutputPresetAdapter<ProSimSource> = {
+  mode: "output",
+  getPresetId: (source) => source.ProSimDataRef.Path,
+  getCode: (source) => source.ProSimDataRef.Path,
+  withPreset: (source, preset) =>
+    ({
+      ...source,
+      ProSimDataRef: {
+        Path: preset?.Name,
+      },
+    }) as ProSimSource,
+  withCode: (source, code) => ({
+    ...source,
+    ProSimDataRef: { ...source.ProSimDataRef, Path: code },
+  }),
 }

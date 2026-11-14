@@ -195,29 +195,19 @@ export const useBackendStateAppMessages = () => {
     ) {
       ;(async () => {
         const testProject = (
-          await import("@/../tests/data/project.testdata.json", {
-            with: { type: "json" },
-          })
+          await import("@/../tests/data/project.testdata.json")
         ).default as Project
         const testJsDefinitions = (
-          await import("@/../tests/data/joystick.definition.json", {
-            with: { type: "json" },
-          })
+          await import("@/../tests/data/joystick.definition.json")
         ).default as JoystickDefinition[]
         const testMidiDefinition = (
-          await import("@/../tests/data/midicontroller.definition.json", {
-            with: { type: "json" },
-          })
+          await import("@/../tests/data/midicontroller.definition.json")
         ).default as MidiControllerDefinition
         const testRecentProjects = (
-          await import("@/../tests/data/recentProjects.testdata.json", {
-            with: { type: "json" },
-          })
+          await import("@/../tests/data/recentProjects.testdata.json")
         ).default as ProjectInfo[]
         const testControllers = (
-          await import("@/../tests/data/connectedControllers.testdata.json", {
-            with: { type: "json" },
-          })
+          await import("@/../tests/data/connectedControllers.testdata.json")
         ).default as Controller[]
 
         setProject(testProject)
