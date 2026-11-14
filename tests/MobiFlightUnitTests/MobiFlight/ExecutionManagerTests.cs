@@ -1374,6 +1374,23 @@ namespace MobiFlight.Tests
             var result2 = executors.Count;
             Assert.AreEqual(0, result2);
         }
+
+        [TestMethod]
+        public void ExecuteTestOn_AppliesActiveModifiersToTestValue()
+        {
+            var cfg = new OutputConfigItem
+            {
+                TestValue = new ConnectorValue { type = FSUIPCOffsetType.Float, Float64 = 1 }
+            };
+            cfg.Modifiers.Items.Add(new Modifier.Transformation { Active = true, Expression = "$*100" });
+            cfg.Modifiers.Items.Add(new Modifier.Transformation { Active = false, Expression = "$+5" });
+
+            _executionManager.ExecuteTestOn(cfg);
+
+            Assert.AreEqual("1", cfg.RawValue, "RawValue should be the unmodified test value");
+            Assert.AreEqual("100", cfg.Value, "Value should have only the active modifiers applied, once");
+        }
+
             private static OutputConfigItem CreateTestTarget(IDeviceConfig device, string serial = "SN-1", string guid = "guid-1")
         {
             return new OutputConfigItem

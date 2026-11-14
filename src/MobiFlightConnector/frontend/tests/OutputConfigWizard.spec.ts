@@ -1225,6 +1225,25 @@ test.describe("Output Config Wizard - Device Test Panel", () => {
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands ?? []).toHaveLength(0)
   })
+
+  test("Test value is saved with the config", async ({
+    configListPage,
+    page,
+  }) => {
+    await openWizardForRow(configListPage, page, ROW.Output)
+    await page.getByTestId("action-panel").getByRole("button").last().click()
+
+    const deviceEditor = page.getByTestId("output-device-editor")
+    const testValueInput = deviceEditor.getByPlaceholder("Enter raw value")
+    await testValueInput.clear()
+    // typed key by key, so the intermediate "1." must not lose its dot
+    await testValueInput.pressSequentially("1.5")
+    await expect(testValueInput).toHaveValue("1.5")
+    await closeDrawer(page)
+
+    const payload = await applyChangesAndReturnPayload(configListPage, page)
+    expect(payload.item.TestValue).toMatchObject({ Float64: 1.5 })
+  })
 })
 
 test.describe("Output Config Wizard - Output Device", () => {
