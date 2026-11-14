@@ -317,6 +317,44 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod]
+        public void CommandFileContextMenu_Export_DoesNotChangeProject()
+        {
+            // Arrange
+            var configItem1 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Active = false };
+            var project = new Project();
+            project.ConfigFiles.Add(new ConfigFile()
+            {
+                Label = "First Config",
+                ConfigItems = { configItem1 }
+            });
+            project.ConfigFiles.Add(new ConfigFile()
+            {
+                Label = "Second Config"
+            });
+
+            _executionManager.Project = project;
+
+            var configHasChanged = false;
+            _executionManager.OnConfigHasChanged += (sender, e) => configHasChanged = true;
+
+            var message = new CommandFileContextMenu
+            {
+                Action = CommandFileContextMenuAction.export,
+                Index = 1,
+                File = project.ConfigFiles[1]
+            };
+
+            // Act
+            MessageExchange.Instance.Publish(message);
+
+            // Assert
+            Assert.HasCount(2, project.ConfigFiles);
+            Assert.AreEqual("First Config", project.ConfigFiles[0].Label);
+            Assert.AreEqual("Second Config", project.ConfigFiles[1].Label);
+            Assert.IsFalse(configHasChanged, "Exporting a profile must not mark the project as changed");
+        }
+
+        [TestMethod]
         public void GetAvailableVariables_ReturnsVariablesFromActiveConfigFile()
         {
             // Arrange

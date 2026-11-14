@@ -16,6 +16,7 @@ import {
   IconArrowLeft,
   IconArrowRight,
   IconDotsVertical,
+  IconFileExport,
   IconPencil,
   IconTrash,
 } from "@tabler/icons-react"
@@ -104,6 +105,21 @@ const ProfileTabContextMenu = ({
               publish({
                 key: "CommandFileContextMenu",
                 payload: {
+                  action: "export",
+                  index: index,
+                  file: file,
+                },
+              } as CommandFileContextMenu)
+            }}
+          >
+            <IconFileExport />
+            {t("Project.File.Action.Export")}
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => {
+              publish({
+                key: "CommandFileContextMenu",
+                payload: {
                   action: "remove",
                   index: index,
                   file: file,
@@ -114,21 +130,6 @@ const ProfileTabContextMenu = ({
             <IconTrash />
             {t("Project.File.Action.Remove")}
           </DropdownMenuItem>
-          {/* <DropdownMenuItem
-              onClick={() => {
-                publish({
-                  key: "CommandFileContextMenu",
-                  payload: {
-                    action: "export",
-                    index: index,
-                    file: file,
-                  },
-                } as CommandFileContextMenu)
-              }}
-            >
-              <IconFileExport />
-              {t("Project.File.Action.Export")}
-            </DropdownMenuItem> */}
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

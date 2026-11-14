@@ -630,7 +630,8 @@ namespace MobiFlight
                     case CommandFileContextMenuAction.export:
                         // this is not subscribed here
                         // see MainForm.cs for the subscription there.
-                        break;
+                        // Exporting doesn't change the project.
+                        return;
                     case CommandFileContextMenuAction.moveLeft:
                     case CommandFileContextMenuAction.moveRight:
                         // Issue 3205: swap the profile with its neighbour
