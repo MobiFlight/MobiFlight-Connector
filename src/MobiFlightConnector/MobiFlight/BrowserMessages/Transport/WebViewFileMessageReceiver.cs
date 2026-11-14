@@ -1,7 +1,7 @@
 using Microsoft.Web.WebView2.Core;
+using MobiFlight.BrowserMessages.Incoming;
 using MobiFlight.WebView;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Linq;
 
@@ -57,28 +57,22 @@ namespace MobiFlight.BrowserMessages.Transport
         }
 
         /// <summary>
-        /// Returns the message with <paramref name="filePath"/> set as <c>payload.options.filePath</c>.
+        /// Returns the <see cref="CommandMainMenu"/> message with <paramref name="filePath"/> set as <c>payload.options.filePath</c>.
         /// </summary>
-        /// <exception cref="JsonException">The message is not a JSON object.</exception>
+        /// <exception cref="JsonException">The message is not a valid <see cref="CommandMainMenu"/> message.</exception>
         internal static string AddFilePath(string messageJson, string filePath)
         {
-            var message = JObject.Parse(messageJson);
+            var message = JsonConvert.DeserializeObject<Message<CommandMainMenu>>(messageJson);
 
-            if (message["payload"] is not JObject payload)
+            if (message?.payload == null)
             {
-                payload = new JObject();
-                message["payload"] = payload;
+                throw new JsonSerializationException("The message has no CommandMainMenu payload.");
             }
 
-            if (payload["options"] is not JObject options)
-            {
-                options = new JObject();
-                payload["options"] = options;
-            }
+            message.payload.Options ??= new CommandMainMenuOptions();
+            message.payload.Options.FilePath = filePath;
 
-            options["filePath"] = filePath;
-
-            return message.ToString(Formatting.None);
+            return JsonConvert.SerializeObject(message, Formatting.None);
         }
     }
 }

@@ -30,10 +30,10 @@ namespace MobiFlightUnitTests.MobiFlight.BrowserMessages.Transport
         }
 
         [TestMethod]
-        public void AddFilePath_ShouldKeepOtherOptions_WhenPayloadHasOptions()
+        public void AddFilePath_ShouldReplaceFilePath_WhenPayloadHasOptions()
         {
             // Arrange
-            var messageJson = "{\"key\":\"CommandMainMenu\",\"payload\":{\"action\":\"file.open\",\"options\":{\"filePath\":\"ignored.mfproj\",\"other\":42}}}";
+            var messageJson = "{\"key\":\"CommandMainMenu\",\"payload\":{\"action\":\"file.open\",\"options\":{\"filePath\":\"ignored.mfproj\"}}}";
 
             // Act
             var result = WebViewFileMessageReceiver.AddFilePath(messageJson, FilePath);
@@ -41,21 +41,16 @@ namespace MobiFlightUnitTests.MobiFlight.BrowserMessages.Transport
             // Assert
             var message = JsonConvert.DeserializeObject<Message<CommandMainMenu>>(result);
             Assert.AreEqual(FilePath, message.payload.Options.FilePath);
-            Assert.Contains("\"other\":42", result);
         }
 
         [TestMethod]
-        public void AddFilePath_ShouldAddPayload_WhenMessageHasNoPayload()
+        public void AddFilePath_ShouldThrowJsonException_WhenMessageHasNoPayload()
         {
             // Arrange
             var messageJson = "{\"key\":\"CommandMainMenu\"}";
 
-            // Act
-            var result = WebViewFileMessageReceiver.AddFilePath(messageJson, FilePath);
-
-            // Assert
-            var message = JsonConvert.DeserializeObject<Message<CommandMainMenu>>(result);
-            Assert.AreEqual(FilePath, message.payload.Options.FilePath);
+            // Act & Assert
+            Assert.Throws<JsonException>(() => WebViewFileMessageReceiver.AddFilePath(messageJson, FilePath));
         }
 
         [TestMethod]
@@ -65,7 +60,7 @@ namespace MobiFlightUnitTests.MobiFlight.BrowserMessages.Transport
             var messageJson = "\"file.open\"";
 
             // Act & Assert
-            Assert.ThrowsExactly<JsonReaderException>(() => WebViewFileMessageReceiver.AddFilePath(messageJson, FilePath));
+            Assert.Throws<JsonException>(() => WebViewFileMessageReceiver.AddFilePath(messageJson, FilePath));
         }
 
         #endregion
