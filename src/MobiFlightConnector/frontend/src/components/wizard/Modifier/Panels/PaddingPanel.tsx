@@ -16,6 +16,7 @@ export const PaddingPanelTrigger = ({ modifier }: { modifier: Padding }) => {
       <div className="flex flex-row items-center gap-2 text-sm">
         <Trans
           i18nKey="ConfigWizard.Modifiers.Type.Padding.Summary"
+          ns="wizard"
           values={{
             length: modifier.Length,
             character:

@@ -43,6 +43,7 @@ export const InterpolationPanelTrigger = ({
       <div className="flex flex-row items-center gap-1 text-sm">
         <Trans
           i18nKey="ConfigWizard.Modifiers.Type.Interpolation.Summary"
+          ns="wizard"
           components={{ badge: <Badge variant={"secondary"} /> }}
           values={{
             count: summaryInfo.mappings,

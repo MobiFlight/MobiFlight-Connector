@@ -18,6 +18,7 @@ export const SubstringPanelTrigger = ({
       </div>
       <Trans
         i18nKey="ConfigWizard.Modifiers.Type.Substring.Summary"
+        ns="wizard"
         values={{ start: modifier.Start, end: modifier.End }}
         components={{ badge: <Badge variant="secondary" /> }}
       />

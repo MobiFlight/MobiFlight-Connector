@@ -44,6 +44,7 @@ export const BlinkPanelTrigger = ({ modifier }: { modifier: Blink }) => {
       <div className="flex flex-row items-center gap-2 text-sm">
         <Trans
           i18nKey="ConfigWizard.Modifiers.Type.Blink.Summary"
+          ns="wizard"
           values={{
             blinkValue: modifier.BlinkValue,
             on: blinkValues.length > 0 ? `${blinkValues[0].on}` : "",
@@ -121,7 +122,9 @@ export const BlinkPanelContent = ({
           <TableHeader>
             <TableRow>
               <TableHead>{t("ConfigWizard.Modifiers.Type.Blink.On")}</TableHead>
-              <TableHead>{t("ConfigWizard.Modifiers.Type.Blink.Off")}</TableHead>
+              <TableHead>
+                {t("ConfigWizard.Modifiers.Type.Blink.Off")}
+              </TableHead>
               <TableHead>
                 <span className="sr-only">
                   {t("ConfigWizard.Modifiers.Type.Blink.Action")}

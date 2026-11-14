@@ -33,15 +33,11 @@ export const VariablePanel = ({
   const variableTypeOptions = [
     {
       value: "number",
-      label: t(
-        "ConfigWizard.Input.InputActions.Variable.VariableType.Number",
-      ),
+      label: t("ConfigWizard.Input.InputActions.Variable.VariableType.Number"),
     },
     {
       value: "string",
-      label: t(
-        "ConfigWizard.Input.InputActions.Variable.VariableType.String",
-      ),
+      label: t("ConfigWizard.Input.InputActions.Variable.VariableType.String"),
     },
   ]
   const { variables } = useVariableStore()
@@ -69,9 +65,7 @@ export const VariablePanel = ({
       <div className="flex grow flex-row items-center gap-2">
         <div className="flex w-1/2 flex-col gap-1">
           <Label htmlFor="variable">
-            {t(
-              "ConfigWizard.Input.InputActions.Variable.VariableNameLabel",
-            )}
+            {t("ConfigWizard.Input.InputActions.Variable.VariableNameLabel")}
           </Label>
           <div className="flex flex-row items-center gap-2">
             <span className="text-sm">{variable.Name}</span>
@@ -85,9 +79,7 @@ export const VariablePanel = ({
             </Label>
             <CodeValueLabel id="code" className="max-w-100">
               {variable.Expression ??
-                t(
-                  "ConfigWizard.Input.InputActions.Variable.ExpressionNone",
-                )}
+                t("ConfigWizard.Input.InputActions.Variable.ExpressionNone")}
             </CodeValueLabel>
           </div>
         )}
@@ -99,9 +91,7 @@ export const VariablePanel = ({
     <WizardSection>
       <SectionHeadline
         title={t("ConfigWizard.Input.InputActions.Variable.Title")}
-        description={t(
-          "ConfigWizard.Input.InputActions.Variable.Description",
-        )}
+        description={t("ConfigWizard.Input.InputActions.Variable.Description")}
       />
       <div className="flex flex-col gap-4">
         <Label>
@@ -125,9 +115,7 @@ export const VariablePanel = ({
         <div className="flex flex-row gap-2">
           <div className="flex flex-col gap-2">
             <Label>
-              {t(
-                "ConfigWizard.Input.InputActions.Variable.VariableTypeLabel",
-              )}
+              {t("ConfigWizard.Input.InputActions.Variable.VariableTypeLabel")}
             </Label>
             <ComboBox
               widthClass="w-26"
@@ -155,9 +143,7 @@ export const VariablePanel = ({
           </div>
           <div className="flex flex-col gap-2">
             <Label>
-              {t(
-                "ConfigWizard.Input.InputActions.Variable.VariableNameLabel",
-              )}
+              {t("ConfigWizard.Input.InputActions.Variable.VariableNameLabel")}
             </Label>
             <Input
               className="max-w-50 truncate"
@@ -176,9 +162,7 @@ export const VariablePanel = ({
           {mode === "InputConfigItem" && variable && (
             <div className="flex flex-col gap-2">
               <Label>
-                {t(
-                  "ConfigWizard.Input.InputActions.Variable.ExpressionLabel",
-                )}
+                {t("ConfigWizard.Input.InputActions.Variable.ExpressionLabel")}
               </Label>
               <Input
                 className="font-mono text-sm whitespace-nowrap"
@@ -197,7 +181,10 @@ export const VariablePanel = ({
                 )}
               />
               <div className="text-muted-foreground text-sm">
-                <Trans i18nKey="ConfigWizard.Input.InputActions.Variable.ExpressionHelp">
+                <Trans
+                  i18nKey="ConfigWizard.Input.InputActions.Variable.ExpressionHelp"
+                  ns="wizard"
+                >
                   Use <code>$</code> to represent the variable value in
                   expressions, e.g. <code>$ * 2</code> to double a number
                   variable.

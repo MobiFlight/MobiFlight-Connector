@@ -22,6 +22,7 @@ export const ComparisonPanelTrigger = ({
         <Trans
           shouldUnescape={true}
           i18nKey="ConfigWizard.Modifiers.Type.Comparison.Summary"
+          ns="wizard"
           values={{
             operator: modifier.Operand,
             value: modifier.Value,
