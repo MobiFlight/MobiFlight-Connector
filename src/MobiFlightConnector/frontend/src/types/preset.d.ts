@@ -1,4 +1,5 @@
 import { ProSimDataRefDefinition } from "@/stores/prosimDataRefStore"
+import { ConfigItemType } from "@/types/config"
 
 export type Preset = {
   id: string
@@ -30,7 +31,7 @@ type PresetCodeType = "DataRef" | "Command"
 // Where the preset values live in each saved config shape.
 // Base for all sims: only what every preset panel needs.
 export type PresetAdapter<T, P = Preset> = {
-  mode: "input" | "output"
+  mode: ConfigItemType
   getPresetId: (config: T) => string | null | undefined
   getCode: (config: T) => string | null | undefined
   withPreset: (config: T, preset: P | null) => T
@@ -44,7 +45,7 @@ export type MsfsPresetAdapter<T> = PresetAdapter<T>
 // X-Plane input actions can be a DataRef or a Command,
 // and a DataRef input writes a value.
 export type XplaneInputPresetAdapter<T> = PresetAdapter<T, XplanePreset> & {
-  mode: "input"
+  mode: "InputConfigItem"
   getCodeType: (config: T) => PresetCodeType | null | undefined
   withCodeType: (config: T, codeType: PresetCodeType) => T
   getValue: (config: T) => string | null | undefined
@@ -53,7 +54,7 @@ export type XplaneInputPresetAdapter<T> = PresetAdapter<T, XplanePreset> & {
 
 // X-Plane outputs always read a DataRef.
 export type XplaneOutputPresetAdapter<T> = PresetAdapter<T, XplanePreset> & {
-  mode: "output"
+  mode: "OutputConfigItem"
   getCodeType: (config: T) => "DataRef"
 }
 
@@ -62,11 +63,11 @@ export type XplanePresetAdapter<T> =
   | XplaneOutputPresetAdapter<T>
 
 export type ProSimOutputPresetAdapter<T> = PresetAdapter<T, ProSimDataRefDefinition> & {
-  mode: "output"
+  mode: "OutputConfigItem"
 }
 
 export type ProSimInputPresetAdapter<T> = PresetAdapter<T, ProSimDataRefDefinition> & {
-  mode: "input"
+  mode: "InputConfigItem"
   getValue: (config: T) => string | null | undefined
   withValue: (config: T, value: string) => T
 }

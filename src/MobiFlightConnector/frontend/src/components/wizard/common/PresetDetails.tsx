@@ -6,10 +6,11 @@ import { IconExclamationCircle } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 import XplanePresetCustomize from "@/components/wizard/common/XplanePresetCustomize"
 import MsfsPresetCustomize from "@/components/wizard/common/MsfsPresetCustomize"
+import { ConfigItemType } from "@/types/config"
 
 export interface PresetDetailsProps {
   sim: "xplane" | "msfs"
-  mode: "input" | "output"
+  mode: ConfigItemType
   preset: XplanePreset | Preset | null
   code: string | null
   value?: string | null

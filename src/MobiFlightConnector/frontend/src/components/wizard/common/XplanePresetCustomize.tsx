@@ -2,6 +2,7 @@ import ComboBox from "@/components/ComboBox"
 import Input from "@/components/Input"
 import { Label } from "@/components/ui/label"
 import { useTranslation } from "react-i18next"
+import { ConfigItemType } from "@/types/config"
 
 const INPUT_CODE_TYPE_OPTIONS: ("DataRef" | "Command")[] = [
   "DataRef",
@@ -11,7 +12,7 @@ const OUTPUT_CODE_TYPE_OPTIONS: "DataRef"[] = ["DataRef"]
 
 
 type XplanePresetCustomizeProps = {
-  mode: "input" | "output"
+  mode: ConfigItemType
   codeType: "DataRef" | "Command" | null
   code: string | null
   value?: string | null
@@ -40,7 +41,7 @@ const XplanePresetCustomize = ({
           </Label>
           <ComboBox
             items={
-              mode === "input"
+              mode === "InputConfigItem"
                 ? INPUT_CODE_TYPE_OPTIONS
                 : OUTPUT_CODE_TYPE_OPTIONS
             }
@@ -78,7 +79,7 @@ const XplanePresetCustomize = ({
           </div>
         </div>
       </div>
-      {(mode == "input" && codeType === "DataRef") && (
+      {(mode == "InputConfigItem" && codeType === "DataRef") && (
         <div className="flex flex-col gap-1">
           <Label htmlFor="value">
             {t(`Dialog.InputConfigWizard.InputActions.Xplane.ValueLabel`)}

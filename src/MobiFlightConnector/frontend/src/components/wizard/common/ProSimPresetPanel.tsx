@@ -23,7 +23,7 @@ export const ProSimPresetPanel = <T,>({
   const { t } = useTranslation()
   const path = adapter.getPresetId(config) || null
   const value =
-    adapter.mode === "input" ? (adapter.getValue(config) ?? null) : null
+    adapter.mode === "InputConfigItem" ? (adapter.getValue(config) ?? null) : null
 
   if (variant === "summary") {
     return (
@@ -37,7 +37,7 @@ export const ProSimPresetPanel = <T,>({
               t("Dialog.InputConfigWizard.InputActions.ProSim.NoPresetSelected")}
           </div>
         </div>
-        {adapter.mode === "input" && (
+        {adapter.mode === "InputConfigItem" && (
           <div className="flex w-1/2 flex-col gap-1">
             <Label htmlFor="code">
               {t("Dialog.InputConfigWizard.InputActions.ProSim.ParameterLabel")}
@@ -83,7 +83,7 @@ export const ProSimPresetPanel = <T,>({
               t("Dialog.InputConfigWizard.InputActions.ProSim.NoPresetSelected")}
           </div>
         </div>
-        {adapter.mode === "input" && (
+        {adapter.mode === "InputConfigItem" && (
           <div className="flex flex-col gap-2">
             <Label htmlFor="param">
               {t("Dialog.InputConfigWizard.InputActions.ProSim.ParameterLabel")}

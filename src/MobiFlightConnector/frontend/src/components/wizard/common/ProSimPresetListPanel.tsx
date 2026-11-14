@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { ConfigItemType } from "@/types/config"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import WizardSection from "@/components/wizard/common/WizardSection"
 import messageExchange from "@/lib/messageExchange"
@@ -12,7 +13,7 @@ import { useState } from "react"
 import { useTranslation } from "react-i18next"
 
 export type ProSimDataRefPanelProps = {
-  mode: "input" | "output"
+  mode: ConfigItemType
   selectedPath: string | null
   onPresetChange: (preset: ProSimDataRefDefinition) => void
 }
@@ -32,8 +33,8 @@ const ProSimPresetListPanel = ({
   })
 
   const filteredPresets = Object.values(dataRefs).filter((preset) => {
-    if (mode === "input" && !preset.CanWrite) return false
-    if (mode === "output" && !preset.CanRead) return false
+    if (mode === "InputConfigItem" && !preset.CanWrite) return false
+    if (mode === "OutputConfigItem" && !preset.CanRead) return false
     if (
       filter.search &&
       !preset.Description.toLowerCase().includes(filter.search.toLowerCase())

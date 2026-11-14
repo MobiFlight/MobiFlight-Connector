@@ -15,8 +15,9 @@ import { useTranslation } from "react-i18next"
 import LoadingSpinner from "@/components/wizard/common/LoadingSpinner"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import { useHubHopPresets } from "@/lib/hooks/useHubHopPresets"
+import { ConfigItemType } from "@/types/config"
 
-type PresetPanelMode = "input" | "output"
+type PresetPanelMode = ConfigItemType
 
 
 type PresetSettings = {
@@ -27,16 +28,16 @@ type PresetSettings = {
 const presetPanelSettings: Record<"msfs" | "xplane", PresetSettings> = {
   msfs: {
     presetTypes: {
-      input: ["input", "input (potentiometer)"],
-      output: ["output"],
+      InputConfigItem: ["input", "input (potentiometer)"],
+      OutputConfigItem: ["output"],
     },
     getKey: (preset) => preset.id,
   },
   xplane: {
     presetTypes: {
       // DataRefs can be read and written, so "inputoutput" presets fit both modes.
-      input: ["input", "inputoutput", "input (potentiometer)"],
-      output: ["output", "inputoutput"],
+      InputConfigItem: ["input", "inputoutput", "input (potentiometer)"],
+      OutputConfigItem: ["output", "inputoutput"],
     },
     getKey: (preset) => preset.code,
   },
@@ -44,7 +45,7 @@ const presetPanelSettings: Record<"msfs" | "xplane", PresetSettings> = {
 
 export type PresetPanelProps = {
   sim: PresetSim
-  mode: "input" | "output"
+  mode: ConfigItemType
   isLoading: boolean
   selectedPresetId: string | null
   setSelectedPreset: (preset: Preset | XplanePreset | null) => void
