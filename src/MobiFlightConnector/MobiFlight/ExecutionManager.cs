@@ -1058,6 +1058,7 @@ namespace MobiFlight
         public void TestModeStop()
         {
             testModeTimer.Stop();
+            wizardTestTimer.Stop();
 
             // make sure every device is turned off
             mobiFlightCache.Stop();
@@ -1477,7 +1478,7 @@ namespace MobiFlight
             {
                 try
                 {
-                    ExecuteTestOn(currentConfig as OutputConfigItem, (currentConfig as OutputConfigItem).TestValue);
+                    ExecuteTestOn(currentConfig as OutputConfigItem);
                 }
                 catch (IndexOutOfRangeException ex)
                 {
@@ -1560,19 +1561,7 @@ namespace MobiFlight
 
             try
             {
-                var configRefs = cfg.ConfigRefs
-                    .Where(r => r.Active)
-                    .Select(r => new ConfigRefValue(r, r.TestValue))
-                    .ToList();
-                var value = cfg.TestValue;
-                foreach (var modifier in cfg.Modifiers.Items.Where(m => m.Active))
-                {
-                    value = modifier.Apply(value, configRefs);
-                }
-
-                cfg.RawValue = cfg.TestValue.ToString();
-                cfg.Value = value.ToString();
-                ExecuteTestOn(cfg, value);
+                ExecuteTestOn(cfg);
             }
             catch (Exception e)
             {
@@ -1582,12 +1571,30 @@ namespace MobiFlight
             }
         }
 
-        public void ExecuteTestOn(OutputConfigItem cfg, ConnectorValue value = null)
+        public void ExecuteTestOn(OutputConfigItem cfg)
         {
             // for the case that this is an individual test
             // without MobiFlight in Run-mode nor in test mode
             // in all other cases it will already be running
             mobiFlightCache.StartKeepAwake();
+
+            var value = cfg.TestValue;
+            var configRefs = cfg.ConfigRefs
+                    .Where(r => r.Active)
+                    .Select(r => new ConfigRefValue(r, r.TestValue))
+                    .ToList();
+
+            // For testing, the test value is the raw value
+            cfg.RawValue = value.ToString();
+            
+            // All modifiers are now also applied during testing.
+            foreach (var modifier in cfg.Modifiers.Items.Where(m => m.Active))
+            {
+                value = modifier.Apply(value, configRefs);
+            }
+
+            // Like always, the modified result is the final value
+            cfg.Value = value.ToString();
 
             var executor = new ConfigItemExecutor(ConfigItems,
                                                   arcazeCache,
