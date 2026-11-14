@@ -107,7 +107,7 @@ export const proSimSourceAdapter: ProSimOutputPresetAdapter<ProSimSource> = {
     ({
       ...source,
       ProSimDataRef: {
-        Path: preset?.Name,
+        Path: preset?.Name ?? "",
       },
     }) as ProSimSource,
   withCode: (source, code) => ({

@@ -29,7 +29,7 @@ type PresetCodeType = "DataRef" | "Command"
 
 // Where the preset values live in each saved config shape.
 // Base for all sims: only what every preset panel needs.
-export type PresetAdapter<T, P extends Preset = Preset> = {
+export type PresetAdapter<T, P = Preset> = {
   mode: "input" | "output"
   getPresetId: (config: T) => string | null | undefined
   getCode: (config: T) => string | null | undefined

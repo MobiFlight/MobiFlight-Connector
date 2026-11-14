@@ -3,30 +3,27 @@ import { Label } from "@/components/ui/label"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import WizardSection from "@/components/wizard/common/WizardSection"
 import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
-import ProSimPresetsPanel from "@/components/wizard/components/InputActions/ProsimDataRefPanel"
-import { ConfigItemType, ProSimInputAction } from "@/types/config"
-import { ProSimInputPresetAdapter, ProSimPresetAdapter } from "@/types/preset"
+import ProSimPresetListPanel from "@/components/wizard/components/InputActions/ProSimPresetListPanel"
+import { ProSimPresetAdapter } from "@/types/preset"
 import { useTranslation } from "react-i18next"
 
-export type ProSimInputActionPanelProps<T> = {
+export type ProSimPresetPanelProps<T> = {
   variant: "summary" | "details"
-  mode: ConfigItemType
-  config: T
   adapter: ProSimPresetAdapter<T>
-  onConfigChange: (config: ProSimInputAction) => void
+  config: T
+  onConfigChange?: (config: T) => void
 }
 
 const ProSimPresetPanel = <T,>({
   variant,
-  config,
-  mode,
   adapter,
+  config,
   onConfigChange,
-}: ProSimInputActionPanelProps<T>) => {
+}: ProSimPresetPanelProps<T>) => {
   const { t } = useTranslation()
-  const value = adapter.mode === "input" ? adapter.getValue(config) : null
-  const getValue = adapter.mode === "input" ? adapter.getValue : null
-
+  const path = adapter.getPresetId(config) || null
+  const value =
+    adapter.mode === "input" ? (adapter.getValue(config) ?? null) : null
 
   if (variant === "summary") {
     return (
@@ -36,24 +33,18 @@ const ProSimPresetPanel = <T,>({
             {t("Dialog.InputConfigWizard.InputActions.ProSim.PathLabel")}:
           </Label>
           <div className="text-sm">
-            {adapter.getPresetId(config)
-              ? adapter.getPresetId(config)
-              : t(
-                  "Dialog.InputConfigWizard.InputActions.ProSim.NoPresetSelected",
-                )}
+            {path ??
+              t("Dialog.InputConfigWizard.InputActions.ProSim.NoPresetSelected")}
           </div>
         </div>
-        {mode === "InputConfigItem" && (
+        {adapter.mode === "input" && (
           <div className="flex w-1/2 flex-col gap-1">
             <Label htmlFor="code">
               {t("Dialog.InputConfigWizard.InputActions.ProSim.ParameterLabel")}
             </Label>
             <CodeValueLabel id="code">
-              {value
-                ? value
-                : t(
-                    "Dialog.InputConfigWizard.InputActions.ProSim.ParameterNone",
-                  )}
+              {value ||
+                t("Dialog.InputConfigWizard.InputActions.ProSim.ParameterNone")}
             </CodeValueLabel>
           </div>
         )}
@@ -63,17 +54,13 @@ const ProSimPresetPanel = <T,>({
 
   return (
     <div className="flex flex-col gap-4">
-      <ProSimPresetsPanel
-        mode={mode}
-        selectedPath={config?.Path ?? null}
+      <ProSimPresetListPanel
+        mode={adapter.mode}
+        selectedPath={path}
         onPresetChange={(preset) =>
-          onConfigChange({
-            ...(config as ProSimInputAction),
-            Path: preset.Name,
-          } as ProSimInputAction)
+          onConfigChange?.(adapter.withPreset(config, preset))
         }
       />
-      {/* ProSim Preset Details Panel */}
       <WizardSection>
         <SectionHeadline
           title={t(
@@ -92,14 +79,11 @@ const ProSimPresetPanel = <T,>({
             className="rounded border p-2 text-sm"
             data-testid="prosim-path"
           >
-            {config?.Path && config?.Path !== ""
-              ? config?.Path
-              : t(
-                  "Dialog.InputConfigWizard.InputActions.ProSim.NoPresetSelected",
-                )}
+            {path ??
+              t("Dialog.InputConfigWizard.InputActions.ProSim.NoPresetSelected")}
           </div>
         </div>
-        {mode === "InputConfigItem" && (
+        {adapter.mode === "input" && (
           <div className="flex flex-col gap-2">
             <Label htmlFor="param">
               {t("Dialog.InputConfigWizard.InputActions.ProSim.ParameterLabel")}
@@ -110,11 +94,9 @@ const ProSimPresetPanel = <T,>({
               placeholder={t(
                 "Dialog.InputConfigWizard.InputActions.ProSim.ParameterPlaceholder",
               )}
-              value={getValue?.(config) ?? undefined}
+              value={value ?? ""}
               onChange={(e) =>
-                adapter.mode === "input"
-                  ? onConfigChange?.(adapter.withValue(config, e.target.value))
-                  : undefined
+                onConfigChange?.(adapter.withValue(config, e.target.value))
               }
             />
           </div>

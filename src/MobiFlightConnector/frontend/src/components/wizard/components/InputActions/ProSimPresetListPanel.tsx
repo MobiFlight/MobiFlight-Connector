@@ -8,17 +8,16 @@ import {
   ProSimDataRefDefinition,
   useProSimDataRefStore,
 } from "@/stores/prosimDataRefStore"
-import { ConfigItemType } from "@/types/config"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 
 export type ProSimDataRefPanelProps = {
-  mode: ConfigItemType
+  mode: "input" | "output"
   selectedPath: string | null
   onPresetChange: (preset: ProSimDataRefDefinition) => void
 }
 
-const ProSimPresetsPanel = ({
+const ProSimPresetListPanel = ({
   mode,
   selectedPath,
   onPresetChange,
@@ -33,8 +32,8 @@ const ProSimPresetsPanel = ({
   })
 
   const filteredPresets = Object.values(dataRefs).filter((preset) => {
-    if (mode === "InputConfigItem" && !preset.CanWrite) return false
-    if (mode === "OutputConfigItem" && !preset.CanRead) return false
+    if (mode === "input" && !preset.CanWrite) return false
+    if (mode === "output" && !preset.CanRead) return false
     if (
       filter.search &&
       !preset.Description.toLowerCase().includes(filter.search.toLowerCase())
@@ -44,7 +43,6 @@ const ProSimPresetsPanel = ({
   })
 
   const refreshPresets = () => {
-    console.log("Refreshing ProSim presets")
     publish({
       key: "CommandRefreshPresets",
       payload: {
@@ -115,4 +113,4 @@ const ProSimPresetsPanel = ({
     </WizardSection>
   )
 }
-export default ProSimPresetsPanel
+export default ProSimPresetListPanel

@@ -15,10 +15,14 @@ import {
 } from "@/types/config"
 import { SourceDefaults } from "@/types/defaults"
 import { useTranslation } from "react-i18next"
-import { msfsSourceAdapter, xplaneSourceAdapter } from "@/types/presets"
+import {
+  msfsSourceAdapter,
+  proSimSourceAdapter,
+  xplaneSourceAdapter,
+} from "@/types/presets"
 import XplanePresetPanel from "@/components/wizard/common/XplanePresetPanel"
 import DrawerBreadcrumb from "@/components/wizard/common/DrawerTitle"
-import ProSimPresetsPanel from "@/components/wizard/components/InputActions/ProsimDataRefPanel"
+import ProSimPresetPanel from "@/components/wizard/components/InputActions/ProSimPresetPanel"
 
 export interface SourceEditorProps {
   configName: string
@@ -131,17 +135,11 @@ const SourceEditor = ({
         </WizardSection>
       )}
       {selectedSourceType?.value === "ProSimSource" && (
-        <ProSimPresetsPanel
-          mode={"OutputConfigItem"}
-          selectedPath={(source as ProSimSource).ProSimDataRef.Path}
-          onPresetChange={(prosimDataRef) => {
-            onSourceChange({
-              ...source,
-              ProSimDataRef: {
-                Path: prosimDataRef.Name,
-              },
-            } as ProSimSource)
-          }}
+        <ProSimPresetPanel
+          variant="details"
+          adapter={proSimSourceAdapter}
+          config={source as ProSimSource}
+          onConfigChange={onSourceChange}
         />
       )}
     </div>

@@ -11,7 +11,7 @@ import JeehellInputActionPanel from "@/components/wizard/components/InputActions
 import KeyboardInputActionPanel from "@/components/wizard/components/InputActions/KeyboardInputActionPanel"
 import LuaMacroInputActionPanel from "@/components/wizard/components/InputActions/LuaMacroInputActionPanel"
 import MsfsPresetPanel from "@/components/wizard/common/MsfsPresetPanel"
-import ProSimPresetPanel from "@/components/wizard/components/InputActions/ProSimInputActionPanel"
+import ProSimPresetPanel from "@/components/wizard/components/InputActions/ProSimPresetPanel"
 import RetriggerPanel from "@/components/wizard/components/InputActions/RetriggerPanel"
 import { VariablePanel } from "@/components/wizard/common/VariablePanel"
 import VJoyInputActionPanel from "@/components/wizard/components/InputActions/VJoyInputActionPanel"
@@ -136,10 +136,9 @@ export const ActionSummary = ({ action }: ActionSummaryProps) => {
         )}
         {selectedActionType?.value === "ProSimInputAction" && (
           <ProSimPresetPanel
-            mode="InputConfigItem"
             variant="summary"
-            config={action ? (action as ProSimInputAction) : null}
-            onConfigChange={() => {}}
+            adapter={proSimInputActionAdapter}
+            config={action as ProSimInputAction}
           />
         )}
         {selectedActionType?.value === "LuaMacroInputAction" && (
@@ -268,16 +267,10 @@ const ActionPanel = ({
     case "ProSimInputAction":
       return (
         <ProSimPresetPanel
-          mode="InputConfigItem"
           variant="details"
           adapter={proSimInputActionAdapter}
-          config={(action as ProSimInputAction)}
-          onConfigChange={(config) =>
-            onActionChange({
-              ...(action as ProSimInputAction),
-              ...config,
-            } as ProSimInputAction)
-          }
+          config={action as ProSimInputAction}
+          onConfigChange={(c) => onActionChange(c)}
         />
       )
     case "LuaMacroInputAction":

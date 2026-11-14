@@ -1,14 +1,18 @@
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
-import { ProSimInputAction, Source } from "@/types/config"
+import { Source } from "@/types/config"
 import { FsuipcOffsetSummary } from "@/components/wizard/components/InputActions/FsuipcOffsetInputActionPanel"
 import MsfsPresetPanel from "@/components/wizard/common/MsfsPresetPanel"
 import { Badge } from "@/components/ui/badge"
 import { IconEdit, IconTrash } from "@tabler/icons-react"
-import { msfsSourceAdapter, xplaneSourceAdapter } from "@/types/presets"
+import {
+  msfsSourceAdapter,
+  proSimSourceAdapter,
+  xplaneSourceAdapter,
+} from "@/types/presets"
 import XplanePresetPanel from "@/components/wizard/common/XplanePresetPanel"
 import { useTranslation } from "react-i18next"
-import ProSimPresetPanel from "@/components/wizard/components/InputActions/ProSimInputActionPanel"
+import ProSimPresetPanel from "@/components/wizard/components/InputActions/ProSimPresetPanel"
 import { VariablePanel } from "@/components/wizard/common/VariablePanel"
 
 export interface SourceSummaryProps {
@@ -85,12 +89,9 @@ const SourceSummary = ({
 
           {source.Type === "ProSimSource" && (
             <ProSimPresetPanel
-              mode="OutputConfigItem"
               variant="summary"
-              config={
-                { Path: source.ProSimDataRef?.Path ?? "" } as ProSimInputAction
-              }
-              onConfigChange={() => {}}
+              adapter={proSimSourceAdapter}
+              config={source}
             />
           )}
         </div>
