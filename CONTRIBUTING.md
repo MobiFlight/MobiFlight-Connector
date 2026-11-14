@@ -14,7 +14,7 @@ Open a [feature request issue](https://github.com/MobiFlight/MobiFlight-Connecto
 
 We use pull requests for code contributions. If you are new to this workflow, GitHub's [contributing to a project](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project) guide is a good starting point.
 
-For setting up the development environment and compiling MobiFlight, see the [frontend README](src/MobiFlightConnector/frontend/README.md), it covers the whole development setup.
+For setting up the development environment and compiling MobiFlight, see the [frontend README](src/MobiFlightConnector/frontend/README.md), it covers the whole development setup, including the optional git-ignored `Directory.Build.local.props` for personal build settings (for example a custom build output path when the repository lives in WSL).
 
 ### Translations
 
