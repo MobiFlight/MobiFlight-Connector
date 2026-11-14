@@ -102,6 +102,7 @@ const ConfigWizardDialog = ({ configId }: ConfigWizardDialogProps) => {
   const hasChanged = () => {
     return !_.isEqual(committedConfigItem, draftConfigItem)
   }
+  const isDirty = hasChanged()
 
   useEffect(() => {
     setTimeout(() => {
@@ -224,11 +225,13 @@ const ConfigWizardDialog = ({ configId }: ConfigWizardDialogProps) => {
           </div>
           <div className="flex flex-row gap-2">
             <Button variant="outline" onClick={closeDialog}>
-              {t("Dialog.General.Cancel")}
+              {isDirty ? t("Dialog.General.Cancel") : t("Dialog.General.Close")}
             </Button>
-            <Button variant="default" onClick={saveChanges}>
-              {t("Dialog.General.ApplyChanges")}
-            </Button>
+            {isDirty && (
+              <Button variant="default" onClick={saveChanges}>
+                {t("Dialog.General.ApplyChanges")}
+              </Button>
+            )}
           </div>
         </DialogFooter>
       </DialogContent>
