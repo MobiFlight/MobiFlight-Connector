@@ -14,20 +14,20 @@ const PresetSummary = ({ label, code }: PresetSummaryProps) => {
     <div className="flex flex-row gap-2">
       <div className="flex w-1/2 max-w-1/2 flex-col gap-1">
         <Label>
-          {t("Dialog.InputConfigWizard.InputActions.Common.Preset.Label")}:
+          {t("ConfigWizard.Input.InputActions.Common.Preset.Label")}:
         </Label>
         <div className="text-sm truncate">
           {label ??
-            t("Dialog.InputConfigWizard.InputActions.Common.Preset.Custom")}
+            t("ConfigWizard.Input.InputActions.Common.Preset.Custom")}
         </div>
       </div>
       <div className="flex w-1/2 max-w-1/2 flex-col gap-1">
         <Label>
-          {t("Dialog.InputConfigWizard.InputActions.Common.CodeLabel")}
+          {t("ConfigWizard.Input.InputActions.Common.CodeLabel")}
         </Label>
         <CodeValueLabel className="max-w-50 lg:max-w-100">
           {code ||
-            t("Dialog.InputConfigWizard.InputActions.Common.Preset.Code.None")}
+            t("ConfigWizard.Input.InputActions.Common.Preset.Code.None")}
         </CodeValueLabel>
       </div>
     </div>

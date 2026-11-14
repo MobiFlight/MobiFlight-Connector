@@ -22,7 +22,7 @@ const CopyPasteActionPanel = ({
   return (
     <div className="flex flex-row gap-2">
       <Button
-        title={t("Dialog.InputConfigWizard.Action.Copy")}
+        title={t("ConfigWizard.Input.Action.Copy")}
         size="sm"
         className="[&_svg]:size-5 px-2"
         variant="ghost"
@@ -33,7 +33,7 @@ const CopyPasteActionPanel = ({
         <div className="text-sm">{t("General.Copy")}</div>
       </Button>
       <Button
-        title={t("Dialog.InputConfigWizard.Action.Paste")}
+        title={t("ConfigWizard.Input.Action.Paste")}
         size="sm"
         className="[&_svg]:size-5 px-2 flex flex-row items-center gap-1"
         variant="ghost"

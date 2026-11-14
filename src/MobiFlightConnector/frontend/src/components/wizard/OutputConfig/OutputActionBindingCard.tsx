@@ -36,8 +36,8 @@ const OutputActionBindingCard = ({
       <CardContent className="flex flex-col gap-2 py-4">
         <div className="flex flex-row items-center justify-between gap-2">
           <SectionHeadline
-            title={t(`Dialog.InputConfigWizard.Action.Title`)}
-            description={t(`Dialog.InputConfigWizard.Action.Description`)}
+            title={t(`ConfigWizard.Input.Action.Title`)}
+            description={t(`ConfigWizard.Input.Action.Description`)}
           />
           {hasOutputDevice && (
             <Button size={"sm"} variant="ghost" onClick={onRemoveOutputDevice}>

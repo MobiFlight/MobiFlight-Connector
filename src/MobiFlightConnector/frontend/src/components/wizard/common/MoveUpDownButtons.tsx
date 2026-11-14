@@ -11,7 +11,7 @@ type MoveUpDownButtonsProps = {
 }
 
 type MoveUpDownButtonsI18nPrefix =
-  | "Dialog.InputConfigWizard.PreconditionEditor"
+  | "ConfigWizard.Input.PreconditionEditor"
   | "Dialog.Modifiers.Editor"
 
 const MoveUpDownButtons = ({

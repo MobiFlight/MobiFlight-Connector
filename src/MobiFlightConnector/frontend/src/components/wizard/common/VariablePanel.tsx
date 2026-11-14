@@ -34,13 +34,13 @@ export const VariablePanel = ({
     {
       value: "number",
       label: t(
-        "Dialog.InputConfigWizard.InputActions.Variable.VariableType.Number",
+        "ConfigWizard.Input.InputActions.Variable.VariableType.Number",
       ),
     },
     {
       value: "string",
       label: t(
-        "Dialog.InputConfigWizard.InputActions.Variable.VariableType.String",
+        "ConfigWizard.Input.InputActions.Variable.VariableType.String",
       ),
     },
   ]
@@ -49,7 +49,7 @@ export const VariablePanel = ({
     if (!currentVariable) {
       onVariableChange({
         ...defaultVariable,
-        Name: t("Dialog.InputConfigWizard.InputActions.Variable.DefaultName"),
+        Name: t("ConfigWizard.Input.InputActions.Variable.DefaultName"),
       })
     }
   }, [onVariableChange, currentVariable, t])
@@ -70,7 +70,7 @@ export const VariablePanel = ({
         <div className="flex w-1/2 flex-col gap-1">
           <Label htmlFor="variable">
             {t(
-              "Dialog.InputConfigWizard.InputActions.Variable.VariableNameLabel",
+              "ConfigWizard.Input.InputActions.Variable.VariableNameLabel",
             )}
           </Label>
           <div className="flex flex-row items-center gap-2">
@@ -81,12 +81,12 @@ export const VariablePanel = ({
         {mode === "InputConfigItem" && (
           <div className="flex w-1/2 flex-col gap-1">
             <Label htmlFor="code">
-              {t("Dialog.InputConfigWizard.InputActions.Variable.ExpressionLabel")}
+              {t("ConfigWizard.Input.InputActions.Variable.ExpressionLabel")}
             </Label>
             <CodeValueLabel id="code" className="max-w-100">
               {variable.Expression ??
                 t(
-                  "Dialog.InputConfigWizard.InputActions.Variable.ExpressionNone",
+                  "ConfigWizard.Input.InputActions.Variable.ExpressionNone",
                 )}
             </CodeValueLabel>
           </div>
@@ -98,14 +98,14 @@ export const VariablePanel = ({
   return (
     <WizardSection>
       <SectionHeadline
-        title={t("Dialog.InputConfigWizard.InputActions.Variable.Title")}
+        title={t("ConfigWizard.Input.InputActions.Variable.Title")}
         description={t(
-          "Dialog.InputConfigWizard.InputActions.Variable.Description",
+          "ConfigWizard.Input.InputActions.Variable.Description",
         )}
       />
       <div className="flex flex-col gap-4">
         <Label>
-          {t("Dialog.InputConfigWizard.InputActions.Variable.ExistingVariable")}
+          {t("ConfigWizard.Input.InputActions.Variable.ExistingVariable")}
         </Label>
         <ComboBox
           items={availableVariables}
@@ -126,7 +126,7 @@ export const VariablePanel = ({
           <div className="flex flex-col gap-2">
             <Label>
               {t(
-                "Dialog.InputConfigWizard.InputActions.Variable.VariableTypeLabel",
+                "ConfigWizard.Input.InputActions.Variable.VariableTypeLabel",
               )}
             </Label>
             <ComboBox
@@ -156,7 +156,7 @@ export const VariablePanel = ({
           <div className="flex flex-col gap-2">
             <Label>
               {t(
-                "Dialog.InputConfigWizard.InputActions.Variable.VariableNameLabel",
+                "ConfigWizard.Input.InputActions.Variable.VariableNameLabel",
               )}
             </Label>
             <Input
@@ -169,7 +169,7 @@ export const VariablePanel = ({
                 } as MobiFlightVariable)
               }}
               placeholder={t(
-                "Dialog.InputConfigWizard.InputActions.Variable.VariableNamePlaceholder",
+                "ConfigWizard.Input.InputActions.Variable.VariableNamePlaceholder",
               )}
             />
           </div>
@@ -177,7 +177,7 @@ export const VariablePanel = ({
             <div className="flex flex-col gap-2">
               <Label>
                 {t(
-                  "Dialog.InputConfigWizard.InputActions.Variable.ExpressionLabel",
+                  "ConfigWizard.Input.InputActions.Variable.ExpressionLabel",
                 )}
               </Label>
               <Input
@@ -193,11 +193,11 @@ export const VariablePanel = ({
                   } as MobiFlightVariable)
                 }
                 placeholder={t(
-                  "Dialog.InputConfigWizard.InputActions.Variable.ExpressionPlaceholder",
+                  "ConfigWizard.Input.InputActions.Variable.ExpressionPlaceholder",
                 )}
               />
               <div className="text-muted-foreground text-sm">
-                <Trans i18nKey="Dialog.InputConfigWizard.InputActions.Variable.ExpressionHelp">
+                <Trans i18nKey="ConfigWizard.Input.InputActions.Variable.ExpressionHelp">
                   Use <code>$</code> to represent the variable value in
                   expressions, e.g. <code>$ * 2</code> to double a number
                   variable.

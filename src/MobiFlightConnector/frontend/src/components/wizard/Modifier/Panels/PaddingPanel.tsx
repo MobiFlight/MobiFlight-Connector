@@ -101,7 +101,7 @@ export const PaddingPanelContent = ({
               setSelectedDirection(item ? item : null)
             }}
             searchPlaceholder={t(
-              "Dialog.InputConfigWizard.InputActions.Common.SearchPresets",
+              "ConfigWizard.Input.InputActions.Common.SearchPresets",
             )}
             variant="nofilter"
             widthClass="w-32"

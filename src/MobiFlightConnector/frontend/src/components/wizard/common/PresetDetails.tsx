@@ -37,10 +37,10 @@ const PresetDetails = ({
     <WizardSection data-testid="preset-code-panel">
       <SectionHeadline
         title={t(
-          "Dialog.InputConfigWizard.InputActions.Common.Preset.Code.Title",
+          "ConfigWizard.Input.InputActions.Common.Preset.Code.Title",
         )}
         description={t(
-          "Dialog.InputConfigWizard.InputActions.Common.Preset.Code.Description",
+          "ConfigWizard.Input.InputActions.Common.Preset.Code.Description",
         )}
       />
       <div className="flex flex-col gap-4">
@@ -52,7 +52,7 @@ const PresetDetails = ({
               <IconExclamationCircle className="text-primary fill-background" />
               <div className="text-primary text-sm">
                 {t(
-                  "Dialog.InputConfigWizard.InputActions.Common.Preset.Code.Customized",
+                  "ConfigWizard.Input.InputActions.Common.Preset.Code.Customized",
                 )}
               </div>
             </div>

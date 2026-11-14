@@ -26,7 +26,7 @@ const LuaMacroInputActionPanel = ({
           <div className="flex w-1/3 flex-col gap-1">
             <Label htmlFor="macroName">
               {t(
-                "Dialog.InputConfigWizard.InputActions.LuaMacro.MacroNameLabel",
+                "ConfigWizard.Input.InputActions.LuaMacro.MacroNameLabel",
               )}
             </Label>
             <div className="text-sm">{config?.MacroName ?? "-"}</div>
@@ -34,7 +34,7 @@ const LuaMacroInputActionPanel = ({
           <div className="flex w-1/3 flex-col gap-1">
             <Label htmlFor="macroValue">
               {t(
-                "Dialog.InputConfigWizard.InputActions.LuaMacro.MacroValueLabel",
+                "ConfigWizard.Input.InputActions.LuaMacro.MacroValueLabel",
               )}
             </Label>
             <CodeValueLabel className="text-sm">
@@ -49,19 +49,19 @@ const LuaMacroInputActionPanel = ({
   return (
     <WizardSection>
       <SectionHeadline
-        title={t("Dialog.InputConfigWizard.InputActions.LuaMacro.Title")}
+        title={t("ConfigWizard.Input.InputActions.LuaMacro.Title")}
         description={t(
-          "Dialog.InputConfigWizard.InputActions.LuaMacro.Description",
+          "ConfigWizard.Input.InputActions.LuaMacro.Description",
         )}
       />
       <div className="flex flex-col gap-2">
         <Label htmlFor="macroName">
-          {t("Dialog.InputConfigWizard.InputActions.LuaMacro.MacroNameLabel")}
+          {t("ConfigWizard.Input.InputActions.LuaMacro.MacroNameLabel")}
         </Label>
         <Input
           id="macroName"
           placeholder={t(
-            "Dialog.InputConfigWizard.InputActions.LuaMacro.MacroNamePlaceholder",
+            "ConfigWizard.Input.InputActions.LuaMacro.MacroNamePlaceholder",
           )}
           value={config?.MacroName ?? ""}
           onChange={(e) =>
@@ -74,12 +74,12 @@ const LuaMacroInputActionPanel = ({
       </div>
       <div className="flex flex-col gap-2">
         <Label htmlFor="macroValue">
-          {t("Dialog.InputConfigWizard.InputActions.LuaMacro.MacroValueLabel")}
+          {t("ConfigWizard.Input.InputActions.LuaMacro.MacroValueLabel")}
         </Label>
         <Input
           id="macroValue"
           placeholder={t(
-            "Dialog.InputConfigWizard.InputActions.LuaMacro.MacroValuePlaceholder",
+            "ConfigWizard.Input.InputActions.LuaMacro.MacroValuePlaceholder",
           )}
           value={config?.MacroValue ?? ""}
           onChange={(e) =>

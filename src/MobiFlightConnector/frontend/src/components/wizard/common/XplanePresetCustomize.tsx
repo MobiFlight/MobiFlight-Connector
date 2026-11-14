@@ -37,7 +37,7 @@ const XplanePresetCustomize = ({
       <div className="flex flex-row gap-2">
         <div className="flex flex-col gap-1">
           <Label>
-            {t(`Dialog.InputConfigWizard.InputActions.Xplane.InputTypeLabel`)}
+            {t(`ConfigWizard.Input.InputActions.Xplane.InputTypeLabel`)}
           </Label>
           <ComboBox
             items={
@@ -47,7 +47,7 @@ const XplanePresetCustomize = ({
             }
             selected={codeType ?? undefined}
             placeholder={t(
-              `Dialog.InputConfigWizard.InputActions.Xplane.SelectInputTypePlaceholder`,
+              `ConfigWizard.Input.InputActions.Xplane.SelectInputTypePlaceholder`,
             )}
             getLabel={(item) => item}
             getValue={(item) => item}
@@ -63,7 +63,7 @@ const XplanePresetCustomize = ({
 
         <div className="flex flex-col gap-1">
           <Label htmlFor="path">
-            {t("Dialog.InputConfigWizard.InputActions.Xplane.PathLabel")}
+            {t("ConfigWizard.Input.InputActions.Xplane.PathLabel")}
           </Label>
           <Input
             id="path"
@@ -71,18 +71,18 @@ const XplanePresetCustomize = ({
             value={code ?? ""}
             onChange={onCodeChange}
             placeholder={t(
-              "Dialog.InputConfigWizard.InputActions.Xplane.PathPlaceholder",
+              "ConfigWizard.Input.InputActions.Xplane.PathPlaceholder",
             )}
           />
           <div className="text-muted-foreground text-sm">
-            {t("Dialog.InputConfigWizard.InputActions.Xplane.PathDescription")}
+            {t("ConfigWizard.Input.InputActions.Xplane.PathDescription")}
           </div>
         </div>
       </div>
       {(mode == "InputConfigItem" && codeType === "DataRef") && (
         <div className="flex flex-col gap-1">
           <Label htmlFor="value">
-            {t(`Dialog.InputConfigWizard.InputActions.Xplane.ValueLabel`)}
+            {t(`ConfigWizard.Input.InputActions.Xplane.ValueLabel`)}
           </Label>
           <Input
             className="font-mono text-sm whitespace-nowrap"
@@ -90,12 +90,12 @@ const XplanePresetCustomize = ({
             value={value ?? ""}
             onChange={(value) => onValueChange?.(value)}
             placeholder={t(
-              `Dialog.InputConfigWizard.InputActions.Xplane.ValuePlaceholder`,
+              `ConfigWizard.Input.InputActions.Xplane.ValuePlaceholder`,
             )}
           />
           <div className="text-muted-foreground text-sm">
             {t(
-              `Dialog.InputConfigWizard.InputActions.Common.SupportedPlaceholders`,
+              `ConfigWizard.Input.InputActions.Common.SupportedPlaceholders`,
             )}
           </div>
         </div>

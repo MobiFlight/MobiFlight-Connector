@@ -135,10 +135,10 @@ const PresetPanel = ({
         <div className="flex flex-row items-end justify-between">
           <SectionHeadline
             title={t(
-              "Dialog.InputConfigWizard.InputActions.Common.Preset.Title",
+              "ConfigWizard.Input.InputActions.Common.Preset.Title",
             )}
             description={t(
-              "Dialog.InputConfigWizard.InputActions.Common.Preset.Description",
+              "ConfigWizard.Input.InputActions.Common.Preset.Description",
             )}
           />
           <div className="flex flex-row items-center gap-2">
@@ -148,7 +148,7 @@ const PresetPanel = ({
             ></Switch>
             <Label>
               {t(
-                "Dialog.InputConfigWizard.InputActions.Common.Preset.ProjectAircraftOnly",
+                "ConfigWizard.Input.InputActions.Common.Preset.ProjectAircraftOnly",
               )}
             </Label>
           </div>
@@ -158,7 +158,7 @@ const PresetPanel = ({
           <div className="grid grid-cols-4 gap-2">
             <Input
               placeholder={t(
-                "Dialog.InputConfigWizard.InputActions.Common.FilterPresets",
+                "ConfigWizard.Input.InputActions.Common.FilterPresets",
               )}
               value={filter.search}
               onChange={(e) =>
@@ -170,7 +170,7 @@ const PresetPanel = ({
               widthClass="flex-1"
               selected={filter?.vendor}
               placeholder={t(
-                "Dialog.InputConfigWizard.InputActions.Common.FilterByVendor",
+                "ConfigWizard.Input.InputActions.Common.FilterByVendor",
               )}
               getLabel={(item) => item}
               getValue={(item) => item}
@@ -180,14 +180,14 @@ const PresetPanel = ({
                 setFilter((prev) => ({ ...prev, vendor: item || "" }))
               }}
               searchPlaceholder={t(
-                "Dialog.InputConfigWizard.InputActions.Common.SearchVendors",
+                "ConfigWizard.Input.InputActions.Common.SearchVendors",
               )}
             />
             <ComboBox
               align="start"
               widthClass="flex-1"
               placeholder={t(
-                "Dialog.InputConfigWizard.InputActions.Common.FilterByAircraft",
+                "ConfigWizard.Input.InputActions.Common.FilterByAircraft",
               )}
               getLabel={(item) => item}
               getValue={(item) => item}
@@ -198,14 +198,14 @@ const PresetPanel = ({
                 setFilter((prev) => ({ ...prev, aircraft: item || "" }))
               }}
               searchPlaceholder={t(
-                "Dialog.InputConfigWizard.InputActions.Common.SearchAircraft",
+                "ConfigWizard.Input.InputActions.Common.SearchAircraft",
               )}
             />
             <ComboBox
               align="start"
               widthClass="flex-1"
               placeholder={t(
-                "Dialog.InputConfigWizard.InputActions.Common.FilterBySystem",
+                "ConfigWizard.Input.InputActions.Common.FilterBySystem",
               )}
               getLabel={(item) => `${item}`}
               getValue={(item) => item}
@@ -216,13 +216,13 @@ const PresetPanel = ({
                 setFilter((prev) => ({ ...prev, system: item || "" }))
               }}
               searchPlaceholder={t(
-                "Dialog.InputConfigWizard.InputActions.Common.SearchSystems",
+                "ConfigWizard.Input.InputActions.Common.SearchSystems",
               )}
             />
           </div>
           <div className="flex flex-row items-center justify-between">
             <div role="status" className="px-2 py-2 text-sm">
-              {t("Dialog.InputConfigWizard.InputActions.Common.PresetsFound", {
+              {t("ConfigWizard.Input.InputActions.Common.PresetsFound", {
                 count: filteredPresets.length,
               })}
             </div>

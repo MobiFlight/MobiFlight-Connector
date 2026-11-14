@@ -60,7 +60,7 @@ const KeyboardShortCut = ({ keys }: { keys: KeyInputAction }) => {
         <Kbd>{keys?.Code?.replace("Key", "")}</Kbd>
       ) : (
         <span className="text-sm">
-          {t("Dialog.InputConfigWizard.InputActions.Keyboard.None")}
+          {t("ConfigWizard.Input.InputActions.Keyboard.None")}
         </span>
       )}
     </KbdGroup>
@@ -130,7 +130,7 @@ const KeyboardInputActionPanel = ({
     return (
       <div className="flex flex-col gap-1">
         <Label htmlFor="preset">
-          {t("Dialog.InputConfigWizard.InputActions.Keyboard.KeyComboLabel")}
+          {t("ConfigWizard.Input.InputActions.Keyboard.KeyComboLabel")}
         </Label>
         <div className="text-sm">
           <KeyboardShortCut keys={config ?? emptyConfig} />
@@ -142,9 +142,9 @@ const KeyboardInputActionPanel = ({
   return (
     <WizardSection>
       <SectionHeadline
-        title={t("Dialog.InputConfigWizard.InputActions.Keyboard.Title")}
+        title={t("ConfigWizard.Input.InputActions.Keyboard.Title")}
         description={t(
-          "Dialog.InputConfigWizard.InputActions.Keyboard.Description",
+          "ConfigWizard.Input.InputActions.Keyboard.Description",
         )}
       />
       <div
@@ -156,15 +156,15 @@ const KeyboardInputActionPanel = ({
         <div className="flex flex-row gap-4">
           <Button onClick={handleScanForInput} size={"sm"}>
             {isScanning
-              ? t("Dialog.InputConfigWizard.InputActions.Keyboard.StopScanning")
+              ? t("ConfigWizard.Input.InputActions.Keyboard.StopScanning")
               : t(
-                  "Dialog.InputConfigWizard.InputActions.Keyboard.ScanForKeyboard",
+                  "ConfigWizard.Input.InputActions.Keyboard.ScanForKeyboard",
                 )}
           </Button>
           <div className="flex flex-row items-center gap-2">
             <div className="text-sm font-medium">
               {t(
-                "Dialog.InputConfigWizard.InputActions.Keyboard.KeyComboLabel",
+                "ConfigWizard.Input.InputActions.Keyboard.KeyComboLabel",
               )}
             </div>
             <div className="text-sm">
@@ -181,7 +181,7 @@ const KeyboardInputActionPanel = ({
             size={"sm"}
           >
             <IconTrash />
-            {t("Dialog.InputConfigWizard.InputActions.Keyboard.ClearInput")}
+            {t("ConfigWizard.Input.InputActions.Keyboard.ClearInput")}
           </Button>
         </div>
       </div>

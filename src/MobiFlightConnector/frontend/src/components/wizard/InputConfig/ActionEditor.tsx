@@ -71,17 +71,17 @@ export const ActionSummary = ({ action }: ActionSummaryProps) => {
     <>
       <div className="flex w-1/4 flex-col gap-1">
         <Label>
-          {t("Dialog.InputConfigWizard.InputActions.Common.ActionLabel")}:
+          {t("ConfigWizard.Input.InputActions.Common.ActionLabel")}:
         </Label>
         <Badge
           variant={"secondary"}
           className="w-fit"
           title={t(
-            `Dialog.InputConfigWizard.ActionType.Options.${actionTypeLabel}.label`,
+            `ConfigWizard.Input.ActionType.Options.${actionTypeLabel}.label`,
           )}
         >
           {t(
-            `Dialog.InputConfigWizard.ActionType.Options.${actionTypeLabel}.short`,
+            `ConfigWizard.Input.ActionType.Options.${actionTypeLabel}.short`,
           )}
         </Badge>
       </div>
@@ -342,16 +342,16 @@ const ButtonOnHoldOptions = ({
       <div className="flex flex-row items-center gap-2 [&_span]:text-sm">
         <span
           title={t(
-            `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.holdDelay.description`,
+            `ConfigWizard.Input.${event.variant}.Event.${event.event}.options.holdDelay.description`,
           )}
         >
           {t(
-            `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.holdDelay.label`,
+            `ConfigWizard.Input.${event.variant}.Event.${event.event}.options.holdDelay.label`,
           )}
         </span>
         <Input
           aria-label={t(
-            `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.holdDelay.label`,
+            `ConfigWizard.Input.${event.variant}.Event.${event.event}.options.holdDelay.label`,
           )}
           className="w-16"
           value={buttonOptions?.HoldDelay}
@@ -365,16 +365,16 @@ const ButtonOnHoldOptions = ({
         />
         <span
           title={t(
-            `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.repeatDelay.description`,
+            `ConfigWizard.Input.${event.variant}.Event.${event.event}.options.repeatDelay.description`,
           )}
         >
           {t(
-            `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.repeatDelay.label`,
+            `ConfigWizard.Input.${event.variant}.Event.${event.event}.options.repeatDelay.label`,
           )}
         </span>
         <Input
           aria-label={t(
-            `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.repeatDelay.label`,
+            `ConfigWizard.Input.${event.variant}.Event.${event.event}.options.repeatDelay.label`,
           )}
           className="w-16"
           value={buttonOptions?.RepeatDelay}
@@ -404,16 +404,16 @@ const ButtonOnLongReleaseOptions = ({
       <div className="flex flex-row items-center gap-2 [&_span]:text-sm">
         <span
           title={t(
-            `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.longReleaseDelay.description`,
+            `ConfigWizard.Input.${event.variant}.Event.${event.event}.options.longReleaseDelay.description`,
           )}
         >
           {t(
-            `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.longReleaseDelay.label`,
+            `ConfigWizard.Input.${event.variant}.Event.${event.event}.options.longReleaseDelay.label`,
           )}
         </span>
         <Input
           aria-label={t(
-            `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.longReleaseDelay.label`,
+            `ConfigWizard.Input.${event.variant}.Event.${event.event}.options.longReleaseDelay.label`,
           )}
           className="w-16"
           onChange={(e) => {
@@ -453,11 +453,11 @@ const ActionEditor = ({
           title={
             <DrawerBreadcrumb
               mode={mode}
-              crumbs={[configName, t("Dialog.InputConfigWizard.Action.Title"), t(`Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.label`)]}
+              crumbs={[configName, t("ConfigWizard.Input.Action.Title"), t(`ConfigWizard.Input.${event.variant}.Event.${event.event}.label`)]}
             />
           }
           description={t(
-            `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.description`,
+            `ConfigWizard.Input.${event.variant}.Event.${event.event}.description`,
           )}
         />
       </div>

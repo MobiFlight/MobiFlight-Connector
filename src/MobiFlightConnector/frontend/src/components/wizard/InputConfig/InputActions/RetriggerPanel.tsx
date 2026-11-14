@@ -15,9 +15,9 @@ const RetriggerPanel = ({ variant }: RetriggerPanelProps) => {
       <div className="flex grow flex-row items-center gap-8">
         <div className="flex grow flex-col gap-1 text-sm">
           <Label htmlFor="preset">
-            {t("Dialog.InputConfigWizard.InputActions.Retrigger.NoteLabel")}:
+            {t("ConfigWizard.Input.InputActions.Retrigger.NoteLabel")}:
           </Label>
-          {t("Dialog.InputConfigWizard.InputActions.Retrigger.Summary")}
+          {t("ConfigWizard.Input.InputActions.Retrigger.Summary")}
         </div>
       </div>
     )
@@ -26,12 +26,12 @@ const RetriggerPanel = ({ variant }: RetriggerPanelProps) => {
   return (
     <WizardSection>
       <SectionHeadline
-        title={t("Dialog.InputConfigWizard.InputActions.Retrigger.Title")}
+        title={t("ConfigWizard.Input.InputActions.Retrigger.Title")}
         description={t(
-          "Dialog.InputConfigWizard.InputActions.Retrigger.Description1",
+          "ConfigWizard.Input.InputActions.Retrigger.Description1",
         )}
         description2={t(
-          "Dialog.InputConfigWizard.InputActions.Retrigger.Description2",
+          "ConfigWizard.Input.InputActions.Retrigger.Description2",
         )}
       />
     </WizardSection>

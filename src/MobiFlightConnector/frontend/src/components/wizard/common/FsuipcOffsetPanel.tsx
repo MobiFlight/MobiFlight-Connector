@@ -50,7 +50,7 @@ export const FsuipcOffsetSummary = ({
     <div className="flex grow flex-row items-center gap-8">
       <div className="flex flex-col gap-1">
         <Label htmlFor="size">
-          {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.SizeLabel")}
+          {t("ConfigWizard.Input.InputActions.FsuipcOffset.SizeLabel")}
         </Label>
         <Badge variant="secondary" className="w-fit">
           {config.Size.toString()}
@@ -58,7 +58,7 @@ export const FsuipcOffsetSummary = ({
       </div>
       <div className="flex flex-col gap-1">
         <Label htmlFor="offset">
-          {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.OffsetLabel")}
+          {t("ConfigWizard.Input.InputActions.FsuipcOffset.OffsetLabel")}
         </Label>
         <Badge variant="secondary" className="w-fit">
           {config.Offset.toString(16).toUpperCase().padStart(4, "0")}
@@ -66,7 +66,7 @@ export const FsuipcOffsetSummary = ({
       </div>
       <div className="flex flex-col gap-1">
         <Label htmlFor="mask">
-          {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.MaskLabel")}
+          {t("ConfigWizard.Input.InputActions.FsuipcOffset.MaskLabel")}
         </Label>
         <Badge variant="secondary" className="w-fit">
           {config.Mask.toString(16).toUpperCase().padStart(4, "0")}
@@ -74,7 +74,7 @@ export const FsuipcOffsetSummary = ({
       </div>
       <div className="flex flex-col gap-1">
         <Label htmlFor="bcdMode">
-          {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.BcdModeLabel")}
+          {t("ConfigWizard.Input.InputActions.FsuipcOffset.BcdModeLabel")}
         </Label>
         <Badge variant="secondary" className="w-fit" id="bcdMode">
           {config.BcdMode ? "True" : "False"}
@@ -83,7 +83,7 @@ export const FsuipcOffsetSummary = ({
       {mode === "InputConfigItem" && (
         <div className="flex flex-col gap-1">
           <Label htmlFor="value">
-            {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.ValueLabel")}
+            {t("ConfigWizard.Input.InputActions.FsuipcOffset.ValueLabel")}
           </Label>
           <CodeValueLabel>{value ?? " "}</CodeValueLabel>
         </div>
@@ -119,7 +119,7 @@ export const FsuipcOffsetPanel = ({
     <div className="flex flex-row gap-4">
       <div className="flex flex-col gap-1">
         <Label className="text-sm font-medium" htmlFor="type">
-          {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.TypeLabel")}
+          {t("ConfigWizard.Input.InputActions.FsuipcOffset.TypeLabel")}
         </Label>
         <ComboBox
           items={FsuipcTypeOptions}
@@ -141,7 +141,7 @@ export const FsuipcOffsetPanel = ({
       </div>
       <div className="flex flex-col gap-1">
         <Label className="text-sm font-medium" htmlFor="size">
-          {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.SizeLabel")}
+          {t("ConfigWizard.Input.InputActions.FsuipcOffset.SizeLabel")}
         </Label>
         <ComboBox
           items={FsuipcSizeOptions}
@@ -161,7 +161,7 @@ export const FsuipcOffsetPanel = ({
       </div>
       <div className="flex flex-col gap-1">
         <Label className="text-sm font-medium" htmlFor="offset">
-          {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.OffsetLabel")}
+          {t("ConfigWizard.Input.InputActions.FsuipcOffset.OffsetLabel")}
         </Label>
         <Input
           onKeyDown={filterHexInput}
@@ -182,7 +182,7 @@ export const FsuipcOffsetPanel = ({
       {fsuipc.OffsetType === FSUIPC_TYPE_INTEGER && (
         <div className="flex flex-col gap-1">
           <Label className="text-sm font-medium" htmlFor="mask">
-            {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.MaskLabel")}
+            {t("ConfigWizard.Input.InputActions.FsuipcOffset.MaskLabel")}
           </Label>
           <Input
             className="field-sizing-content"
@@ -221,7 +221,7 @@ export const FsuipcOffsetPanel = ({
           />
           <Label className="text-sm font-medium" htmlFor="bcdMode">
             {t(
-              "Dialog.InputConfigWizard.InputActions.FsuipcOffset.BcdModeLabel",
+              "ConfigWizard.Input.InputActions.FsuipcOffset.BcdModeLabel",
             )}
           </Label>
         </div>

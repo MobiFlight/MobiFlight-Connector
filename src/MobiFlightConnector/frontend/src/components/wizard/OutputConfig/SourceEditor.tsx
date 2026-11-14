@@ -47,7 +47,7 @@ const SourceEditor = ({
             mode={"OutputConfigItem"}
             crumbs={[
               configName,
-              t(`Dialog.InputConfigWizard.ConfigTrigger.Title`),
+              t(`ConfigWizard.Input.ConfigTrigger.Title`),
               t("ConfigWizard.Source.Title"),
             ]}
           />
@@ -117,10 +117,10 @@ const SourceEditor = ({
         <WizardSection>
           <SectionHeadline
             title={t(
-              "Dialog.InputConfigWizard.InputActions.FsuipcOffset.Title",
+              "ConfigWizard.Input.InputActions.FsuipcOffset.Title",
             )}
             description={t(
-              "Dialog.InputConfigWizard.InputActions.FsuipcOffset.Description",
+              "ConfigWizard.Input.InputActions.FsuipcOffset.Description",
             )}
           />
           <FsuipcOffsetPanel
