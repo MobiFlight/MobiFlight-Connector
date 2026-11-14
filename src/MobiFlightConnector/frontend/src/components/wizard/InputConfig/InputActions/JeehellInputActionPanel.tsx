@@ -20,7 +20,7 @@ const JeehellInputActionPanel = ({
   config,
   onConfigChange,
 }: JeehellInputActionPanelProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const presetUrl = "/presets/presets_jeehell.cip"
   const { data: presets = [] /*, isLoading */ } = useQuery({
     queryKey: [`presets-jeehell`],

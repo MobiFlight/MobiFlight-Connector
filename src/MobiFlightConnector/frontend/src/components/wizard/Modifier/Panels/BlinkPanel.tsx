@@ -31,7 +31,7 @@ const blinkValuesFromArray = (
 }
 
 export const BlinkPanelTrigger = ({ modifier }: { modifier: Blink }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const blinkValues: { on: number; off: number }[] = blinkValuesFromArray(
     modifier.OnOffSequence,
   )
@@ -66,7 +66,7 @@ export const BlinkPanelContent = ({
   modifier: Blink
   onChange: (updated: Blink) => void
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const blinkValues: { on: number; off: number }[] = blinkValuesFromArray(
     modifier.OnOffSequence,
   )

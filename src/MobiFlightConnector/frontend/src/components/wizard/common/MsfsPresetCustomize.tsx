@@ -11,7 +11,7 @@ const MsfsPresetCustomize = ({
   code,
   onCodeChange
 }: MsfsPresetCustomizeProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
 
   return (
     <div className="flex flex-col gap-1">

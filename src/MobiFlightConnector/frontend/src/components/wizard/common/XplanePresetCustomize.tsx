@@ -30,7 +30,7 @@ const XplanePresetCustomize = ({
   onValueChange,
   value,
 }: XplanePresetCustomizeProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
 
   return (
     <>

@@ -35,7 +35,7 @@ export const ControllerComboBox = ({
   onChange: (controller: Partial<Controller> | undefined) => void
   variant?: "full-width" | "default"
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   return (
     <ComboBox
       widthClass={variant === "full-width" ? "w-full" : "w-56"}
@@ -76,7 +76,7 @@ export const DeviceComboBox = ({
   onChange: (device: DeviceReference | undefined) => void
   variant?: "full-width" | "default"
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   return (
     <ComboBox
       widthClass={variant === "full-width" ? "w-full" : "w-56"}
@@ -104,7 +104,7 @@ export const DeviceComboBox = ({
 }
 
 const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const { controllers } = useControllerStore()
 
   const [selectedController, setSelectedController] = useState<

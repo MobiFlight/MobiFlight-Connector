@@ -21,7 +21,7 @@ export const InterpolationPanelTrigger = ({
 }: {
   modifier: Interpolation
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
 
   const rangeStart = Object.keys(modifier.Values)
   const interpolationValues = rangeStart.map((start) => ({
@@ -62,7 +62,7 @@ export const InterpolationPanelContent = ({
   modifier: Interpolation
   onChange: (updated: Interpolation) => void
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const rangeStart = Object.keys(modifier.Values)
   const [interpolationValues, setInterpolationValues] = useState<
     { start: number; end: number }[]

@@ -12,7 +12,7 @@ export const HubHopPresetDetails = ({
   preset: Preset | null
   variant: "msfs" | "xplane"
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const openUrl = useOpenUrl()
   const simType = variant === "msfs" ? "msfs2020" : "xplane"
 

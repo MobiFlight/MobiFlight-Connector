@@ -32,7 +32,7 @@ const skipRenderKeys = [
 ]
 
 const KeyboardShortCut = ({ keys }: { keys: KeyInputAction }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   console.log("KeyboardShortCut keys:", keys)
   return (
     <KbdGroup>
@@ -72,7 +72,7 @@ const KeyboardInputActionPanel = ({
   config,
   onConfigChange,
 }: KeyboardInputActionPanelProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const [isScanning, setIsScanning] = useState(false)
   const [scannedKeys, setScannedKeys] = useState<KeyInputAction>(
     config?.Code !== undefined ? config : emptyConfig,

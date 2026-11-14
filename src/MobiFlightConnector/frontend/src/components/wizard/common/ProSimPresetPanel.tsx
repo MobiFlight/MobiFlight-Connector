@@ -20,7 +20,7 @@ export const ProSimPresetPanel = <T,>({
   config,
   onConfigChange,
 }: ProSimPresetPanelProps<T>) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const path = adapter.getPresetId(config) || null
   const value =
     adapter.mode === "InputConfigItem" ? (adapter.getValue(config) ?? null) : null

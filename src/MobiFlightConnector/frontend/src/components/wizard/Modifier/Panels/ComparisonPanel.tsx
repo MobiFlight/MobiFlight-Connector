@@ -12,7 +12,7 @@ export const ComparisonPanelTrigger = ({
 }: {
   modifier: Comparison
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   return (
     <div className="flex flex-row items-center gap-2">
       <div className="text-md w-32 px-2 text-left font-semibold">
@@ -45,7 +45,7 @@ export const ComparisonPanelContent = ({
   modifier: Comparison
   onChange: (updated: Comparison) => void
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
 
   const availableOperators = ComparisonOperators
   const selectedDirection = availableOperators.find(

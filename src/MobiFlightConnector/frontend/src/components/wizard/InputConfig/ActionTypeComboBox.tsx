@@ -19,7 +19,7 @@ const ActionTypeComboBox = ({
   selectedActionType,
   setSelectedActionType,
 }: ActionTypeProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const { project } = useProjectStore()
 
   const filteredOptions = project

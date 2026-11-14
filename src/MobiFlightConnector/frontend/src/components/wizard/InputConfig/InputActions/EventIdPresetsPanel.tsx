@@ -26,7 +26,7 @@ const EventIdPresetsPanel = ({
   selectedPresetId,
   setSelectedPreset,
 }: EventIdPresetsPanelProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const presetUrl =
     variant === "default"
       ? presetUrls.default

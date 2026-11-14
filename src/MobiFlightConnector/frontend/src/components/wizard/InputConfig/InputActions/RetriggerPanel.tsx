@@ -8,7 +8,7 @@ export type RetriggerPanelProps = {
 }
 
 const RetriggerPanel = ({ variant }: RetriggerPanelProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
 
   if (variant === "summary") {
     return (

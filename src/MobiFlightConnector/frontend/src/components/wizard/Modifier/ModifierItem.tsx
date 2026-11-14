@@ -56,7 +56,7 @@ export const ModifierItem = ({
   isLast,
   defaultOpen,
 }: ModifierItemProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const [open, setOpen] = useState(defaultOpen ?? false)
 
   const modifierContent =

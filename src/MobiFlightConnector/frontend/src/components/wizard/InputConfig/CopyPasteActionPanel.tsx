@@ -13,7 +13,7 @@ const CopyPasteActionPanel = ({
   action,
   onActionChange,
 }: CopyPasteActionPanelProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const copy = useClipboardCopy()
   const clipBoardAction = useClipboardAction()
   const copyEnabled = action !== null

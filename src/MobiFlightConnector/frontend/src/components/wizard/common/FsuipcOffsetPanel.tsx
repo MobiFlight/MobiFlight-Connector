@@ -45,7 +45,7 @@ export const FsuipcOffsetSummary = ({
   config,
   value,
 }: FsuipcOffsetSummaryProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   return (
     <div className="flex grow flex-row items-center gap-8">
       <div className="flex flex-col gap-1">
@@ -99,7 +99,7 @@ export const FsuipcOffsetPanel = ({
   fsuipc: FsuipcOffset
   onConfigChange: (fsuipc: FsuipcOffset) => void
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
 
   const selectedTypeOption = FsuipcTypeOptions.find(
     (option) => option.value === fsuipc.OffsetType,

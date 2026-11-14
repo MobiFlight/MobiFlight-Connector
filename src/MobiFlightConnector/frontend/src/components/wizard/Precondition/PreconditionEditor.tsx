@@ -79,7 +79,7 @@ const PreconditionItemRow = ({
   isFirst,
   isLast,
 }: PreconditionItemRowProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const selectedConfig =
     precondition.Type === "config"
       ? outputConfigs.find((c) => c.GUID === precondition.Ref)
@@ -268,7 +268,7 @@ const PreconditionEditor = ({
   preconditions,
   onPreconditionsChange,
 }: PreconditionEditorProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const handleChange = (index: number, updated: Precondition) => {
     onPreconditionsChange(
       preconditions.map((p, i) => (i === index ? updated : p)),

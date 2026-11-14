@@ -8,7 +8,7 @@ export type PresetSummaryProps = {
 }
 
 const PresetSummary = ({ label, code }: PresetSummaryProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
 
   return (
     <div className="flex flex-row gap-2">

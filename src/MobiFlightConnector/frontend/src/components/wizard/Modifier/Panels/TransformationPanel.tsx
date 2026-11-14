@@ -10,7 +10,7 @@ export const TransformationPanelTrigger = ({
 }: {
   modifier: Transformation
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   return (
     <div className="flex flex-row items-center gap-2">
       <div className="text-md px-2 font-semibold">
@@ -30,7 +30,7 @@ export const TransformationPanelContent = ({
   modifier: Transformation
   onChange: (updated: Transformation) => void
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   return (
     <>
       <div className="text-muted-foreground text-sm">

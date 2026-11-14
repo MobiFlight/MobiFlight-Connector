@@ -34,7 +34,7 @@ const FsuipcOffsetInputActionPanel = ({
   config,
   onConfigChange,
 }: FsuipcOffsetInputActionPanelProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const currentConfig = config?.FSUIPC ? config : defaultConfig
 
   if (variant === "summary") {

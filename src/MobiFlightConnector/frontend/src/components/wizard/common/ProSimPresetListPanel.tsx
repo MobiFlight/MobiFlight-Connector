@@ -23,7 +23,7 @@ const ProSimPresetListPanel = ({
   selectedPath,
   onPresetChange,
 }: ProSimDataRefPanelProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const { dataRefs } = useProSimDataRefStore()
   const { publish } = messageExchange
   const selectedPreset = selectedPath ? dataRefs[selectedPath] : null

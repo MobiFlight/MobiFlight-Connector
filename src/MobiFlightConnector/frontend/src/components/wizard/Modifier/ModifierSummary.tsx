@@ -15,7 +15,7 @@ const ModifierSummary = ({
   modifiers,
   maxDisplayCount,
 }: ModifierSummaryProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const rawValueClean = rawValue?.replace("CHANGE =>", "") ?? ""
   const showMoreCount = modifiers.length > maxDisplayCount
 

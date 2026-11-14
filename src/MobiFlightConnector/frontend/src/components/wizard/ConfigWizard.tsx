@@ -72,7 +72,7 @@ const ConfigWizard = ({
   drawerContainer,
   liveData,
 }: ConfigWizardProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
 

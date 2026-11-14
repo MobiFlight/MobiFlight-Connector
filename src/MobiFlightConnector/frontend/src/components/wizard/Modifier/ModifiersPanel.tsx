@@ -29,7 +29,7 @@ const ModifiersPanel = ({
   variant,
   liveData,
 }: ModifiersPanelProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const modifiers = configItem.Modifiers?.Items || []
   const hasModifiers = modifiers.length > 0
 

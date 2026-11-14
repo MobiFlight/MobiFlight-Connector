@@ -17,7 +17,7 @@ const LuaMacroInputActionPanel = ({
   config,
   onConfigChange,
 }: LuaMacroInputActionPanelProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
 
   if (variant === "summary") {
     return (

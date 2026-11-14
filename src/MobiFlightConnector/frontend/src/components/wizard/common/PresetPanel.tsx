@@ -57,7 +57,7 @@ const PresetPanel = ({
   selectedPresetId,
   setSelectedPreset,
 }: PresetPanelProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const { project } = useProjectStore()
   const [favoritesOnly, setFavoritesOnly] = useState(true)
 

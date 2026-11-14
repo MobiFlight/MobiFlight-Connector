@@ -27,7 +27,7 @@ const PreconditionsPanel = ({
   variant,
   openDetailsPanel,
 }: PreconditionsPanelProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const { project, activeConfigFileIndex } = useProjectStore()
   const { variables } = useVariableStore()
   const maxDisplayCount = 2

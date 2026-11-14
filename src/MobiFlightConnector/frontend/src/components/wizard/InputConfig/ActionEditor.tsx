@@ -57,7 +57,7 @@ export interface ActionSummaryProps {
   action?: Action
 }
 export const ActionSummary = ({ action }: ActionSummaryProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   if (!action)
     return <span className="text-muted-foreground text-sm">No Action.</span>
   const selectedActionType = action
@@ -336,7 +336,7 @@ const ButtonOnHoldOptions = ({
   action,
   onActionChange,
 }: Omit<ActionEditorProps, "mode" | "configName">) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   return (
     <div className="flex flex-1 flex-col gap-1">
       <div className="flex flex-row items-center gap-2 [&_span]:text-sm">
@@ -398,7 +398,7 @@ const ButtonOnLongReleaseOptions = ({
   action,
   onActionChange,
 }: Omit<ActionEditorProps, "mode" | "configName">) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   return (
     <div className="flex flex-1 flex-col gap-1">
       <div className="flex flex-row items-center gap-2 [&_span]:text-sm">
@@ -438,7 +438,7 @@ const ActionEditor = ({
   action,
   onActionChange,
 }: ActionEditorProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const selectedActionType = action
     ? ActionTypeOptions.find((option) => option.value === action.Type)
     : undefined

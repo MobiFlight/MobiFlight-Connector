@@ -51,7 +51,7 @@ const ConfigReferenceItemRow = ({
   onChange,
   onDelete,
 }: ConfigReferenceItemRowProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const selectedConfig = outputConfigs.find(
     (c) => c.GUID === configReference.Ref,
   )
@@ -139,7 +139,7 @@ const ConfigReferenceEditor = ({
   configReferences,
   onConfigReferencesChange,
 }: ConfigReferenceEditorProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const handleChange = (index: number, updated: ConfigReference) => {
     onConfigReferencesChange(
       configReferences.map((c, i) => (i === index ? updated : c)),

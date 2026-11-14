@@ -25,7 +25,7 @@ const VJoyInputActionPanel = ({
   config,
   setConfig,
 }: VJoyInputActionPanelProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const { publish } = messageExchange
   const { vJoyDefinitions, setVJoyDefinitions } = useVJoyControllerStore()
 

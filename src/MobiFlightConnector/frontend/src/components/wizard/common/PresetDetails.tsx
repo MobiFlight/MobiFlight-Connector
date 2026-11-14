@@ -31,7 +31,7 @@ const PresetDetails = ({
   onValueChange,
   onCodeTypeChange,
 }: PresetDetailsProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   
   return (
     <WizardSection data-testid="preset-code-panel">

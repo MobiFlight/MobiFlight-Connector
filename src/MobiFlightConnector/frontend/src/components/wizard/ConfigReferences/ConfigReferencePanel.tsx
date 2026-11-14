@@ -26,7 +26,7 @@ const ConfigReferencePanel = ({
   variant,
   openDetailsPanel,
 }: ConfigReferencePanelProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const { project, activeConfigFileIndex } = useProjectStore()
   const maxDisplayCount = 2
   const outputConfigs =

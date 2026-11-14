@@ -27,7 +27,7 @@ const EventIdInputActionPanel = ({
   config,
   onConfigChange,
 }: EventIdInputActionPanelProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const mouseParams = [
     { Label: "MOUSE_FLAG_RIGHTSINGLE", Value: "2147483648" },
     { Label: "MOUSE_FLAG_MIDDLESINGLE", Value: "1073741824" },
