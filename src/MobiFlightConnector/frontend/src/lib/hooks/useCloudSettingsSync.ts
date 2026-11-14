@@ -32,7 +32,7 @@ export const useCloudSettingsSync = () => {
     !auth.isLoading && auth.isAuthenticated && Boolean(auth.user?.id_token)
 
   useEffect(() => {
-    if (!isLoggedIn) {
+    if (!auth.isLoading && !auth.isAuthenticated) {
       hasCheckedRef.current = false
       prevUserIdRef.current = undefined
       cloudHashRef.current = undefined
@@ -41,7 +41,7 @@ export const useCloudSettingsSync = () => {
       localStorage.removeItem("cloud_last_synced_hash")
       localStorage.removeItem("cloud_last_synced_settings")
       localStorage.removeItem("cloud_last_synced_user_id")
-    } else if (userId) {
+    } else if (isLoggedIn && userId) {
       const storedUserId = localStorage.getItem("cloud_last_synced_user_id")
       if (storedUserId && storedUserId !== userId) {
         hasCheckedRef.current = false
@@ -52,7 +52,7 @@ export const useCloudSettingsSync = () => {
       localStorage.setItem("cloud_last_synced_user_id", userId)
       prevUserIdRef.current = userId
     }
-  }, [isLoggedIn, userId, setIsConflictOpen, setCloudSettings])
+  }, [auth.isLoading, auth.isAuthenticated, isLoggedIn, userId, setIsConflictOpen, setCloudSettings])
 
   // Trigger sync check (can be called manually from SettingsDialog or on login)
   const triggerSyncCheck = useCallback(

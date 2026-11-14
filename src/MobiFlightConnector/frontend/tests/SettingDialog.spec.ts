@@ -542,10 +542,15 @@ test.describe("Cloud Settings Sync", () => {
       })
 
       // Verify cloud settings were auto-applied locally
-      const commands = await configListPage.mobiFlightPage.getTrackedCommands()
-      expect(commands?.at(-1)?.payload).toMatchObject({
-        Settings: { BetaUpdates: true },
-      })
+      await expect
+        .poll(async () => {
+          const commands =
+            await configListPage.mobiFlightPage.getTrackedCommands()
+          return commands?.at(-1)?.payload
+        })
+        .toMatchObject({
+          Settings: { BetaUpdates: true },
+        })
 
       // Verify restored notification is shown and conflict dialog is not opened
       await expect(
