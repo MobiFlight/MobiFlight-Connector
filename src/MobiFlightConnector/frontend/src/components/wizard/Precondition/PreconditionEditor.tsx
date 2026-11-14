@@ -11,7 +11,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Switch } from "@/components/ui/switch"
 import DrawerBreadcrumb from "@/components/wizard/common/DrawerTitle"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
-import MoveUpDownButtons from "@/components/wizard/components/MoveUpDownButtons"
+import MoveUpDownButtons from "@/components/wizard/common/MoveUpDownButtons"
 import { preconditionVariants } from "@/components/wizard/variants"
 import {
   ConfigItemType,

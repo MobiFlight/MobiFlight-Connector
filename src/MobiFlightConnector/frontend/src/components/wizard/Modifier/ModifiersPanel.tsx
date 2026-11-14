@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
-import ConfigWizardTestPanel from "@/components/wizard/components/ConfigWizardTestPanel"
+import ConfigWizardTestPanel from "@/components/wizard/common/ConfigWizardTestPanel"
 import ModifierEditor from "@/components/wizard/Modifier/ModifierEditor"
 import ModifierSummary from "@/components/wizard/Modifier/ModifierSummary"
 import { cn } from "@/lib/utils"

@@ -1,6 +1,6 @@
 import ComboBox from "@/components/ComboBox"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
-import { ControllerComboBox } from "@/components/wizard/components/ConfigTrigger"
+import { ControllerComboBox } from "@/components/wizard/common/ConfigTrigger"
 import { Controller, OutputDeviceType } from "@/types/controller"
 import { useTranslation } from "react-i18next"
 

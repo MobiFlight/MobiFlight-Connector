@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Source } from "@/types/config"
-import { FsuipcOffsetSummary } from "@/components/wizard/components/InputActions/FsuipcOffsetInputActionPanel"
+import { FsuipcOffsetSummary } from "@/components/wizard/common/FsuipcOffsetPanel"
 import MsfsPresetPanel from "@/components/wizard/common/MsfsPresetPanel"
 import { Badge } from "@/components/ui/badge"
 import { IconEdit, IconTrash } from "@tabler/icons-react"

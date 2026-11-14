@@ -1,4 +1,4 @@
-import { ActionTypeOption } from "@/components/wizard/components/ActionTypeComboBox"
+import { ActionTypeOption } from "@/components/wizard/InputConfig/ActionTypeComboBox"
 import { SourceTypeOption } from "@/components/wizard/OutputConfig/SourceTypeComboBox"
 import { Preset } from "@/types/preset"
 

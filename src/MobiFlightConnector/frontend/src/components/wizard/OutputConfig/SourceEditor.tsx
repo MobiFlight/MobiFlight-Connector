@@ -1,6 +1,6 @@
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import WizardSection from "@/components/wizard/common/WizardSection"
-import { FsuipcOffsetPanel } from "@/components/wizard/components/InputActions/FsuipcOffsetInputActionPanel"
+import { FsuipcOffsetPanel } from "@/components/wizard/common/FsuipcOffsetPanel"
 import { VariablePanel } from "@/components/wizard/common/VariablePanel"
 import MsfsPresetPanel from "@/components/wizard/common/MsfsPresetPanel"
 import SourceTypeComboBox from "@/components/wizard/OutputConfig/SourceTypeComboBox"

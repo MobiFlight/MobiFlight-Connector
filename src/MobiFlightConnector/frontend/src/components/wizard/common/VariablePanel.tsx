@@ -7,7 +7,7 @@ import { Trans, useTranslation } from "react-i18next"
 import { Separator } from "@/components/ui/separator"
 import { useEffect } from "react"
 import { Badge } from "@/components/ui/badge"
-import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
+import CodeValueLabel from "@/components/wizard/common/CodeValueLabel"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import WizardSection from "@/components/wizard/common/WizardSection"
 export type VariablePanelProps = {

@@ -1,5 +1,5 @@
 import { Label } from "@/components/ui/label"
-import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
+import CodeValueLabel from "@/components/wizard/common/CodeValueLabel"
 import { useTranslation } from "react-i18next"
 
 export type PresetSummaryProps = {

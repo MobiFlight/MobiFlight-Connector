@@ -33,7 +33,7 @@ import {
 import { IconChevronDown, IconTrash } from "@tabler/icons-react"
 import { Switch } from "@/components/ui/switch"
 import { Button } from "@/components/ui/button"
-import MoveUpDownButtons from "@/components/wizard/components/MoveUpDownButtons"
+import MoveUpDownButtons from "@/components/wizard/common/MoveUpDownButtons"
 
 type ModifierItemProps = {
   modifier: Modifier

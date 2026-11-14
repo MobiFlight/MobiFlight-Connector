@@ -1,6 +1,6 @@
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import WizardSection from "@/components/wizard/common/WizardSection"
-import { HubHopPresetDetails } from "@/components/wizard/components/HubHopPresetDetails"
+import { HubHopPresetDetails } from "@/components/wizard/common/HubHopPresetDetails"
 import { XplanePreset, Preset } from "@/types/preset"
 import { IconExclamationCircle } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
