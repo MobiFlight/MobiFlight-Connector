@@ -1,6 +1,6 @@
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
+import CodeValueLabel from "@/components/wizard/common/CodeValueLabel"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import { LuaMacroInputAction } from "@/types/config"
 import { useTranslation } from "react-i18next"

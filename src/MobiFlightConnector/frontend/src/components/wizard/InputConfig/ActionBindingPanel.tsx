@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
-import { ActionSummary } from "@/components/wizard/components/ActionEditor"
+import { ActionSummary } from "@/components/wizard/InputConfig/ActionEditor"
 import {
   Action,
   AnalogTrigger,

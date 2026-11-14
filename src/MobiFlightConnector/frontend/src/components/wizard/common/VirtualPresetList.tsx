@@ -1,5 +1,5 @@
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { PresetListItem } from "@/components/wizard/components/PresetListItem"
+import { PresetListItem } from "@/components/wizard/common/PresetListItem"
 import { Preset, XplanePreset } from "@/types/preset"
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { useCallback, useEffect, useRef } from "react"
