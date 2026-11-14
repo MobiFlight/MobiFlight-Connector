@@ -143,7 +143,11 @@ const createConfigWithSourceType = async (
   sourceType: string,
   projectOptions?: Partial<Project>,
 ) => {
-  await createEmptyOutputConfigAndOpenWizard(configListPage, page, projectOptions)
+  await createEmptyOutputConfigAndOpenWizard(
+    configListPage,
+    page,
+    projectOptions,
+  )
   await page
     .getByTestId("trigger-panel")
     .getByRole("button", { name: "Source", exact: true })
@@ -247,7 +251,9 @@ test.describe("General Output Config Wizard Tests", () => {
     })
 
     await expect(dialog).toBeVisible()
-    const nameInput = page.getByTestId("dialog-config-name").getByRole("textbox")
+    const nameInput = page
+      .getByTestId("dialog-config-name")
+      .getByRole("textbox")
     await expect(nameInput).toBeFocused()
     await expect(nameInput).toHaveValue(NEW_OUTPUT_CONFIG_NAME)
   })
@@ -267,7 +273,9 @@ test.describe("General Output Config Wizard Tests", () => {
     await configListPage.duplicateConfigItem(0)
 
     await expect(dialog).toBeVisible()
-    const nameInput = page.getByTestId("dialog-config-name").getByRole("textbox")
+    const nameInput = page
+      .getByTestId("dialog-config-name")
+      .getByRole("textbox")
     await expect(nameInput).toBeFocused()
     await expect(nameInput).toHaveValue("7-Segment")
   })
@@ -369,7 +377,9 @@ test.describe("Output Config Wizard - Source Panel", () => {
     await expect(
       sourceEditor.getByText(NEW_OUTPUT_CONFIG_NAME, { exact: true }),
     ).toBeVisible()
-    await expect(sourceEditor.getByText("Trigger", { exact: true })).toBeVisible()
+    await expect(
+      sourceEditor.getByText("Trigger", { exact: true }),
+    ).toBeVisible()
     await expect(
       sourceEditor.getByText("Source value", { exact: true }),
     ).toBeVisible()
@@ -404,7 +414,9 @@ test.describe("Output Config Wizard - Source Panel", () => {
     await expect(
       triggerPanel.getByRole("button", { name: "Source", exact: true }),
     ).toBeVisible()
-    await expect(triggerPanel.getByText("Microsoft Flight Simulator")).not.toBeVisible()
+    await expect(
+      triggerPanel.getByText("Microsoft Flight Simulator"),
+    ).not.toBeVisible()
 
     const payload = await applyChangesAndReturnPayload(configListPage, page)
     expect(payload.item.Source).toBeUndefined()
@@ -464,7 +476,10 @@ test.describe("Output Config Wizard - Source Panel", () => {
     page,
   }) => {
     await openWizardForRow(configListPage, page, ROW.Output)
-    await page.getByTestId("trigger-panel").getByText("Microsoft Flight Simulator").dblclick()
+    await page
+      .getByTestId("trigger-panel")
+      .getByText("Microsoft Flight Simulator")
+      .dblclick()
 
     const sourceEditor = page.getByTestId("source-editor")
     // Selecting the already selected option deselects it
@@ -473,7 +488,9 @@ test.describe("Output Config Wizard - Source Panel", () => {
       sourceEditor.getByTestId("source-type-combobox"),
       "Microsoft Flight Simulator",
     )
-    await expect(sourceEditor.getByTestId("preset-code-panel")).not.toBeVisible()
+    await expect(
+      sourceEditor.getByTestId("preset-code-panel"),
+    ).not.toBeVisible()
 
     await closeDrawer(page)
     await expect(
@@ -492,7 +509,9 @@ test.describe("Output Config Wizard - MSFS Source", () => {
     await openWizardForRow(configListPage, page, ROW.Output)
 
     const triggerPanel = page.getByTestId("trigger-panel")
-    await expect(triggerPanel.getByText("Microsoft Flight Simulator")).toBeVisible()
+    await expect(
+      triggerPanel.getByText("Microsoft Flight Simulator"),
+    ).toBeVisible()
     await expect(
       triggerPanel.getByText("BRAKE_PARKING_INDICATOR", { exact: true }),
     ).toBeVisible()
@@ -508,7 +527,10 @@ test.describe("Output Config Wizard - MSFS Source", () => {
     page,
   }) => {
     await openWizardForRow(configListPage, page, ROW.Output)
-    await page.getByTestId("trigger-panel").getByText("Microsoft Flight Simulator").dblclick()
+    await page
+      .getByTestId("trigger-panel")
+      .getByText("Microsoft Flight Simulator")
+      .dblclick()
 
     const sourceEditor = page.getByTestId("source-editor")
     await expect(
@@ -544,7 +566,10 @@ test.describe("Output Config Wizard - MSFS Source", () => {
     page,
   }) => {
     await openWizardForRow(configListPage, page, ROW.Output)
-    await page.getByTestId("trigger-panel").getByText("Microsoft Flight Simulator").dblclick()
+    await page
+      .getByTestId("trigger-panel")
+      .getByText("Microsoft Flight Simulator")
+      .dblclick()
 
     const sourceEditor = page.getByTestId("source-editor")
     await sourceEditor.getByRole("button", { name: "Reset filters" }).click()
@@ -601,7 +626,9 @@ test.describe("Output Config Wizard - X-Plane Source", () => {
     )
 
     const triggerPanel = page.getByTestId("trigger-panel")
-    await expect(triggerPanel.getByText("X-Plane", { exact: true })).toBeVisible()
+    await expect(
+      triggerPanel.getByText("X-Plane", { exact: true }),
+    ).toBeVisible()
     await expect(
       triggerPanel.getByText("IXEG B733 MCP VS Display", { exact: true }),
     ).toBeVisible()
@@ -731,13 +758,19 @@ test.describe("Output Config Wizard - FSUIPC Source", () => {
     )
 
     const triggerPanel = page.getByTestId("trigger-panel")
-    await expect(triggerPanel.getByText("FSUIPC", { exact: true })).toBeVisible()
+    await expect(
+      triggerPanel.getByText("FSUIPC", { exact: true }),
+    ).toBeVisible()
     await expect(triggerPanel.getByText("4", { exact: true })).toBeVisible()
     await expect(triggerPanel.getByText("66CC", { exact: true })).toBeVisible()
-    await expect(triggerPanel.getByText("AABBCCDD", { exact: true })).toBeVisible()
+    await expect(
+      triggerPanel.getByText("AABBCCDD", { exact: true }),
+    ).toBeVisible()
     await expect(triggerPanel.getByText("True", { exact: true })).toBeVisible()
     // A source only reads the offset, so there is no value to write
-    await expect(triggerPanel.getByText("Value", { exact: true })).not.toBeVisible()
+    await expect(
+      triggerPanel.getByText("Value", { exact: true }),
+    ).not.toBeVisible()
   })
 
   test("Newly created FSUIPC source is saved correctly", async ({
@@ -769,11 +802,15 @@ test.describe("Output Config Wizard - FSUIPC Source", () => {
     await test.step("Summary shows the offset", async () => {
       const triggerPanel = page.getByTestId("trigger-panel")
       await expect(triggerPanel.getByText("FSUIPC")).toBeVisible()
-      await expect(triggerPanel.getByText("66CC", { exact: true })).toBeVisible()
+      await expect(
+        triggerPanel.getByText("66CC", { exact: true }),
+      ).toBeVisible()
       await expect(
         triggerPanel.getByText("AABBCCDD", { exact: true }),
       ).toBeVisible()
-      await expect(triggerPanel.getByText("True", { exact: true })).toBeVisible()
+      await expect(
+        triggerPanel.getByText("True", { exact: true }),
+      ).toBeVisible()
     })
 
     const payload = await applyChangesAndReturnPayload(configListPage, page)
@@ -837,12 +874,16 @@ test.describe("Output Config Wizard - ProSim Source", () => {
     )
 
     const triggerPanel = page.getByTestId("trigger-panel")
-    await expect(triggerPanel.getByText("ProSim", { exact: true })).toBeVisible()
+    await expect(
+      triggerPanel.getByText("ProSim", { exact: true }),
+    ).toBeVisible()
     await expect(
       triggerPanel.getByText("autopilot.altitude", { exact: true }),
     ).toBeVisible()
     // Parameters are only used by input actions
-    await expect(triggerPanel.getByText("Parameter (optional)")).not.toBeVisible()
+    await expect(
+      triggerPanel.getByText("Parameter (optional)"),
+    ).not.toBeVisible()
   })
 
   test("ProSim source editor shows only readable DataRefs", async ({
@@ -937,9 +978,13 @@ test.describe("Output Config Wizard - Variable Source", () => {
     await expect(
       triggerPanel.getByText("MyOutputVar", { exact: true }),
     ).toBeVisible()
-    await expect(triggerPanel.getByText("Number", { exact: true })).toBeVisible()
+    await expect(
+      triggerPanel.getByText("Number", { exact: true }),
+    ).toBeVisible()
     // The expression is only used by input actions
-    await expect(triggerPanel.getByText("Expression", { exact: true })).not.toBeVisible()
+    await expect(
+      triggerPanel.getByText("Expression", { exact: true }),
+    ).not.toBeVisible()
     await expect(
       triggerPanel.getByText("$ * 2", { exact: true }),
     ).not.toBeVisible()
@@ -1033,7 +1078,9 @@ test.describe("Output Config Wizard - Output Device Panel", () => {
 
     const actionPanel = page.getByTestId("action-panel")
     // TODO: the remove button for the output device reuses the "Remove input action" label
-    await actionPanel.getByRole("button", { name: "Remove input action" }).click()
+    await actionPanel
+      .getByRole("button", { name: "Remove input action" })
+      .click()
 
     await expect(
       actionPanel.getByRole("button", { name: "Output device", exact: true }),
@@ -1160,7 +1207,9 @@ test.describe("Output Config Wizard - Device Test Panel", () => {
     const deviceEditor = page.getByTestId("output-device-editor")
     await configListPage.mobiFlightPage.trackCommand("CommandConfigContextMenu")
     await deviceEditor.getByRole("button", { name: "Test" }).click()
-    await expect(deviceEditor.getByRole("button", { name: "Stop" })).toBeVisible()
+    await expect(
+      deviceEditor.getByRole("button", { name: "Stop" }),
+    ).toBeVisible()
 
     await closeDrawer(page)
     await expect(deviceEditor).not.toBeVisible()
@@ -1187,7 +1236,9 @@ test.describe("Output Config Wizard - Device Test Panel", () => {
 
     await configListPage.mobiFlightPage.trackCommand("CommandConfigContextMenu")
     await deviceEditor.getByRole("button", { name: "Test" }).click()
-    await expect(deviceEditor.getByRole("button", { name: "Stop" })).toBeVisible()
+    await expect(
+      deviceEditor.getByRole("button", { name: "Stop" }),
+    ).toBeVisible()
 
     await deviceEditor.getByRole("checkbox", { name: "LED 1" }).click()
 
@@ -1224,6 +1275,75 @@ test.describe("Output Config Wizard - Device Test Panel", () => {
     await page.waitForTimeout(500)
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands ?? []).toHaveLength(0)
+  })
+
+  test("Test value is saved with the config", async ({
+    configListPage,
+    page,
+  }) => {
+    await openWizardForRow(configListPage, page, ROW.Output)
+    await page.getByTestId("action-panel").getByRole("button").last().click()
+
+    const deviceEditor = page.getByTestId("output-device-editor")
+    await expect(deviceEditor).toBeVisible()
+
+    const testPanel = deviceEditor.getByTestId("configwizard-test-panel")
+    await expect(testPanel).toBeVisible()
+    
+    const testValueInput = testPanel.getByPlaceholder("Enter raw value")
+    await testValueInput.clear()
+    // typed key by key, so the intermediate "1." must not lose its dot
+    await testValueInput.pressSequentially("1.5")
+    await expect(testValueInput).toHaveValue("1.5")
+    await closeDrawer(page)
+
+    const payload = await applyChangesAndReturnPayload(configListPage, page)
+    expect(payload.item.TestValue).toMatchObject({ Float64: 1.5 })
+  })
+})
+
+test.describe("Output Config Wizard - Modifier panel", () => {
+  test("Test panel - Test value is saved with the config", async ({
+    configListPage,
+    page,
+  }) => {
+    const dialog = await openWizardForRow(configListPage, page, ROW.Output)
+    const addModifierButton = dialog.getByRole("button", {
+      name: "Add modifier",
+    })
+
+    await expect(dialog).toBeVisible()
+    await expect(addModifierButton).toBeVisible()
+    await addModifierButton.click()
+
+    const testPanel = page.getByTestId("configwizard-test-panel")
+    await expect(testPanel).toBeVisible()
+
+    const testValueInput = testPanel.getByPlaceholder("Enter raw value")
+    await testValueInput.clear()
+
+    // typed key by key, so the intermediate "1." must not lose its dot
+    await testValueInput.pressSequentially("1.5")
+    await expect(testValueInput).toHaveValue("1.5")
+
+    // Close the drawer
+    const goBackButton = page.getByRole("button", { name: "Done" })
+    await expect(goBackButton).toBeVisible()
+    await goBackButton.click()
+
+    // Save the config
+    configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+    const applyChangesButton = page.getByRole("button", {
+      name: "Apply changes",
+    })
+    await expect(applyChangesButton).toBeVisible()
+    await applyChangesButton.click()
+
+    // Verify that the command sent to the backend has the correct modifier data
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toBeDefined()
+    const payload = commands?.pop()?.payload
+    expect(payload.item.TestValue).toMatchObject({ Float64: 1.5 })
   })
 })
 
@@ -1277,9 +1397,15 @@ test.describe("Output Config Wizard - Output Device", () => {
 
     await test.step("Summary shows the selected device", async () => {
       await expect(actionPanel.getByText("ProtoBoard-v2")).toBeVisible()
-      await expect(actionPanel.getByText("LED 1", { exact: true })).toBeVisible()
-      await expect(actionPanel.getByText("LED 2", { exact: true })).toBeVisible()
-      await expect(actionPanel.getByText("Dynamic brightness", { exact: true })).toBeVisible()
+      await expect(
+        actionPanel.getByText("LED 1", { exact: true }),
+      ).toBeVisible()
+      await expect(
+        actionPanel.getByText("LED 2", { exact: true }),
+      ).toBeVisible()
+      await expect(
+        actionPanel.getByText("Dynamic brightness", { exact: true }),
+      ).toBeVisible()
     })
 
     const payload = await applyChangesAndReturnPayload(configListPage, page)
@@ -1338,7 +1464,9 @@ test.describe("Output Config Wizard - Servo Device", () => {
 
     const actionPanel = page.getByTestId("action-panel")
     await test.step("Summary shows the servo settings", async () => {
-      await expect(actionPanel.getByText("Servo 1", { exact: true })).toBeVisible()
+      await expect(
+        actionPanel.getByText("Servo 1", { exact: true }),
+      ).toBeVisible()
       await expect(actionPanel.getByText("0 – 255")).toBeVisible()
       await expect(actionPanel.getByText("100 %")).toBeVisible()
     })
@@ -1527,9 +1655,9 @@ test.describe("Output Config Wizard - Stepper Device", () => {
     ) => {
       const getCommands = async () =>
         (await configListPage.mobiFlightPage.getTrackedCommands()) ?? []
-      await expect.poll(async () => (await getCommands()).length).toBe(
-        expectedCount,
-      )
+      await expect
+        .poll(async () => (await getCommands()).length)
+        .toBe(expectedCount)
       const commands = await getCommands()
       await configListPage.mobiFlightPage.clearTrackedCommands()
       return commands.map((command) => command.payload)
@@ -1827,7 +1955,11 @@ test.describe("Output Config Wizard - Arcaze", () => {
     configListPage,
     page,
   }) => {
-    const deviceEditor = await selectArcazeDevice(configListPage, page, "Output")
+    const deviceEditor = await selectArcazeDevice(
+      configListPage,
+      page,
+      "Output",
+    )
 
     await expect(deviceEditor.getByRole("checkbox")).toHaveCount(40)
     await expect(
@@ -1890,7 +2022,9 @@ test.describe("Output Config Wizard - Shift Register Device", () => {
 
     await test.step("First shift register and its first output are preselected", async () => {
       await expect(
-        deviceEditor.getByRole("combobox").filter({ hasText: "ShiftRegister 1" }),
+        deviceEditor
+          .getByRole("combobox")
+          .filter({ hasText: "ShiftRegister 1" }),
       ).toBeVisible()
       await expect(outputs).toHaveCount(8)
       await expect(
@@ -1901,7 +2035,9 @@ test.describe("Output Config Wizard - Shift Register Device", () => {
     await test.step("Second shift register offers 16 outputs", async () => {
       await selectComboBoxOption(
         page,
-        deviceEditor.getByRole("combobox").filter({ hasText: "ShiftRegister 1" }),
+        deviceEditor
+          .getByRole("combobox")
+          .filter({ hasText: "ShiftRegister 1" }),
         "ShiftRegister 2",
       )
       await expect(outputs).toHaveCount(16)
@@ -1920,7 +2056,9 @@ test.describe("Output Config Wizard - Shift Register Device", () => {
         .click()
       await selectComboBoxOption(
         page,
-        deviceEditor.getByRole("combobox").filter({ hasText: "ShiftRegister 1" }),
+        deviceEditor
+          .getByRole("combobox")
+          .filter({ hasText: "ShiftRegister 1" }),
         "ShiftRegister 2",
       )
       await expect(
@@ -1946,7 +2084,9 @@ test.describe("Output Config Wizard - Shift Register Device", () => {
       await expect(
         actionPanel.getByText("ShiftRegister 2", { exact: true }),
       ).toBeVisible()
-      await expect(actionPanel.getByText("Output 0", { exact: true })).toBeVisible()
+      await expect(
+        actionPanel.getByText("Output 0", { exact: true }),
+      ).toBeVisible()
       await expect(
         actionPanel.getByText("Output 12", { exact: true }),
       ).toBeVisible()
@@ -1971,7 +2111,9 @@ test.describe("Output Config Wizard - LCD Display Device", () => {
 
     const actionPanel = page.getByTestId("action-panel")
     await test.step("Summary shows the LCD display and its line count", async () => {
-      await expect(actionPanel.getByText("LCD 1", { exact: true })).toBeVisible()
+      await expect(
+        actionPanel.getByText("LCD 1", { exact: true }),
+      ).toBeVisible()
       await expect(actionPanel.getByText("4", { exact: true })).toBeVisible()
     })
 
@@ -2041,7 +2183,9 @@ test.describe("Output Config Wizard - Custom Device", () => {
 
     await test.step("First device and message type are selected by default", async () => {
       await expect(
-        deviceEditor.getByRole("combobox").filter({ hasText: /^Custom Display$/ }),
+        deviceEditor
+          .getByRole("combobox")
+          .filter({ hasText: /^Custom Display$/ }),
       ).toBeVisible()
       await expect(messageTypeComboBox).toBeVisible()
       await expect(
