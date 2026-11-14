@@ -1,5 +1,12 @@
 import { useProjectStore } from "@/stores/projectStore"
-import { IconDeviceGamepad2, IconDotsVertical, IconPencil, IconSettings } from "@tabler/icons-react"
+import {
+  IconDeviceGamepad2,
+  IconDotsVertical,
+  IconPencil,
+  IconRefresh,
+  IconSettings,
+} from "@tabler/icons-react"
+import ConfirmationDialog from "@/components/ConfirmationDialog"
 import { useTranslation } from "react-i18next"
 import { Button } from "../ui/button"
 import { useEffect, useRef, useState } from "react"
@@ -60,6 +67,27 @@ const ProjectNameLabel = () => {
     showOverlay({ mode: "edit", project: project as ProjectInfo })
   }
 
+  // A project that was never saved has no file to reload from
+  const canReload = !!project?.FilePath
+  const [isReloadConfirmOpen, setIsReloadConfirmOpen] = useState(false)
+
+  const reloadFromDisk = () => {
+    handleMenuItemClick({ action: "file.reload" })
+  }
+
+  const handleReloadClick = () => {
+    if (hasChanged) {
+      setIsReloadConfirmOpen(true)
+      return
+    }
+    reloadFromDisk()
+  }
+
+  const handleReloadDiscardChanges = () => {
+    setIsReloadConfirmOpen(false)
+    reloadFromDisk()
+  }
+
   return (
     <div
       className="flex flex-row items-center gap-1 pl-1"
@@ -108,9 +136,19 @@ const ProjectNameLabel = () => {
               <IconDeviceGamepad2 />
               {t("MainMenu.Extras.ControllerBindings")}
             </DropdownMenuItem>
+            <DropdownMenuItem disabled={!canReload} onClick={handleReloadClick}>
+              <IconRefresh />
+              {t("Project.Toolbar.Reload")}
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
+      <ConfirmationDialog
+        open={isReloadConfirmOpen}
+        onOpenChange={setIsReloadConfirmOpen}
+        discardChanges={handleReloadDiscardChanges}
+        keepEditing={() => setIsReloadConfirmOpen(false)}
+      />
     </div>
   )
 }

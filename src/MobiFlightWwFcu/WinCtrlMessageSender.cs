@@ -1,9 +1,14 @@
 ﻿using HidSharp;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace MobiFlightWwFcu
 {
+    /// <summary>
+    /// Sends output reports from the host to a WinCtrl device; requires a HID interface with an output report.
+    /// </summary>
     internal class WinCtrlMessageSender : IWinCtrlMessageSender
     {
         private readonly int VendorId = 0x4098;
@@ -27,10 +32,30 @@ namespace MobiFlightWwFcu
 
         public void Connect()
         {
-            Device = DeviceList.Local.GetHidDeviceOrNull(vendorID: VendorId, productID: ProductId);
-            if (Device == null) return;
+            Device = GetWritableHidDevice();
             Stream = Device.Open();
             Stream.ReadTimeout = System.Threading.Timeout.Infinite;
+        }
+
+        // A device can expose several HID collections per VID/PID, and not all of them accept output reports.
+        private HidDevice GetWritableHidDevice()
+        {
+            return DeviceList.Local.GetHidDevices(vendorID: VendorId, productID: ProductId)
+                .FirstOrDefault(d => GetMaxOutputReportLength(d) > 0)
+                ?? throw new IOException($"No HID interface with output reports for VID {VendorId:X4} PID {ProductId:X4}");
+        }
+
+        private static int GetMaxOutputReportLength(HidDevice device)
+        {
+            try
+            {
+                return device.GetMaxOutputReportLength();
+            }
+            catch (Exception ex) when (ex is IOException or InvalidOperationException or NotSupportedException)
+            {
+                // Unreadable descriptor, treat as not writable
+                return 0;
+            }
         }
 
         public void Shutdown()

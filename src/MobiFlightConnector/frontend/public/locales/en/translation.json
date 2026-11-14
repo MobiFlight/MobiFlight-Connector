@@ -26,7 +26,12 @@
     "Copy": "Copy",
     "Paste": "Paste",
     "NewFeature": "New",
-    "Close": "Close"
+    "Close": "Close",
+    "FacetedFilter": {
+      "Selected": "{{items}} selected",
+      "Clear": "Clear filters",
+      "NoResultsFound": "No results found."
+    }
   },
   "MainMenu": {
     "File": {
@@ -102,7 +107,9 @@
       "Merge": "From existing project",
       "Rename": "Rename",
       "Remove": "Remove",
-      "Export": "Export"
+      "Export": "Export",
+      "MoveLeft": "Move left",
+      "MoveRight": "Move right"
     },
     "Toolbar": {
       "Save": {
@@ -110,7 +117,8 @@
         "NoChanges": "No changes to save",
         "Success": "Saved successfully"
       },
-      "Settings": "Settings"
+      "Settings": "Settings",
+      "Reload": "Reload from disk"
     },
     "Execution": {
       "AutoRun": {
@@ -226,10 +234,7 @@
         "ConfigType": "Config Type",
         "Device": "Controller",
         "Type": "Devices",
-        "Name": "Names",
-        "Selected": "{{items}} selected",
-        "Clear": "Clear filters",
-        "NoResultsFound": "No results found."
+        "Name": "Names"
       },
       "NotSet": "not set",
       "Reset": "Reset filters",

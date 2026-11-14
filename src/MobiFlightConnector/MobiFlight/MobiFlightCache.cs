@@ -149,21 +149,35 @@ namespace MobiFlight
 
             var task = Task.Run(() =>
             {
-                MobiFlightModule module = new MobiFlightModule(portDetails.Name, portDetails.Board);
-                module.Connect();
-                
+                MobiFlightModule module = new MobiFlightModule(portDetails.Name, portDetails.Board)
+                {
+                    // Initialize with the original HardwareId from the PortDetails
+                    // to ensure correct identification
+                    HardwareId = portDetails.HardwareId
+                };
+
+                var connectResult = module.Connect();
+                if (connectResult != ConnectResult.Connected)
+                {
+                    return (module, connectResult);
+                }
+
                 MobiFlightModuleInfo devInfo = module.GetInfo() as MobiFlightModuleInfo;
-                // Store the hardware ID for later use
-                devInfo.HardwareId = portDetails.HardwareId;
-                module.HardwareId = devInfo.HardwareId;
 
                 if (!module.HasMfFirmware())
                     module.Disconnect();
 
-                return module;
+                return (module, connectResult);
             }).ConfigureAwait(false);
 
-            var result = await task;
+            var (result, connectResult) = await task;
+
+            if (connectResult != ConnectResult.Connected)
+            {
+                OnBusyPortDetected(connectResult, portDetails);
+                await CheckIfLookUpFinished();
+                return;
+            }
 
             OnCompatibleBoardDetected(result.ToMobiFlightModuleInfo());
 
@@ -184,7 +198,7 @@ namespace MobiFlight
                       .ConfigureAwait(false);
 
             if (!allModulesDetected || !isFirstTimeLookup) return false;
-            
+
             isFirstTimeLookup = false;
 
             Log.Instance.log($"End looking up connected modules. {AvailableComModules.Count} found.", LogSeverity.Debug);
@@ -206,6 +220,22 @@ namespace MobiFlight
             };
 
             AvailableComModules.Add(ignoredPort);
+        }
+
+        private void OnBusyPortDetected(ConnectResult connectResult, PortDetails portDetails)
+        {
+            var label = connectResult == ConnectResult.PortBusy ? "Controller in use by other app" : "Controller not responding";
+
+            AvailableComModules.Add(
+                new MobiFlightModuleInfo()
+                {
+                    Port = portDetails.Name,
+                    Type = MobiFlightModule.TYPE_BUSYPORT,
+                    Name = label,
+                    Board = portDetails.Board,
+                    HardwareId = portDetails.HardwareId
+                }
+            );
         }
 
         private void OnMobiFlightBoardDetected(MobiFlightModule module)

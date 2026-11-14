@@ -4,7 +4,7 @@
     {
         public virtual string Name { get; set; }
 
-        // temporay property, will be removed before merging with the main branch
+        // temporary property, will be removed before merging with the main branch
         public string Label { get; set; }
         public DeviceType Type { get; set; }
 

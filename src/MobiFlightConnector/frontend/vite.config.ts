@@ -5,9 +5,6 @@ import react from "@vitejs/plugin-react"
 
 // https://vite.dev/config/
 export default defineConfig({
-  esbuild: {
-    // drop: ['console', 'debugger'],
-  },
   plugins: [
     react({
       // Add this line
@@ -19,7 +16,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      "@": path.resolve(import.meta.dirname, "./src"),
       lodash: "lodash-es",
     },
   },

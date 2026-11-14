@@ -225,7 +225,11 @@ export function ConfigItemTable<TValue>({
     }
 
     if (newItem.Type === "InputConfigItem") {
-      navigate(`/config/${newItem.GUID}`)
+      // New and duplicated configs most likely need a new name,
+      // so the dialog starts editing the name right away.
+      navigate(`/config/${newItem.GUID}`, {
+        state: { editName: true },
+      })
     } else {
       publish({
         key: "CommandConfigContextMenu",

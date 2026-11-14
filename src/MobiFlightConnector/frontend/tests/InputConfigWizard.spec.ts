@@ -62,6 +62,18 @@ const preconditionTypeLabels = {
   pin: "Arcaze-Pin",
 } as Record<PreconditionType, string>
 
+const openDialogForRow = async (
+  configListPage: ConfigListPage,
+  page: Page,
+  row: number,
+) => {
+  const dialog = page.getByTestId("inputconfigwizard-dialog")
+  await expect(dialog).not.toBeVisible()
+  await configListPage.clickEditButtonForRow(row)
+  await expect(dialog).toBeVisible()
+  return dialog
+}
+
 // Helper: open the dialog for a given row and return the action-panel locator
 // (onPress tab is active by default for button inputs)
 const openWizardAndReturnActionPanel = async (
@@ -99,9 +111,9 @@ const openWizardAndReturnActionPanel = async (
   // Invoke
   await callback?.(configListPage)
 
-  await configListPage.clickEditButtonForRow(row)
+  await openDialogForRow(configListPage, page, row)
   const actionPanel = page.getByTestId("action-panel")
-
+  
   // expect it to become visible
   // this ensures that react render has completed and, e.g., useEffects have run
   await expect(actionPanel).toBeVisible()
@@ -117,10 +129,8 @@ test.describe("General Input Config Wizard Tests", () => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
 
-    await expect(page.getByText("Edit Input Configuration")).not.toBeVisible()
-    await configListPage.clickEditButtonForRow(1)
-    await expect(page.getByText("Edit Input Configuration")).toBeVisible()
-
+    await openDialogForRow(configListPage, page, 1)
+    
     await expect(
       page.getByText(
         "Edit all settings for this input configuration in this dialog.",
@@ -186,7 +196,8 @@ test.describe("General Input Config Wizard Tests", () => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
 
-    await configListPage.clickEditButtonForRow(1)
+    await openDialogForRow(configListPage, page, 1)
+
     const applyChangesButton = page.getByRole("button", {
       name: "Apply changes",
     })
@@ -208,7 +219,7 @@ test.describe("General Input Config Wizard Tests", () => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
 
-    await configListPage.clickEditButtonForRow(1)
+    const dialog = await openDialogForRow(configListPage, page, 1)
 
     const cancelButton = page.getByRole("button", { name: "Cancel" })
     await expect(cancelButton).toBeVisible()
@@ -218,7 +229,7 @@ test.describe("General Input Config Wizard Tests", () => {
     // Clicking cancel should discard changes
     // and close the dialog
     await cancelButton.click()
-    await expect(page.getByText("Edit Input Configuration")).not.toBeVisible()
+    await expect(dialog).not.toBeVisible()
 
     // No commands should have been sent to the backend
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
@@ -232,11 +243,11 @@ test.describe("General Input Config Wizard Tests", () => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
 
-    await configListPage.clickEditButtonForRow(1)
+    const dialog = await openDialogForRow(configListPage, page, 1)
 
     // Hit ESC to close the dialog
     await page.keyboard.press("Escape")
-    await expect(page.getByText("Edit Input Configuration")).not.toBeVisible()
+    await expect(dialog).not.toBeVisible()
   })
 
   test("Dialog without pending changes can be closed by clicking outside the dialog", async ({
@@ -246,9 +257,7 @@ test.describe("General Input Config Wizard Tests", () => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
 
-    await configListPage.clickEditButtonForRow(1)
-    const dialog = page.getByTestId("inputconfigwizard-dialog")
-    await expect(dialog).toBeVisible()
+    const dialog = await openDialogForRow(configListPage, page, 1)
 
     // Click outside the dialog to close it
     await page.mouse.click(0, 0)
@@ -262,7 +271,7 @@ test.describe("General Input Config Wizard Tests", () => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
 
-    await configListPage.clickEditButtonForRow(1)
+    const dialog = await openDialogForRow(configListPage, page, 1)
 
     // Make a change to enable the button
     const clearControllerButton = page.getByRole("button", {
@@ -280,7 +289,7 @@ test.describe("General Input Config Wizard Tests", () => {
 
     // Hit ESC to close the dialog
     await page.keyboard.press("Escape")
-    await expect(page.getByText("Edit Input Configuration")).toBeVisible()
+    await expect(dialog).toBeVisible()
     const hint = page.getByText(
       "You have pending changes. Apply them first, or click Cancel to close this dialog without saving.",
     )
@@ -294,7 +303,7 @@ test.describe("General Input Config Wizard Tests", () => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
 
-    await configListPage.clickEditButtonForRow(1)
+    const dialog = await openDialogForRow(configListPage, page, 1)
 
     // Make a change to enable the button
     const clearControllerButton = page.getByRole("button", {
@@ -312,7 +321,7 @@ test.describe("General Input Config Wizard Tests", () => {
 
     // Click outside the dialog to close it
     await page.mouse.click(0, 0)
-    await expect(page.getByText("Edit Input Configuration")).toBeVisible()
+    await expect(dialog).toBeVisible()
     const hint = page.getByText(
       "You have pending changes. Apply them first, or click Cancel to close this dialog without saving.",
     )
@@ -425,14 +434,18 @@ test.describe("Input Config Wizard - Edit name", () => {
     await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction")
     await expect(page.getByText("Edit Input Configuration")).toBeVisible()
 
-    // click on the Name label to enter edit mode
     const nameLabel = page.getByTestId("dialog-config-name").getByRole("button")
     const nameInput = page
       .getByTestId("dialog-config-name")
       .getByRole("textbox")
     const testLabel = "My new input config"
 
+    // Finish the automatic edit mode of the new config
+    await expect(nameInput).toBeVisible()
+    await nameInput.press("Enter")
     await expect(nameInput).not.toBeVisible()
+
+    // click on the Name label to enter edit mode
     await expect(nameLabel).toBeVisible()
     await nameLabel.dblclick()
 
@@ -460,16 +473,15 @@ test.describe("Input Config Wizard - Edit name", () => {
     configListPage,
     page,
   }) => {
-    // Add new config with default name
     const addInputConfigButton = page.getByRole("button", {
       name: "Add Input Config",
     })
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
     await addInputConfigButton.click()
+    // The name doesn't matter, every new config starts with editing the name
     await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction", {
-      Name: "New Input Config",
-      Controller: null, // ensure it's a new config
+      Name: "New Input Config With Non-Default Name",
     })
     await expect(page.getByText("Edit Input Configuration")).toBeVisible()
     await expect(
@@ -480,64 +492,68 @@ test.describe("Input Config Wizard - Edit name", () => {
     ).toBeFocused()
   })
 
-  test("Config name is not in edit mode for configs with non-default name", async ({
+  test("Config name is automatically in edit mode for duplicated configs", async ({
     configListPage,
     page,
   }) => {
-    // Add new config with default name
-    const addInputConfigButton = page.getByRole("button", {
-      name: "Add Input Config",
-    })
-    // Open a config with non-default name (we create a new one for the test and simplicity)
+    // Control the timers to check the delayed start of editing the name
+    await page.clock.install()
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
-    await addInputConfigButton.click()
-    await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction", {
-      Name: "New Input Config With Non-Default Name",
-      Controller: null, // ensure it looks like a new config
-    })
+
+    const originalRow = await configListPage.getConfigItemRow(1)
+    await originalRow.getByRole("button", { name: "Open menu" }).first().click()
+
+    const contextMenu = page.getByTestId("config-item-context-menu")
+    await expect(contextMenu).toBeVisible()
+    await contextMenu.getByRole("menuitem", { name: "Duplicate" }).click()
+
+    // Simulate the backend response after duplicating the item.
+    await configListPage.duplicateConfigItem(0, "inputaction")
 
     await expect(page.getByText("Edit Input Configuration")).toBeVisible()
-    // Label should be visible
-    await expect(
-      page
-        .getByTestId("dialog-config-name")
-        .getByText("New Input Config With Non-Default Name", { exact: true }),
-    ).toBeVisible()
+    const nameInput = page
+      .getByTestId("dialog-config-name")
+      .getByRole("textbox")
+    await expect(nameInput).toBeVisible()
+    await expect(nameInput).toBeFocused()
+    await expect(nameInput).toHaveValue("MSFS Input Action")
 
-    // No input should be visible
-    await expect(
-      page.getByTestId("dialog-config-name").getByRole("textbox"),
-    ).not.toBeVisible()
+    // Finish editing the name
+    await nameInput.press("Enter")
+    await expect(nameInput).not.toBeVisible()
 
-    //no button should be focused
-    await expect(
-      page.getByTestId("dialog-config-name").getByRole("button"),
-    ).not.toBeFocused()
+    // Opening and closing a detail view should not start editing again
+    await page.getByRole("button", { name: "Edit On Press Action" }).click()
+    const goBackButton = page.getByRole("button", { name: "Go back" })
+    await expect(goBackButton).toBeVisible()
+    await expect(page).toHaveURL(/detail=/)
+    await goBackButton.click()
+    await expect(goBackButton).not.toBeVisible()
+    await expect(page).not.toHaveURL(/detail=/)
+
+    // Editing would start 500ms after the location changed
+    await page.clock.runFor(1000)
+    await expect(nameInput).not.toBeVisible()
   })
 
-  test("Config name is not in edit mode for configs with default name but other settings made by user", async ({
+  test("Config name is not in edit mode when opening an existing config", async ({
     configListPage,
     page,
   }) => {
-    // Add new config with default name
-    const addInputConfigButton = page.getByRole("button", {
-      name: "Add Input Config",
-    })
-    // Open a config with non-default name (we create a new one for the test and simplicity)
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
-    await addInputConfigButton.click()
-
-    // We are setting the `controller` property which indicates that
-    // this is not a new default config anymore despite having the default name
+    // An existing config that still looks like a new default config
     await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction", {
       Name: "New Input Config",
-      Controller: {
-        Name: "Bravo Throttle Quadrant",
-        Serial: "JS-87654321",
-      },
+      Controller: null,
     })
+
+    await page
+      .getByRole("row")
+      .filter({ hasText: "New Input Config" })
+      .getByRole("button", { name: "Edit" })
+      .click()
 
     await expect(page.getByText("Edit Input Configuration")).toBeVisible()
     // Label should be visible
@@ -568,7 +584,8 @@ test.describe("Input Config Wizard - Trigger Panel", () => {
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
     await configListPage.mobiFlightPage.trackCommand("CommandScanForInput")
 
-    await configListPage.clickEditButtonForRow(1)
+    await openDialogForRow(configListPage, page, 1)
+    
     const triggerPanel = page.getByTestId("trigger-panel")
     await expect(triggerPanel).toBeVisible()
 
@@ -666,7 +683,7 @@ test.describe("Input Config Wizard - Trigger Panel", () => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
 
-    await configListPage.clickEditButtonForRow(1)
+    await openDialogForRow(configListPage, page, 1)
 
     const triggerPanel = page.getByTestId("trigger-panel")
     await expect(triggerPanel).toBeVisible()
@@ -702,7 +719,7 @@ test.describe("Input Config Wizard - Trigger Panel", () => {
     ]
 
     for (const triggerOption of triggerOptions) {
-      await configListPage.clickEditButtonForRow(1)
+      await openDialogForRow(configListPage, page, 1)
       await configListPage.mobiFlightPage.clearTrackedCommands()
       const triggerPanel = page.getByTestId("trigger-panel")
       const dialog = page.getByRole("dialog")
@@ -810,7 +827,7 @@ test.describe("Input Config Wizard - Trigger Panel", () => {
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
     await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
 
-    await configListPage.clickEditButtonForRow(1)
+    await openDialogForRow(configListPage, page, 1)
     const triggerPanel = page.getByTestId("trigger-panel")
     await expect(triggerPanel).toBeVisible()
 
@@ -921,8 +938,8 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
     const preconditionEditButton = preconditionsPanel.getByRole("button", {
       name: "Preconditions",
     })
-
-    await configListPage.clickEditButtonForRow(1)
+    
+    await openDialogForRow(configListPage, page, 1)
     await expect(preconditionsPanel).toBeVisible()
     await expect(preconditionEditButton).toBeVisible()
 
@@ -946,7 +963,7 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
       name: "Preconditions",
     })
 
-    await configListPage.clickEditButtonForRow(1)
+    await openDialogForRow(configListPage, page, 1)
     await expect(preconditionEditButton).toBeVisible()
     await preconditionEditButton.click()
 
@@ -1029,9 +1046,9 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
   }) => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
-    await configListPage.clickEditButtonForRow(1)
-
-    const dialog = page.getByTestId("inputconfigwizard-dialog")
+    
+    const dialog = await openDialogForRow(configListPage, page, 1)
+    
     const panel = dialog.getByTestId("precondition-panel")
     const editor = page.getByTestId("precondition-editor")
 
@@ -1054,8 +1071,8 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
     const preconditionEditButton = preconditionsPanel.getByRole("button", {
       name: "Preconditions",
     })
-
-    await configListPage.clickEditButtonForRow(1)
+    
+    await openDialogForRow(configListPage, page, 1)
     await expect(preconditionEditButton).toBeVisible()
     await preconditionEditButton.click()
 
@@ -1293,7 +1310,7 @@ test.describe("Input Config Wizard - Config References panel", () => {
       name: "Edit references",
     })
 
-    await configListPage.clickEditButtonForRow(1)
+    await openDialogForRow(configListPage, page, 1)
     await expect(configReferencesPanel).toBeVisible()
     await expect(editButton).toBeVisible()
 
@@ -1312,7 +1329,7 @@ test.describe("Input Config Wizard - Config References panel", () => {
   }) => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
-    await configListPage.clickEditButtonForRow(1)
+    await openDialogForRow(configListPage, page, 1)
 
     const dialog = page.getByTestId("inputconfigwizard-dialog")
     const panel = dialog.getByTestId("config-reference-panel")
@@ -1338,7 +1355,7 @@ test.describe("Input Config Wizard - Config References panel", () => {
       name: "Edit references",
     })
 
-    await configListPage.clickEditButtonForRow(1)
+    await openDialogForRow(configListPage, page, 1)
     await editButton.click()
 
     const configReferenceEditor = page.getByTestId("config-reference-editor")
@@ -1381,7 +1398,7 @@ test.describe("Input Config Wizard - Config References panel", () => {
   }) => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
-    await configListPage.clickEditButtonForRow(1)
+    await openDialogForRow(configListPage, page, 1)
 
     const dialog = page.getByTestId("inputconfigwizard-dialog")
     const editButton = dialog.getByRole("button", {
@@ -2031,7 +2048,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     // Length input field is visible
     const mappingRows = modifierEditor.getByRole("row")
 
-    // intially there are 3 rows for the header
+    // initially there are 3 rows for the header
     // and the two default mappings
     await expect(mappingRows).toHaveCount(3)
 
@@ -2140,7 +2157,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     // Length input field is visible
     const mappingRows = modifierEditor.getByRole("row")
 
-    // intially there are 3 rows for the header
+    // initially there are 3 rows for the header
     // and the two default mappings
     await expect(mappingRows).toHaveCount(3)
 
@@ -2234,7 +2251,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     // Length input field is visible
     const mappingRows = modifierEditor.getByRole("row")
 
-    // intially there are 3 rows for the header
+    // initially there are 3 rows for the header
     // and the two default mappings
     await expect(mappingRows).toHaveCount(3)
 
@@ -2402,7 +2419,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
 
     const sequenceRows = modifierEditor.getByRole("row")
 
-    // intially there are 2 rows
+    // initially there are 2 rows
     // one for the header
     // and one for default sequence
     await expect(sequenceRows).toHaveCount(2)
@@ -2559,7 +2576,7 @@ test.describe("Input Config Wizard - Action Type Panel", () => {
         "inputaction",
       )
 
-      await configListPage.clickEditButtonForRow(1)
+      await openDialogForRow(configListPage, page, 1)
 
       const actionEditButton = page.getByRole("button", {
         name: "Edit On Press Action",
@@ -2598,7 +2615,7 @@ test.describe("Input Config Wizard - Action Type Panel", () => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
 
-    await configListPage.clickEditButtonForRow(1)
+    await openDialogForRow(configListPage, page, 1)
 
     const actionEditButton = page.getByRole("button", {
       name: "Edit On Press Action",

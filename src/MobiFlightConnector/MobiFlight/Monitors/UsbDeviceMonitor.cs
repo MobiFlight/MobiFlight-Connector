@@ -45,6 +45,30 @@ namespace MobiFlight.Monitors
             if (isScanning) return;
             isScanning = true;
 
+            List<PortDetails> result;
+
+            try
+            {
+                result = await GetUsbPorts().ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                // This is async void, so an unhandled exception would crash the application.
+                // Keep the previously detected ports instead of reporting them as removed.
+                Log.Instance.log($"Unable to scan USB drives: {ex.Message}", LogSeverity.Error);
+                return;
+            }
+            finally
+            {
+                // Always allow the next scan, even if this one failed.
+                isScanning = false;
+            }
+
+            UpdatePorts(result);
+        }
+
+        protected virtual async Task<List<PortDetails>> GetUsbPorts()
+        {
             var result = new List<PortDetails>();
 
             foreach (var drive in DriveInfo.GetDrives())
@@ -89,8 +113,8 @@ namespace MobiFlight.Monitors
                     });
                 }
             }
-            isScanning = false;
-            UpdatePorts(result);
+
+            return result;
         }
     }
 }

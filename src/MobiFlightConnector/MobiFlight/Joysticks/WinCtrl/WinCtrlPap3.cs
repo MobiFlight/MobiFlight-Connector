@@ -1,7 +1,7 @@
 ﻿using HidSharp;
 using System;
 using System.Collections.Generic;
-using WebSocketSharp.Server;
+using MobiFlight.Joysticks.Cdu;
 
 namespace MobiFlight.Joysticks.WinCtrl
 {
@@ -33,7 +33,7 @@ namespace MobiFlight.Joysticks.WinCtrl
         private WinCtrlPap3Report CurrentReport = new WinCtrlPap3Report();
         private WinCtrlPap3Report PreviousReport = new WinCtrlPap3Report();
 
-        public WinCtrlPap3(SharpDX.DirectInput.Joystick joystick, JoystickDefinition def, int productId, WebSocketServer server) : base(joystick, def, productId, server)
+        public WinCtrlPap3(SharpDX.DirectInput.Joystick joystick, JoystickDefinition def, int productId, ICduWebsocketHub hub) : base(joystick, def, productId, hub)
         {
             // ctor logic is in base class
         }

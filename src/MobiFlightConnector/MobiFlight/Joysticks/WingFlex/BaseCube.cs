@@ -14,7 +14,7 @@ namespace MobiFlight.Joysticks.WingFlex
 
         /// <summary>
         /// The FCU Cube needs to store the output state of those devices
-        /// that are explicityly set.
+        /// that are explicitly set.
         /// </summary>
         private List<JoystickOutputDevice> OutputState = new List<JoystickOutputDevice>();
 
@@ -25,7 +25,7 @@ namespace MobiFlight.Joysticks.WingFlex
 
         /// <summary>
         /// Provide same instance name as defined in the definition file.
-        /// Also works if Defintion file is not set yet.
+        /// Also works if Definition file is not set yet.
         /// </summary>
         public override string Name
         {
@@ -201,7 +201,7 @@ namespace MobiFlight.Joysticks.WingFlex
         /// </summary>
         /// <param name="name"></param>
         /// <param name="state"></param>
-        public override void SetOutputDeviceState(string name, byte state)
+        protected override void OnSetOutputDeviceState(string name, byte state)
         {
             var light = Lights.FirstOrDefault(l => l.Label == name);
             if (light == null) return;
@@ -227,7 +227,7 @@ namespace MobiFlight.Joysticks.WingFlex
         /// </summary>
         /// <param name="address"></param>
         /// <param name="value"></param>
-        public override void SetLcdDisplay(string address, string value)
+        protected override void OnSetLcdDisplay(string address, string value)
         {
             var display = Lights.Find(l => l.Name == address) as JoystickOutputDisplay;
             if (display == null) return;
@@ -316,7 +316,7 @@ namespace MobiFlight.Joysticks.WingFlex
         /// Retrieves a collection of distinct output device types that are currently connected.
         /// </summary>
         /// <remarks>
-        /// The method examines the outputs defined in the Defintiion property (<see cref="JoystickDefinition"/>) and
+        /// The method examines the outputs defined in the Definition property (<see cref="JoystickDefinition"/>) and
         /// determines the corresponding device types. If an output does not specify a type, it is categorized as <see
         /// cref="DeviceType.Output"/>. Duplicate device types are excluded from the result.
         /// </remarks>
@@ -358,7 +358,7 @@ namespace MobiFlight.Joysticks.WingFlex
         /// <summary>
         /// Resets all outputs to a "stop" state
         /// </summary>
-        public override void Stop()
+        protected override void OnStop()
         {
             // Reset all outputs to initial state
             var data = CubeReport?.FromOutputDeviceState(Lights);
@@ -367,7 +367,7 @@ namespace MobiFlight.Joysticks.WingFlex
             // then clear all output states
             OutputState.Clear();
 
-            base.Stop();
+            base.OnStop();
         }
     }
 }

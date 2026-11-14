@@ -26,7 +26,12 @@
     "Copy": "Kopieren",
     "Paste": "Einfügen",
     "NewFeature": "Neu",
-    "Close": "Schließen"
+    "Close": "Schließen",
+    "FacetedFilter": {
+      "Selected": "{{items}} ausgewählt",
+      "Clear": "Filter zurücksetzen",
+      "NoResultsFound": "Keine Ergebnisse gefunden."
+    }
   },
   "MainMenu": {
     "File": {
@@ -102,7 +107,9 @@
       "Merge": "Aus anderem Projekt",
       "Rename": "Umbenennen",
       "Remove": "Entfernen",
-      "Export": "Exportieren"
+      "Export": "Exportieren",
+      "MoveLeft": "Nach links verschieben",
+      "MoveRight": "Nach rechts verschieben"
     },
     "Toolbar": {
       "Save": {
@@ -110,7 +117,8 @@
         "NoChanges": "Keine Änderungen zum Speichern",
         "Success": "Erfolgreich gespeichert"
       },
-      "Settings": "Einstellungen"
+      "Settings": "Einstellungen",
+      "Reload": "Von Festplatte neu laden"
     },
     "Execution": {
       "AutoRun": {
@@ -232,10 +240,7 @@
         "ConfigType": "Konfiguration-Typ",
         "Device": "Steuerung",
         "Type": "Gerät",
-        "Name": "Namen",
-        "Selected": "{{items}} ausgewählt",
-        "Clear": "Filter zurücksetzen",
-        "NoResultsFound": "Keine Ergebnisse gefunden."
+        "Name": "Namen"
       },
       "NotSet": "Nicht verwendet",
       "Reset": "Filter zurücksetzen",

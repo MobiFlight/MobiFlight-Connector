@@ -135,7 +135,7 @@ namespace MobiFlight.Tests
             xmlReader = System.Xml.XmlReader.Create(sr, settings);
             oci = new OutputConfigItem();
             oci.ReadXml(xmlReader);
-            Assert.AreEqual("Display Module", oci.DeviceType, "Display Type not Display Module");
+            Assert.AreEqual("LedModule", oci.Device.Type, "Display Type not LedModule");
             Assert.IsTrue(oci.Modifiers.Interpolation.Active, "AnalogInputConfig.onPress null");
             Assert.AreEqual(5, oci.Modifiers.Interpolation.Count, "Interpolation Count is not 5");
         }
@@ -208,10 +208,10 @@ namespace MobiFlight.Tests
             Assert.AreEqual(o.Modifiers.Comparison.ElseValue, c.Modifiers.Comparison.ElseValue, "clone: ComparisonElseValue not the same");
             Assert.AreEqual(o.Modifiers.Interpolation.Count, c.Modifiers.Interpolation.Count, "clone: Interpolation count not right");
 
-            Assert.AreEqual(c.DeviceType, o.DeviceType, "clone: DisplayType not the same");
+            Assert.AreEqual(c.Device.Type, o.Device.Type, "clone: DisplayType not the same");
             Assert.AreEqual(c.Controller.Serial, o.Controller.Serial, "clone: DisplaySerial not the same");
 
-            if (o.DeviceType == MobiFlight.DeviceType.Output.ToString("F"))
+            if (o.Device.Type == MobiFlight.DeviceType.Output.ToString("F"))
             {
                 Assert.AreEqual((o.Device as Output).Pin, (c.Device as Output).Pin, "clone: DisplayPin not the same");
                 Assert.AreEqual((o.Device as Output).Brightness, (c.Device as Output).Brightness, "clone: DisplayPinBrightness not the same");
@@ -276,7 +276,6 @@ namespace MobiFlight.Tests
             Assert.AreEqual(o.Modifiers.Interpolation.Active, c.Modifiers.Interpolation.Active, "clone: Interpolation.Active is not the same.");
             Assert.AreEqual(o.Modifiers.Interpolation.Count, c.Modifiers.Interpolation.Count, "clone: Interpolation.Count not the same");
 
-
             Assert.AreEqual(o.Preconditions.Count, c.Preconditions.Count, "clone: Preconditions.Count not the same");
 
             // Config References
@@ -311,13 +310,11 @@ namespace MobiFlight.Tests
             o.Modifiers.Comparison.IfValue = "2";
             o.Modifiers.Comparison.ElseValue = "3";
 
-            o.DeviceType = MobiFlight.DeviceType.Stepper.ToString("F");
             o.Controller = SerialNumber.CreateController("Ser123");
 
             switch (deviceType)
             {
                 case "Display":
-                    o.DeviceType = MobiFlight.DeviceType.Output.ToString("F");
                     o.Device = new Output()
                     {
                         Pin = "A01",
@@ -327,7 +324,6 @@ namespace MobiFlight.Tests
                     break;
 
                 case "LedModule":
-                    o.DeviceType = MobiFlight.DeviceType.LedModule.ToString("F");
                     o.Device = new LedModule()
                     {
                         DisplayLedConnector = 2,
@@ -343,7 +339,6 @@ namespace MobiFlight.Tests
                     break;
 
                 case "Servo":
-                    o.DeviceType = MobiFlight.DeviceType.Servo.ToString("F");
                     o.Device = new Servo()
                     {
                         Address = "A2",
@@ -354,7 +349,6 @@ namespace MobiFlight.Tests
                     break;
 
                 case "ShiftRegister":
-                    o.DeviceType = MobiFlight.DeviceType.ShiftRegister.ToString("F");
                     o.Device = new ShiftRegister()
                     {
                         Address = "ShiftRegister",
@@ -363,7 +357,6 @@ namespace MobiFlight.Tests
                     break;
 
                 case "Stepper":
-                    o.DeviceType = MobiFlight.DeviceType.Stepper.ToString("F");
                     o.Device = new Stepper()
                     {
                         Address = "S22",
@@ -375,7 +368,6 @@ namespace MobiFlight.Tests
                     break;
 
                 case "CustomDevice":
-                    o.DeviceType = MobiFlight.DeviceType.CustomDevice.ToString("F");
                     o.Device = new CustomDevice()
                     {
                         CustomType = "TestCustomType",
@@ -447,12 +439,6 @@ namespace MobiFlight.Tests
             (o2.Device as Servo).MaxRotationPercent = "90";
             Assert.IsFalse(o1.Equals(o2));
 
-            o2 = _generateConfigItem("Servo");
-            Assert.IsTrue(o1.Equals(o2));
-            o2.DeviceType = "nonsense";
-            Assert.IsFalse(o1.Equals(o2));
-
-
             o1 = _generateConfigItem("CustomDevice");
             o2 = _generateConfigItem("CustomDevice");
             Assert.IsTrue(o1.Equals(o2));
@@ -466,5 +452,47 @@ namespace MobiFlight.Tests
             o2.Status[ConfigItemStatusType.Source] = "Source not available";
             Assert.IsTrue(o1.Equals(o2));
         }
+
+        #region JSON backward compatibility
+
+        [TestMethod]
+        public void Deserialize_ShouldDetectInputAction_WhenLegacyJsonHasInputActionDeviceType()
+        {
+            // Arrange
+            var json = """
+                {
+                  "Type": "OutputConfigItem",
+                  "GUID": "11111111-1111-1111-1111-111111111111",
+                  "DeviceType": "InputAction",
+                  "DeviceName": null,
+                  "ButtonInputConfig": {}
+                }
+                """;
+
+            // Act
+            var item = Newtonsoft.Json.JsonConvert.DeserializeObject<IConfigItem>(json) as OutputConfigItem;
+
+            // Assert
+            Assert.IsNotNull(item);
+            Assert.IsNull(item.Device);
+            Assert.IsNull(item.Controller);
+            Assert.IsNotNull(item.ButtonInputConfig);
+            Assert.IsTrue(item.HasInputAction);
+        }
+
+        [TestMethod]
+        public void Serialize_ShouldNotContainHasInputAction_WhenItemIsOutputConfigItem()
+        {
+            // Arrange
+            var item = new OutputConfigItem() { ButtonInputConfig = new InputConfig.ButtonInputConfig() };
+
+            // Act
+            var json = Newtonsoft.Json.JsonConvert.SerializeObject(item);
+
+            // Assert
+            Assert.DoesNotContain("HasInputAction", json);
+        }
+
+        #endregion
     }
 }

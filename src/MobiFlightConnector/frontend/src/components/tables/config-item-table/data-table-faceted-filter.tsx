@@ -1,38 +1,21 @@
-import * as React from "react"
-import { IconCheck, IconCirclePlus } from "@tabler/icons-react"
 import { Column } from "@tanstack/react-table"
 
-import { cn } from "@/lib/utils"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
-} from "@/components/ui/command"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
-import { Separator } from "@/components/ui/separator"
-import { useTranslation } from "react-i18next"
+import FacetedFilterOptions, {
+  FacetedFilterOption,
+} from "@/components/FacetedFilterOptions"
 
 interface DataTableFacetedFilterProps<TData, TValue> {
   disabled?: boolean
   column?: Column<TData, TValue>
   title?: string
-  options: {
-    label: string
-    value: string
-    icon?: React.ComponentType<{ className?: string }>
-  }[]
+  options: FacetedFilterOption[]
 }
 
+/**
+ * Maps a TanStack Table column onto `FacetedFilterOptions`: the column
+ * supplies the facet counts and owns the selection, while the menu itself
+ * stays unaware that a table exists.
+ */
 export function DataTableFacetedFilter<TData, TValue>({
   disabled = false,
   column,
@@ -42,121 +25,16 @@ export function DataTableFacetedFilter<TData, TValue>({
   // TODO: Fix this to work with React Compiler, changes done to table columns does not trigger a re-render
   "use no memo"
 
-  const facets = column?.getFacetedUniqueValues()
-  const selectedValues = new Set(column?.getFilterValue() as string[])
-
-  const { t } = useTranslation()
-
   return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <Button disabled={disabled} variant="outline" size="sm" className="h-8 border-dashed">
-          <IconCirclePlus className="h-4 w-4" />
-          {title}
-          {selectedValues?.size > 0 && (
-            <>
-              <Separator orientation="vertical" className="h-4" />
-              <Badge
-                variant="secondary"
-                className="rounded-sm px-1 font-normal 2xl:hidden"
-              >
-                {selectedValues.size}
-              </Badge>
-              <div className="hidden space-x-1 2xl:flex">
-                {selectedValues.size > 2 ? (
-                  <Badge
-                    variant="secondary"
-                    className="rounded-sm px-1 font-normal"
-                  >
-                    {t("ConfigList.Toolbar.Filter.Selected", {
-                      items: selectedValues.size,
-                    })}
-                  </Badge>
-                ) : (
-                  options
-                    .filter((option) => selectedValues.has(option.value))
-                    .map((option) => (
-                      <Badge
-                        variant="secondary"
-                        key={option.value}
-                        className="rounded-sm px-1 font-normal"
-                      >
-                        {option.label}
-                      </Badge>
-                    ))
-                )}
-              </div>
-            </>
-          )}
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-[240px] p-0" align="start">
-        <Command>
-          <CommandInput placeholder={title} />
-          <CommandList>
-            <CommandEmpty>
-              {t("ConfigList.Toolbar.Filter.NoResultsFound")}
-            </CommandEmpty>
-            <CommandGroup>
-              {options.map((option) => {
-                const isSelected = selectedValues.has(option.value)
-                return (
-                  <CommandItem
-                    className="gap-1 px-2"
-                    key={option.value}
-                    onSelect={() => {
-                      if (isSelected) {
-                        selectedValues.delete(option.value)
-                      } else {
-                        selectedValues.add(option.value)
-                      }
-                      const filterValues = Array.from(selectedValues)
-                      column?.setFilterValue(
-                        filterValues.length ? filterValues : undefined,
-                      )
-                    }}
-                  >
-                    <div
-                      className={cn(
-                        "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
-                        isSelected
-                          ? "bg-primary text-primary-foreground"
-                          : "opacity-50 [&_svg]:invisible",
-                      )}
-                    >
-                      <IconCheck className={cn("h-4 w-4")} />
-                    </div>
-                    {option.icon && (
-                      <div>
-                      <option.icon className="mr-0 h-4 w-4 text-muted-foreground" />
-                      </div>
-                    )}
-                    <span className="truncate">{option.label}</span>
-                    {facets?.get(option.value) && (
-                      <span className="ml-auto flex h-4 w-4 items-center justify-center font-mono text-xs">
-                        {facets.get(option.value)}
-                      </span>
-                    )}
-                  </CommandItem>
-                )
-              })}
-            </CommandGroup>
-            {selectedValues.size > 0 && (
-              <>
-                <CommandSeparator />
-                <CommandGroup>
-                  <CommandItem
-                    onSelect={() => column?.setFilterValue(undefined)}
-                    className="justify-center text-center"
-                  >
-                    {t("ConfigList.Toolbar.Filter.Clear")}
-                  </CommandItem>
-                </CommandGroup>
-              </>
-            )}
-          </CommandList>
-        </Command>
-      </PopoverContent>
-    </Popover>
+    <FacetedFilterOptions
+      disabled={disabled}
+      title={title}
+      options={options}
+      facets={column?.getFacetedUniqueValues()}
+      values={(column?.getFilterValue() as string[]) ?? []}
+      onValuesChange={(values) =>
+        column?.setFilterValue(values.length ? values : undefined)
+      }
+    />
   )
 }

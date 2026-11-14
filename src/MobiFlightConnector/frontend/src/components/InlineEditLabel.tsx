@@ -41,9 +41,7 @@ export const InlineEditLabel = forwardRef<
     // Expose the startEditing method through the ref
     useImperativeHandle(ref, () => ({
       startEditing: () => {
-        if (!disabled) {
-          setIsEditing(true)
-        }
+        setIsEditing(true)
       },
     }))
 

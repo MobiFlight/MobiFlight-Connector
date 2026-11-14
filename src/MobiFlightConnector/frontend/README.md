@@ -61,6 +61,18 @@ dotnet publish "src/MobiFlightConnector/MobiFlightConnector.csproj" -c "Release"
 
 [^1]: You can choose any version number starting with 0.0., but some features will be disabled, for example checking for a version update.
 
+#### Running the backend tests
+
+The backend unit tests use MSTest and live in `tests/` (`MobiFlightUnitTests`, `MobiFlightMozaUnitTests`, `MobiFlightWwFcuUnitTests`). Run them from the repository root:
+
+```sh
+dotnet test MobiFlightConnector.sln          # all test projects
+dotnet test tests/MobiFlightUnitTests        # a single test project
+dotnet build MobiFlightConnector.sln --no-incremental   # surfaces analyzer warnings that incremental builds hide
+```
+
+Tests that need real hardware are skipped automatically.
+
 ## Translations (i18n)
 
 Translation files are in `public/locales/{lang}/translation.json`. The app uses `react-i18next` — all user-facing strings must go through `t()`. Core languages that must be complete before a PR can be merged: `en`, `de`, `es`.

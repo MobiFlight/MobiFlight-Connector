@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobiFlight.Base;
+using System;
 
 namespace MobiFlight
 {
@@ -40,11 +41,9 @@ namespace MobiFlight
             {
                 currentVersion = new Version("0.0.0");
             }
-            bool isDevOrPrFirmware =
-                currentVersion.Major == 0 &&
-                currentVersion.Minor == 0;
+            
             // PR firmware uses version 0.0.<PR_NUMBER>, so don't require an update.
-            if (isDevOrPrFirmware)
+            if (currentVersion.IsDevOrPullRequestBuild() )
             {
                 return false;
             }
