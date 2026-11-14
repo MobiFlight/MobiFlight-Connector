@@ -1106,6 +1106,8 @@ test.describe("Output Config Wizard - Output Device Panel", () => {
       "ProtoBoard-v2",
       "Mega Output Board",
       "Arcaze v5.54",
+      "Bravo Throttle Quadrant",
+      "Korg nanoKONTROL",
     ])
   })
 
@@ -2381,4 +2383,61 @@ test.describe("Output Config Wizard - Preconditions, References and Modifiers", 
     expect(payload.item.Modifiers.Items).toHaveLength(1)
     expect(payload.item.Modifiers.Items[0].Type).toBe("Transformation")
   })
+})
+
+test.describe("Output Config Wizard - Joystick and MIDI outputs", () => {
+  const cases = [
+    {
+      controller: "Bravo Throttle Quadrant",
+      serial: "JS-b0875190-3b89-11ed-8007-444553540000",
+      pins: ["AP Mode - HDG", "AP Mode - NAV"],
+    },
+    {
+      controller: "Korg nanoKONTROL",
+      serial: "MI-nanoKONTROL",
+      pins: ["Play LED", "Record LED"],
+    },
+  ]
+
+  for (const { controller, serial, pins } of cases) {
+    test(`${controller} saves multiple selected outputs`, async ({
+      configListPage,
+      page,
+    }) => {
+      await openWizardForRow(configListPage, page, ROW.NoDevice)
+      await openOutputDevicePanel(page)
+
+      const deviceEditor = page.getByTestId("output-device-editor")
+      await selectComboBoxOption(
+        page,
+        deviceEditor.getByRole("combobox").first(),
+        controller,
+      )
+      await selectComboBoxOption(
+        page,
+        deviceEditor.getByRole("combobox").nth(1),
+        "Output",
+      )
+
+      await expect(
+        deviceEditor.getByRole("checkbox", { name: pins[0] }),
+      ).toBeChecked()
+      await deviceEditor.getByRole("checkbox", { name: pins[1] }).click()
+      await expect(
+        deviceEditor.getByRole("checkbox", { name: pins[1] }),
+      ).toBeChecked()
+
+      await closeDrawer(page)
+
+      const payload = await applyChangesAndReturnPayload(configListPage, page)
+      expect(payload.item.Controller).toMatchObject({
+        Name: controller,
+        Serial: serial,
+      })
+      expect(payload.item.Device).toMatchObject({
+        Type: "Output",
+        Pin: pins.join("|"),
+      })
+    })
+  }
 })
