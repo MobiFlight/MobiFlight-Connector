@@ -3,7 +3,7 @@ import { Label } from "@/components/ui/label"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import WizardSection from "@/components/wizard/common/WizardSection"
 import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
-import ProSimPresetListPanel from "@/components/wizard/components/InputActions/ProSimPresetListPanel"
+import ProSimPresetListPanel from "@/components/wizard/common/ProSimPresetListPanel"
 import { ProSimPresetAdapter } from "@/types/preset"
 import { useTranslation } from "react-i18next"
 
@@ -14,7 +14,7 @@ export type ProSimPresetPanelProps<T> = {
   onConfigChange?: (config: T) => void
 }
 
-const ProSimPresetPanel = <T,>({
+export const ProSimPresetPanel = <T,>({
   variant,
   adapter,
   config,

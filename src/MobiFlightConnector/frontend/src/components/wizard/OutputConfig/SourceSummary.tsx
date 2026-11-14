@@ -12,7 +12,7 @@ import {
 } from "@/types/presets"
 import XplanePresetPanel from "@/components/wizard/common/XplanePresetPanel"
 import { useTranslation } from "react-i18next"
-import ProSimPresetPanel from "@/components/wizard/components/InputActions/ProSimPresetPanel"
+import { ProSimPresetPanel } from "@/components/wizard/common/ProSimPresetPanel"
 import { VariablePanel } from "@/components/wizard/common/VariablePanel"
 
 export interface SourceSummaryProps {

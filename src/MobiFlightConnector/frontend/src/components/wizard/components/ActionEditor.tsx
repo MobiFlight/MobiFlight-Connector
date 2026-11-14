@@ -11,7 +11,7 @@ import JeehellInputActionPanel from "@/components/wizard/components/InputActions
 import KeyboardInputActionPanel from "@/components/wizard/components/InputActions/KeyboardInputActionPanel"
 import LuaMacroInputActionPanel from "@/components/wizard/components/InputActions/LuaMacroInputActionPanel"
 import MsfsPresetPanel from "@/components/wizard/common/MsfsPresetPanel"
-import ProSimPresetPanel from "@/components/wizard/components/InputActions/ProSimPresetPanel"
+import { ProSimPresetPanel } from "@/components/wizard/common/ProSimPresetPanel"
 import RetriggerPanel from "@/components/wizard/components/InputActions/RetriggerPanel"
 import { VariablePanel } from "@/components/wizard/common/VariablePanel"
 import VJoyInputActionPanel from "@/components/wizard/components/InputActions/VJoyInputActionPanel"

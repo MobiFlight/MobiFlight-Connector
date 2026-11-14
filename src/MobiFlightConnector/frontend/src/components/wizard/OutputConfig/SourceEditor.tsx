@@ -22,7 +22,7 @@ import {
 } from "@/types/presets"
 import XplanePresetPanel from "@/components/wizard/common/XplanePresetPanel"
 import DrawerBreadcrumb from "@/components/wizard/common/DrawerTitle"
-import ProSimPresetPanel from "@/components/wizard/components/InputActions/ProSimPresetPanel"
+import { ProSimPresetPanel } from "@/components/wizard/common/ProSimPresetPanel"
 
 export interface SourceEditorProps {
   configName: string
