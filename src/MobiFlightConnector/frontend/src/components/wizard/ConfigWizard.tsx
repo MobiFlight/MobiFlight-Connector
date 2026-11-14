@@ -217,10 +217,10 @@ const ConfigWizard = ({
           variant="outline"
           size={"sm"}
           onClick={() => navigateToDetailView("configReference")}
-          aria-label={t("Dialog.InputConfigWizard.ConfigReferences.AddButton")}
+          aria-label={t("ConfigWizard.ConfigReferences.AddButton")}
         >
           <IconPlus className="" />
-          {t("Dialog.InputConfigWizard.ConfigReferences.Label")}
+          {t("ConfigWizard.ConfigReferences.Label")}
         </Button>
         <Button
           variant="outline"
