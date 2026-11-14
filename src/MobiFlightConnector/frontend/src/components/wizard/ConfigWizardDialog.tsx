@@ -224,14 +224,20 @@ const ConfigWizardDialog = ({ configId }: ConfigWizardDialogProps) => {
             )}
           </div>
           <div className="flex flex-row gap-2">
-            <Button variant="outline" onClick={closeDialog}>
-              {isDirty ? t("Dialog.General.Cancel") : t("Dialog.General.Close")}
-            </Button>
             {isDirty && (
-              <Button variant="default" onClick={saveChanges}>
-                {t("Dialog.General.ApplyChanges")}
+              <Button variant="outline" onClick={closeDialog}>
+                {t("Dialog.General.Cancel")}
               </Button>
             )}
+            {/* primary button stays in place, only its label and action change */}
+            <Button
+              variant="default"
+              onClick={isDirty ? saveChanges : closeDialog}
+            >
+              {isDirty
+                ? t("Dialog.General.ApplyChanges")
+                : t("Dialog.General.Close")}
+            </Button>
           </div>
         </DialogFooter>
       </DialogContent>
