@@ -14,10 +14,10 @@ export const SubstringPanelTrigger = ({
   return (
     <div className="flex flex-row items-center gap-2">
       <div className="text-md w-32 px-2 text-left font-semibold">
-        {t("Dialog.Modifiers.Type.Substring.Label")}
+        {t("ConfigWizard.Modifiers.Type.Substring.Label")}
       </div>
       <Trans
-        i18nKey="Dialog.Modifiers.Type.Substring.Summary"
+        i18nKey="ConfigWizard.Modifiers.Type.Substring.Summary"
         values={{ start: modifier.Start, end: modifier.End }}
         components={{ badge: <Badge variant="secondary" /> }}
       />
@@ -36,12 +36,12 @@ export const SubstringPanelContent = ({
   return (
     <>
       <div className="text-muted-foreground text-sm">
-        {t("Dialog.Modifiers.Type.Substring.Description")}
+        {t("ConfigWizard.Modifiers.Type.Substring.Description")}
       </div>
       <div className="flex flex-row items-center gap-4 pr-16 pb-4">
         <div className="flex flex-col gap-1">
           <Label htmlFor="start">
-            {t("Dialog.Modifiers.Type.Substring.Start")}
+            {t("ConfigWizard.Modifiers.Type.Substring.Start")}
           </Label>
           <Input
             id="start"
@@ -55,7 +55,7 @@ export const SubstringPanelContent = ({
         </div>
         <div className="flex flex-col gap-1">
           <Label htmlFor="end">
-            {t("Dialog.Modifiers.Type.Substring.End")}
+            {t("ConfigWizard.Modifiers.Type.Substring.End")}
           </Label>
           <Input
             id="end"

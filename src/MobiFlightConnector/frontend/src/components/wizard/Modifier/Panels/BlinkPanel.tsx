@@ -39,11 +39,11 @@ export const BlinkPanelTrigger = ({ modifier }: { modifier: Blink }) => {
   return (
     <div className="flex flex-row items-center gap-2">
       <div className="text-md w-32 px-2 text-left font-semibold">
-        {t("Dialog.Modifiers.Type.Blink.Label")}
+        {t("ConfigWizard.Modifiers.Type.Blink.Label")}
       </div>
       <div className="flex flex-row items-center gap-2 text-sm">
         <Trans
-          i18nKey="Dialog.Modifiers.Type.Blink.Summary"
+          i18nKey="ConfigWizard.Modifiers.Type.Blink.Summary"
           values={{
             blinkValue: modifier.BlinkValue,
             on: blinkValues.length > 0 ? `${blinkValues[0].on}` : "",
@@ -100,11 +100,11 @@ export const BlinkPanelContent = ({
   return (
     <>
       <div className="text-muted-foreground text-sm">
-        {t("Dialog.Modifiers.Type.Blink.Description")}
+        {t("ConfigWizard.Modifiers.Type.Blink.Description")}
       </div>
       <div className="flex flex-col gap-1 pr-12">
         <Label htmlFor="alternate" className="text-md font-semibold">
-          {t("Dialog.Modifiers.Type.Blink.AlternateValue")}
+          {t("ConfigWizard.Modifiers.Type.Blink.AlternateValue")}
         </Label>
         <Input
           className="w-12"
@@ -115,16 +115,16 @@ export const BlinkPanelContent = ({
       </div>
       <div>
         <div className="text-md font-semibold">
-          {t("Dialog.Modifiers.Type.Blink.BlinkSequence")}
+          {t("ConfigWizard.Modifiers.Type.Blink.BlinkSequence")}
         </div>
         <Table className="">
           <TableHeader>
             <TableRow>
-              <TableHead>{t("Dialog.Modifiers.Type.Blink.On")}</TableHead>
-              <TableHead>{t("Dialog.Modifiers.Type.Blink.Off")}</TableHead>
+              <TableHead>{t("ConfigWizard.Modifiers.Type.Blink.On")}</TableHead>
+              <TableHead>{t("ConfigWizard.Modifiers.Type.Blink.Off")}</TableHead>
               <TableHead>
                 <span className="sr-only">
-                  {t("Dialog.Modifiers.Type.Blink.Action")}
+                  {t("ConfigWizard.Modifiers.Type.Blink.Action")}
                 </span>
               </TableHead>
             </TableRow>
@@ -189,7 +189,7 @@ export const BlinkPanelContent = ({
                     >
                       <IconTrash />
                       <span className="sr-only">
-                        {t("Dialog.Modifiers.Type.Blink.Remove")}
+                        {t("ConfigWizard.Modifiers.Type.Blink.Remove")}
                       </span>
                     </Button>
                   </TableCell>
@@ -201,7 +201,7 @@ export const BlinkPanelContent = ({
       </div>
       <Button variant="outline" size="sm" onClick={addBlink}>
         <IconPlus />
-        {t("Dialog.Modifiers.Type.Blink.Add")}
+        {t("ConfigWizard.Modifiers.Type.Blink.Add")}
       </Button>
     </>
   )

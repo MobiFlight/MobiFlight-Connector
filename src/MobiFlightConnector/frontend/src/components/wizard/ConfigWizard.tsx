@@ -226,10 +226,10 @@ const ConfigWizard = ({
           variant="outline"
           size={"sm"}
           onClick={() => navigateToDetailView("modifier", "small")}
-          aria-label={t("Dialog.Modifiers.AddButton")}
+          aria-label={t("ConfigWizard.Modifiers.AddButton")}
         >
           <IconPlus className="" />
-          {t("Dialog.Modifiers.Label")}
+          {t("ConfigWizard.Modifiers.Label")}
         </Button>
       </div>
 

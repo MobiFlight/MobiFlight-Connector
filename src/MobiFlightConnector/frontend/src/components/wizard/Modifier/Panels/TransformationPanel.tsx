@@ -14,7 +14,7 @@ export const TransformationPanelTrigger = ({
   return (
     <div className="flex flex-row items-center gap-2">
       <div className="text-md px-2 font-semibold">
-        {t("Dialog.Modifiers.Type.Transformation.Label")}
+        {t("ConfigWizard.Modifiers.Type.Transformation.Label")}
       </div>
       <CodeValueLabel className="pt-2 text-xs">
         {modifier.Expression}
@@ -34,12 +34,12 @@ export const TransformationPanelContent = ({
   return (
     <>
       <div className="text-muted-foreground text-sm">
-        {t("Dialog.Modifiers.Type.Transformation.Description")}
+        {t("ConfigWizard.Modifiers.Type.Transformation.Description")}
       </div>
       <div className="flex flex-row items-center gap-2">
         <div className="flex grow flex-col gap-1">
           <Label htmlFor="expression">
-            {t("Dialog.Modifiers.Type.Transformation.Expression")}
+            {t("ConfigWizard.Modifiers.Type.Transformation.Expression")}
           </Label>
           <div className="relative flex flex-row items-center">
             <Input

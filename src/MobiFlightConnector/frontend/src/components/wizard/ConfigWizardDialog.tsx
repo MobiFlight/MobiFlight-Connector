@@ -125,7 +125,7 @@ const ConfigWizardDialog = ({ configId }: ConfigWizardDialogProps) => {
   const isOutputConfig = draftConfigItem?.Type === "OutputConfigItem"
   const i18nPrefix = isOutputConfig
     ? "ConfigWizard.Output"
-    : "Dialog.InputConfigWizard"
+    : "ConfigWizard.Input"
 
   return (
     <Dialog open={true} onOpenChange={closeDialog}>

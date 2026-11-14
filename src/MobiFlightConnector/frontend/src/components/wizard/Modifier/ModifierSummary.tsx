@@ -34,7 +34,7 @@ const ModifierSummary = ({
             index === modifiers.length - 1 || index === maxDisplayCount - 1
           return (
             <div className="flex flex-row items-center gap-2" key={index}>
-              <Badge variant="secondary">{t(`Dialog.Modifiers.Type.${modifier.Type}.Label`)}</Badge>
+              <Badge variant="secondary">{t(`ConfigWizard.Modifiers.Type.${modifier.Type}.Label`)}</Badge>
               {!isLast && (
                 <div className="mt-1 h-1 w-16 border-t border-dashed border-gray-800"></div>
               )}
@@ -47,7 +47,7 @@ const ModifierSummary = ({
       )}
       {showMoreCount && (
         <Badge variant="secondary" className="border-primary">
-          {t("Dialog.Modifiers.Summary.More", {
+          {t("ConfigWizard.Modifiers.Summary.More", {
             count: modifiers.length - maxDisplayCount,
           })}
         </Badge>

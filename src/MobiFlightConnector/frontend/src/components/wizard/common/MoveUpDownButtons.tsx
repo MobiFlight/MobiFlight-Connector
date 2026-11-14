@@ -11,15 +11,15 @@ type MoveUpDownButtonsProps = {
 }
 
 type MoveUpDownButtonsI18nPrefix =
-  | "ConfigWizard.Input.PreconditionEditor"
-  | "Dialog.Modifiers.Editor"
+  | "ConfigWizard.PreconditionEditor"
+  | "ConfigWizard.Modifiers.Editor"
 
 const MoveUpDownButtons = ({
   onMoveUp,
   onMoveDown,
   isFirst,
   isLast,
-  i18nPath = "Dialog.Modifiers.Editor",
+  i18nPath = "ConfigWizard.Modifiers.Editor",
 }: MoveUpDownButtonsProps) => {
   const { t } = useTranslation("wizard")
   return (

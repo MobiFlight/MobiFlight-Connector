@@ -11,11 +11,11 @@ export const PaddingPanelTrigger = ({ modifier }: { modifier: Padding }) => {
   return (
     <div className="flex flex-row items-center gap-1">
       <div className="text-md w-32 px-2 text-left font-semibold">
-        {t("Dialog.Modifiers.Type.Padding.Label")}
+        {t("ConfigWizard.Modifiers.Type.Padding.Label")}
       </div>
       <div className="flex flex-row items-center gap-2 text-sm">
         <Trans
-          i18nKey="Dialog.Modifiers.Type.Padding.Summary"
+          i18nKey="ConfigWizard.Modifiers.Type.Padding.Summary"
           values={{
             length: modifier.Length,
             character:
@@ -59,12 +59,12 @@ export const PaddingPanelContent = ({
   return (
     <>
       <div className="text-muted-foreground text-sm">
-        {t("Dialog.Modifiers.Type.Padding.Description")}
+        {t("ConfigWizard.Modifiers.Type.Padding.Description")}
       </div>
       <div className="flex flex-row items-center gap-4 pr-16 pb-4">
         <div className="flex flex-col gap-1">
           <Label htmlFor="length">
-            {t("Dialog.Modifiers.Type.Padding.Length")}
+            {t("ConfigWizard.Modifiers.Type.Padding.Length")}
           </Label>
           <Input
             className="w-12"
@@ -76,7 +76,7 @@ export const PaddingPanelContent = ({
         </div>
         <div className="flex flex-col gap-1">
           <Label htmlFor="character">
-            {t("Dialog.Modifiers.Type.Padding.Character")}
+            {t("ConfigWizard.Modifiers.Type.Padding.Character")}
           </Label>
           <Input
             className="w-12"
@@ -88,7 +88,7 @@ export const PaddingPanelContent = ({
         </div>
         <div className="flex flex-col gap-1">
           <Label htmlFor="direction">
-            {t("Dialog.Modifiers.Type.Padding.Direction")}
+            {t("ConfigWizard.Modifiers.Type.Padding.Direction")}
           </Label>
           <ComboBox
             id="direction"

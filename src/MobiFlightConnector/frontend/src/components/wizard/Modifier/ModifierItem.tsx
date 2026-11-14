@@ -122,7 +122,7 @@ export const ModifierItem = ({
           <Button onClick={onDelete} size={"sm"} variant="ghost">
             <IconTrash />
             <span className="sr-only">
-              {t("Dialog.Modifiers.Editor.DeleteModifier")}
+              {t("ConfigWizard.Modifiers.Editor.DeleteModifier")}
             </span>
           </Button>
         </div>

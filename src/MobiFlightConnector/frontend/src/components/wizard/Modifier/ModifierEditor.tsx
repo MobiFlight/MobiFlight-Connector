@@ -94,17 +94,17 @@ const ModifierEditor = ({
             title={
               <DrawerBreadcrumb
                 mode={mode}
-                crumbs={[configName, t("Dialog.Modifiers.Title")]}
+                crumbs={[configName, t("ConfigWizard.Modifiers.Title")]}
               />
             }
-            description={t("Dialog.Modifiers.Editor.Description")}
+            description={t("ConfigWizard.Modifiers.Editor.Description")}
           />
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild className="self-center">
             <Button variant="default" className="w-fit" size={"sm"}>
               <IconPlus className="h-4 w-4" />
-              {t("Dialog.Modifiers.Editor.AddModifier")}
+              {t("ConfigWizard.Modifiers.Editor.AddModifier")}
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start">
@@ -113,7 +113,7 @@ const ModifierEditor = ({
                 key={modifierType}
                 onClick={() => handleAdd(modifierType)}
               >
-                {t(`Dialog.Modifiers.Type.${modifierType}.Label`)}
+                {t(`ConfigWizard.Modifiers.Type.${modifierType}.Label`)}
               </DropdownMenuItem>
             ))}
           </DropdownMenuContent>
@@ -122,7 +122,7 @@ const ModifierEditor = ({
 
       {modifiers.length === 0 ? (
         <div className="text-muted-foreground rounded border p-4 text-center text-sm">
-          {t("Dialog.Modifiers.Editor.NoModifiers")}
+          {t("ConfigWizard.Modifiers.Editor.NoModifiers")}
         </div>
       ) : (
         <ScrollArea className="grow">

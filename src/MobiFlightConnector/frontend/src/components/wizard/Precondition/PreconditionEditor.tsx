@@ -118,7 +118,7 @@ const PreconditionItemRow = ({
         onMoveDown={onMoveDown ?? (() => {})}
         isFirst={isFirst}
         isLast={isLast}
-        i18nPath="ConfigWizard.Input.PreconditionEditor"
+        i18nPath="ConfigWizard.PreconditionEditor"
       />
       <Switch
         checked={precondition.Active}
