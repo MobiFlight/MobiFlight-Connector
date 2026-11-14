@@ -12,16 +12,17 @@ export const ComparisonPanelTrigger = ({
 }: {
   modifier: Comparison
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   return (
     <div className="flex flex-row items-center gap-2">
       <div className="text-md w-32 px-2 text-left font-semibold">
-        {t("Dialog.Modifiers.Type.Comparison.Label")}
+        {t("ConfigWizard.Modifiers.Type.Comparison.Label")}
       </div>
       <div className="flex flex-row items-center gap-2">
         <Trans
           shouldUnescape={true}
-          i18nKey="Dialog.Modifiers.Type.Comparison.Summary"
+          i18nKey="ConfigWizard.Modifiers.Type.Comparison.Summary"
+          ns="wizard"
           values={{
             operator: modifier.Operand,
             value: modifier.Value,
@@ -45,7 +46,7 @@ export const ComparisonPanelContent = ({
   modifier: Comparison
   onChange: (updated: Comparison) => void
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
 
   const availableOperators = ComparisonOperators
   const selectedDirection = availableOperators.find(
@@ -64,17 +65,17 @@ export const ComparisonPanelContent = ({
   return (
     <>
       <div className="text-muted-foreground text-sm">
-        {t("Dialog.Modifiers.Type.Comparison.Description")}
+        {t("ConfigWizard.Modifiers.Type.Comparison.Description")}
       </div>
       <div className="flex flex-row items-center gap-4">
         <div className="flex flex-row gap-1">
           <Label htmlFor="current">
-            {t("Dialog.Modifiers.Type.Comparison.IfCurrentValue")}
+            {t("ConfigWizard.Modifiers.Type.Comparison.IfCurrentValue")}
           </Label>
         </div>
         <div className="flex flex-col gap-1">
           <Label htmlFor="operator">
-            {t("Dialog.Modifiers.Type.Comparison.Operator")}
+            {t("ConfigWizard.Modifiers.Type.Comparison.Operator")}
           </Label>
           <ComboBox
             id="operator"
@@ -92,7 +93,7 @@ export const ComparisonPanelContent = ({
         </div>
         <div className="flex flex-col gap-1">
           <Label htmlFor="start">
-            {t("Dialog.Modifiers.Type.Comparison.Value")}
+            {t("ConfigWizard.Modifiers.Type.Comparison.Value")}
           </Label>
           <div className="relative flex flex-row items-center">
             <Input
@@ -106,7 +107,7 @@ export const ComparisonPanelContent = ({
         </div>
         <div className="flex flex-col gap-1">
           <Label htmlFor="if">
-            {t("Dialog.Modifiers.Type.Comparison.Then")}
+            {t("ConfigWizard.Modifiers.Type.Comparison.Then")}
           </Label>
           <div className="relative flex flex-row items-center">
             <Input
@@ -122,7 +123,7 @@ export const ComparisonPanelContent = ({
         </div>
         <div className="flex flex-col gap-1">
           <Label htmlFor="else">
-            {t("Dialog.Modifiers.Type.Comparison.Else")}
+            {t("ConfigWizard.Modifiers.Type.Comparison.Else")}
           </Label>
           <div className="relative flex flex-row items-center">
             <Input

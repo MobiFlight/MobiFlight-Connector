@@ -48,7 +48,7 @@ const eventActionMap = {
 
 type EventActionMap = typeof eventActionMap
 type EventActionLabelKey = {
-  [V in keyof EventActionMap]: `Dialog.InputConfigWizard.${V}.Event.${EventActionMap[V][number]}.label`
+  [V in keyof EventActionMap]: `ConfigWizard.Input.${V}.Event.${EventActionMap[V][number]}.label`
 }[keyof EventActionMap]
 
 const ActionBindingPanel = ({
@@ -101,8 +101,8 @@ const ActionBindingPanel = ({
       <CardContent className="flex flex-col gap-2 py-4">
         <div className="flex flex-row items-start justify-between gap-2">
           <SectionHeadline
-            title={t(`Dialog.InputConfigWizard.Action.Title`)}
-            description={t(`Dialog.InputConfigWizard.Action.Description`)}
+            title={t(`ConfigWizard.Input.Action.Title`)}
+            description={t(`ConfigWizard.Input.Action.Description`)}
           />
           {onRemove && (
             <Button size={"sm"} variant="ghost" onClick={onRemove}>
@@ -117,7 +117,7 @@ const ActionBindingPanel = ({
           <div className="text-muted-foreground flex flex-row items-center justify-center gap-2">
             <IconInfoCircle className="text-primary" />
             <div className="text-muted-foreground text-sm">
-              {t(`Dialog.InputConfigWizard.Action.NoTriggerDefined`)}
+              {t(`ConfigWizard.Input.Action.NoTriggerDefined`)}
             </div>
           </div>
         )}
@@ -127,7 +127,7 @@ const ActionBindingPanel = ({
             | undefined
           const isLast = index === events.length - 1
           const eventLabel = t(
-            `Dialog.InputConfigWizard.${variant}.Event.${event}.label` as EventActionLabelKey,
+            `ConfigWizard.Input.${variant}.Event.${event}.label` as EventActionLabelKey,
           )
           return (
             action?.Type && (
@@ -158,7 +158,7 @@ const ActionBindingPanel = ({
                     >
                       <IconTrash />
                       <span className="sr-only">
-                        {t(`Dialog.InputConfigWizard.Event.Remove`, {
+                        {t(`ConfigWizard.Input.Event.Remove`, {
                           eventLabel,
                         })}
                       </span>
@@ -182,7 +182,7 @@ const ActionBindingPanel = ({
                     >
                       <IconEdit />
                       <span className="sr-only">
-                        {t(`Dialog.InputConfigWizard.Event.Edit`, {
+                        {t(`ConfigWizard.Input.Event.Edit`, {
                           eventLabel,
                         })}
                       </span>
@@ -201,7 +201,7 @@ const ActionBindingPanel = ({
               | Action
               | undefined
             const eventLabel = t(
-              `Dialog.InputConfigWizard.${variant}.Event.${event}.label` as EventActionLabelKey,
+              `ConfigWizard.Input.${variant}.Event.${event}.label` as EventActionLabelKey,
             )
 
             return (

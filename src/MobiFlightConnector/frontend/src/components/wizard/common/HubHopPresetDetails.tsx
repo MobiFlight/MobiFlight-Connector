@@ -12,7 +12,7 @@ export const HubHopPresetDetails = ({
   preset: Preset | null
   variant: "msfs" | "xplane"
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const openUrl = useOpenUrl()
   const simType = variant === "msfs" ? "msfs2020" : "xplane"
 
@@ -22,18 +22,18 @@ export const HubHopPresetDetails = ({
   }
 
   const labels = {
-    vendor: t("Dialog.InputConfigWizard.InputActions.Common.Preset.Vendor"),
-    aircraft: t("Dialog.InputConfigWizard.InputActions.Common.Preset.Aircraft"),
-    system: t("Dialog.InputConfigWizard.InputActions.Common.Preset.System"),
-    author: t("Dialog.InputConfigWizard.InputActions.Common.Preset.Author"),
-    date: t("Dialog.InputConfigWizard.InputActions.Common.Preset.Date"),
+    vendor: t("ConfigWizard.Input.InputActions.Common.Preset.Vendor"),
+    aircraft: t("ConfigWizard.Input.InputActions.Common.Preset.Aircraft"),
+    system: t("ConfigWizard.Input.InputActions.Common.Preset.System"),
+    author: t("ConfigWizard.Input.InputActions.Common.Preset.Author"),
+    date: t("ConfigWizard.Input.InputActions.Common.Preset.Date"),
   }
   return (
     <>
       <div className="flex flex-row gap-4">
         <div className="flex flex-1 flex-col gap-1">
           <Label htmlFor="code">
-            {t("Dialog.InputConfigWizard.InputActions.Common.NameLabel")}
+            {t("ConfigWizard.Input.InputActions.Common.NameLabel")}
           </Label>
           <div className="text-sm font-semibold">{preset?.label}</div>
         </div>
@@ -50,7 +50,7 @@ export const HubHopPresetDetails = ({
       <div className="flex flex-row gap-4">
         <div className="flex flex-1 flex-col gap-1">
           <Label htmlFor="code">
-            {t("Dialog.InputConfigWizard.InputActions.Common.DescriptionLabel")}
+            {t("ConfigWizard.Input.InputActions.Common.DescriptionLabel")}
           </Label>
           <div className="text-sm">{preset?.description ?? "-"}</div>
         </div>

@@ -73,7 +73,7 @@ const LcdDisplayPanel = ({
             />
           ))}
           <div className="text-muted-foreground text-sm">
-            {t("Dialog.InputConfigWizard.InputActions.Common.SupportedPlaceholders")}
+            {t("ConfigWizard.Input.InputActions.Common.SupportedPlaceholders")}
           </div>
         </div>
       </WizardSection>

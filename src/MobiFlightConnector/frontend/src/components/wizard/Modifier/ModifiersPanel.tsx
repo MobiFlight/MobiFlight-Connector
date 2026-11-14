@@ -29,7 +29,7 @@ const ModifiersPanel = ({
   variant,
   liveData,
 }: ModifiersPanelProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const modifiers = configItem.Modifiers?.Items || []
   const hasModifiers = modifiers.length > 0
 
@@ -45,15 +45,15 @@ const ModifiersPanel = ({
       <CardContent className="flex flex-col gap-4 pt-4">
         <div className="flex flex-row items-start justify-between gap-4">
           <SectionHeadline
-            title={t("Dialog.Modifiers.Title")}
-            description={t("Dialog.Modifiers.Description")}
+            title={t("ConfigWizard.Modifiers.Title")}
+            description={t("ConfigWizard.Modifiers.Description")}
           />
           {hasModifiers && (
             <Button
               variant="ghost"
               size={"sm"}
               onClick={openDetailsPanel}
-              aria-label={t("Dialog.Modifiers.EditButton")}
+              aria-label={t("ConfigWizard.Modifiers.EditButton")}
             >
               <IconEdit className="" />
             </Button>
@@ -84,8 +84,8 @@ const ModifiersPanel = ({
       {configItem.Type === "OutputConfigItem" && (
         <ConfigWizardTestPanel
           configItem={configItem}
-          title={t("Dialog.Modifiers.Editor.TestPanel.Title")}
-          description={t("Dialog.Modifiers.Editor.TestPanel.Description")}
+          title={t("ConfigWizard.Modifiers.Editor.TestPanel.Title")}
+          description={t("ConfigWizard.Modifiers.Editor.TestPanel.Description")}
           onTestValueChange={(value) => {
             onConfigChange({
               ...configItem,

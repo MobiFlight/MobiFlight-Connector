@@ -20,7 +20,7 @@ const JeehellInputActionPanel = ({
   config,
   onConfigChange,
 }: JeehellInputActionPanelProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const presetUrl = "/presets/presets_jeehell.cip"
   const { data: presets = [] /*, isLoading */ } = useQuery({
     queryKey: [`presets-jeehell`],
@@ -42,13 +42,13 @@ const JeehellInputActionPanel = ({
       <div className="flex grow flex-row items-center gap-2">
         <div className="flex w-1/3 flex-col gap-1">
           <Label htmlFor="mouseParam">
-            {t("Dialog.InputConfigWizard.InputActions.Jeehell.FunctionLabel")}:
+            {t("ConfigWizard.Input.InputActions.Jeehell.FunctionLabel")}:
           </Label>
           <div className="text-sm">{selectedPreset?.name ?? "-"}</div>
         </div>
         <div className="flex grow flex-col gap-1">
           <Label htmlFor="param">
-            {t("Dialog.InputConfigWizard.InputActions.Jeehell.ValueLabel")}:
+            {t("ConfigWizard.Input.InputActions.Jeehell.ValueLabel")}:
           </Label>
           <CodeValueLabel id="param" className="max-w-80 lg:max-w-100">
             {config?.Param}
@@ -61,19 +61,19 @@ const JeehellInputActionPanel = ({
   return (
     <WizardSection>
       <SectionHeadline
-        title={t("Dialog.InputConfigWizard.InputActions.Jeehell.Title")}
+        title={t("ConfigWizard.Input.InputActions.Jeehell.Title")}
         description={t(
-          "Dialog.InputConfigWizard.InputActions.Jeehell.Description",
+          "ConfigWizard.Input.InputActions.Jeehell.Description",
         )}
       />
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
           <Label htmlFor="mouseParam">
-            {t("Dialog.InputConfigWizard.InputActions.Jeehell.FunctionLabel")}
+            {t("ConfigWizard.Input.InputActions.Jeehell.FunctionLabel")}
           </Label>
           <ComboBox
             placeholder={t(
-              "Dialog.InputConfigWizard.InputActions.Jeehell.SelectFunctionPlaceholder",
+              "ConfigWizard.Input.InputActions.Jeehell.SelectFunctionPlaceholder",
             )}
             items={presets}
             getLabel={(item) => item.name}
@@ -94,7 +94,7 @@ const JeehellInputActionPanel = ({
         </div>
         <div className="flex w-100 flex-col gap-2">
           <Label htmlFor="value">
-            {t("Dialog.InputConfigWizard.InputActions.Jeehell.ValueLabel")}
+            {t("ConfigWizard.Input.InputActions.Jeehell.ValueLabel")}
           </Label>
           <Input
             className="font-mono text-sm whitespace-nowrap"

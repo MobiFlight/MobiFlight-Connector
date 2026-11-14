@@ -11,17 +11,17 @@ type MoveUpDownButtonsProps = {
 }
 
 type MoveUpDownButtonsI18nPrefix =
-  | "Dialog.InputConfigWizard.PreconditionEditor"
-  | "Dialog.Modifiers.Editor"
+  | "ConfigWizard.PreconditionEditor"
+  | "ConfigWizard.Modifiers.Editor"
 
 const MoveUpDownButtons = ({
   onMoveUp,
   onMoveDown,
   isFirst,
   isLast,
-  i18nPath = "Dialog.Modifiers.Editor",
+  i18nPath = "ConfigWizard.Modifiers.Editor",
 }: MoveUpDownButtonsProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   return (
     <div className="flex flex-col items-center justify-center">
       <Button
