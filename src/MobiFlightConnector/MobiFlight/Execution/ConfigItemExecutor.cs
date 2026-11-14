@@ -439,7 +439,16 @@ namespace MobiFlight.Execution
                     default: // LED Output
                         int intState = ParseValue(value);
                         byte state = (byte)Math.Max(Math.Min(255, intState), 0);
-                        joystick.SetOutputDeviceState((cfg.Device as Output).Pin, state);
+
+                        // Hid/Joystick Controller now also support multiple output pins,
+                        // separated by a pipe character (|).
+                        var pins = DeviceReference.SplitNames((cfg.Device as Output).Pin);
+
+                        foreach (var pin in pins)
+                        {
+                            joystick.SetOutputDeviceState(pin, state);
+                        }
+
                         joystick.UpdateOutputDeviceStates();
                         joystick.Update();
                         break;
@@ -458,7 +467,15 @@ namespace MobiFlight.Execution
 
                 byte state = 0;
                 if (value != "0") state = 1;
-                midiBoard.SetOutputDeviceState((cfg.Device as Output).Pin, state);
+
+                // Midi Controller now also support multiple output pins,
+                // separated by a pipe character (|).
+                var pins = DeviceReference.SplitNames((cfg.Device as Output).Pin);
+                
+                foreach (var pin in pins)
+                {
+                    midiBoard.SetOutputDeviceState(pin, state);
+                }
             }
             else if (SerialNumber.IsArcazeSerial(serial))
             {
@@ -479,9 +496,11 @@ namespace MobiFlight.Execution
                         break;
 
                     default:
-                        arcazeCache.setValue(serial,
-                            (cfg.Device as Output).Pin,
-                            (value != "0" ? (cfg.Device as Output).Brightness.ToString() : "0"));
+                        var arcazeValue = value != "0" ? (cfg.Device as Output).Brightness.ToString() : "0";
+                        foreach (var pin in DeviceReference.SplitNames((cfg.Device as Output).Pin))
+                        {
+                            arcazeCache.setValue(serial, pin, arcazeValue);
+                        }
                         break;
                 }
 #endif
@@ -591,9 +610,10 @@ namespace MobiFlight.Execution
                         if (outputValue != "0" && !output.PwmMode)
                             outputValue = output.Brightness.ToString();
 
-                        mobiFlightCache.SetValue(serial,
-                            output.Pin,
-                            outputValue);
+                        foreach (var pin in DeviceReference.SplitNames(output.Pin))
+                        {
+                            mobiFlightCache.SetValue(serial, pin, outputValue);
+                        }
                         break;
                 }
             }
