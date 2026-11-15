@@ -136,7 +136,6 @@
             "Title": "Display content",
             "Description": "Click on the display and type your text or use dynamic values. Each cell holds one character, just like on the real display."
           },
-          "Template": "Display content",
           "Visualization": "Live preview",
           "Placeholder": {
             "Title": "Dynamic values",
