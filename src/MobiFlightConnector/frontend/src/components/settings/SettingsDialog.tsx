@@ -27,7 +27,7 @@ export default function SettingsDialog({
   isOpen,
   onOpenChange,
 }: SettingsDialogProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslation("settings")
   const originalSettings = useSettingsStore((state) => state.settings)
   const setSettings = useSettingsStore((state) => state.setSettings)
 
@@ -123,6 +123,7 @@ export default function SettingsDialog({
                 {t("General.NewFeature")}
               </Badge>
               <Trans
+                ns="settings"
                 i18nKey="Settings.ManageControllerNote"
                 shouldUnescape={true}
                 values={{

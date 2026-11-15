@@ -22,6 +22,7 @@ Translation files live in [`src/MobiFlightConnector/frontend/public/locales/`](s
 
 - `translation.json` – general UI texts
 - `wizard.json` – texts of the input and output config wizard
+- `settings.json` – texts of the settings dialog
 - `feed.json` – news feed texts
 
 The three core languages (`en`, `de`, `es`) must be complete in all files before a PR can be merged. Keys missing in other languages fall back to English, so please don't copy English text into them. Device names in the wizard should match the `Types.*` entries in `translation.json`.
