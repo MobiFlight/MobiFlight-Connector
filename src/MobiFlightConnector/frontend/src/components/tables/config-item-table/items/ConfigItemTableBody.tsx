@@ -127,8 +127,7 @@ const ConfigItemTableBody = forwardRef<
                     className={dragClassName}
                     data-state={row.getIsSelected() && "selected"}
                     dnd-itemid={row.id}
-                    onContextMenu={(e) => {
-                      e.stopPropagation()
+                    onContextMenu={() => {
                       // Right-clicking a selected row keeps the selection, so
                       // that the context menu can act on all of its rows
                       if (!isSelected) table.setRowSelection({ [row.id]: true })
