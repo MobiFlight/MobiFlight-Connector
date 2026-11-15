@@ -11,26 +11,26 @@ const MsfsPresetCustomize = ({
   code,
   onCodeChange
 }: MsfsPresetCustomizeProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
 
   return (
     <div className="flex flex-col gap-1">
       <Label htmlFor="code">
-        {t("Dialog.InputConfigWizard.InputActions.Common.CodeLabel")}
+        {t("ConfigWizard.Input.InputActions.Common.CodeLabel")}
       </Label>
       <Textarea
         name="code"
         spellCheck={false}
         className="dark:focus:bg-input/20 font-mono text-sm wrap-break-word dark:bg-transparent"
         placeholder={t(
-          "Dialog.InputConfigWizard.InputActions.Common.Preset.Code.Placeholder",
+          "ConfigWizard.Input.InputActions.Common.Preset.Code.Placeholder",
         )}
         value={code ?? ""}
         onChange={(e) => onCodeChange(e.target.value)}
       />
       <div className="text-muted-foreground text-sm">
         {t(
-          "Dialog.InputConfigWizard.InputActions.Common.SupportedPlaceholders",
+          "ConfigWizard.Input.InputActions.Common.SupportedPlaceholders",
         )}
       </div>
     </div>

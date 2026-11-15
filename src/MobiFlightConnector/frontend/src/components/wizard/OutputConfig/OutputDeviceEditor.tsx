@@ -162,7 +162,7 @@ const OutputDeviceEditor = ({
             mode={configItem.Type}
             crumbs={[
               configItem.Name,
-              t("Dialog.InputConfigWizard.Action.Title"),
+              t("ConfigWizard.Input.Action.Title"),
               t("ConfigWizard.Device.Title"),
             ]}
           />

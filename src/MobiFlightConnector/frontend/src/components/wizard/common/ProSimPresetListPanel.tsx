@@ -23,7 +23,7 @@ const ProSimPresetListPanel = ({
   selectedPath,
   onPresetChange,
 }: ProSimDataRefPanelProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const { dataRefs } = useProSimDataRefStore()
   const { publish } = messageExchange
   const selectedPreset = selectedPath ? dataRefs[selectedPath] : null
@@ -55,16 +55,16 @@ const ProSimPresetListPanel = ({
   return (
     <WizardSection>
       <SectionHeadline
-        title={t("Dialog.InputConfigWizard.InputActions.Common.Preset.Title")}
+        title={t("ConfigWizard.Input.InputActions.Common.Preset.Title")}
         description={t(
-          "Dialog.InputConfigWizard.InputActions.Common.Preset.Description",
+          "ConfigWizard.Input.InputActions.Common.Preset.Description",
         )}
       />
       {filteredPresets.length > 0 ? (
         <div className="flex flex-col gap-4">
           <Input
             placeholder={t(
-              "Dialog.InputConfigWizard.InputActions.ProSimDataRef.FilterPresetsPlaceholder",
+              "ConfigWizard.Input.InputActions.ProSimDataRef.FilterPresetsPlaceholder",
             )}
             value={filter.search}
             onChange={(e) =>
@@ -101,12 +101,12 @@ const ProSimPresetListPanel = ({
         <div className="flex flex-col gap-2">
           <div className="text-muted-foreground text-sm">
             {t(
-              "Dialog.InputConfigWizard.InputActions.ProSimDataRef.NoPresetsAvailable",
+              "ConfigWizard.Input.InputActions.ProSimDataRef.NoPresetsAvailable",
             )}
           </div>
           <Button variant="outline" onClick={() => refreshPresets()}>
             {t(
-              "Dialog.InputConfigWizard.InputActions.ProSimDataRef.RefreshPresets",
+              "ConfigWizard.Input.InputActions.ProSimDataRef.RefreshPresets",
             )}
           </Button>
         </div>

@@ -51,6 +51,13 @@ namespace MobiFlight.UI.Panels.Settings
             };
         }
 
+        protected override void OnLoad(EventArgs e)
+        {
+            // Adjust ItemHeight and Indent for better rendering with HighDPI settings
+            mfModulesTreeView.ItemHeight = LogicalToDeviceUnits(26);
+            mfModulesTreeView.Indent = LogicalToDeviceUnits(20);
+        }
+
         public void Init(MobiFlightCache mobiFlightCache)
         {
             this.mobiflightCache = mobiFlightCache;

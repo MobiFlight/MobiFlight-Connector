@@ -35,7 +35,7 @@ export const ControllerComboBox = ({
   onChange: (controller: Partial<Controller> | undefined) => void
   variant?: "full-width" | "default"
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   return (
     <ComboBox
       widthClass={variant === "full-width" ? "w-full" : "w-56"}
@@ -51,12 +51,12 @@ export const ControllerComboBox = ({
       }
       items={completeControllers}
       selected={selectedController}
-      placeholder={t("Dialog.InputConfigWizard.ConfigTrigger.SelectController")}
+      placeholder={t("ConfigWizard.Input.ConfigTrigger.SelectController")}
       searchPlaceholder={t(
-        "Dialog.InputConfigWizard.ConfigTrigger.SearchController",
+        "ConfigWizard.Input.ConfigTrigger.SearchController",
       )}
       noOptionsPlaceholder={t(
-        "Dialog.InputConfigWizard.ConfigTrigger.NoControllerFound",
+        "ConfigWizard.Input.ConfigTrigger.NoControllerFound",
       )}
       setSelected={onChange}
     />
@@ -76,7 +76,7 @@ export const DeviceComboBox = ({
   onChange: (device: DeviceReference | undefined) => void
   variant?: "full-width" | "default"
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   return (
     <ComboBox
       widthClass={variant === "full-width" ? "w-full" : "w-56"}
@@ -90,12 +90,12 @@ export const DeviceComboBox = ({
       }
       items={devices}
       selected={selectedDevice}
-      placeholder={t("Dialog.InputConfigWizard.ConfigTrigger.SelectDevice")}
+      placeholder={t("ConfigWizard.Input.ConfigTrigger.SelectDevice")}
       searchPlaceholder={t(
-        "Dialog.InputConfigWizard.ConfigTrigger.SearchDevice",
+        "ConfigWizard.Input.ConfigTrigger.SearchDevice",
       )}
       noOptionsPlaceholder={t(
-        "Dialog.InputConfigWizard.ConfigTrigger.NoDeviceFound",
+        "ConfigWizard.Input.ConfigTrigger.NoDeviceFound",
       )}
       disabled={!selectedController}
       setSelected={onChange}
@@ -104,7 +104,7 @@ export const DeviceComboBox = ({
 }
 
 const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const { controllers } = useControllerStore()
 
   const [selectedController, setSelectedController] = useState<
@@ -215,18 +215,18 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
     >
       <CardContent className="flex flex-col gap-4 pt-4">
         <SectionHeadline
-          title={t("Dialog.InputConfigWizard.ConfigTrigger.Title")}
-          description={t("Dialog.InputConfigWizard.ConfigTrigger.Description")}
+          title={t("ConfigWizard.Input.ConfigTrigger.Title")}
+          description={t("ConfigWizard.Input.ConfigTrigger.Description")}
         />
         <div className="flex flex-row items-center gap-2">
           <Button onClick={scanForInput} className="px-5" size="sm">
             {scanning ? (
               <div className="flex flex-row items-center gap-2 text-sm">
                 <IconLoader2 className="animate-spin" />
-                {t("Dialog.InputConfigWizard.ConfigTrigger.UseAnyInput")}
+                {t("ConfigWizard.Input.ConfigTrigger.UseAnyInput")}
               </div>
             ) : (
-              t("Dialog.InputConfigWizard.ConfigTrigger.ScanForInput")
+              t("ConfigWizard.Input.ConfigTrigger.ScanForInput")
             )}
           </Button>
           <div className="flex flex-col gap-2">
@@ -264,7 +264,7 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
           >
             <IconTrash className="mr-2" />
             <span className="sr-only text-sm lg:not-sr-only">
-              {t("Dialog.InputConfigWizard.ConfigTrigger.ClearInput")}
+              {t("ConfigWizard.Input.ConfigTrigger.ClearInput")}
             </span>
           </Button>
         </div>

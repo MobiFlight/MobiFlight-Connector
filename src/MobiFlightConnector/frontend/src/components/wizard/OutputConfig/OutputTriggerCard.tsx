@@ -33,8 +33,8 @@ const OutputTriggerCard = ({
     >
       <CardContent className="flex flex-col gap-4 pt-4">
         <SectionHeadline
-          title={t("Dialog.InputConfigWizard.ConfigTrigger.Title")}
-          description={t("Dialog.InputConfigWizard.ConfigTrigger.Description")}
+          title={t("ConfigWizard.Input.ConfigTrigger.Title")}
+          description={t("ConfigWizard.Input.ConfigTrigger.Description")}
         />
         {outputConfigItem.Source == null ? (
           <div className="flex flex-row items-center gap-2">

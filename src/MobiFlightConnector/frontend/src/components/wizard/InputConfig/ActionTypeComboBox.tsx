@@ -19,7 +19,7 @@ const ActionTypeComboBox = ({
   selectedActionType,
   setSelectedActionType,
 }: ActionTypeProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const { project } = useProjectStore()
 
   const filteredOptions = project
@@ -29,8 +29,8 @@ const ActionTypeComboBox = ({
   return (
     <div className="flex flex-col gap-4">
       <SectionHeadline
-        title={t("Dialog.InputConfigWizard.ActionType.Title")}
-        description={t("Dialog.InputConfigWizard.ActionType.Description")}
+        title={t("ConfigWizard.Input.ActionType.Title")}
+        description={t("ConfigWizard.Input.ActionType.Description")}
       />
       <ComboBox
         data-testid="action-type-combobox"
@@ -38,7 +38,7 @@ const ActionTypeComboBox = ({
         items={filteredOptions}
         getLabel={(item) =>
           t(
-            `Dialog.InputConfigWizard.ActionType.Options.${item.value}.label`,
+            `ConfigWizard.Input.ActionType.Options.${item.value}.label`,
             item.value,
           )
         }

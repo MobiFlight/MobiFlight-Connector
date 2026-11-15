@@ -102,6 +102,7 @@ const ConfigWizardDialog = ({ configId }: ConfigWizardDialogProps) => {
   const hasChanged = () => {
     return !_.isEqual(committedConfigItem, draftConfigItem)
   }
+  const isDirty = hasChanged()
 
   useEffect(() => {
     setTimeout(() => {
@@ -125,7 +126,7 @@ const ConfigWizardDialog = ({ configId }: ConfigWizardDialogProps) => {
   const isOutputConfig = draftConfigItem?.Type === "OutputConfigItem"
   const i18nPrefix = isOutputConfig
     ? "ConfigWizard.Output"
-    : "Dialog.InputConfigWizard"
+    : "ConfigWizard.Input"
 
   return (
     <Dialog open={true} onOpenChange={closeDialog}>
@@ -223,11 +224,19 @@ const ConfigWizardDialog = ({ configId }: ConfigWizardDialogProps) => {
             )}
           </div>
           <div className="flex flex-row gap-2">
-            <Button variant="outline" onClick={closeDialog}>
-              {t("Dialog.General.Cancel")}
-            </Button>
-            <Button variant="default" onClick={saveChanges}>
-              {t("Dialog.General.ApplyChanges")}
+            {isDirty && (
+              <Button variant="outline" onClick={closeDialog}>
+                {t("Dialog.General.Cancel")}
+              </Button>
+            )}
+            {/* primary button stays in place, only its label and action change */}
+            <Button
+              variant="default"
+              onClick={isDirty ? saveChanges : closeDialog}
+            >
+              {isDirty
+                ? t("Dialog.General.ApplyChanges")
+                : t("Dialog.General.Close")}
             </Button>
           </div>
         </DialogFooter>

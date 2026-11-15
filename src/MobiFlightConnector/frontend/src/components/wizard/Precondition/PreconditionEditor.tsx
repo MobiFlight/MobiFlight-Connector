@@ -79,7 +79,7 @@ const PreconditionItemRow = ({
   isFirst,
   isLast,
 }: PreconditionItemRowProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const selectedConfig =
     precondition.Type === "config"
       ? outputConfigs.find((c) => c.GUID === precondition.Ref)
@@ -118,7 +118,7 @@ const PreconditionItemRow = ({
         onMoveDown={onMoveDown ?? (() => {})}
         isFirst={isFirst}
         isLast={isLast}
-        i18nPath="Dialog.InputConfigWizard.PreconditionEditor"
+        i18nPath="ConfigWizard.PreconditionEditor"
       />
       <Switch
         checked={precondition.Active}
@@ -129,7 +129,7 @@ const PreconditionItemRow = ({
 
       <div className={"w-24 text-center text-sm"}>
         {t(
-          `Dialog.InputConfigWizard.PreconditionEditor.Types.${precondition.Type}`,
+          `ConfigWizard.PreconditionEditor.Types.${precondition.Type}`,
         )}
       </div>
 
@@ -142,7 +142,7 @@ const PreconditionItemRow = ({
           isSelected={(c, s) => c.GUID === s?.GUID}
           setSelected={(c) => onChange({ ...precondition, Ref: c?.GUID ?? "" })}
           placeholder={t(
-            "Dialog.InputConfigWizard.PreconditionEditor.SelectConfig",
+            "ConfigWizard.PreconditionEditor.SelectConfig",
           )}
           widthClass="w-58"
         />
@@ -157,7 +157,7 @@ const PreconditionItemRow = ({
           isSelected={(v, s) => v.Name === s?.Name}
           setSelected={(v) => onChange({ ...precondition, Ref: v?.Name ?? "" })}
           placeholder={t(
-            "Dialog.InputConfigWizard.PreconditionEditor.SelectVariable",
+            "ConfigWizard.PreconditionEditor.SelectVariable",
           )}
           widthClass="w-58"
         />
@@ -179,7 +179,7 @@ const PreconditionItemRow = ({
               onChange(updated)
             }}
             placeholder={t(
-              "Dialog.InputConfigWizard.PreconditionEditor.SelectPort",
+              "ConfigWizard.PreconditionEditor.SelectPort",
             )}
             widthClass="w-28"
             variant="nofilter"
@@ -197,7 +197,7 @@ const PreconditionItemRow = ({
               })
             }
             placeholder={t(
-              "Dialog.InputConfigWizard.PreconditionEditor.SelectPin",
+              "ConfigWizard.PreconditionEditor.SelectPin",
             )}
             widthClass="w-28"
             variant="nofilter"
@@ -219,7 +219,7 @@ const PreconditionItemRow = ({
         value={precondition.Value}
         onChange={(e) => onChange({ ...precondition, Value: e.target.value })}
         placeholder={t(
-          "Dialog.InputConfigWizard.PreconditionEditor.ValuePlaceholder",
+          "ConfigWizard.PreconditionEditor.ValuePlaceholder",
         )}
         className="w-18"
       />
@@ -242,7 +242,7 @@ const PreconditionItemRow = ({
         onClick={onDelete}
       >
         <div className="sr-only">
-          {t("Dialog.InputConfigWizard.PreconditionEditor.DeletePrecondition")}
+          {t("ConfigWizard.PreconditionEditor.DeletePrecondition")}
         </div>
         <IconTrash className="h-4 w-4" />
       </Button>
@@ -268,7 +268,7 @@ const PreconditionEditor = ({
   preconditions,
   onPreconditionsChange,
 }: PreconditionEditorProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const handleChange = (index: number, updated: Precondition) => {
     onPreconditionsChange(
       preconditions.map((p, i) => (i === index ? updated : p)),
@@ -316,19 +316,19 @@ const PreconditionEditor = ({
               mode={variant}
               crumbs={[
                 configName,
-                t("Dialog.InputConfigWizard.Preconditions.Title"),
+                t("ConfigWizard.Preconditions.Title"),
               ]}
             />
           }
           description={t(
-            "Dialog.InputConfigWizard.PreconditionEditor.Description",
+            "ConfigWizard.PreconditionEditor.Description",
           )}
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild className="self-center">
             <Button variant="default" className="w-fit" size={"sm"}>
               <IconPlus className="h-4 w-4" />
-              {t("Dialog.InputConfigWizard.PreconditionEditor.AddPrecondition")}
+              {t("ConfigWizard.PreconditionEditor.AddPrecondition")}
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start">
@@ -338,7 +338,7 @@ const PreconditionEditor = ({
                 onClick={() => handleAdd(preconditionType)}
               >
                 {t(
-                  `Dialog.InputConfigWizard.PreconditionEditor.Types.${preconditionType}`,
+                  `ConfigWizard.PreconditionEditor.Types.${preconditionType}`,
                 )}
               </DropdownMenuItem>
             ))}
@@ -348,7 +348,7 @@ const PreconditionEditor = ({
 
       {preconditions.length === 0 ? (
         <div className="text-muted-foreground rounded border p-4 text-center text-sm">
-          {t("Dialog.InputConfigWizard.PreconditionEditor.NoPreconditions")}
+          {t("ConfigWizard.PreconditionEditor.NoPreconditions")}
         </div>
       ) : (
         <ScrollArea className="grow">

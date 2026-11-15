@@ -20,9 +20,6 @@ namespace MobiFlight
         {
             if (mutex.WaitOne(TimeSpan.Zero, true))
             {
-                //if (Environment.OSVersion.Version.Major >= 6)
-                //    SetProcessDPIAware();
-
                 CheckForCorruptSettings();
 
                 var host = CreateHost();
@@ -33,6 +30,7 @@ namespace MobiFlight
                 CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
                 
                 Application.EnableVisualStyles();
+                Application.SetHighDpiMode(HighDpiMode.SystemAware);
                 Application.SetCompatibleTextRenderingDefault(true);
                 Application.Run(services.GetRequiredService<MainForm>());
                 mutex.ReleaseMutex();

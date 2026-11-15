@@ -72,7 +72,7 @@ const ConfigWizard = ({
   drawerContainer,
   liveData,
 }: ConfigWizardProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
 
@@ -208,28 +208,28 @@ const ConfigWizard = ({
           variant="outline"
           size={"sm"}
           onClick={() => navigateToDetailView("precondition")}
-          aria-label={t("Dialog.InputConfigWizard.Preconditions.AddButton")}
+          aria-label={t("ConfigWizard.Preconditions.AddButton")}
         >
           <IconPlus className="" />
-          {t("Dialog.InputConfigWizard.Preconditions.Label")}
+          {t("ConfigWizard.Preconditions.Label")}
         </Button>
         <Button
           variant="outline"
           size={"sm"}
           onClick={() => navigateToDetailView("configReference")}
-          aria-label={t("Dialog.InputConfigWizard.ConfigReferences.AddButton")}
+          aria-label={t("ConfigWizard.ConfigReferences.AddButton")}
         >
           <IconPlus className="" />
-          {t("Dialog.InputConfigWizard.ConfigReferences.Label")}
+          {t("ConfigWizard.ConfigReferences.Label")}
         </Button>
         <Button
           variant="outline"
           size={"sm"}
           onClick={() => navigateToDetailView("modifier", "small")}
-          aria-label={t("Dialog.Modifiers.AddButton")}
+          aria-label={t("ConfigWizard.Modifiers.AddButton")}
         >
           <IconPlus className="" />
-          {t("Dialog.Modifiers.Label")}
+          {t("ConfigWizard.Modifiers.Label")}
         </Button>
       </div>
 
