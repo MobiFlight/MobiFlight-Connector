@@ -1,5 +1,7 @@
+import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
+import CodeValueLabel from "@/components/wizard/common/CodeValueLabel"
 import { cn } from "@/lib/utils"
 import { useConfigItemStateStore } from "@/stores/configItemStateStore"
 import { useProjectStore } from "@/stores/projectStore"
@@ -89,11 +91,7 @@ type ValueRowProps = {
 }
 
 const ValueRow = ({ value, onClick }: ValueRowProps) => (
-  <button
-    type="button"
-    className="hover:bg-accent flex flex-row items-center gap-3 rounded-md border px-3 py-1.5 pl-2 text-left text-sm"
-    onClick={onClick}
-  >
+  <Button variant="outline" onClick={onClick} className="pl-1">
     <span
       className={cn(
         "flex h-8 w-5 items-center justify-center border-b-2 font-mono",
@@ -102,9 +100,9 @@ const ValueRow = ({ value, onClick }: ValueRowProps) => (
     >
       {value.placeholder}
     </span>
-    <span className="grow">{value.name}</span>
-    <span className="text-muted-foreground font-mono">{value.value}</span>
-  </button>
+    <span className="grow text-left">{value.name}</span>
+    <CodeValueLabel>{value.value ?? "-"}</CodeValueLabel>
+  </Button>
 )
 
 export type LcdDisplayConfigEditorProps = {
@@ -207,6 +205,10 @@ export const LcdDisplayConfigEditor = ({
   }
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
+    const focusIsButton = e.target instanceof HTMLButtonElement
+    const isButtonInteraction = focusIsButton && (e.code === "Space" || e.code === "Enter")
+    if (isButtonInteraction) return
+    
     const { row, col } = caret
     switch (e.key) {
       case "ArrowLeft":
@@ -234,8 +236,12 @@ export const LcdDisplayConfigEditor = ({
         if (selection) {
           updateLine(row, fill(grid[row], selection.from, selection.to, " "))
           moveCaret(row, selection.from, false)
-        } else if (col > 0) {
-          updateLine(row, setChar(grid[row], col - 1, " "))
+          break
+        }
+        updateLine(row, setChar(grid[row], col, " "))
+
+        if (col > 0) {
+          // updateLine(row, setChar(grid[row], col-1, " "))
           moveCaret(row, col - 1, false)
         }
         break
@@ -261,10 +267,16 @@ export const LcdDisplayConfigEditor = ({
   }
 
   return (
-    <div className="flex flex-col gap-4" data-testid="lcd-editor">
+    <div
+      className="flex flex-col gap-4"
+      data-testid="lcd-editor"
+      onKeyDown={handleKeyDown}
+    >
       <div className="flex flex-col gap-1">
-        <Label>{t("ConfigWizard.Device.LcdDisplay.Editor.Content.Title")}</Label>
-        <p className="text-sm text-muted-foreground">
+        <Label>
+          {t("ConfigWizard.Device.LcdDisplay.Editor.Content.Title")}
+        </Label>
+        <p className="text-muted-foreground text-sm">
           {t("ConfigWizard.Device.LcdDisplay.Editor.Content.Description")}
         </p>
       </div>
@@ -281,7 +293,6 @@ export const LcdDisplayConfigEditor = ({
               tabIndex={0}
               className="focus-visible:ring-ring inline-grid w-fit gap-0.5 rounded-md bg-blue-700 p-2 outline-none focus-visible:ring-2"
               style={{ gridTemplateColumns: `repeat(${cols}, auto)` }}
-              onKeyDown={handleKeyDown}
               onMouseUp={() => setDragStart(null)}
               onMouseLeave={() => setDragStart(null)}
             >
@@ -322,8 +333,10 @@ export const LcdDisplayConfigEditor = ({
             <Label>
               {t("ConfigWizard.Device.LcdDisplay.Editor.Placeholder.Title")}
             </Label>
-            <p className="text-sm text-muted-foreground">
-              {t("ConfigWizard.Device.LcdDisplay.Editor.Placeholder.Description")}
+            <p className="text-muted-foreground text-sm">
+              {t(
+                "ConfigWizard.Device.LcdDisplay.Editor.Placeholder.Description",
+              )}
             </p>
           </div>
           <div className="flex flex-row items-center gap-2">
@@ -348,8 +361,10 @@ export const LcdDisplayConfigEditor = ({
           />
         ))}
         <div>
-          <p className="text-sm text-muted-foreground">
-            {t("ConfigWizard.Device.LcdDisplay.Editor.AdditionalReferencesHint")}
+          <p className="text-muted-foreground text-sm">
+            {t(
+              "ConfigWizard.Device.LcdDisplay.Editor.AdditionalReferencesHint",
+            )}
           </p>
         </div>
       </div>
