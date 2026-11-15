@@ -1,6 +1,9 @@
 import { useOutlet } from "react-router"
+import { useProjectFileDrop } from "@/lib/hooks/useProjectFileDrop"
 
 const Plain = () => {
+  // Keeps WebView2 from navigating to a dropped file, without opening it
+  useProjectFileDrop({ openFiles: false })
   const outlet = useOutlet()
   return (
     <>

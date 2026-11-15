@@ -14,9 +14,14 @@ export const isProjectFile = (fileName: string) =>
 const hasFiles = (event: DragEvent) =>
   event.dataTransfer?.types.includes("Files") ?? false
 
+const isModalOpen = () =>
+  document.querySelector('[role="dialog"], [role="alertdialog"]') !== null
+
 // Opens a project file that is dropped onto the window, like File > Open.
 // Without this, WebView2 navigates away from the app to show the dropped file.
-export const useProjectFileDrop = () => {
+// Pages that must not open projects (e.g. startup) pass openFiles: false and
+// only swallow the drop. Drops are also ignored while a modal is open.
+export const useProjectFileDrop = ({ openFiles = true } = {}) => {
   const { t } = useTranslation()
 
   useEffect(() => {
@@ -30,6 +35,8 @@ export const useProjectFileDrop = () => {
     const handleDrop = (event: DragEvent) => {
       if (!hasFiles(event)) return
       event.preventDefault()
+
+      if (!openFiles || isModalOpen()) return
 
       const projectFile = Array.from(event.dataTransfer!.files).find((file) =>
         isProjectFile(file.name),
@@ -64,5 +71,5 @@ export const useProjectFileDrop = () => {
       window.removeEventListener("dragover", handleDragOver)
       window.removeEventListener("drop", handleDrop)
     }
-  }, [t])
+  }, [t, openFiles])
 }

@@ -111,4 +111,32 @@ test.describe("Project file drop", () => {
     expect(result).toEqual({ dragOverHandled: false, dropHandled: false })
     expect(await getDroppedMessages(page)).toEqual([])
   })
+
+  test("Dropping a project file while a modal is open is ignored", async ({
+    page,
+  }) => {
+    await page.evaluate(() => {
+      const modal = document.createElement("div")
+      modal.setAttribute("role", "dialog")
+      document.body.appendChild(modal)
+    })
+
+    const result = await dropFiles(page, ["My Project.mfproj"])
+
+    expect(result).toEqual({ dragOverHandled: true, dropHandled: true })
+    expect(await getDroppedMessages(page)).toEqual([])
+  })
+
+  test("Dropping a project file on the startup screen is ignored", async ({
+    page,
+  }) => {
+    await page.goto("/start")
+    await expect(page.locator("#root > div.fixed")).toBeVisible()
+    await mockPostMessageWithAdditionalObjects(page)
+
+    const result = await dropFiles(page, ["My Project.mfproj"])
+
+    expect(result).toEqual({ dragOverHandled: true, dropHandled: true })
+    expect(await getDroppedMessages(page)).toEqual([])
+  })
 })
