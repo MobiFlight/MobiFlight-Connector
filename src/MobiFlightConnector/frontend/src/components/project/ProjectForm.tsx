@@ -109,7 +109,7 @@ const ProjectForm = ({
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent
-        className=" flex h-[85vh] max-h-[675px] flex-col overflow-x-hidden sm:max-w-[675px]"
+        className="flex h-[calc(100vh-2rem)] max-h-[675px] flex-col overflow-x-hidden sm:max-w-[675px]"
         onKeyDown={handleFormKeyDown}
         onInteractOutside={(e) => e.preventDefault()}
         ref={containerRef}
@@ -122,8 +122,9 @@ const ProjectForm = ({
           </DialogTitle>
           <DialogDescription>{t("Project.Form.Description")}</DialogDescription>
         </DialogHeader>
-        <ScrollArea className="grow">
-          <div className="grid gap-6">
+        {/* The negative margin and the padding keep the focus ring of the inputs from being clipped */}
+        <ScrollArea className="-mx-1 grow">
+          <div className="grid gap-6 py-1 pr-3 pl-1">
             {/* Project Name */}
             <div className="grid gap-2">
               <Label htmlFor="project-name" className="text-base font-semibold">

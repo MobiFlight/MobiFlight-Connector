@@ -2,7 +2,6 @@ import { TableBody, TableCell } from "@/components/ui/table"
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
 import { flexRender, Row, Table } from "@tanstack/react-table"
 import { DndTableRow } from "../DndTableRow"
-import messageExchange from "@/lib/messageExchange"
 import { cn } from "@/lib/utils"
 import { useState, useEffect, forwardRef } from "react"
 import { IConfigItem } from "@/types"
@@ -27,7 +26,6 @@ const ConfigItemTableBody = forwardRef<
     ref,
   ) => {
     const navigate = useNavigate()
-    const { publish } = messageExchange
     const rows = table.getRowModel().rows
     const [lastSelected, setLastSelected] = useState<Row<IConfigItem> | null>(
       null,
@@ -118,7 +116,6 @@ const ConfigItemTableBody = forwardRef<
                       : "is-first-drag-item"
                     : ""
                 const item = row.original as IConfigItem
-                const isInputConfig = item.Type === "InputConfigItem"
                 return (
                   <DndTableRow
                     key={row.id}
@@ -163,14 +160,7 @@ const ConfigItemTableBody = forwardRef<
                       setLastSelected(row)
                     }}
                     onDoubleClick={() => {
-                      if (isInputConfig) {
-                        navigate("/config/" + item.GUID)
-                        return
-                      }
-                      publish({
-                        key: "CommandConfigContextMenu",
-                        payload: { action: "edit", item: item },
-                      })
+                      navigate("/config/" + item.GUID)
                     }}
                   >
                     {row.getVisibleCells().map((cell) => {

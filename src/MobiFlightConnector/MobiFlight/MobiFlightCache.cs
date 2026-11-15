@@ -1,4 +1,4 @@
-﻿using MobiFlight.Firmware;
+﻿using MobiFlight.Base;
 using MobiFlight.Monitors;
 using System;
 using System.Collections.Concurrent;
@@ -506,20 +506,8 @@ namespace MobiFlight
                 MobiFlightModule module = GetModuleBySerial(serial);
                 if (module == null) return;
 
-                if (name != null && name.Contains("|")) {
-                    var pins = name.Split('|');
-                    foreach(string pin in pins) {
-                        if (!string.IsNullOrEmpty(pin.Trim()))
-                        {
-                            var iValue = (Int32)Math.Round(Double.Parse(value));
-                            module.SetPin("base", pin, iValue);
-                        }
-                    };
-                } else
-                {
-                    var iValue = (Int32)Math.Round(Double.Parse(value));
-                    module.SetPin("base", name, iValue);
-                }
+                var iValue = (Int32)Math.Round(Double.Parse(value));
+                module.SetPin("base", name, iValue);
 
             }
             catch (FormatException e)
@@ -668,6 +656,31 @@ namespace MobiFlight
             catch (Exception e)
             {
                 throw new ArcazeCommandExecutionException(i18n._tr("ConfigErrorException_SettingServo"), e);
+            }
+        }
+
+        public void MoveStepper(Controller controller, OutputConfig.Stepper configStepper, int steps)
+        {
+            try
+            {
+                MobiFlightModule module = GetModuleBySerial(controller?.Serial);
+                MobiFlightStepper stepper = module.GetStepper(configStepper?.Address);
+                
+                int CurrentValue = stepper.Position();
+                int NextValue = (CurrentValue + steps);
+
+                SetStepper(
+                    controller.Serial,
+                    configStepper.Address,
+                    (NextValue).ToString(),
+                    configStepper.OutputRev,
+                    configStepper.OutputRev,
+                    configStepper.CompassMode
+                );
+            }
+            catch (Exception e)
+            {
+                throw new ArcazeCommandExecutionException(i18n._tr("ConfigErrorException_SettingStepper"), e);
             }
         }
 
@@ -863,19 +876,6 @@ namespace MobiFlight
             return result;
         }
 
-        public Dictionary<String, List<BaseDevice>> FindAllConnectedSteppers()
-        {
-            var result = new Dictionary<String, List<BaseDevice>>();
-            foreach (var module in Modules.Values)
-            {
-                var stepperList = module.GetConnectedOutputDevices().Where(p => p.Type == DeviceType.Stepper).ToList();
-                if (stepperList.Count == 0) continue;
-                
-                result.Add(module.Name, stepperList);
-            }
-            return result;
-        }
-
         public void Set(string serial, OutputConfig.CustomDevice deviceConfig, string value)
         {
             if (serial == null)
@@ -921,5 +921,6 @@ namespace MobiFlight
             KeepAwakeTimer.Stop();
             ActivateConnectedModulePowerSave();
         }
+
     }
 }

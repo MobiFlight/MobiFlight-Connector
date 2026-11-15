@@ -73,6 +73,28 @@ namespace MobiFlight
         }
 
         /// <summary>
+        /// Creates the outputs and displays of an Arcaze from its extension settings.
+        /// Without settings, no extension is assumed and only the base board outputs are created.
+        /// </summary>
+        public List<Base.ControllerDevice> GetControllerDevices(string serial)
+        {
+            var hasSettings = serial != null && arcazeSettings.ContainsKey(serial);
+            if (!hasSettings)
+                return DeviceReferenceFactory.CreateForArcaze(DeviceReferenceFactory.ArcazeExtension.None, 0);
+
+            var settings = arcazeSettings[serial];
+            var extension = settings.type switch
+            {
+                ArcazeCommand.ExtModuleType.LedDriver2 => DeviceReferenceFactory.ArcazeExtension.LedDriver,
+                ArcazeCommand.ExtModuleType.LedDriver3 => DeviceReferenceFactory.ArcazeExtension.LedDriver,
+                ArcazeCommand.ExtModuleType.DisplayDriver => DeviceReferenceFactory.ArcazeExtension.DisplayDriver,
+                _ => DeviceReferenceFactory.ArcazeExtension.None
+            };
+
+            return DeviceReferenceFactory.CreateForArcaze(extension, settings.numModules);
+        }
+
+        /// <summary>
         /// indicates the status of the module connection
         /// </summary>
         /// <returns>true if connected, false if not</returns>
@@ -193,7 +215,6 @@ namespace MobiFlight
 
             if (!Enabled) return result;
 
-
             if (!_initialized && Modules.Count == 0) _lookupArcazeModules();
             foreach (ArcazeModule module in Modules.Values)
             {
@@ -236,10 +257,10 @@ namespace MobiFlight
         /// <param name="serial">the device's serial</param>
         /// <param name="portAndPin">the port letter and pin number, e.g. A01</param>
         /// <param name="value">the value to be used</param>
-        public void setValue (string serial, string portAndPin, string value)
+        public virtual void setValue (string serial, string portAndPin, string value)
         {
             if (portAndPin == null || portAndPin == "") return;
-            ArcazeIoBasic io = new ArcazeIoBasic(portAndPin);
+            var io = new ArcazeIoBasic(portAndPin);
 
             try
             {
@@ -302,11 +323,6 @@ namespace MobiFlight
         internal void flush()
         {
             throw new NotImplementedException();
-        }
-
-        internal void setBcd4056(string serial, List<string> list, string value)
-        {
-            Modules[serial].setBcd4056(list, value);
         }
 
         /// <summary>

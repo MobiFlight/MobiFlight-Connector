@@ -850,6 +850,27 @@ test.describe("Project settings modal features", () => {
     await expect(projectCreateButton).toBeInViewport()
     await expect(projectCancelButton).toBeInViewport()
   })
+
+  test("Create project dialog - Aircraft settings are visible without scrolling at the default window size", async ({
+    dashboardPage,
+    page,
+  }) => {
+    await dashboardPage.gotoPage()
+    // Close to the size of the frontend in the default MobiFlight window
+    await page.setViewportSize({ width: 1008, height: 700 })
+    await page
+      .getByTestId("project-main-card")
+      .getByRole("button", { name: "Project" })
+      .click()
+    const createProjectDialog = page.getByRole("dialog", {
+      name: "Create New Project",
+    })
+    await expect(createProjectDialog).toBeVisible()
+
+    // The aircraft are clipped by the scroll area if the dialog is too short
+    const defaultAircraft = createProjectDialog.getByText("Microsoft - Generic")
+    await expect(defaultAircraft).toBeInViewport({ ratio: 1 })
+  })
 })
 
 test.describe("Project list view tests", () => {

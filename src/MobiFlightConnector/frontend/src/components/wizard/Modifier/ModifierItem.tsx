@@ -33,7 +33,7 @@ import {
 import { IconChevronDown, IconTrash } from "@tabler/icons-react"
 import { Switch } from "@/components/ui/switch"
 import { Button } from "@/components/ui/button"
-import MoveUpDownButtons from "@/components/wizard/components/MoveUpDownButtons"
+import MoveUpDownButtons from "@/components/wizard/common/MoveUpDownButtons"
 
 type ModifierItemProps = {
   modifier: Modifier
@@ -56,7 +56,7 @@ export const ModifierItem = ({
   isLast,
   defaultOpen,
 }: ModifierItemProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const [open, setOpen] = useState(defaultOpen ?? false)
 
   const modifierContent =
@@ -122,7 +122,7 @@ export const ModifierItem = ({
           <Button onClick={onDelete} size={"sm"} variant="ghost">
             <IconTrash />
             <span className="sr-only">
-              {t("Dialog.Modifiers.Editor.DeleteModifier")}
+              {t("ConfigWizard.Modifiers.Editor.DeleteModifier")}
             </span>
           </Button>
         </div>

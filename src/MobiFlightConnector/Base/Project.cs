@@ -101,7 +101,7 @@ namespace MobiFlight.Base
         public event EventHandler ProjectChanged;
 
         [JsonIgnore]
-        public readonly Version SchemaVersion = new Version(0, 10);
+        public readonly Version SchemaVersion = new Version(0, 11);
         [JsonIgnore]
         public Version OriginalSchemaVersion { get; private set; } = null;
 
@@ -493,6 +493,15 @@ namespace MobiFlight.Base
                 migratedDocument = V0_10_InputConfigItemDeviceMigration.Apply(migratedDocument);
             }
 
+            if (currentVersion < new Version(0, 11))
+            {
+                if (!suppressLogging)
+                {
+                    Log.Instance.log("Applying V0.11 migrations", LogSeverity.Debug);
+                }
+                migratedDocument = V0_11_LedModuleAddressMigration.Apply(migratedDocument);
+            }
+
             // Update version in migrated document
             migratedDocument["_version"] = SchemaVersion.ToString();
 
@@ -649,6 +658,56 @@ namespace MobiFlight.Base
             var additionalProject = new Project() { FilePath = fileName };
             additionalProject.OpenFile();
             Merge(additionalProject);
+        }
+
+        /// <summary>
+        /// Creates a new project that contains only the configuration file at the specified index.
+        /// The project settings are kept, and the content of the
+        /// configuration file is embedded so that the new project is self-contained.
+        /// </summary>
+        /// <param name="index">The index of the configuration file to take over.</param>
+        /// <returns>A new project named after the label of the configuration file.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the index is out of range.</exception>
+        public Project CreateProjectFromConfigFile(int index)
+        {
+            if (index < 0 || index >= ConfigFiles.Count)
+            {
+                throw new ArgumentOutOfRangeException(nameof(index));
+            }
+
+            var configFile = ConfigFiles[index];
+
+            // The copy constructor keeps all project properties,
+            // so that new project properties are taken over automatically.
+            var project = new Project(this)
+            {
+                Name = configFile.Label ?? Name,
+                FilePath = null
+            };
+
+            project.ConfigFiles.Clear();
+            project.ConfigFiles.Add(new ConfigFile
+            {
+                Label = configFile.Label,
+                EmbedContent = true,
+                ConfigItems = configFile.ConfigItems
+            });
+
+            return project;
+        }
+
+        /// <summary>
+        /// Saves the configuration file at the specified index as a new project file.
+        /// The current project and its file path are not modified.
+        /// </summary>
+        /// <param name="index">The index of the configuration file to export.</param>
+        /// <param name="fileName">The path of the project file to create.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the index is out of range.</exception>
+        public void ExportConfigFile(int index, string fileName)
+        {
+            var project = CreateProjectFromConfigFile(index);
+            project.FilePath = fileName;
+            project.SaveFile();
         }
 
         public bool ContainsConfigOfSourceType(Source type)

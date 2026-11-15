@@ -496,3 +496,6 @@ devcontainer-lock.json
 .claude/
 .mcp.json
 CLAUDE.local.md
+
+# per-developer MSBuild overrides
+Directory.Build.local.props

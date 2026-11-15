@@ -225,7 +225,7 @@ namespace MobiFlight.Tests
 
             var message = new CommandConfigContextMenu
             {
-                Action = "duplicate",
+                Action = CommandConfigContextMenuAction.duplicate,
                 Item = project.ConfigFiles[0].ConfigItems.First() as ConfigItem
             };
 
@@ -314,6 +314,44 @@ namespace MobiFlight.Tests
             // Assert
             Assert.HasCount(2, project.ConfigFiles);
             Assert.AreEqual("Renamed Config", project.ConfigFiles[1].Label);
+        }
+
+        [TestMethod]
+        public void CommandFileContextMenu_Export_DoesNotChangeProject()
+        {
+            // Arrange
+            var configItem1 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Active = false };
+            var project = new Project();
+            project.ConfigFiles.Add(new ConfigFile()
+            {
+                Label = "First Config",
+                ConfigItems = { configItem1 }
+            });
+            project.ConfigFiles.Add(new ConfigFile()
+            {
+                Label = "Second Config"
+            });
+
+            _executionManager.Project = project;
+
+            var configHasChanged = false;
+            _executionManager.OnConfigHasChanged += (sender, e) => configHasChanged = true;
+
+            var message = new CommandFileContextMenu
+            {
+                Action = CommandFileContextMenuAction.export,
+                Index = 1,
+                File = project.ConfigFiles[1]
+            };
+
+            // Act
+            MessageExchange.Instance.Publish(message);
+
+            // Assert
+            Assert.HasCount(2, project.ConfigFiles);
+            Assert.AreEqual("First Config", project.ConfigFiles[0].Label);
+            Assert.AreEqual("Second Config", project.ConfigFiles[1].Label);
+            Assert.IsFalse(configHasChanged, "Exporting a profile must not mark the project as changed");
         }
 
         [TestMethod]
@@ -1373,6 +1411,112 @@ namespace MobiFlight.Tests
             Assert.IsNotNull(executors);
             var result2 = executors.Count;
             Assert.AreEqual(0, result2);
+        }
+
+        [TestMethod]
+        public void ExecuteTestOn_AppliesActiveModifiersToTestValue()
+        {
+            var cfg = new OutputConfigItem
+            {
+                TestValue = new ConnectorValue { type = FSUIPCOffsetType.Float, Float64 = 1 }
+            };
+            cfg.Modifiers.Items.Add(new Modifier.Transformation { Active = true, Expression = "$*100" });
+            cfg.Modifiers.Items.Add(new Modifier.Transformation { Active = false, Expression = "$+5" });
+
+            _executionManager.ExecuteTestOn(cfg);
+
+            Assert.AreEqual("1", cfg.RawValue, "RawValue should be the unmodified test value");
+            Assert.AreEqual("100", cfg.Value, "Value should have only the active modifiers applied, once");
+        }
+
+            private static OutputConfigItem CreateTestTarget(IDeviceConfig device, string serial = "SN-1", string guid = "guid-1")
+        {
+            return new OutputConfigItem
+            {
+                GUID = guid,
+                Controller = new Controller { Name = "Board", Serial = serial },
+                Device = device
+            };
+        }
+
+        [TestMethod]
+        public void IsSameTestTarget_ShouldBeTrue_WhenOutputIsUnchanged()
+        {
+            var previous = CreateTestTarget(new OutputConfig.Output { Pin = "Output 1", Brightness = 255 });
+            var next = CreateTestTarget(new OutputConfig.Output { Pin = "Output 1", Brightness = 255 });
+
+            Assert.IsTrue(ExecutionManager.IsSameTestTarget(previous, next));
+        }
+
+        [TestMethod]
+        public void IsSameTestTarget_ShouldBeFalse_WhenPinChanges()
+        {
+            var previous = CreateTestTarget(new OutputConfig.Output { Pin = "Output 1", Brightness = 255 });
+            var next = CreateTestTarget(new OutputConfig.Output { Pin = "Output 2", Brightness = 255 });
+
+            Assert.IsFalse(ExecutionManager.IsSameTestTarget(previous, next));
+        }
+
+        [TestMethod]
+        public void IsSameTestTarget_ShouldBeFalse_WhenBrightnessOfOutputChanges()
+        {
+            var previous = CreateTestTarget(new OutputConfig.Output { Pin = "Output 1", Brightness = 255 });
+            var next = CreateTestTarget(new OutputConfig.Output { Pin = "Output 1", Brightness = 100 });
+
+            Assert.IsFalse(ExecutionManager.IsSameTestTarget(previous, next));
+        }
+
+        [TestMethod]
+        public void IsSameTestTarget_ShouldBeFalse_WhenControllerChanges()
+        {
+            var previous = CreateTestTarget(new OutputConfig.Output { Pin = "Output 1" }, serial: "SN-1");
+            var next = CreateTestTarget(new OutputConfig.Output { Pin = "Output 1" }, serial: "SN-2");
+
+            Assert.IsFalse(ExecutionManager.IsSameTestTarget(previous, next));
+        }
+
+        [TestMethod]
+        public void IsSameTestTarget_ShouldBeFalse_WhenGuidChanges()
+        {
+            var previous = CreateTestTarget(new OutputConfig.Output { Pin = "Output 1" }, guid: "guid-1");
+            var next = CreateTestTarget(new OutputConfig.Output { Pin = "Output 1" }, guid: "guid-2");
+
+            Assert.IsFalse(ExecutionManager.IsSameTestTarget(previous, next));
+        }
+
+        [TestMethod]
+        public void IsSameTestTarget_ShouldBeFalse_WhenDeviceTypeChanges()
+        {
+            var previous = CreateTestTarget(new OutputConfig.Servo { Address = "Servo 1" });
+            var next = CreateTestTarget(new OutputConfig.Stepper { Address = "Servo 1" });
+
+            Assert.IsFalse(ExecutionManager.IsSameTestTarget(previous, next));
+        }
+
+        [TestMethod]
+        public void IsSameTestTarget_ShouldBeTrue_WhenStepperSettingsChangeOnSameStepper()
+        {
+            var previous = CreateTestTarget(new OutputConfig.Stepper { Address = "Stepper 1", Speed = 100 });
+            var next = CreateTestTarget(new OutputConfig.Stepper { Address = "Stepper 1", Speed = 200 });
+
+            Assert.IsTrue(ExecutionManager.IsSameTestTarget(previous, next));
+        }
+
+        [TestMethod]
+        public void IsSameTestTarget_ShouldBeFalse_WhenStepperChanges()
+        {
+            var previous = CreateTestTarget(new OutputConfig.Stepper { Address = "Stepper 1" });
+            var next = CreateTestTarget(new OutputConfig.Stepper { Address = "Stepper 2" });
+
+            Assert.IsFalse(ExecutionManager.IsSameTestTarget(previous, next));
+        }
+
+        [TestMethod]
+        public void IsSameTestTarget_ShouldBeFalse_WhenNoTestIsRunning()
+        {
+            var next = CreateTestTarget(new OutputConfig.Output { Pin = "Output 1" });
+
+            Assert.IsFalse(ExecutionManager.IsSameTestTarget(null, next));
         }
     }
 }

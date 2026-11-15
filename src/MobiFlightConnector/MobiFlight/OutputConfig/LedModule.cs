@@ -10,8 +10,8 @@ namespace MobiFlight.OutputConfig
     {
         public override string Name { get { return DisplayLedAddress; } }
         // the display stuff
+        // "Name:Module", with a 1-based module like the devices of the controller
         public string DisplayLedAddress { get; set; }
-        public byte DisplayLedConnector { get; set; }
         public byte DisplayLedModuleSize { get; set; }
         public bool DisplayLedPadding { get; set; }
         public string DisplayLedPaddingChar { get; set; }
@@ -22,7 +22,6 @@ namespace MobiFlight.OutputConfig
 
         public LedModule()
         {
-            DisplayLedConnector = 1;
             DisplayLedAddress = "0";
             DisplayLedPadding = false;
             DisplayLedReverseDigits = false;
@@ -33,10 +32,21 @@ namespace MobiFlight.OutputConfig
             DisplayLedDecimalPoints = new List<string>();
         }
 
+        /// <summary>Splits an address like "Display:2" into the device name and its 1-based module; no module means 1.</summary>
+        public (string Name, byte Module) SplitAddress()
+        {
+            var address = DisplayLedAddress ?? string.Empty;
+            var separator = address.LastIndexOf(':');
+
+            if (separator >= 0 && byte.TryParse(address[(separator + 1)..], out var module))
+                return (address[..separator], module);
+
+            return (address, 1);
+        }
+
         public override object Clone()
         {
             LedModule clone = new LedModule();
-            clone.DisplayLedConnector = DisplayLedConnector;
             clone.DisplayLedAddress = DisplayLedAddress;
             clone.DisplayLedPadding = DisplayLedPadding;
             clone.DisplayLedReverseDigits = DisplayLedReverseDigits;
@@ -66,7 +76,6 @@ namespace MobiFlight.OutputConfig
 
             return
                 (obj != null) && (obj is LedModule) &&
-                (this.DisplayLedConnector             == (obj as LedModule)?.DisplayLedConnector) &&
                 (this.DisplayLedAddress               == (obj as LedModule)?.DisplayLedAddress) &&
                 (this.DisplayLedPadding               == (obj as LedModule)?.DisplayLedPadding) &&
                 (this.DisplayLedReverseDigits         == (obj as LedModule)?.DisplayLedReverseDigits) &&
@@ -84,9 +93,10 @@ namespace MobiFlight.OutputConfig
                 DisplayLedAddress = reader["ledAddress"];
             }
 
+            // Files from before the "Name:Module" address keep the module in a separate attribute
             if (reader["ledConnector"] != null && reader["ledConnector"] != "")
             {
-                DisplayLedConnector = byte.Parse(reader["ledConnector"]);
+                DisplayLedAddress = $"{DisplayLedAddress}:{byte.Parse(reader["ledConnector"])}";
             }
 
             if (reader["ledModuleSize"] != null && reader["ledModuleSize"] != "")
@@ -128,8 +138,10 @@ namespace MobiFlight.OutputConfig
 
         internal void WriteXml(XmlWriter writer)
         {
-            writer.WriteAttributeString("ledAddress", DisplayLedAddress);
-            writer.WriteAttributeString("ledConnector", DisplayLedConnector.ToString());
+            // The XML format keeps address and connector separate
+            var (name, module) = SplitAddress();
+            writer.WriteAttributeString("ledAddress", name);
+            writer.WriteAttributeString("ledConnector", module.ToString());
             writer.WriteAttributeString("ledModuleSize", DisplayLedModuleSize.ToString());
             writer.WriteAttributeString("ledPadding", DisplayLedPadding.ToString());
             if (DisplayLedReverseDigits)

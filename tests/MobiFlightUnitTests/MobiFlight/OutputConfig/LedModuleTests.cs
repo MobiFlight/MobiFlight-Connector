@@ -11,7 +11,6 @@ namespace MobiFlight.OutputConfig.Tests
         {
             LedModule o = new LedModule();
             Assert.IsNotNull(o);
-            Assert.AreEqual(1,o.DisplayLedConnector);
             Assert.AreEqual("0",o.DisplayLedAddress);
             Assert.IsFalse(o.DisplayLedPadding);
             Assert.IsFalse(o.DisplayLedReverseDigits);
@@ -30,8 +29,7 @@ namespace MobiFlight.OutputConfig.Tests
 
             Assert.IsTrue(o1.Equals(o2));
 
-            o1.DisplayLedConnector = 2;
-            o1.DisplayLedAddress = "1";
+            o1.DisplayLedAddress = "1:2";
             o1.DisplayLedPadding = true;
             o1.DisplayLedReverseDigits = true;
             o1.DisplayLedBrightnessReference = "DisplayLedBrightnessReference";
@@ -42,8 +40,7 @@ namespace MobiFlight.OutputConfig.Tests
 
             Assert.IsFalse(o1.Equals(o2));
 
-            o2.DisplayLedConnector = 2;
-            o2.DisplayLedAddress = "1";
+            o2.DisplayLedAddress = "1:2";
             o2.DisplayLedPadding = true;
             o2.DisplayLedReverseDigits = true;
             o2.DisplayLedBrightnessReference = "DisplayLedBrightnessReference";

@@ -14,11 +14,17 @@ Open a [feature request issue](https://github.com/MobiFlight/MobiFlight-Connecto
 
 We use pull requests for code contributions. If you are new to this workflow, GitHub's [contributing to a project](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project) guide is a good starting point.
 
-For setting up the development environment and compiling MobiFlight, see the [frontend README](src/MobiFlightConnector/frontend/README.md), it covers the whole development setup.
+For setting up the development environment and compiling MobiFlight, see the [frontend README](src/MobiFlightConnector/frontend/README.md), it covers the whole development setup, including the optional git-ignored `Directory.Build.local.props` for personal build settings (for example a custom build output path when the repository lives in WSL).
 
 ### Translations
 
-Translation files live in [`src/MobiFlightConnector/frontend/public/locales/`](src/MobiFlightConnector/frontend/public/locales/). Each language has its own folder with a `translation.json` file. The three core languages (`en`, `de`, `es`) must be complete before a PR can be merged.
+Translation files live in [`src/MobiFlightConnector/frontend/public/locales/`](src/MobiFlightConnector/frontend/public/locales/). Each language has its own folder with one file per namespace:
+
+- `translation.json` – general UI texts
+- `wizard.json` – texts of the input and output config wizard
+- `feed.json` – news feed texts
+
+The three core languages (`en`, `de`, `es`) must be complete in all files before a PR can be merged. Keys missing in other languages fall back to English, so please don't copy English text into them. Device names in the wizard should match the `Types.*` entries in `translation.json`.
 
 ### Controller definition files
 
