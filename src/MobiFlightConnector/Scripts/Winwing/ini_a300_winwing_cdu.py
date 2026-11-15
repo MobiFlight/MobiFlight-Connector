@@ -13,11 +13,9 @@ from SimConnect.Enum import SIMCONNECT_CLIENT_DATA_ID, SIMCONNECT_RECV_ID, SIMCO
 
 
 CAPTAIN_MCDU_URL = "ws://localhost:8320/winwing/cdu-captain"
-A300_MCDU_STREAM_NAME = "iniAirbusMCDU_1"
-
-CLIENT_DATA_ID = 100
-DEFINITION_ID = 200
-REQUEST_ID = 300
+FO_MCDU_URL = "ws://localhost:8320/winwing/cdu-co-pilot"
+A300_MCDU_CPT_NAME, A300_CPT_MCDU_CLIENT_DATA_ID, A300_CPT_MCDU_DEFINITION_ID, A300_CPT_MCDU_REQUEST_ID= "iniAirbusMCDU_1", 100, 200, 300
+A300_MCDU_FO_NAME, A300_FO_MCDU_CLIENT_DATA_ID, A300_FO_MCDU_DEFINITION_ID, A300_FO_MCDU_REQUEST_ID= "iniAirbusMCDU_2", 101, 201, 301
 
 MCDU_COLUMNS = 24
 MCDU_ROWS = 14
@@ -167,8 +165,9 @@ class SimConnectMobiFlight(SimConnect):
 
 
 class MobiFlightClient:
-    def __init__(self, uri: str, max_retries: int = 5):
+    def __init__(self, uri: str, tag: str, max_retries: int = 5):
         self.uri = uri
+        self.tag = tag
         self.max_retries = max_retries
         self.retries = 0
         self.connected = asyncio.Event()
@@ -178,13 +177,13 @@ class MobiFlightClient:
     async def run(self):
         while self.retries < self.max_retries:
             try:
-                logging.info("Connecting to %s", self.uri)
+                logging.info("[%s] Connecting to %s", self.tag, self.uri)
                 self.websocket = await ws_client.connect(self.uri, ping_interval=None)
 
                 await self.websocket.send(
                     json.dumps({"Target": "Font", "Data": "AirbusThales"})
                 )
-                logging.info("Setting font: AirbusThales")
+                logging.info("[%s] Setting font: AirbusThales", self.tag)
 
                 self.connected.set()
 
@@ -197,7 +196,8 @@ class MobiFlightClient:
             except Exception as exc:
                 self.retries += 1
                 logging.warning(
-                    "WebSocket failure: %s (%s/%s)",
+                    "[%s] WebSocket failure: %s (%s/%s)",
+                    self.tag,
                     exc,
                     self.retries,
                     self.max_retries,
@@ -206,7 +206,7 @@ class MobiFlightClient:
                 self.connected.clear()
                 await asyncio.sleep(3)
 
-        logging.error("Max retries reached. Could not connect to %s", self.uri)
+        logging.error("[%s] Max retries reached. Could not connect to %s", self.tag, self.uri)
         self.connected.set()
 
     async def send(self, data: str):
@@ -221,7 +221,7 @@ class MobiFlightClient:
             self.connected.clear()
 
 
-def create_mobi_json(data: bytes) -> str:
+def create_mobi_json(data: bytes, tag: str) -> str:
     out = {"Target": "Display", "Data": [[] for _ in range(MCDU_CHARS)]}
 
     for row in range(MCDU_ROWS):
@@ -249,7 +249,8 @@ def create_mobi_json(data: bytes) -> str:
                 ]
             except Exception as exc:
                 logging.warning(
-                    "Display conversion warning row=%s col=%s: %s",
+                    "[%s] Display conversion warning row=%s col=%s: %s",
+                    tag,
                     row,
                     col,
                     exc,
@@ -259,10 +260,15 @@ def create_mobi_json(data: bytes) -> str:
 
 
 class A300MCDUClient:
-    def __init__(self, sc: SimConnectMobiFlight, uri: str):
+    def __init__(self, sc:SimConnectMobiFlight, tag:str, uri:str, def_id:int, req_id:int, client_area_name:str, client_area_id:int):
         self.sc = sc
+        self.tag = tag
         self.uri = uri
-        self.mobiflight = MobiFlightClient(uri)
+        self.def_id = def_id
+        self.req_id = req_id
+        self.CA_NAME = client_area_name
+        self.CA_ID = client_area_id
+        self.mobiflight = MobiFlightClient(uri, tag)
         self.loop = None
         self.last_raw = None
         self.last_preview = None
@@ -273,31 +279,32 @@ class A300MCDUClient:
 
         hr = self.sc.dll.MapClientDataNameToID(
             h,
-            A300_MCDU_STREAM_NAME.encode(),
-            CLIENT_DATA_ID,
+            self.CA_NAME.encode(),
+            self.CA_ID,
         )
-        logging.info("MapClientDataNameToID(%s) -> %s", A300_MCDU_STREAM_NAME, hr)
+        logging.info("[%s] MapClientDataNameToID(%s) -> %s", self.tag, self.CA_NAME, hr)
 
         hr = self.sc.dll.AddToClientDataDefinition(
             h,
-            DEFINITION_ID,
+            self.def_id,
             0,
             MCDU_DATA_SIZE,
             0,
             0,
         )
         logging.info(
-            "AddToClientDataDefinition(def=%s, size=%s) -> %s",
-            DEFINITION_ID,
+            "[%s] AddToClientDataDefinition(def=%s, size=%s) -> %s",
+            self.tag,
+            self.def_id,
             MCDU_DATA_SIZE,
             hr,
         )
 
         hr = self.sc.dll.RequestClientData(
             h,
-            CLIENT_DATA_ID,
-            REQUEST_ID,
-            DEFINITION_ID,
+            self.CA_ID,
+            self.req_id,
+            self.def_id,
             Enum.SIMCONNECT_CLIENT_DATA_PERIOD.SIMCONNECT_CLIENT_DATA_PERIOD_VISUAL_FRAME,
             Enum.SIMCONNECT_CLIENT_DATA_REQUEST_FLAG.SIMCONNECT_CLIENT_DATA_REQUEST_FLAG_CHANGED,
             0,
@@ -305,10 +312,11 @@ class A300MCDUClient:
             0,
         )
         logging.info(
-            "RequestClientData(stream=%s, req=%s, def=%s) -> %s",
-            A300_MCDU_STREAM_NAME,
-            REQUEST_ID,
-            DEFINITION_ID,
+            "[%s] RequestClientData(stream=%s, req=%s, def=%s) -> %s",
+            self.tag,
+            self.CA_NAME,
+            self.req_id,
+            self.def_id,
             hr,
         )
 
@@ -321,7 +329,7 @@ class A300MCDUClient:
             define_id = getattr(d, "dwDefineID", None)
             request_id = getattr(d, "dwRequestID", None)
 
-            if define_id != DEFINITION_ID or request_id != REQUEST_ID:
+            if define_id != self.def_id or request_id != self.req_id:
                 return
 
             raw_words = list(d.dwData[:MCDU_DWORDS])
@@ -342,13 +350,14 @@ class A300MCDUClient:
                 self.last_preview = preview
                 non_zero = sum(1 for b in payload if b != 0)
                 logging.info(
-                    "MCDU update | non_zero=%s/%s | preview=%s",
+                    "[%s] MCDU update | non_zero=%s/%s | preview=%s",
+                    self.tag,
                     non_zero,
                     len(payload),
                     preview,
                 )
 
-            json_data = create_mobi_json(payload)
+            json_data = create_mobi_json(payload, self.tag)
 
             if self.loop:
                 asyncio.run_coroutine_threadsafe(
@@ -357,7 +366,7 @@ class A300MCDUClient:
                 )
 
         except Exception as exc:
-            logging.error("on_data failed: %s", exc)
+            logging.error("[%s] on_data failed: %s", self.tag, exc)
 
     async def run(self):
         self.loop = asyncio.get_running_loop()
@@ -366,11 +375,11 @@ class A300MCDUClient:
         await self.mobiflight.connected.wait()
 
         if self.mobiflight.retries >= self.mobiflight.max_retries:
-            logging.error("Captain WebSocket could not be established.")
+            logging.error("[%s] WebSocket could not be established. If you only have one CDU device connected this is normal and can be ignored.", self.tag)
             return
 
         self.setup_clientdata()
-        logging.info("A300 CDU bridge is running using stream: %s", A300_MCDU_STREAM_NAME)
+        logging.info("[%s] A300 CDU bridge is running using stream: %s", self.tag, self.CA_NAME)
 
         try:
             await ws_task
@@ -387,10 +396,14 @@ if __name__ == "__main__":
     sc = SimConnectMobiFlight()
     logging.info("SIM OPEN")
 
-    client = A300MCDUClient(sc, CAPTAIN_MCDU_URL)
+    cptClient = A300MCDUClient(sc, "CPT", CAPTAIN_MCDU_URL, A300_CPT_MCDU_DEFINITION_ID, A300_CPT_MCDU_REQUEST_ID, A300_MCDU_CPT_NAME, A300_CPT_MCDU_CLIENT_DATA_ID)
+    foClient = A300MCDUClient(sc, "FO", FO_MCDU_URL, A300_FO_MCDU_DEFINITION_ID, A300_FO_MCDU_REQUEST_ID, A300_MCDU_FO_NAME, A300_FO_MCDU_CLIENT_DATA_ID)
 
     async def main():
-        await client.run()
+        await asyncio.gather(
+            cptClient.run(),
+            foClient.run()
+        )
 
     try:
         asyncio.run(main())
