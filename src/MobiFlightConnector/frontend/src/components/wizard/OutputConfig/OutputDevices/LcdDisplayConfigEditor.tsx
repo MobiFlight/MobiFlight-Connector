@@ -262,8 +262,11 @@ export const LcdDisplayConfigEditor = ({
 
   return (
     <div className="flex flex-col gap-4" data-testid="lcd-editor">
-      <div className="flex flex-row items-center justify-between">
-        <Label>{t("ConfigWizard.Device.LcdDisplay.Editor.Template")}</Label>
+      <div className="flex flex-col gap-1">
+        <Label>{t("ConfigWizard.Device.LcdDisplay.Editor.Content.Title")}</Label>
+        <p className="text-sm text-muted-foreground">
+          {t("ConfigWizard.Device.LcdDisplay.Editor.Content.Description")}
+        </p>
       </div>
       <div className="flex flex-col items-center">
         <div className="relative w-fit rounded-2xl bg-linear-to-br from-green-700 via-green-800 to-green-900 p-6 drop-shadow-lg">
@@ -315,7 +318,14 @@ export const LcdDisplayConfigEditor = ({
 
       <div className="flex flex-col gap-2">
         <div className="flex flex-row items-center justify-between gap-2">
-          <Label>{t("ConfigWizard.Device.LcdDisplay.Editor.Values")}</Label>
+          <div className="flex flex-col gap-1">
+            <Label>
+              {t("ConfigWizard.Device.LcdDisplay.Editor.Placeholder.Title")}
+            </Label>
+            <p className="text-sm text-muted-foreground">
+              {t("ConfigWizard.Device.LcdDisplay.Editor.Placeholder.Description")}
+            </p>
+          </div>
           <div className="flex flex-row items-center gap-2">
             <Switch
               id="lcd-editor-view"
@@ -337,6 +347,11 @@ export const LcdDisplayConfigEditor = ({
             onClick={() => write(value.placeholder)}
           />
         ))}
+        <div>
+          <p className="text-sm text-muted-foreground">
+            {t("ConfigWizard.Device.LcdDisplay.Editor.AdditionalReferencesHint")}
+          </p>
+        </div>
       </div>
     </div>
   )
