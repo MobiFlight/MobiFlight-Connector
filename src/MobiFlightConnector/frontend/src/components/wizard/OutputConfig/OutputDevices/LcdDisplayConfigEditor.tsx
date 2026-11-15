@@ -15,14 +15,14 @@ const OWN_VALUE_PLACEHOLDER = "$"
 
 // one colour per value: "$" first, then the config references in order
 const COLORS = [
-  "bg-sky-500/60",
-  "bg-amber-500/60",
-  "bg-emerald-500/60",
-  "bg-fuchsia-500/60",
-  "bg-rose-500/60",
-  "bg-violet-500/60",
-  "bg-teal-500/60",
-  "bg-orange-500/60",
+  "border-b-cfgoutput bg-cfgoutput/30",
+  "border-b-amber-500 bg-amber-500/30",
+  "border-b-emerald-500 bg-emerald-500/30",
+  "border-b-fuchsia-500 bg-fuchsia-500/30",
+  "border-b-rose-500 bg-rose-500/30",
+  "border-b-violet-500 bg-violet-500/30",
+  "border-b-teal-500 bg-teal-500/30",
+  "border-b-orange-500 bg-orange-500/30",
 ]
 
 type LcdValue = {
@@ -63,18 +63,21 @@ const LcdCell = ({
   onMouseEnter,
   testId,
 }: LcdCellProps) => (
-  <div
-    data-testid={testId}
-    className={cn(
-      "flex h-8 w-6 cursor-text items-center justify-center rounded-xs border border-sky-900 bg-sky-950 font-mono text-lg text-sky-100 select-none",
-      color,
-      isSelected && "ring-2 ring-white/70",
-      isCaret && "border-b-3 border-b-white",
-    )}
-    onMouseDown={onMouseDown}
-    onMouseEnter={onMouseEnter}
-  >
-    {char}
+  <div className="flex bg-blue-600">
+    <div
+      data-testid={testId}
+      className={cn(
+        "font-lcd flex h-8 w-5 items-center justify-center text-white select-none cursor-pointer",
+        color ? `border-b-4 ${color}` : "border-b-4 border-b-transparent",
+        isCaret && "border-b-4 border-b-white",
+        isSelected &&
+          "border-b-4 border-b-white/10 bg-white/10 ring-2 ring-white/60",
+      )}
+      onMouseDown={onMouseDown}
+      onMouseEnter={onMouseEnter}
+    >
+      <span className="-mb-2 text-xl">{char}</span>
+    </div>
   </div>
 )
 
@@ -91,7 +94,7 @@ const ValueRow = ({ value, onClick }: ValueRowProps) => (
   >
     <span
       className={cn(
-        "flex h-6 w-6 items-center justify-center rounded-xs font-mono",
+        "flex h-6 w-6 items-center justify-center border-b-2 font-mono",
         value.color,
       )}
     >
@@ -269,42 +272,50 @@ export const LcdDisplayConfigEditor = ({
         </div>
       </div>
 
-      <div
-        role="textbox"
-        aria-label={t("ConfigWizard.Device.LcdDisplay.Editor.Template")}
-        tabIndex={0}
-        className="focus-visible:ring-ring inline-grid w-fit gap-0.5 rounded-md bg-slate-800 p-3 outline-none focus-visible:ring-2"
-        style={{ gridTemplateColumns: `repeat(${cols}, auto)` }}
-        onKeyDown={handleKeyDown}
-        onMouseUp={() => setDragStart(null)}
-        onMouseLeave={() => setDragStart(null)}
-      >
-        {shownGrid.map((line, row) =>
-          Array.from(line).map((char, col) => (
-            <LcdCell
-              key={`${row}-${col}`}
-              testId={`lcd-cell-${row}-${col}`}
-              char={char}
-              color={colorFor(grid[row][col])}
-              isCaret={caret.row === row && caret.col === col}
-              isSelected={
-                caret.row === row &&
-                selection !== null &&
-                col >= selection.from &&
-                col <= selection.to
-              }
-              onMouseDown={() => {
-                moveCaret(row, col, false)
-                setDragStart({ row, col })
-              }}
-              onMouseEnter={() => {
-                if (dragStart?.row !== row) return
-                setAnchor(dragStart.col)
-                setCaret({ row, col })
-              }}
-            />
-          )),
-        )}
+      <div className="w-fit rounded-2xl bg-linear-to-br from-green-700 via-green-800 to-green-900 p-6 relative drop-shadow-lg">
+        <div className="w-4 h-4 bg-background rounded-full top-2 left-2 absolute border-amber-400 border-3"></div>
+        <div className="w-4 h-4 bg-background rounded-full bottom-2 left-2 absolute border-amber-400 border-3"></div>
+        <div className="w-4 h-4 bg-background rounded-full bottom-2 right-2 absolute border-amber-400 border-3"></div>
+        <div className="w-4 h-4 bg-background rounded-full top-2 right-2 absolute border-amber-400 border-3"></div>
+        <div className="w-fit rounded-md from-gray-700 to-15% to-slate-900 bg-linear-to-br p-4 drop-shadow-md drop-shadow-mist-900">
+          <div
+            role="textbox"
+            aria-label={t("ConfigWizard.Device.LcdDisplay.Editor.Template")}
+            tabIndex={0}
+            className="focus-visible:ring-ring inline-grid w-fit gap-0.5 rounded-md bg-blue-700 p-2 outline-none focus-visible:ring-2"
+            style={{ gridTemplateColumns: `repeat(${cols}, auto)` }}
+            onKeyDown={handleKeyDown}
+            onMouseUp={() => setDragStart(null)}
+            onMouseLeave={() => setDragStart(null)}
+          >
+            {shownGrid.map((line, row) =>
+              Array.from(line).map((char, col) => (
+                <LcdCell
+                  key={`${row}-${col}`}
+                  testId={`lcd-cell-${row}-${col}`}
+                  char={char}
+                  color={colorFor(grid[row][col])}
+                  isCaret={caret.row === row && caret.col === col}
+                  isSelected={
+                    caret.row === row &&
+                    selection !== null &&
+                    col >= selection.from &&
+                    col <= selection.to
+                  }
+                  onMouseDown={() => {
+                    moveCaret(row, col, false)
+                    setDragStart({ row, col })
+                  }}
+                  onMouseEnter={() => {
+                    if (dragStart?.row !== row) return
+                    setAnchor(dragStart.col)
+                    setCaret({ row, col })
+                  }}
+                />
+              )),
+            )}
+          </div>
+        </div>
       </div>
 
       <div className="flex flex-col gap-2">

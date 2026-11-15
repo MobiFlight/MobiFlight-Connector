@@ -4,6 +4,12 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@font-face {
+    font-family: "lcd1602";
+    font-display: swap;
+    src: url("/font/lcd1602.woff2") format("woff2");
+}
+
 @theme {
   --ring-width-2: 1px;
 
@@ -63,6 +69,8 @@
 
   --color-cfgoutput: var(--color-pink-600);
   --color-cfginput: var(--color-teal-700);
+
+  --font-lcd: "lcd1602";
 
   @keyframes accordion-down {
     from {
