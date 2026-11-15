@@ -112,6 +112,10 @@
         "Digits": "Digits",
         "UseDigits": "Use digits",
         "DecimalPoints": "Decimal points",
+        "DigitLabel": "Digit {{position}}",
+        "DecimalPointLabel": "Decimal point {{position}}",
+        "SelectAllDigits": "Select all",
+        "ClearDigits": "Clear",
         "AdvancedOptions": {
           "Title": "Advanced options",
           "Description": "Configure advanced display options for the 7-segment module.",

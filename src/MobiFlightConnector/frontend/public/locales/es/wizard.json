@@ -112,6 +112,10 @@
         "Digits": "Dígitos",
         "UseDigits": "Usar dígitos",
         "DecimalPoints": "Puntos decimales",
+        "DigitLabel": "Dígito {{position}}",
+        "DecimalPointLabel": "Punto decimal {{position}}",
+        "SelectAllDigits": "Seleccionar todos",
+        "ClearDigits": "Borrar",
         "AdvancedOptions": {
           "Title": "Opciones avanzadas",
           "Description": "Configura opciones avanzadas de pantalla para el módulo 7-Segment.",

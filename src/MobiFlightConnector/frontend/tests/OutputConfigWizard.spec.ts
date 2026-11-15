@@ -1870,6 +1870,21 @@ test.describe("Output Config Wizard - 7-Segment Device", () => {
       ).toBeVisible()
       await expect(paddingCheckbox).not.toBeChecked()
       await expect(reverseDigitsCheckbox).not.toBeChecked()
+      // the digits of an existing config are not changed
+      for (let position = 1; position <= 8; position++) {
+        await expect(
+          deviceEditor.getByRole("checkbox", {
+            name: `Digit ${position}`,
+            exact: true,
+          }),
+        ).not.toBeChecked()
+        await expect(
+          deviceEditor.getByRole("checkbox", {
+            name: `Decimal point ${position}`,
+            exact: true,
+          }),
+        ).not.toBeChecked()
+      }
     })
 
     await test.step("Enable padding with space and reverse digits", async () => {
@@ -1900,6 +1915,8 @@ test.describe("Output Config Wizard - 7-Segment Device", () => {
       DisplayLedPadding: true,
       DisplayLedPaddingChar: " ",
       DisplayLedReverseDigits: true,
+      DisplayLedDigits: [],
+      DisplayLedDecimalPoints: [],
     })
   })
 
@@ -1979,6 +1996,137 @@ test.describe("Output Config Wizard - 7-Segment Device", () => {
     expect(payload.item.Device).toMatchObject({
       Type: "LedModule",
       DisplayLedBrightnessReference: "",
+    })
+  })
+
+  // Opens the device editor of a new config
+  // and selects the 7-segment device type of ProtoBoard-v2
+  const selectSevenSegmentDevice = async (
+    configListPage: ConfigListPage,
+    page: Page,
+  ) => {
+    await openWizardForRow(configListPage, page, ROW.NoDevice)
+    await openOutputDevicePanel(page)
+
+    const deviceEditor = page.getByTestId("output-device-editor")
+    await selectComboBoxOption(
+      page,
+      deviceEditor.getByRole("combobox").first(),
+      "ProtoBoard-v2",
+    )
+    await selectComboBoxOption(
+      page,
+      deviceEditor.getByRole("combobox").nth(1),
+      "7-Segment Display",
+    )
+    return deviceEditor
+  }
+
+  test("New 7-Segment config uses all digits of the display", async ({
+    configListPage,
+    page,
+  }) => {
+    const deviceEditor = await selectSevenSegmentDevice(configListPage, page)
+    const digits = deviceEditor.getByRole("checkbox", { name: /^Digit \d$/ })
+
+    await test.step("All digits of the first display are selected", async () => {
+      await expect(
+        deviceEditor.getByRole("combobox").filter({ hasText: /^7-Segment$/ }),
+      ).toBeVisible()
+      await expect(digits).toHaveCount(8)
+      for (const digit of await digits.all()) {
+        await expect(digit).toBeChecked()
+      }
+    })
+
+    await test.step("A smaller display limits the digits to its size", async () => {
+      await selectComboBoxOption(
+        page,
+        deviceEditor.getByRole("combobox").filter({ hasText: /^7-Segment$/ }),
+        "TM1637",
+      )
+      await expect(
+        deviceEditor.getByRole("combobox").filter({ hasText: /^4$/ }),
+      ).toBeVisible()
+      await expect(digits).toHaveCount(4)
+      for (const digit of await digits.all()) {
+        await expect(digit).toBeChecked()
+      }
+    })
+
+    await closeDrawer(page)
+    await expect(deviceEditor).not.toBeVisible()
+
+    const payload = await applyChangesAndReturnPayload(configListPage, page)
+    expect(payload.item.Device).toMatchObject({
+      Type: "LedModule",
+      Name: "TM1637",
+      DisplayLedAddress: "TM1637",
+      DisplayLedModuleSize: 4,
+      DisplayLedDigits: ["0", "1", "2", "3"],
+      DisplayLedDecimalPoints: [],
+    })
+  })
+
+  test("Digits and decimal points can be selected by name", async ({
+    configListPage,
+    page,
+  }) => {
+    const deviceEditor = await selectSevenSegmentDevice(configListPage, page)
+    const digit = (position: number) =>
+      deviceEditor.getByRole("checkbox", {
+        name: `Digit ${position}`,
+        exact: true,
+      })
+    const decimalPoint = (position: number) =>
+      deviceEditor.getByRole("checkbox", {
+        name: `Decimal point ${position}`,
+        exact: true,
+      })
+
+    await test.step("Clear and Select all change all digits", async () => {
+      const clearButton = deviceEditor.getByRole("button", { name: "Clear" })
+      const selectAllButton = deviceEditor.getByRole("button", {
+        name: "Select all",
+      })
+
+      await clearButton.click()
+      for (let position = 1; position <= 8; position++) {
+        await expect(digit(position)).not.toBeChecked()
+      }
+
+      await selectAllButton.click()
+      for (let position = 1; position <= 8; position++) {
+        await expect(digit(position)).toBeChecked()
+      }
+
+      await clearButton.click()
+      await expect(digit(1)).not.toBeChecked()
+    })
+
+    await test.step("Clicking the digit number toggles the digit", async () => {
+      await deviceEditor.getByText("2", { exact: true }).click()
+      await expect(digit(2)).toBeChecked()
+      await digit(3).click()
+      await expect(digit(3)).toBeChecked()
+    })
+
+    await test.step("Decimal points are toggled per digit", async () => {
+      await decimalPoint(3).click()
+      await expect(decimalPoint(3)).toBeChecked()
+      await expect(decimalPoint(2)).not.toBeChecked()
+      // the decimal point doesn't change the digit
+      await expect(digit(3)).toBeChecked()
+    })
+
+    await closeDrawer(page)
+    await expect(deviceEditor).not.toBeVisible()
+
+    const payload = await applyChangesAndReturnPayload(configListPage, page)
+    expect(payload.item.Device).toMatchObject({
+      Type: "LedModule",
+      DisplayLedDigits: ["1", "2"],
+      DisplayLedDecimalPoints: ["2"],
     })
   })
 })

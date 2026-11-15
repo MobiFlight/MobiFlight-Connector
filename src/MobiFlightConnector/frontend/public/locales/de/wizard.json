@@ -112,6 +112,10 @@
         "Digits": "Stellen",
         "UseDigits": "Stellen verwenden",
         "DecimalPoints": "Dezimalpunkte",
+        "DigitLabel": "Stelle {{position}}",
+        "DecimalPointLabel": "Dezimalpunkt {{position}}",
+        "SelectAllDigits": "Alle auswählen",
+        "ClearDigits": "Alle abwählen",
         "AdvancedOptions": {
           "Title": "Erweiterte Optionen",
           "Description": "Konfiguriere erweiterte Anzeigeoptionen für das 7-Segment-Modul.",
