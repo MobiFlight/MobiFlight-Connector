@@ -428,6 +428,11 @@ namespace MobiFlight
                 }
             });
 
+            MessageExchange.Instance.Subscribe<CommandLcdDisplayPreview>((message) =>
+            {
+                PublishLcdDisplayPreview(message.Item as OutputConfigItem);
+            });
+
             MessageExchange.Instance.SubscribeOnUiThread<CommandConfigContextMenu>((message) =>
             {
                 IConfigItem cfg;
@@ -1570,6 +1575,33 @@ namespace MobiFlight
                 wizardTestTimer.Stop();
                 Log.Instance.log($"Error during test mode execution: {cfg.Name}. {e.Message}", LogSeverity.Error);
             }
+        }
+
+        /// <summary>
+        /// Renders the LCD text for a draft config item with the same code that
+        /// drives the hardware and publishes it for the config wizard preview.
+        /// </summary>
+        public void PublishLcdDisplayPreview(OutputConfigItem cfg)
+        {
+            if (!(cfg?.Device is OutputConfig.LcdDisplay lcdConfig)) return;
+
+            // the connected display knows its size, otherwise we use the defaults (16x2)
+            var serial = cfg.Controller?.Serial;
+            var module = serial != null ? mobiFlightCache.GetModuleBySerial(serial) : null;
+            var display = module
+                ?.GetConnectedDevices(lcdConfig.Address)
+                .OfType<MobiFlightLcdDisplay>()
+                .FirstOrDefault() ?? new MobiFlightLcdDisplay();
+
+            // references use the live value of the referenced config, like during execution,
+            // and fall back to their test value
+            var replacements = cfg.ConfigRefs
+                .Where(r => r.Active)
+                .Select(r => new ConfigRefValue(r, ConfigItems.Find(i => i.GUID == r.Ref)?.Value ?? r.TestValue))
+                .ToList();
+
+            var displayText = display.Apply(lcdConfig, cfg.Value, replacements);
+            MessageExchange.Instance.Publish(LcdDisplayPreview.FromDisplayText(cfg.GUID, displayText, display.Cols));
         }
 
         public void ExecuteTestOn(OutputConfigItem cfg)

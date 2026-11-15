@@ -6,6 +6,7 @@ import msfsOutputPresetsResponse from "./data/outputconfig/msfspresets.testdata.
 import xplanePresetsResponse from "./data/inputaction/xplanepresets.testdata.json" with { type: "json" }
 import { Project } from "../src/types"
 import { IConfigItem, Source } from "../src/types/config"
+import { LcdDisplayPreview } from "../src/types/messages"
 
 // Rows in the config list of the default test project (row 0 is the header)
 const ROW = {
@@ -2178,21 +2179,65 @@ test.describe("Output Config Wizard - LCD Display Device", () => {
     const deviceEditor = page.getByTestId("output-device-editor")
     await expect(deviceEditor).toBeVisible()
 
-    // One input per display row, limited to the number of display columns
-    const lineInputs = deviceEditor.locator('input[maxlength="16"]')
+    const lcdEditor = page.getByTestId("lcd-editor")
+    const cell = (row: number, col: number) =>
+      lcdEditor.getByTestId(`lcd-cell-${row}-${col}`)
 
-    await test.step("Details show one line per display row", async () => {
+    await test.step("Details show the display as a 16x4 grid", async () => {
       await expect(
         deviceEditor.getByRole("combobox").filter({ hasText: /^LCD 1$/ }),
       ).toBeVisible()
-      await expect(lineInputs).toHaveCount(4)
-      await expect(lineInputs.nth(0)).toHaveValue("1234567890123456")
-      await expect(lineInputs.nth(1)).toHaveValue("******Test******")
+      await expect(lcdEditor.locator('[data-testid^="lcd-cell-"]')).toHaveCount(
+        4 * 16,
+      )
+      await expect(cell(0, 0)).toHaveText("1")
+      await expect(cell(1, 6)).toHaveText("T")
     })
 
-    await test.step("Change the second line", async () => {
-      await lineInputs.nth(1).fill("Hello MobiFlight")
-      await expect(lineInputs.nth(1)).toHaveValue("Hello MobiFlight")
+    await configListPage.mobiFlightPage.trackCommand("CommandLcdDisplayPreview")
+
+    await test.step("Typing overwrites the second line", async () => {
+      await cell(1, 0).click()
+      await page.keyboard.type("Hello MobiFlight")
+      await expect(cell(1, 0)).toHaveText("H")
+      await expect(cell(1, 15)).toHaveText("t")
+    })
+
+    await test.step("Selected cells get the placeholder of a value", async () => {
+      await cell(2, 0).click()
+      for (let i = 0; i < 4; i++) await page.keyboard.press("Shift+ArrowRight")
+      await lcdEditor
+        .getByRole("button", { name: "Value of this config" })
+        .click()
+      await expect(cell(2, 0)).toHaveText("$")
+      await expect(cell(2, 4)).toHaveText("$")
+      await expect(cell(2, 5)).toHaveText("6")
+    })
+
+    await test.step("The visualization shows the text rendered by the backend", async () => {
+      const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+      const previewCommand = commands
+        ?.filter((c) => c.key === "CommandLcdDisplayPreview")
+        .pop()
+      expect(previewCommand?.payload.item.GUID).toBe(
+        "61ae4145-c7d5-41ef-b2a9-c993f8986be1",
+      )
+
+      await configListPage.mobiFlightPage.publishMessage({
+        key: "LcdDisplayPreview",
+        payload: {
+          GUID: "61ae4145-c7d5-41ef-b2a9-c993f8986be1",
+          Lines: ["1234567890123456", "Hello MobiFlight", "118.567890123456"],
+        } as LcdDisplayPreview,
+      })
+      await lcdEditor.getByTestId("lcd-editor-view").click()
+      await expect(cell(2, 0)).toHaveText("1")
+      await expect(cell(2, 4)).toHaveText("5")
+      // the fourth row is not part of the preview, so it is blank
+      await expect(cell(3, 0)).toHaveText("")
+
+      await lcdEditor.getByTestId("lcd-editor-view").click()
+      await expect(cell(2, 0)).toHaveText("$")
     })
 
     await closeDrawer(page)
@@ -2206,7 +2251,7 @@ test.describe("Output Config Wizard - LCD Display Device", () => {
       Lines: [
         "1234567890123456",
         "Hello MobiFlight",
-        "1234567890123456",
+        "$$$$$67890123456",
         "******Test******",
       ],
     })

@@ -130,7 +130,13 @@
         "Title": "Step 2 - LCD Display settings",
         "Description": "Select the LCD display and configure its settings.",
         "Label": "LCD Display",
-        "Lines": "Lines"
+        "Lines": "Lines",
+        "Editor": {
+          "Template": "Template",
+          "Visualization": "Show values",
+          "Values": "Values - click to place the placeholder at the caret or into the selected cells",
+          "ThisConfig": "Value of this config"
+        }
       },
       "CustomDevice": {
         "Title": "Step 2 - Custom Device settings",
