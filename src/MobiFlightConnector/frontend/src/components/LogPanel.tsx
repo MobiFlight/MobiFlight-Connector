@@ -115,7 +115,9 @@ const LogPanel = () => {
     value: level,
     label: (
       <span className={SEVERITY_CLASS[level]}>
-        {t(`Settings.General.Logging.Levels.${LEVEL_LABEL_KEY[level]}`)}
+        {t(`Settings.General.Logging.Levels.${LEVEL_LABEL_KEY[level]}`, {
+          ns: "settings",
+        })}
       </span>
     ),
   }))
@@ -204,7 +206,7 @@ const LogPanel = () => {
               onChange={(e) => setFilterText(e.target.value)}
             />
             <FacetedFilterOptions
-              title={t("Settings.General.Logging.LogLevel")}
+              title={t("Settings.General.Logging.LogLevel", { ns: "settings" })}
               options={levelOptions}
               values={activeLevels}
               onValuesChange={setLevelFilter}
