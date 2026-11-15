@@ -1593,11 +1593,14 @@ namespace MobiFlight
                 .OfType<MobiFlightLcdDisplay>()
                 .FirstOrDefault() ?? new MobiFlightLcdDisplay();
 
-            // references use the live value of the referenced config, like during execution,
-            // and fall back to their test value
+            // during a test the references use their test values, like the test execution itself,
+            // otherwise the live value of the referenced config, falling back to the test value
+            var isTesting = ConfigItemInTestMode?.GUID == cfg.GUID;
             var replacements = cfg.ConfigRefs
                 .Where(r => r.Active)
-                .Select(r => new ConfigRefValue(r, ConfigItems.Find(i => i.GUID == r.Ref)?.Value ?? r.TestValue))
+                .Select(r => new ConfigRefValue(r, isTesting
+                    ? r.TestValue
+                    : ConfigItems.Find(i => i.GUID == r.Ref)?.Value ?? r.TestValue))
                 .ToList();
 
             var displayText = display.Apply(lcdConfig, cfg.Value, replacements);
