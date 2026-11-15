@@ -81,6 +81,119 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod]
+        public void CommandAddConfigItem_WithoutInsertAfterGuid_AddsItemAtEnd()
+        {
+            // Arrange
+            var configItem1 = new OutputConfigItem { GUID = Guid.NewGuid().ToString() };
+            var configItem2 = new OutputConfigItem { GUID = Guid.NewGuid().ToString() };
+            var project = new Project();
+            project.ConfigFiles.Add(new ConfigFile() { ConfigItems = { configItem1, configItem2 } });
+            _executionManager.Project = project;
+
+            var message = new CommandAddConfigItem
+            {
+                Name = "New Input Config",
+                Type = "InputConfig"
+            };
+
+            // Act
+            MessageExchange.Instance.Publish(message);
+
+            // Assert
+            Assert.HasCount(3, _executionManager.ConfigItems);
+            Assert.AreSame(configItem1, _executionManager.ConfigItems[0]);
+            Assert.AreSame(configItem2, _executionManager.ConfigItems[1]);
+            var newItem = _executionManager.ConfigItems[2];
+            Assert.IsInstanceOfType<InputConfigItem>(newItem);
+            Assert.AreEqual("New Input Config", newItem.Name);
+            Assert.IsTrue(newItem.Active);
+        }
+
+        [TestMethod]
+        public void CommandAddConfigItem_WithInsertAfterGuid_InsertsItemAfterThatItem()
+        {
+            // Arrange
+            var configItem1 = new OutputConfigItem { GUID = Guid.NewGuid().ToString() };
+            var configItem2 = new OutputConfigItem { GUID = Guid.NewGuid().ToString() };
+            var configItem3 = new OutputConfigItem { GUID = Guid.NewGuid().ToString() };
+            var project = new Project();
+            project.ConfigFiles.Add(new ConfigFile() { ConfigItems = { configItem1, configItem2, configItem3 } });
+            _executionManager.Project = project;
+
+            var message = new CommandAddConfigItem
+            {
+                Name = "New Output Config",
+                Type = "OutputConfig",
+                InsertAfterGuid = configItem2.GUID
+            };
+
+            // Act
+            MessageExchange.Instance.Publish(message);
+
+            // Assert
+            Assert.HasCount(4, _executionManager.ConfigItems);
+            Assert.AreSame(configItem1, _executionManager.ConfigItems[0]);
+            Assert.AreSame(configItem2, _executionManager.ConfigItems[1]);
+            var newItem = _executionManager.ConfigItems[2];
+            Assert.IsInstanceOfType<OutputConfigItem>(newItem);
+            Assert.AreEqual("New Output Config", newItem.Name);
+            Assert.AreSame(configItem3, _executionManager.ConfigItems[3]);
+        }
+
+        [TestMethod]
+        public void CommandAddConfigItem_WithInsertAfterGuidOfLastItem_AddsItemAtEnd()
+        {
+            // Arrange
+            var configItem1 = new OutputConfigItem { GUID = Guid.NewGuid().ToString() };
+            var configItem2 = new OutputConfigItem { GUID = Guid.NewGuid().ToString() };
+            var project = new Project();
+            project.ConfigFiles.Add(new ConfigFile() { ConfigItems = { configItem1, configItem2 } });
+            _executionManager.Project = project;
+
+            var message = new CommandAddConfigItem
+            {
+                Name = "New Output Config",
+                Type = "OutputConfig",
+                InsertAfterGuid = configItem2.GUID
+            };
+
+            // Act
+            MessageExchange.Instance.Publish(message);
+
+            // Assert
+            Assert.HasCount(3, _executionManager.ConfigItems);
+            Assert.AreSame(configItem2, _executionManager.ConfigItems[1]);
+            Assert.AreEqual("New Output Config", _executionManager.ConfigItems[2].Name);
+        }
+
+        [TestMethod]
+        public void CommandAddConfigItem_WithUnknownInsertAfterGuid_AddsItemAtEnd()
+        {
+            // Arrange
+            var configItem1 = new OutputConfigItem { GUID = Guid.NewGuid().ToString() };
+            var configItem2 = new OutputConfigItem { GUID = Guid.NewGuid().ToString() };
+            var project = new Project();
+            project.ConfigFiles.Add(new ConfigFile() { ConfigItems = { configItem1, configItem2 } });
+            _executionManager.Project = project;
+
+            var message = new CommandAddConfigItem
+            {
+                Name = "New Output Config",
+                Type = "OutputConfig",
+                InsertAfterGuid = Guid.NewGuid().ToString()
+            };
+
+            // Act
+            MessageExchange.Instance.Publish(message);
+
+            // Assert
+            Assert.HasCount(3, _executionManager.ConfigItems);
+            Assert.AreSame(configItem1, _executionManager.ConfigItems[0]);
+            Assert.AreSame(configItem2, _executionManager.ConfigItems[1]);
+            Assert.AreEqual("New Output Config", _executionManager.ConfigItems[2].Name);
+        }
+
+        [TestMethod]
         public void CommandConfigBulkAction_Delete_RemovesItems()
         {
             // Arrange

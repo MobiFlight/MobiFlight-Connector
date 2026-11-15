@@ -253,6 +253,8 @@ test.describe("Confirm content and basic functions are working", () => {
     const lastCommand = postedCommands!.pop()
     expect(lastCommand.key).toEqual("CommandAddConfigItem")
     expect(lastCommand.payload.type).toEqual("OutputConfig")
+    // without a selection the config is added at the end of the list
+    expect(lastCommand.payload.insertAfterGuid).toBeUndefined()
   })
 
   test("Confirm add input config is working", async ({
@@ -272,6 +274,49 @@ test.describe("Confirm content and basic functions are working", () => {
     const lastCommand = postedCommands!.pop()
     expect(lastCommand.key).toEqual("CommandAddConfigItem")
     expect(lastCommand.payload.type).toEqual("InputConfig")
+    // without a selection the config is added at the end of the list
+    expect(lastCommand.payload.insertAfterGuid).toBeUndefined()
+  })
+
+  test("Confirm add config inserts after the last selected config", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+    await configListPage.mobiFlightPage.trackCommand("CommandAddConfigItem")
+
+    const testProject = await configListPage.mobiFlightPage.getTestProjectData()
+    const configItems = testProject.ConfigFiles[0].ConfigItems
+    const selectionButton = page.getByRole("button", { name: "rows selected" })
+
+    await test.step("Add output config after a single selected config", async () => {
+      await page.getByRole("row").nth(2).click()
+      await expect(selectionButton).toHaveText("1 rows selected")
+      await page.getByRole("button", { name: "Add Output Config" }).click()
+
+      const postedCommands =
+        await configListPage.mobiFlightPage.getTrackedCommands()
+      const lastCommand = postedCommands!.pop()
+      expect(lastCommand.payload.type).toEqual("OutputConfig")
+      expect(lastCommand.payload.insertAfterGuid).toEqual(configItems[1].GUID)
+    })
+
+    await test.step("Add input config after the last of several selected configs", async () => {
+      // the position in the list counts, not the order of selection
+      await page.getByRole("row").nth(3).click()
+      await page.keyboard.down("Shift")
+      await page.getByRole("row").nth(1).click()
+      await page.keyboard.up("Shift")
+      await expect(selectionButton).toHaveText("3 rows selected")
+      await page.getByRole("button", { name: "Add Input Config" }).click()
+
+      const postedCommands =
+        await configListPage.mobiFlightPage.getTrackedCommands()
+      const lastCommand = postedCommands!.pop()
+      expect(lastCommand.payload.type).toEqual("InputConfig")
+      expect(lastCommand.payload.insertAfterGuid).toEqual(configItems[2].GUID)
+    })
   })
   test("Duplicated input config item is selected", async ({
     configListPage,

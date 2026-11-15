@@ -247,6 +247,13 @@ export function ConfigItemTable<TValue>({
     })
   }, [navigate, table, data])
 
+  // new configs are inserted after the last selected config,
+  // so they can be added next to related configs
+  const getLastSelectedGuid = useCallback(() => {
+    const selectedRows = table.getSelectedRowModel().rows
+    return selectedRows[selectedRows.length - 1]?.original.GUID
+  }, [table])
+
   const handleAddOutputConfig = useCallback(() => {
     lastAction.current = "add"
     publish({
@@ -254,9 +261,10 @@ export function ConfigItemTable<TValue>({
       payload: {
         name: t("ConfigList.Actions.OutputConfigItem.DefaultName"),
         type: "OutputConfig",
+        insertAfterGuid: getLastSelectedGuid(),
       },
     } as CommandAddConfigItem)
-  }, [publish, t])
+  }, [publish, t, getLastSelectedGuid])
 
   const handleAddInputConfig = useCallback(() => {
     lastAction.current = "add"
@@ -265,9 +273,10 @@ export function ConfigItemTable<TValue>({
       payload: {
         name: t("ConfigList.Actions.InputConfigItem.DefaultName"),
         type: "InputConfig",
+        insertAfterGuid: getLastSelectedGuid(),
       },
     } as CommandAddConfigItem)
-  }, [publish, t])
+  }, [publish, t, getLastSelectedGuid])
 
   const deleteSelected = useCallback(() => {
     const action = "delete"

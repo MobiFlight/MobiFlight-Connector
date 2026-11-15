@@ -386,7 +386,19 @@ namespace MobiFlight
                 item.GUID = Guid.NewGuid().ToString();
                 item.Name = message.Name;
                 item.Active = true;
-                ConfigItems.Add(item);
+
+                // insert the new item after the selected item in the list, if there is one
+                var index = message.InsertAfterGuid == null
+                    ? -1
+                    : ConfigItems.FindIndex(i => i.GUID == message.InsertAfterGuid);
+                if (index == -1)
+                {
+                    ConfigItems.Add(item);
+                }
+                else
+                {
+                    ConfigItems.Insert(index + 1, item);
+                }
 
                 MessageExchange.Instance.Publish(new ConfigValueFullUpdate(ActiveConfigIndex, ConfigItems));
                 OnConfigHasChanged?.Invoke(item, null);
