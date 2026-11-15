@@ -67,16 +67,18 @@ const LcdCell = ({
     <div
       data-testid={testId}
       className={cn(
-        "font-lcd flex h-8 w-5 items-center justify-center text-white select-none cursor-pointer",
+        "font-lcd flex h-8 w-5 cursor-pointer items-center justify-center text-white select-none",
         color ? `border-b-4 ${color}` : "border-b-4 border-b-transparent",
-        isCaret && "border-b-4 border-b-white",
+        isCaret && "border-b-4 border-b-white/80",
         isSelected &&
           "border-b-4 border-b-white/10 bg-white/10 ring-2 ring-white/60",
       )}
       onMouseDown={onMouseDown}
       onMouseEnter={onMouseEnter}
     >
-      <span className="-mb-2 text-xl">{char}</span>
+      <span className="-mb-1.5 text-xl text-shadow-blue-400 text-shadow-md">
+        {char}
+      </span>
     </div>
   </div>
 )
@@ -89,12 +91,12 @@ type ValueRowProps = {
 const ValueRow = ({ value, onClick }: ValueRowProps) => (
   <button
     type="button"
-    className="hover:bg-accent flex flex-row items-center gap-3 rounded-md border px-3 py-1.5 text-left text-sm"
+    className="hover:bg-accent flex flex-row items-center gap-3 rounded-md border px-3 py-1.5 pl-2 text-left text-sm"
     onClick={onClick}
   >
     <span
       className={cn(
-        "flex h-6 w-6 items-center justify-center border-b-2 font-mono",
+        "flex h-8 w-5 items-center justify-center border-b-2 font-mono",
         value.color,
       )}
     >
@@ -245,6 +247,11 @@ export const LcdDisplayConfigEditor = ({
           updateLine(row, setChar(grid[row], col, " "))
         }
         break
+      case "Escape":
+        if (!selection) break
+        moveCaret(row, selection.from, false)
+        setAnchor(null)
+        break
       default:
         // a single printable character
         if (e.key.length === 1 && !e.ctrlKey && !e.metaKey) write(e.key)
@@ -257,69 +264,72 @@ export const LcdDisplayConfigEditor = ({
     <div className="flex flex-col gap-4" data-testid="lcd-editor">
       <div className="flex flex-row items-center justify-between">
         <Label>{t("ConfigWizard.Device.LcdDisplay.Editor.Template")}</Label>
-        <div className="flex flex-row items-center gap-2">
-          <Switch
-            id="lcd-editor-view"
-            data-testid="lcd-editor-view"
-            checked={view === "visualization"}
-            onCheckedChange={(checked) =>
-              onViewChange(checked ? "visualization" : "template")
-            }
-          />
-          <Label htmlFor="lcd-editor-view">
-            {t("ConfigWizard.Device.LcdDisplay.Editor.Visualization")}
-          </Label>
-        </div>
       </div>
-
-      <div className="w-fit rounded-2xl bg-linear-to-br from-green-700 via-green-800 to-green-900 p-6 relative drop-shadow-lg">
-        <div className="w-4 h-4 bg-background rounded-full top-2 left-2 absolute border-amber-400 border-3"></div>
-        <div className="w-4 h-4 bg-background rounded-full bottom-2 left-2 absolute border-amber-400 border-3"></div>
-        <div className="w-4 h-4 bg-background rounded-full bottom-2 right-2 absolute border-amber-400 border-3"></div>
-        <div className="w-4 h-4 bg-background rounded-full top-2 right-2 absolute border-amber-400 border-3"></div>
-        <div className="w-fit rounded-md from-gray-700 to-15% to-slate-900 bg-linear-to-br p-4 drop-shadow-md drop-shadow-mist-900">
-          <div
-            role="textbox"
-            aria-label={t("ConfigWizard.Device.LcdDisplay.Editor.Template")}
-            tabIndex={0}
-            className="focus-visible:ring-ring inline-grid w-fit gap-0.5 rounded-md bg-blue-700 p-2 outline-none focus-visible:ring-2"
-            style={{ gridTemplateColumns: `repeat(${cols}, auto)` }}
-            onKeyDown={handleKeyDown}
-            onMouseUp={() => setDragStart(null)}
-            onMouseLeave={() => setDragStart(null)}
-          >
-            {shownGrid.map((line, row) =>
-              Array.from(line).map((char, col) => (
-                <LcdCell
-                  key={`${row}-${col}`}
-                  testId={`lcd-cell-${row}-${col}`}
-                  char={char}
-                  color={colorFor(grid[row][col])}
-                  isCaret={caret.row === row && caret.col === col}
-                  isSelected={
-                    caret.row === row &&
-                    selection !== null &&
-                    col >= selection.from &&
-                    col <= selection.to
-                  }
-                  onMouseDown={() => {
-                    moveCaret(row, col, false)
-                    setDragStart({ row, col })
-                  }}
-                  onMouseEnter={() => {
-                    if (dragStart?.row !== row) return
-                    setAnchor(dragStart.col)
-                    setCaret({ row, col })
-                  }}
-                />
-              )),
-            )}
+      <div className="flex flex-col items-center">
+        <div className="relative w-fit rounded-2xl bg-linear-to-br from-green-700 via-green-800 to-green-900 p-6 drop-shadow-lg">
+          <div className="bg-background absolute top-2 left-2 h-4 w-4 rounded-full border-3 border-amber-400"></div>
+          <div className="bg-background absolute bottom-2 left-2 h-4 w-4 rounded-full border-3 border-amber-400"></div>
+          <div className="bg-background absolute right-2 bottom-2 h-4 w-4 rounded-full border-3 border-amber-400"></div>
+          <div className="bg-background absolute top-2 right-2 h-4 w-4 rounded-full border-3 border-amber-400"></div>
+          <div className="w-fit rounded-md bg-linear-to-br from-gray-700 to-slate-900 to-15% p-4 drop-shadow-md drop-shadow-mist-900">
+            <div
+              role="textbox"
+              aria-label={t("ConfigWizard.Device.LcdDisplay.Editor.Template")}
+              tabIndex={0}
+              className="focus-visible:ring-ring inline-grid w-fit gap-0.5 rounded-md bg-blue-700 p-2 outline-none focus-visible:ring-2"
+              style={{ gridTemplateColumns: `repeat(${cols}, auto)` }}
+              onKeyDown={handleKeyDown}
+              onMouseUp={() => setDragStart(null)}
+              onMouseLeave={() => setDragStart(null)}
+            >
+              {shownGrid.map((line, row) =>
+                Array.from(line).map((char, col) => (
+                  <LcdCell
+                    key={`${row}-${col}`}
+                    testId={`lcd-cell-${row}-${col}`}
+                    char={char}
+                    color={colorFor(grid[row][col])}
+                    isCaret={caret.row === row && caret.col === col}
+                    isSelected={
+                      caret.row === row &&
+                      selection !== null &&
+                      col >= selection.from &&
+                      col <= selection.to
+                    }
+                    onMouseDown={() => {
+                      moveCaret(row, col, false)
+                      setDragStart({ row, col })
+                    }}
+                    onMouseEnter={() => {
+                      if (dragStart?.row !== row) return
+                      setAnchor(dragStart.col)
+                      setCaret({ row, col })
+                    }}
+                  />
+                )),
+              )}
+            </div>
           </div>
         </div>
       </div>
 
       <div className="flex flex-col gap-2">
-        <Label>{t("ConfigWizard.Device.LcdDisplay.Editor.Values")}</Label>
+        <div className="flex flex-row items-center justify-between gap-2">
+          <Label>{t("ConfigWizard.Device.LcdDisplay.Editor.Values")}</Label>
+          <div className="flex flex-row items-center gap-2">
+            <Switch
+              id="lcd-editor-view"
+              data-testid="lcd-editor-view"
+              checked={view === "visualization"}
+              onCheckedChange={(checked) =>
+                onViewChange(checked ? "visualization" : "template")
+              }
+            />
+            <Label htmlFor="lcd-editor-view">
+              {t("ConfigWizard.Device.LcdDisplay.Editor.Visualization")}
+            </Label>
+          </div>
+        </div>
         {values.map((value) => (
           <ValueRow
             key={value.placeholder}
