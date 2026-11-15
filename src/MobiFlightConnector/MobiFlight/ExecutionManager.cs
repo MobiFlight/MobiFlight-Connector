@@ -1611,25 +1611,21 @@ namespace MobiFlight
             // in all other cases it will already be running
             mobiFlightCache.StartKeepAwake();
 
-            var value = cfg.TestValue;
-            var configRefs = cfg.ConfigRefs
-                    .Where(r => r.Active)
-                    .Select(r => new ConfigRefValue(r, r.TestValue))
-                    .ToList();
+            // The test state: only the referenced configs, each with its test value as current value.
+            // Modifiers and display resolve the config references from it, like in a regular run.
+            var referencedConfigsForTest = cfg.ConfigRefs
+                .Where(r => r.Active)
+                .Select(r =>
+                {
+                    var referencedConfig = ConfigItems.Find(i => i.GUID == r.Ref)?.Clone() as IConfigItem;
+                    if (referencedConfig != null) referencedConfig.Value = r.TestValue;
+                    return referencedConfig;
+                })
+                // a reference can point to a config that was deleted
+                .Where(c => c != null)
+                .ToList();
 
-            // For testing, the test value is the raw value
-            cfg.RawValue = value.ToString();
-            
-            // All modifiers are now also applied during testing.
-            foreach (var modifier in cfg.Modifiers.Items.Where(m => m.Active))
-            {
-                value = modifier.Apply(value, configRefs);
-            }
-
-            // Like always, the modified result is the final value
-            cfg.Value = value.ToString();
-
-            var executor = new ConfigItemExecutor(ConfigItems,
+            var executor = new ConfigItemExecutor(referencedConfigsForTest,
                                                   arcazeCache,
                                                   fsuipcCache,
                                                   simConnectCache,
@@ -1640,8 +1636,12 @@ namespace MobiFlight
                                                   midiBoardManager,
                                                   inputActionExecutionCache,
                                                   ConfigItemInTestMode);
-            executor.ExecuteTestOn(cfg, value);
+            executor.Execute(cfg, new ConcurrentDictionary<string, IConfigItem>(), isTest: true);
             ConfigItemInTestMode = cfg;
+
+            // the test panel and the LCD preview show the values of the test
+            cfg.Status[ConfigItemStatusType.Test] = "TEST_EXECUTION";
+            MessageExchange.Instance.Publish(new ConfigValueRawAndFinalUpdate(new ConfigValueOnlyItem(cfg)));
         }
 
         private void ClearErrorMessages()
