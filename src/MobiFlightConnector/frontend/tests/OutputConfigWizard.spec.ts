@@ -440,6 +440,20 @@ test.describe("Output Config Wizard - Source Panel", () => {
     ).toBeVisible()
   })
 
+  test("Edit button of the source summary opens the source editor", async ({
+    configListPage,
+    page,
+  }) => {
+    await openWizardForRow(configListPage, page, ROW.Output)
+
+    const sourceEditor = page.getByTestId("source-editor")
+    await page
+      .getByTestId("trigger-panel")
+      .getByRole("button", { name: "Edit source" })
+      .click()
+    await expect(sourceEditor).toBeVisible()
+  })
+
   test("Double click on the source summary opens the source editor", async ({
     configListPage,
     page,
@@ -1147,9 +1161,10 @@ test.describe("Output Config Wizard - Output Device Panel", () => {
     await openWizardForRow(configListPage, page, ROW.Output)
 
     const actionPanel = page.getByTestId("action-panel")
-    // TODO: the remove button for the output device reuses the "Remove input action" label
+    // the remove button is only visible on hover
+    await actionPanel.getByText("LED 2", { exact: true }).hover()
     await actionPanel
-      .getByRole("button", { name: "Remove input action" })
+      .getByRole("button", { name: "Remove output device" })
       .click()
 
     await expect(
@@ -1274,7 +1289,10 @@ test.describe("Output Config Wizard - Device Test Panel", () => {
     page,
   }) => {
     await openWizardForRow(configListPage, page, ROW.Output)
-    await page.getByTestId("action-panel").getByRole("button").last().click()
+    await page
+      .getByTestId("action-panel")
+      .getByRole("button", { name: "Edit output device" })
+      .click()
 
     const deviceEditor = page.getByTestId("output-device-editor")
     await configListPage.mobiFlightPage.trackCommand("CommandConfigContextMenu")
@@ -1300,7 +1318,10 @@ test.describe("Output Config Wizard - Device Test Panel", () => {
     page,
   }) => {
     await openWizardForRow(configListPage, page, ROW.Output)
-    await page.getByTestId("action-panel").getByRole("button").last().click()
+    await page
+      .getByTestId("action-panel")
+      .getByRole("button", { name: "Edit output device" })
+      .click()
 
     const deviceEditor = page.getByTestId("output-device-editor")
     await deviceEditor.getByPlaceholder("Enter raw value").fill("42")
@@ -1334,7 +1355,10 @@ test.describe("Output Config Wizard - Device Test Panel", () => {
     page,
   }) => {
     await openWizardForRow(configListPage, page, ROW.Output)
-    await page.getByTestId("action-panel").getByRole("button").last().click()
+    await page
+      .getByTestId("action-panel")
+      .getByRole("button", { name: "Edit output device" })
+      .click()
 
     const deviceEditor = page.getByTestId("output-device-editor")
     await configListPage.mobiFlightPage.trackCommand("CommandConfigContextMenu")
@@ -1354,7 +1378,10 @@ test.describe("Output Config Wizard - Device Test Panel", () => {
     page,
   }) => {
     await openWizardForRow(configListPage, page, ROW.Output)
-    await page.getByTestId("action-panel").getByRole("button").last().click()
+    await page
+      .getByTestId("action-panel")
+      .getByRole("button", { name: "Edit output device" })
+      .click()
 
     const deviceEditor = page.getByTestId("output-device-editor")
     await expect(deviceEditor).toBeVisible()
@@ -1710,7 +1737,10 @@ test.describe("Output Config Wizard - Stepper Device", () => {
       page: Page,
     ) => {
       await openWizardForRow(configListPage, page, ROW.Stepper)
-      await page.getByTestId("action-panel").getByRole("button").last().click()
+      await page
+        .getByTestId("action-panel")
+        .getByRole("button", { name: "Edit output device" })
+        .click()
       const deviceEditor = page.getByTestId("output-device-editor")
       await expect(deviceEditor).toBeVisible()
       await configListPage.mobiFlightPage.trackCommand(
