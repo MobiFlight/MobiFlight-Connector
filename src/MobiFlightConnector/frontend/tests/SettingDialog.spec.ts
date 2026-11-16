@@ -511,17 +511,15 @@ test.describe("Cloud Settings Sync", () => {
       page,
     }) => {
       // Initialize an older base hash in localStorage
-      await page.addInitScript(() => {
-        localStorage.setItem("cloud_last_synced_hash", "old-hash")
-        localStorage.setItem(
-          "cloud_last_synced_settings",
-          JSON.stringify({
-            ...(defaultSettings as Settings),
-            CloudSettingsSyncEnabled: true,
-            BetaUpdates: false,
-          }),
-        )
+      const initialSettings = JSON.stringify({
+        ...(defaultSettings as Settings),
+        CloudSettingsSyncEnabled: true,
+        BetaUpdates: false,
       })
+      await page.addInitScript((settingsJson) => {
+        localStorage.setItem("cloud_last_synced_hash", "old-hash")
+        localStorage.setItem("cloud_last_synced_settings", settingsJson)
+      }, initialSettings)
 
       // Cloud has newer settings and different hash ("hash" from mock)
       await mockCloudSettingsApi(page, {

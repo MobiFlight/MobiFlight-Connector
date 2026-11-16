@@ -151,7 +151,7 @@ export const useCloudSettingsSync = () => {
       try {
         const cloudData = await fetchCloudSettings(auth)
 
-        if (!cloudData || !cloudData.content) {
+        if (cloudData?.content == null) {
           await handleInitialUpload(current)
           return
         }
