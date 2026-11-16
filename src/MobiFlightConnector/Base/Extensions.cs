@@ -11,22 +11,6 @@ namespace MobiFlight.Base
             return value.Length <= maxLength ? value : value.Substring(0, maxLength);
         }
 
-        public static string ToCRLF(this string value)
-        {
-            if (string.IsNullOrEmpty(value)) return value;
-            // handle mixed line endings correctly (avoid expansion of \n in \r\n -> \r\n\n)
-            // first, convert all line-endings to only LF
-            // then, convert all line-endings to CRLF
-            return value.Replace("\r\n", "\n").Replace("\n", "\r\n");
-        }
-
-        public static string ToLF(this string value)
-        {
-            if (string.IsNullOrEmpty(value)) return value;
-            // mixed lines are treated correctly
-            return value.Replace("\r\n", "\n");
-        }
-
         public static byte Reverse(this byte value)
         {
             byte result = 0;

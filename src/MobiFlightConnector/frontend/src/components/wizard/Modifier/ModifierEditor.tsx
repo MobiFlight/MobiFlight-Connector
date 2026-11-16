@@ -12,17 +12,24 @@ import { useTranslation } from "react-i18next"
 import { ModifierItem } from "@/components/wizard/Modifier/ModifierItem"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { HistoryAction } from "@/types/history"
+import SectionHeadline from "@/components/wizard/common/SectionHeadline"
+import DrawerBreadcrumb from "@/components/wizard/common/DrawerTitle"
+import { ConfigItemType } from "@/types/config"
 
 type ModifierEditorProps = {
+  mode: ConfigItemType
+  configName: string
   modifiers: Modifier[]
   onModifierChange: (modifiers: Modifier[], actionLabel?: HistoryAction) => void
 }
 
 const ModifierEditor = ({
+  mode,
+  configName,
   modifiers,
   onModifierChange,
 }: ModifierEditorProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const modifierTypes = MODIFIER_TYPES.sort((a, b) => a.localeCompare(b))
   const [newlyAddedId, setNewlyAddedId] = useState<string | null>(null)
   const [fallbackIds] = useState(() => new WeakMap<Modifier, string>())
@@ -112,18 +119,21 @@ const ModifierEditor = ({
     <div className="flex grow flex-col gap-4" data-testid="modifier-editor">
       <div className="flex flex-row justify-between gap-4">
         <div className="flex flex-col gap-1">
-          <div className="text-lg font-semibold">
-            {t("Dialog.Modifiers.Editor.Title")}
-          </div>
-          <div className="text-muted-foreground text-sm">
-            {t("Dialog.Modifiers.Editor.Description")}
-          </div>
+          <SectionHeadline
+            title={
+              <DrawerBreadcrumb
+                mode={mode}
+                crumbs={[configName, t("ConfigWizard.Modifiers.Title")]}
+              />
+            }
+            description={t("ConfigWizard.Modifiers.Editor.Description")}
+          />
         </div>
         <DropdownMenu>
-          <DropdownMenuTrigger asChild className="self-end">
+          <DropdownMenuTrigger asChild className="self-center">
             <Button variant="default" className="w-fit" size={"sm"}>
               <IconPlus className="h-4 w-4" />
-              {t("Dialog.Modifiers.Editor.AddModifier")}
+              {t("ConfigWizard.Modifiers.Editor.AddModifier")}
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start">
@@ -132,7 +142,7 @@ const ModifierEditor = ({
                 key={modifierType}
                 onClick={() => handleAdd(modifierType)}
               >
-                {t(`Dialog.Modifiers.Type.${modifierType}.Label`)}
+                {t(`ConfigWizard.Modifiers.Type.${modifierType}.Label`)}
               </DropdownMenuItem>
             ))}
           </DropdownMenuContent>
@@ -141,7 +151,7 @@ const ModifierEditor = ({
 
       {modifiers.length === 0 ? (
         <div className="text-muted-foreground rounded border p-4 text-center text-sm">
-          {t("Dialog.Modifiers.Editor.NoModifiers")}
+          {t("ConfigWizard.Modifiers.Editor.NoModifiers")}
         </div>
       ) : (
         <ScrollArea className="grow">

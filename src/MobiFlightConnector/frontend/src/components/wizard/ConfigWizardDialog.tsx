@@ -1,0 +1,294 @@
+import {
+  InlineEditLabel,
+  InlineEditLabelRef,
+} from "@/components/InlineEditLabel"
+import { Button } from "@/components/ui/button"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import ConfigWizard from "@/components/wizard/ConfigWizard"
+import messageExchange from "@/lib/messageExchange"
+import HistoryControls from "@/components/wizard/components/HistoryControls"
+import { cn } from "@/lib/utils"
+import { useProjectStore } from "@/stores/projectStore"
+import { useConfigItemStateValue } from "@/stores/configItemStateStore"
+import { IConfigItem } from "@/types/config"
+import useInputConfigHistory from "@/lib/hooks/useInputConfigHistory"
+import { IconChevronRight, IconExclamationCircle } from "@tabler/icons-react"
+import _ from "lodash"
+import { useEffect, useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
+import { useLocation, useNavigate } from "react-router"
+
+export type ConfigWizardDialogProps = {
+  configId: string
+}
+
+const resetTriggersBasedOnDeviceType = (
+  configItem: IConfigItem | undefined,
+) => {
+  if (!configItem?.Device) return configItem
+
+  switch (configItem.Device.Type) {
+    case "Button":
+      return { ...configItem, analog: undefined, encoder: undefined }
+    case "Encoder":
+      return { ...configItem, analog: undefined, button: undefined }
+    case "AnalogInput":
+      return { ...configItem, encoder: undefined, button: undefined }
+    default:
+      return configItem
+  }
+}
+
+const ConfigWizardDialog = ({ configId }: ConfigWizardDialogProps) => {
+  const { t } = useTranslation("wizard")
+  const navigate = useNavigate()
+  const location = useLocation()
+  const { project, activeConfigFileIndex } = useProjectStore()
+  const configFile = project?.ConfigFiles[activeConfigFileIndex]
+  const configItem = configFile?.ConfigItems?.find(
+    (item) => item.GUID === configId,
+  )
+  const runtimeState = useConfigItemStateValue(configId)
+
+  const containerRef = useRef<HTMLDivElement>(null)
+  const inlineEditRef = useRef<InlineEditLabelRef>(null)
+
+  const {
+    editorState,
+    draftConfigItem,
+    applyConfigChange,
+    beginDrawerSession,
+    finishDrawerSession,
+    jumpToHistory,
+    undoConfigItemChange,
+    handleUndoKeyDown,
+    handleFocusCapture,
+    handleBlurCapture,
+  } = useInputConfigHistory(configItem)
+
+  const [committedConfigItem, setCommittedConfigItem] = useState(() =>
+    configItem ? structuredClone(configItem) : undefined,
+  )
+
+  const [isWiggling, setIsWiggling] = useState(false)
+  const [showPendingChangesMessage, setShowPendingChangesMessage] =
+    useState(false)
+  const [preventDialogAnimation, setPreventDialogAnimation] = useState(false)
+
+  const closeDialog = () => {
+    navigate(-1)
+  }
+
+  const saveChanges = () => {
+    const { publish } = messageExchange
+
+    const finalConfigItem = resetTriggersBasedOnDeviceType(draftConfigItem)
+    setCommittedConfigItem(finalConfigItem)
+    setShowPendingChangesMessage(false)
+
+    publish({
+      key: "CommandUpdateConfigItem",
+      payload: {
+        item: finalConfigItem,
+      },
+    })
+
+    closeDialog()
+  }
+
+  // New and duplicated configs are opened with a request to edit the name.
+  // It is only evaluated once, because opening and closing detail views
+  // changes the location and would otherwise start editing again.
+  const [shouldStartEditingName] = useState(
+    () => location.state?.editName === true,
+  )
+
+  const hasChanged = () => !_.isEqual(committedConfigItem, draftConfigItem)
+  const isDirty = hasChanged()
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (shouldStartEditingName) {
+        inlineEditRef.current?.startEditing()
+      }
+    }, 500)
+  }, [inlineEditRef, shouldStartEditingName])
+
+  const wiggleIt = () => {
+    setTimeout(() => {
+      setPreventDialogAnimation(true)
+      setIsWiggling(true)
+      setShowPendingChangesMessage(true)
+      setTimeout(() => {
+        setIsWiggling(false)
+      }, 150)
+    }, 100)
+  }
+
+  const isOutputConfig = draftConfigItem?.Type === "OutputConfigItem"
+  const i18nPrefix = isOutputConfig
+    ? "ConfigWizard.Output"
+    : "ConfigWizard.Input"
+
+  return (
+    <Dialog open={true} onOpenChange={closeDialog}>
+      <DialogContent
+        data-testid="configwizard-dialog"
+        onKeyDownCapture={handleUndoKeyDown}
+        onFocusCapture={handleFocusCapture}
+        onBlurCapture={handleBlurCapture}
+        onInteractOutside={(e) => {
+          if (!hasChanged()) return
+          wiggleIt()
+          e.preventDefault()
+        }}
+        onEscapeKeyDown={(e) => {
+          if (hasChanged()) {
+            e.preventDefault()
+            wiggleIt()
+            return
+          }
+          if ((e.target as HTMLElement).dataset.preventModalCloseOnEscape) {
+            e.preventDefault()
+            return
+          }
+        }}
+        ref={containerRef}
+        className={cn(
+          "vlg:min-h-[80%] flex min-h-full flex-col justify-between overflow-x-hidden overflow-y-auto select-none sm:max-w-full lg:max-w-300",
+          isWiggling && "data-[state=open]:animate-wiggle!",
+          preventDialogAnimation ? "data-[state=open]:animate-none!" : "",
+        )}
+      >
+        <DialogHeader>
+          <DialogTitle
+            tabIndex={undefined}
+            className="flex flex-row items-center gap-2 text-2xl"
+            data-testid="dialog-config-name"
+          >
+            {isOutputConfig ? (
+              <div className="bg-cfgoutput h-6 w-2"></div>
+            ) : (
+              <div className="bg-cfginput h-6 w-2"></div>
+            )}
+            {t(
+              isOutputConfig
+                ? "Types.OutputConfigItem"
+                : "Types.InputConfigItem",
+            )}{" "}
+            <IconChevronRight className="mt-1" />
+            <InlineEditLabel
+              labelClassName="text-2xl px-4.5 -ml-5"
+              inputClassName="h-8 w-fit text-2xl! -ml-3 h-12 -my-2"
+              value={draftConfigItem?.Name || ""}
+              onSave={(newName) => {
+                if (draftConfigItem) {
+                  applyConfigChange(
+                    {
+                      ...draftConfigItem,
+                      Name: newName,
+                    },
+                    {
+                      key: "Dialog.InputConfigWizard.History.NameChanged",
+                      params: {
+                        name: newName,
+                      },
+                    },
+                  )
+                }
+              }}
+              ref={inlineEditRef}
+            />
+          </DialogTitle>
+
+          <DialogDescription className="vsm:block hidden">
+            {t(`${i18nPrefix}.Description`)}
+          </DialogDescription>
+        </DialogHeader>
+        <div className="relative flex grow flex-col gap-2">
+          <ScrollArea className="grow">
+            <div className="pr-3">
+              {draftConfigItem && (
+                <ConfigWizard
+                  variant={draftConfigItem.Type}
+                  configItem={draftConfigItem}
+                  onConfigChange={(item, actionLabel) => {
+                    applyConfigChange(item, actionLabel)
+                  }}
+                  drawerContainer={containerRef}
+                  historyControls={
+                    <HistoryControls
+                      history={editorState.drawerSession?.history ?? []}
+                      cursor={editorState.drawerSession?.cursor ?? -1}
+                      historyStart={
+                        editorState.drawerSession?.historyStart ?? 0
+                      }
+                      onUndo={undoConfigItemChange}
+                      onJump={(index) => jumpToHistory(index, "drawer")}
+                    />
+                  }
+                  onDrawerOpen={beginDrawerSession}
+                  onDrawerClose={finishDrawerSession}
+                  liveData={{
+                    rawValue: runtimeState?.RawValue ?? configItem?.RawValue,
+                    finalValue: runtimeState?.Value ?? configItem?.Value,
+                  }}
+                />
+              )}
+            </div>
+          </ScrollArea>
+        </div>
+        <DialogFooter
+          className={`flex flex-row ${isOutputConfig ? "justify-between gap-2" : "justify-end"}`}
+          data-testid="configwizard-dialog-footer"
+        >
+          <div className="flex grow flex-row items-center gap-2">
+            <HistoryControls
+              history={editorState.history}
+              cursor={editorState.cursor}
+              historyStart={editorState.historyStart}
+              onUndo={undoConfigItemChange}
+              onJump={(index) => jumpToHistory(index, "wizard")}
+            />
+
+            {showPendingChangesMessage && (
+              <>
+                <IconExclamationCircle className="text-primary ml-2 inline h-8 w-8" />
+                <span className="text-primary">
+                  {t("Dialog.General.PendingChangesMessage")}
+                </span>
+              </>
+            )}
+          </div>
+
+          <div className="flex flex-row gap-2">
+            {isDirty && (
+              <Button variant="outline" onClick={closeDialog}>
+                {t("Dialog.General.Cancel")}
+              </Button>
+
+            )}
+            {/* primary button stays in place, only its label and action change */}
+            <Button
+              variant="default"
+              onClick={isDirty ? saveChanges : closeDialog}
+            >
+              {isDirty
+                ? t("Dialog.General.ApplyChanges")
+                : t("Dialog.General.Close")}
+            </Button>
+          </div>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  )
+}
+export default ConfigWizardDialog

@@ -19,8 +19,10 @@ The main backend subsystems are:
 
 In development you run two things side by side:
 
-- The frontend dev server works conveniently in [Visual Studio Code](https://code.visualstudio.com/), in the provided dev container
+- The frontend dev server in [Visual Studio Code](https://code.visualstudio.com/), inside the provided dev container
 - The C# backend in [Visual Studio 2026](https://visualstudio.microsoft.com/vs/community/). When you start the backend with the **Debug** build target it connects to the frontend dev server at `localhost:5173` and loads it automatically.
+
+To get started, clone the repository into a Windows folder of your choice, then set up the frontend and the backend as described below.
 
 ### Dev container setup
 
@@ -51,17 +53,52 @@ Make sure that the correct project is selected as the startup project inside the
 After the correct startup project is selected, run the project with the **Debug** build target.
 The backend will connect to the frontend dev server at `localhost:5173` and load it automatically.
 
-#### Publishing the backend
+### Faster file access with WSL2 (experimental)
 
-To publish the MobiFlight Connector backend, run the following command from the repository root on the terminal:
-```sh
-dotnet publish "src/MobiFlightConnector/MobiFlightConnector.csproj" -c "Release" -p:Version="0.0.0.1" -o "dist/MobiFlightConnector-0.0.0.1" --self-contained
+With the repository on a Windows drive, the dev container has to access the files through a mounted Windows folder, which is slow. You will notice it mostly in frontend work, for example when running the Playwright tests.
+
+For better performance, clone the repository into the WSL2 filesystem instead (e.g. `\\wsl.localhost\Ubuntu\home\<user>\...`). VS Code can open the folder there directly, and the dev container gets much faster file access.
+
+#### Building the backend from a WSL2 clone
+
+If you also want to build and run the backend with Visual Studio 2026 from this clone, the build output has to be on an NTFS drive. Otherwise the app fails to start, because the WSL2 filesystem is case-sensitive and Windows can't load SimConnect from there.
+
+Set the output folder in a `Directory.Build.local.props` file in the repository root:
+
+```xml
+<Project>
+  <PropertyGroup>
+    <ArtifactsPath>C:\MobiFlightBuildOutput</ArtifactsPath>
+  </PropertyGroup>
+</Project>
 ```
-[^1]
+
+The file is optional and git-ignored. `Directory.Build.props` imports it when it exists, so you can use it for other personal MSBuild settings too.
+
+#### Known limitations
+
+- Visual Studio 2026 doesn't detect file changes on the WSL2 filesystem, so the *Git Changes* panel and the git status in Solution Explorer don't update. We're still looking for a solution.
+
+### Testing a Release build
+
+Every pull request is built automatically by CI, and the download links are added to the PR as a comment. Use these builds to test your changes with a real setup. They are equivalent to an official release.
+
+If you need a Release build locally, build the frontend first and then publish the backend. Running the published `.exe` performs like a release build. Starting the app from Visual Studio is slower, even in Release, because the debugger and diagnostic tools are attached.
+
+1. Build the frontend in the dev container. This creates `frontend/dist`:
+   ```sh
+   npm run build
+   ```
+2. Publish the backend from the repository root. The frontend build is copied into the output:
+   ```sh
+   dotnet publish "src/MobiFlightConnector/MobiFlightConnector.csproj" -c "Release" -p:Version="0.0.0.1" -o "dist/MobiFlightConnector-0.0.0.1" --self-contained
+   ```
+   [^1]
+3. Run `MobiFlightConnector.exe` from `dist/MobiFlightConnector-0.0.0.1`.
 
 [^1]: You can choose any version number starting with 0.0., but some features will be disabled, for example checking for a version update.
 
-#### Running the backend tests
+### Running the backend tests
 
 The backend unit tests use MSTest and live in `tests/` (`MobiFlightUnitTests`, `MobiFlightMozaUnitTests`, `MobiFlightWwFcuUnitTests`). Run them from the repository root:
 
@@ -75,7 +112,11 @@ Tests that need real hardware are skipped automatically.
 
 ## Translations (i18n)
 
-Translation files are in `public/locales/{lang}/translation.json`. The app uses `react-i18next` — all user-facing strings must go through `t()`. Core languages that must be complete before a PR can be merged: `en`, `de`, `es`.
+Translation files are in `public/locales/{lang}/{namespace}.json`. The app uses `react-i18next` — all user-facing strings must go through `t()`. Core languages that must be complete before a PR can be merged: `en`, `de`, `es`.
+
+Texts are split into namespaces, one file per namespace in each `public/locales/{lang}/` folder: `translation` (default), `wizard` and `feed`. Components in `src/components/wizard/` use `useTranslation("wizard")`, and their keys live under `ConfigWizard.*` in `wizard.json`. Shared texts such as `General.*` or `Dialog.General.*` stay in `translation.json` and still resolve in the wizard through `fallbackNS`.
+
+`<Trans>` doesn't pick up the namespace from `useTranslation`. Pass it explicitly with `<Trans ns="wizard" i18nKey="…">`; otherwise the English text inside the tag is always shown.
 
 ```sh
 npm run check:i18n                       # run both checks below

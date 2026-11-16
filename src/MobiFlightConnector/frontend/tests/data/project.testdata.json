@@ -182,9 +182,9 @@
             }
           ],
           "Device": {
-            "DisplayPin": "LED 2",
-            "DisplayPinBrightness": 255,
-            "DisplayPinPWM": false,
+            "Pin": "LED 2",
+            "Brightness": 255,
+            "PwmMode": false,
             "Name": "LED 2",
             "Type": "Output"
           },

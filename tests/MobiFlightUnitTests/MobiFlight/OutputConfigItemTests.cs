@@ -184,6 +184,17 @@ namespace MobiFlight.Tests
             Assert.AreEqual(s, result, "The both strings are not equal");
         }
 
+        [TestMethod]
+        public void OutputConfigItem_IsInitializedCorrectly()
+        {
+            OutputConfigItem o = new OutputConfigItem();
+            Assert.IsNull(o.Source, "Source should be null");
+            Assert.IsNotNull(o.Modifiers, "Modifiers should not be null");
+            Assert.IsNull(o.Device, "Device should be null");
+            Assert.IsNotNull(o.Preconditions, "Preconditions should not be null");
+            Assert.IsNotNull(o.ConfigRefs, "ConfigRefs should not be null");
+        }
+
         [TestMethod()]
         public void CloneTest()
         {
@@ -220,7 +231,6 @@ namespace MobiFlight.Tests
 
             if (o.Device is LedModule)
             {
-                Assert.AreEqual((o.Device as LedModule).DisplayLedConnector, (c.Device as LedModule).DisplayLedConnector, "clone: DisplayLedConnector not the same");
                 Assert.AreEqual((o.Device as LedModule).DisplayLedAddress, (c.Device as LedModule).DisplayLedAddress, "clone: DisplayLedAddress not the same");
                 Assert.AreEqual((o.Device as LedModule).DisplayLedPadding, (c.Device as LedModule).DisplayLedPadding, "clone: DisplayLedPadding not the same");
                 Assert.AreEqual((o.Device as LedModule).DisplayLedReverseDigits, (c.Device as LedModule).DisplayLedReverseDigits, "clone: DisplayLedReverseDigits not the same");
@@ -326,8 +336,7 @@ namespace MobiFlight.Tests
                 case "LedModule":
                     o.Device = new LedModule()
                     {
-                        DisplayLedConnector = 2,
-                        DisplayLedAddress = "1",
+                        DisplayLedAddress = "1:2",
                         DisplayLedPadding = true,
                         DisplayLedReverseDigits = true,
                         DisplayLedPaddingChar = "1",

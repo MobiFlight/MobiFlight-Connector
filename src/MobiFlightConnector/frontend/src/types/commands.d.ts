@@ -23,6 +23,7 @@ export type CommandMessageKey =
   | "CommandShutdown"
   | "CommandUpdateSettings"
   | "CommandUndoConfigList"
+  | "CommandStepperCalibration"
 
 export type CommandMessage =
   | CommandConfigContextMenu
@@ -45,6 +46,7 @@ export type CommandMessage =
   | CommandShutdown
   | CommandUpdateSettings
   | CommandUndoConfigList
+  | CommandStepperCalibration
 
 export interface CommandMessageBase {
   key: CommandMessageKey
@@ -56,7 +58,7 @@ export interface CommandMessageBase {
 export interface CommandConfigContextMenu extends CommandMessageBase {
   key: "CommandConfigContextMenu"
   payload: {
-    action: "edit" | "delete" | "duplicate" | "test" | "settings"
+    action: "delete" | "duplicate" | "test" | "settings" | "testStart" | "testStop"
     item: IConfigItem
   }
 }
@@ -91,6 +93,9 @@ export interface CommandAddConfigItem extends CommandMessageBase {
   payload: {
     name: string
     type: ConfigItemType
+    // GUID of the config the new config is inserted after,
+    // it is added at the end of the list if not set
+    insertAfterGuid?: string
   }
 }
 
@@ -248,6 +253,16 @@ export interface CommandUpdateSettings extends CommandMessageBase {
   key: "CommandUpdateSettings"
   payload: {
     Settings: Partial<Settings>
+  }
+}
+
+export interface CommandStepperCalibration extends CommandMessageBase {
+  key: "CommandStepperCalibration"
+  payload: {
+    controller: Partial<Controller>
+    stepper: Partial<StepperConfig>
+    action: "move" | "home"
+    steps?: number
   }
 }
 

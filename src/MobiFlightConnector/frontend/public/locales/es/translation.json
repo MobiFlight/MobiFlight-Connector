@@ -111,7 +111,7 @@
       "Merge": "De otro proyecto",
       "Rename": "Renombrar",
       "Remove": "Remover",
-      "Export": "Exportar",
+      "Export": "Exportar...",
       "MoveLeft": "Mover a la izquierda",
       "MoveRight": "Mover a la derecha"
     },
@@ -412,6 +412,7 @@
       "Cancel": "Cancelar",
       "Close": "Cerrar",
       "Save": "Guardar",
+      "Done": "Listo",
       "SaveChanges": "Guardar cambios",
       "ApplyChanges": "Aplicar cambios",
       "DiscardChanges": "Descartar cambios",

@@ -10,8 +10,11 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
-
-import { Table } from "@/components/ui/table"
+import {
+  useVirtualizer,
+  defaultRangeExtractor,
+  Range,
+} from "@tanstack/react-virtual"
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { DataTableToolbar } from "./data-table-toolbar"
@@ -19,10 +22,7 @@ import { IConfigItem } from "@/types"
 import { Button } from "@/components/ui/button"
 import { useAppMessage } from "@/lib/hooks/appMessage"
 import messageExchange from "@/lib/messageExchange"
-import {
-  CommandAddConfigItem,
-  CommandConfigContextMenu,
-} from "@/types/commands"
+import { CommandAddConfigItem } from "@/types/commands"
 import { useTranslation } from "react-i18next"
 import ConfigItemTableHeader from "./items/ConfigItemTableHeader"
 import ConfigItemTableBody from "./items/ConfigItemTableBody"
@@ -33,7 +33,7 @@ import { useConfigItemDragContext } from "@/lib/hooks/useConfigItemDragContext"
 import ConfigItemNoResultsDroppable from "./items/ConfigItemNoResultsDroppable"
 import { useDroppable } from "@dnd-kit/core"
 import { useErrorFallbackTest } from "@/lib/hooks/useErrorFallbackTest"
-import { useNavigate } from "react-router"
+import { useLocation, useNavigate } from "react-router"
 import { ConfigItemTableContext } from "./ConfigItemTableContext"
 import { useProjectStore } from "@/stores/projectStore"
 
@@ -97,25 +97,53 @@ export function ConfigItemTable<TValue>({
     id: "config-item-table-header",
     data: { type: "header" },
   })
-  // const { rows } = table.getRowModel()
-  // Virtualization setup
-  // const virtualizer = useVirtualizer({
-  //   count: rows.length,
-  //   getScrollElement: () => parentRef.current,
-  //   estimateSize: () => 50,
-  //   overscan: 5
-  // });
-
+  const parentRef = useRef<HTMLDivElement>(null)
+  const { rows } = table.getRowModel()
+  const virtualizer = useVirtualizer({
+    count: rows.length,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => 48,
+    overscan: 5,
+    rangeExtractor: useCallback(
+      (range: Range) => {
+        const activeIndex = rows.findIndex((r) => r.id === dragItemId)
+        const rendered = defaultRangeExtractor(range)
+        if (activeIndex !== -1 && !rendered.includes(activeIndex)) {
+          rendered.push(activeIndex)
+        }
+        return rendered
+      },
+      [rows, dragItemId],
+    ),
+  })
   const { publish } = messageExchange
   const tableRef = useRef<HTMLTableElement>(null)
   const tableBodyRef = useRef<HTMLTableSectionElement>(null)
   const previousData = useRef(data)
   const lastAction = useRef<"add" | "duplicate" | null>(null)
   const showInvisibleToastOnDialogClose = useRef<string | null>(null)
+  const nameEditActions = useRef(new Map<string, () => void>())
 
-  const handleDuplicate = () => {
+  const handleDuplicate = useCallback(() => {
     lastAction.current = "duplicate"
-  }
+  }, [])
+  const registerNameEdit = useCallback(
+    (itemId: string, editFn: (() => void) | null) => {
+      if (editFn) {
+        nameEditActions.current.set(itemId, editFn)
+      } else {
+        nameEditActions.current.delete(itemId)
+      }
+    },
+    [],
+  )
+  const startNameEdit = useCallback((itemId: string) => {
+    nameEditActions.current.get(itemId)?.()
+  }, [])
+  const contextValue = useMemo(
+    () => ({ onDuplicate: handleDuplicate, registerNameEdit, startNameEdit }),
+    [handleDuplicate, registerNameEdit, startNameEdit],
+  )
   const { setTable, setTableContainerRef, dragState } =
     useConfigItemDragContext()
   // Register this table with the drag context
@@ -149,41 +177,62 @@ export function ConfigItemTable<TValue>({
   }, [table])
 
   useAppMessage("Project", handleProjectMessage)
-  useAppMessage("OverlayState", (message) => {
-    const isClosing =
-      (message.payload as { Visible: boolean }).Visible === false
-    if (!isClosing) return
 
-    if (showInvisibleToastOnDialogClose.current == null) return
+  const { t } = useTranslation()
 
-    const lastGuid = showInvisibleToastOnDialogClose.current
-    showInvisibleToastOnDialogClose.current = null
-
-    toast({
-      title: t("ConfigList.Notification.NewConfigNotVisible.Message"),
-      description: t("ConfigList.Notification.NewConfigNotVisible.Description"),
-      id: "reset-filter",
-      button: {
-        label: t("ConfigList.Notification.NewConfigNotVisible.Action"),
-        onClick: () => {
-          table.resetColumnFilters()
-          setTimeout(() => {
-            const row = table.getRowModel().rows.find((r) => r.id === lastGuid)
-            if (row) {
-              const rowElement = tableRef.current?.querySelector(
-                `[dnd-itemid="${lastGuid}"]`,
-              )
-              rowElement?.scrollIntoView({
-                behavior: "smooth",
-                block: "center",
-              })
-              table.setRowSelection({ [row.id]: true })
-            }
-          }, 500)
+  const showNewConfigNotVisibleToast = useCallback(
+    (lastGuid: string) =>
+      toast({
+        title: t("ConfigList.Notification.NewConfigNotVisible.Message"),
+        description: t(
+          "ConfigList.Notification.NewConfigNotVisible.Description",
+        ),
+        id: "reset-filter",
+        button: {
+          label: t("ConfigList.Notification.NewConfigNotVisible.Action"),
+          onClick: () => {
+            table.resetColumnFilters()
+            setTimeout(() => {
+              const row = table
+                .getRowModel()
+                .rows.find((r) => r.id === lastGuid)
+              if (row) {
+                const rowElement = tableRef.current?.querySelector(
+                  `[dnd-itemid="${lastGuid}"]`,
+                )
+                rowElement?.scrollIntoView({
+                  behavior: "smooth",
+                  block: "center",
+                })
+                table.setRowSelection({ [row.id]: true })
+              }
+            }, 500)
+          },
         },
-      },
-    })
-  })
+      }),
+    [t, table],
+  )
+
+  // hidden new configs get the toast once their wizard closes
+  const location = useLocation()
+  const isWizardOfNewConfigOpen = useRef(false)
+  useEffect(() => {
+    const pendingGuid = showInvisibleToastOnDialogClose.current
+    if (pendingGuid == null) return
+
+    const isShowingNewConfig = location.pathname.endsWith(`/${pendingGuid}`)
+    if (isShowingNewConfig) {
+      isWizardOfNewConfigOpen.current = true
+      return
+    }
+
+    const wizardHasClosed = isWizardOfNewConfigOpen.current
+    if (!wizardHasClosed) return
+
+    isWizardOfNewConfigOpen.current = false
+    showInvisibleToastOnDialogClose.current = null
+    showNewConfigNotVisibleToast(pendingGuid)
+  }, [location.pathname, showNewConfigNotVisibleToast])
 
   const hasActiveProfile = useProjectStore((state) => {
     const configFiles = state.project?.ConfigFiles
@@ -211,47 +260,31 @@ export function ConfigItemTable<TValue>({
 
     lastAction.current = null
 
-    const rowElement = tableRef.current?.querySelector(
-      `[dnd-itemid="${newItem.GUID}"]`,
-    )
+    const rowIndex = table
+      .getRowModel()
+      .rows.findIndex((r) => r.id === newItem.GUID)
 
-    if (rowElement) {
-      rowElement.scrollIntoView({
+    if (rowIndex !== -1) {
+      virtualizer.scrollToIndex(rowIndex, {
+        align: "center",
         behavior: "smooth",
-        block: "center",
       })
-
-      const row = table.getRowModel().rows.find((r) => r.id === newItem.GUID)
-
-      if (row) {
-        table.setRowSelection({ [row.id]: true })
-      }
+      table.setRowSelection({ [newItem.GUID]: true })
     } else {
-      // If the newly added item's row element is not found,
-      // it means the item is not visible due to active filters.
-      // Store its GUID so that when the dialog closes,
-      // we can show a toast notification to inform the user
-      // and offer to reset the filters.
       showInvisibleToastOnDialogClose.current = newItem.GUID
     }
 
-    if (newItem.Type === "InputConfigItem") {
-      // New and duplicated configs most likely need a new name,
-      // so the dialog starts editing the name right away.
-      navigate(`/config/${newItem.GUID}`, {
-        state: { editName: true },
-      })
-    } else {
-      publish({
-        key: "CommandConfigContextMenu",
-        payload: {
-          action: "edit",
-          item: newItem,
-        },
-      } as CommandConfigContextMenu)
-    }
-  }, [publish, navigate, table, data])
-  const { t } = useTranslation()
+    navigate(`/config/${newItem.GUID}`, {
+      state: { editName: true },
+    })
+  }, [navigate, table, data, virtualizer])
+
+  // new configs are inserted after the last selected config,
+  // so they can be added next to related configs
+  const getLastSelectedGuid = useCallback(() => {
+    const selectedRows = table.getSelectedRowModel().rows
+    return selectedRows[selectedRows.length - 1]?.original.GUID
+  }, [table])
 
   const handleAddOutputConfig = useCallback(() => {
     lastAction.current = "add"
@@ -260,9 +293,10 @@ export function ConfigItemTable<TValue>({
       payload: {
         name: t("ConfigList.Actions.OutputConfigItem.DefaultName"),
         type: "OutputConfig",
+        insertAfterGuid: getLastSelectedGuid(),
       },
     } as CommandAddConfigItem)
-  }, [publish, t])
+  }, [publish, t, getLastSelectedGuid])
 
   const handleAddInputConfig = useCallback(() => {
     lastAction.current = "add"
@@ -271,9 +305,10 @@ export function ConfigItemTable<TValue>({
       payload: {
         name: t("ConfigList.Actions.InputConfigItem.DefaultName"),
         type: "InputConfig",
+        insertAfterGuid: getLastSelectedGuid(),
       },
     } as CommandAddConfigItem)
-  }, [publish, t])
+  }, [publish, t, getLastSelectedGuid])
 
   const deleteSelected = useCallback(() => {
     const selectedConfigs = table
@@ -325,12 +360,12 @@ export function ConfigItemTable<TValue>({
   ])
 
   return (
-    <ConfigItemTableContext.Provider value={{ onDuplicate: handleDuplicate }}>
+    <ConfigItemTableContext.Provider value={contextValue}>
       <div
-        className="flex grow flex-col gap-2 overflow-y-auto px-2"
+        className="flex grow flex-col gap-2 min-h-0 overflow-hidden px-2"
         data-testid="config-item-table"
       >
-        <div className="flex grow flex-col gap-2 overflow-y-auto">
+        <div className="flex grow flex-col gap-2 min-h-0 flex-1">
           <div className="p-1">
             <DataTableToolbar
               disabled={!showTable}
@@ -343,8 +378,11 @@ export function ConfigItemTable<TValue>({
           </div>
           {showTable ? (
             table.getRowModel().rows?.length ? (
-              <div className="border-primary flex flex-col overflow-y-auto rounded-lg border">
-                <Table ref={tableRef} className="table-fixed">
+              <div
+                ref={parentRef}
+                className="border-primary flex flex-col min-h-0 max-h-full overflow-y-auto rounded-lg border"
+              >
+                <table ref={tableRef} className="w-full caption-bottom text-sm table-fixed">
                   <ConfigItemTableHeader
                     ref={setTableHeaderRef}
                     headerGroups={table.getHeaderGroups()}
@@ -353,10 +391,11 @@ export function ConfigItemTable<TValue>({
                     ref={handleTableBodyRef}
                     table={table}
                     dragItemId={dragItemId}
+                    virtualizer={virtualizer}
                     onDeleteSelected={deleteSelected}
                     onToggleSelected={toggleSelected}
                   />
-                </Table>
+                </table>
               </div>
             ) : (
               <div className="border-primary flex flex-col gap-2 rounded-lg border-2 border-solid pb-6">

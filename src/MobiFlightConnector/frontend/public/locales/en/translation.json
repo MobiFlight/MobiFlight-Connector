@@ -111,7 +111,7 @@
       "Merge": "From existing project",
       "Rename": "Rename",
       "Remove": "Remove",
-      "Export": "Export",
+      "Export": "Export...",
       "MoveLeft": "Move left",
       "MoveRight": "Move right"
     },
@@ -406,6 +406,7 @@
       "Cancel": "Cancel",
       "Close": "Close",
       "Save": "Save",
+      "Done": "Done",
       "SaveChanges": "Save changes",
       "ApplyChanges": "Apply changes",
       "DiscardChanges": "Discard changes",

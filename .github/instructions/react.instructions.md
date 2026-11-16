@@ -92,8 +92,9 @@ Instructions for building high-quality ReactJS applications with modern patterns
 ### Internationalization
 - Use `react-i18next` with `useTranslation()` hook
 - Translation keys follow dot notation: `"Namespace.Section.Key"`
-- Translation files in `public/locales/{lang}/translation.json`
-- Support multiple namespaces: `translation`, `feed`
+- Translation files in `public/locales/{lang}/{namespace}.json`
+- Namespaces: `translation` (default), `wizard` (config wizard, `ConfigWizard.*` keys), `feed`
+- Wizard components use `useTranslation("wizard")`; `<Trans>` needs `ns="wizard"`
 - Use `t()` function for all user-visible strings
 
 ### Data Fetching & Communication

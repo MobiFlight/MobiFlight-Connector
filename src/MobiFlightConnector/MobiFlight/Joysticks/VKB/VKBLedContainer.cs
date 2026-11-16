@@ -23,15 +23,9 @@ namespace MobiFlight.Joysticks.VKB
 
         public void UpdateState (string Label, byte State)
         {
-            // Find the LED and its color channel and update it.
-            var updateLabels = Label.Split('|'); // Multiple output pin support
-            foreach (String updateLabel in updateLabels)
+            if (Labels.TryGetValue(Label, out (byte Byte, byte Bit) led))
             {
-                if (Labels.ContainsKey(updateLabel))
-                {
-                    (byte Byte, byte Bit) = Labels[updateLabel];
-                    Leds[Byte]?.SetState(Bit, State);
-                }
+                Leds[led.Byte]?.SetState(led.Bit, State);
             }
         }
 

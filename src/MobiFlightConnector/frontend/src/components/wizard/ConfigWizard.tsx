@@ -1,6 +1,7 @@
-import ActionBindingPanel from "@/components/wizard/components/ActionBindingPanel"
+import ActionBindingPanel from "@/components/wizard/InputConfig/ActionBindingPanel"
 import ConfigReferencePanel from "@/components/wizard/ConfigReferences/ConfigReferencePanel"
-import ConfigTrigger from "@/components/wizard/components/ConfigTrigger"
+import ConfigTrigger from "@/components/wizard/common/ConfigTrigger"
+import OutputTriggerCard from "@/components/wizard/OutputConfig/OutputTriggerCard"
 import PreconditionsPanel from "@/components/wizard/Precondition/PreconditionsPanel"
 import { IConfigItem } from "@/types"
 import { type ReactNode, RefObject, useState, useRef } from "react"
@@ -12,6 +13,8 @@ import {
   ButtonHoldOptions,
   ButtonLongReleaseOptions,
   EncoderTrigger,
+  ConfigItemType,
+  OutputConfigItem,
 } from "@/types/config"
 import {
   Drawer,
@@ -19,16 +22,19 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerClose,
-  DrawerFooter,
 } from "@/components/ui/drawer"
-import { IconArrowBack, IconPlus } from "@tabler/icons-react"
+import { IconPlus } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
-import ActionEditor from "@/components/wizard/components/ActionEditor"
+import ActionEditor from "@/components/wizard/InputConfig/ActionEditor"
 import ModifiersPanel from "@/components/wizard/Modifier/ModifiersPanel"
 import { Button } from "@/components/ui/button"
 import type { HistoryAction } from "@/types/history"
+import SourceEditor from "@/components/wizard/OutputConfig/SourceEditor"
+import OutputActionBindingCard from "@/components/wizard/OutputConfig/OutputActionBindingCard"
+import OutputDeviceEditor from "@/components/wizard/OutputConfig/OutputDeviceEditor"
 
 export type ConfigWizardProps = {
+  variant: ConfigItemType
   configItem: IConfigItem
   onConfigChange: (configItem: IConfigItem, actionLabel?: HistoryAction) => void
   drawerContainer?: RefObject<HTMLDivElement | null>
@@ -66,6 +72,7 @@ const drawerVariant = {
 }
 
 const ConfigWizard = ({
+  variant,
   configItem,
   onConfigChange,
   drawerContainer,
@@ -74,7 +81,7 @@ const ConfigWizard = ({
   onDrawerOpen,
   onDrawerClose,
 }: ConfigWizardProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
 
@@ -87,11 +94,8 @@ const ConfigWizard = ({
     event: string
   }>({ variant: "button", event: "" })
 
-  const currentButtonTrigger = (configItem.button ??
-    configItem.inputMultiplexer ??
-    configItem.inputShiftRegister) as
-    | (ButtonTrigger &
-        Partial<ButtonHoldOptions> &
+  const initialButtonOptions = configItem.button
+    ? (configItem.button as Partial<ButtonHoldOptions> &
         Partial<ButtonLongReleaseOptions>)
     | undefined
 
@@ -150,6 +154,55 @@ const ConfigWizard = ({
     )
   }
 
+  // an output config either controls a device or triggers an input action
+  const outputItem = configItem as OutputConfigItem
+  const hasInputAction =
+    outputItem.ButtonInputConfig != null || outputItem.AnalogInputConfig != null
+
+  const startInputAction = (kind: "button" | "analog") => {
+    onConfigChange({
+      ...outputItem,
+      Controller: undefined,
+      Device: null,
+      ButtonInputConfig: kind === "button" ? {} : undefined,
+      AnalogInputConfig: kind === "analog" ? {} : undefined,
+    } as OutputConfigItem)
+  }
+
+  const removeInputAction = () => {
+    onConfigChange({
+      ...outputItem,
+      ButtonInputConfig: undefined,
+      AnalogInputConfig: undefined,
+    } as OutputConfigItem)
+  }
+
+  const removeOutputDevice = () => {
+    onConfigChange({
+      ...outputItem,
+      Controller: undefined,
+      Device: null,
+    } as OutputConfigItem)
+  }
+
+  // opens the action editor for an event of the input action of an output config
+  const handleActionEdit =
+    (eventVariant: "button" | "analog") =>
+    (
+      eventName: string,
+      action: Action | null,
+      onActionChange: (
+        config: Action,
+        buttonOptions?: Partial<ButtonHoldOptions> &
+          Partial<ButtonLongReleaseOptions>,
+      ) => void,
+    ) => {
+      setEvent({ variant: eventVariant, event: eventName })
+      setEditAction(action)
+      setOnActionChange(() => onActionChange)
+      navigateToDetailView("action")
+    }
+
   const detailView = searchParams.get("detail")
   const drawerClosingRef = useRef(false)
   const navigateToDetailView = (
@@ -177,40 +230,55 @@ const ConfigWizard = ({
 
   return (
     <div className="flex flex-col gap-4">
-      <ConfigTrigger
-        configItem={configItem}
-        setConfigItem={(item: IConfigItem, actionLabel?: HistoryAction) => {
-          // Update the configItem state here
-          onConfigChange(item, actionLabel)
-        }}
-      />
+      {variant === "InputConfigItem" && (
+        <ConfigTrigger
+          configItem={configItem}
+          setConfigItem={(item: IConfigItem, actionLabel?: HistoryAction) => {
+            // Update the configItem state here
+            onConfigChange(item, actionLabel)
+          }}
+        />
+      )}
+
+      {variant === "OutputConfigItem" && (
+        <OutputTriggerCard
+          configItem={configItem}
+          setConfigItem={(item) => {
+            // Update the configItem state here
+            onConfigChange(item)
+          }}
+          navigateToDetailView={navigateToDetailView}
+          liveData={liveData}
+        />
+      )}
+
       <div className="flex flex-row items-center justify-center gap-2 px-6">
         <Button
           variant="outline"
           size={"sm"}
           onClick={() => navigateToDetailView("precondition")}
-          aria-label={t("Dialog.InputConfigWizard.Preconditions.AddButton")}
+          aria-label={t("ConfigWizard.Preconditions.AddButton")}
         >
           <IconPlus className="" />
-          {t("Dialog.InputConfigWizard.Preconditions.Label")}
+          {t("ConfigWizard.Preconditions.Label")}
         </Button>
         <Button
           variant="outline"
           size={"sm"}
           onClick={() => navigateToDetailView("configReference")}
-          aria-label={t("Dialog.InputConfigWizard.ConfigReferences.AddButton")}
+          aria-label={t("ConfigWizard.ConfigReferences.AddButton")}
         >
           <IconPlus className="" />
-          {t("Dialog.InputConfigWizard.ConfigReferences.Label")}
+          {t("ConfigWizard.ConfigReferences.Label")}
         </Button>
         <Button
           variant="outline"
           size={"sm"}
           onClick={() => navigateToDetailView("modifier", "small")}
-          aria-label={t("Dialog.Modifiers.AddButton")}
+          aria-label={t("ConfigWizard.Modifiers.AddButton")}
         >
           <IconPlus className="" />
-          {t("Dialog.Modifiers.Label")}
+          {t("ConfigWizard.Modifiers.Label")}
         </Button>
       </div>
 
@@ -219,6 +287,8 @@ const ConfigWizard = ({
           {hasReferences && (
             <div className="lg:w-1/2">
               <ConfigReferencePanel
+                mode={configItem.Type}
+                configName={configItem.Name}
                 configReferences={configItem.ConfigRefs ?? []}
                 variant="summary"
                 openDetailsPanel={() => navigateToDetailView("configReference")}
@@ -228,6 +298,8 @@ const ConfigWizard = ({
           {hasPreconditions && (
             <div className="lg:w-1/2">
               <PreconditionsPanel
+                mode={configItem.Type}
+                configName={configItem.Name}
                 preconditions={configItem.Preconditions ?? []}
                 variant="summary"
                 openDetailsPanel={() => navigateToDetailView("precondition")}
@@ -242,12 +314,12 @@ const ConfigWizard = ({
           configItem={configItem}
           variant="summary"
           onConfigChange={onConfigChange}
-          openDetailsPanel={() => navigateToDetailView("modifier", "small")}
+          openDetailsPanel={() => navigateToDetailView("modifier")}
           liveData={liveData}
         />
       )}
 
-      {currentDeviceType === "Button" && (
+      {variant == "InputConfigItem" && currentDeviceType === "Button" && (
         <ActionBindingPanel
           variant="button"
           onActionEdit={(selectedEvent) => {
@@ -274,7 +346,7 @@ const ConfigWizard = ({
           }}
         />
       )}
-      {currentDeviceType === "Encoder" && (
+      {variant == "InputConfigItem" && currentDeviceType === "Encoder" && (
         <ActionBindingPanel
           variant="encoder"
           onActionEdit={(selectedEvent) => {
@@ -296,7 +368,7 @@ const ConfigWizard = ({
           }}
         />
       )}
-      {currentDeviceType === "AnalogInput" && (
+      {variant == "InputConfigItem" && currentDeviceType === "AnalogInput" && (
         <ActionBindingPanel
           variant="analog"
           onActionEdit={(selectedEvent) => {
@@ -318,13 +390,57 @@ const ConfigWizard = ({
           }}
         />
       )}
-      {currentDeviceType === null && (
+      {variant == "InputConfigItem" && currentDeviceType === null && (
         <ActionBindingPanel
           variant="none"
           onActionEdit={() => {}}
           onTriggerChange={() => {}}
         />
       )}
+      {variant == "OutputConfigItem" && !hasInputAction && (
+        <OutputActionBindingCard
+          config={configItem as OutputConfigItem}
+          onEdit={() => {
+            navigateToDetailView("display")
+          }}
+          onAddOutputDevice={() => {
+            navigateToDetailView("display")
+          }}
+          onAddButtonAction={() => startInputAction("button")}
+          onAddAnalogAction={() => startInputAction("analog")}
+          onRemoveOutputDevice={removeOutputDevice}
+        />
+      )}
+      {variant == "OutputConfigItem" &&
+        outputItem.ButtonInputConfig != null && (
+          <ActionBindingPanel
+            variant="button"
+            onActionEdit={handleActionEdit("button")}
+            onRemove={removeInputAction}
+            trigger={outputItem.ButtonInputConfig}
+            onTriggerChange={(trigger) => {
+              onConfigChange({
+                ...configItem,
+                ButtonInputConfig: trigger as ButtonTrigger,
+              } as OutputConfigItem)
+            }}
+          />
+        )}
+      {variant == "OutputConfigItem" &&
+        outputItem.AnalogInputConfig != null && (
+          <ActionBindingPanel
+            variant="analog"
+            onActionEdit={handleActionEdit("analog")}
+            onRemove={removeInputAction}
+            trigger={outputItem.AnalogInputConfig}
+            onTriggerChange={(trigger) => {
+              onConfigChange({
+                ...configItem,
+                AnalogInputConfig: trigger as AnalogTrigger,
+              } as OutputConfigItem)
+            }}
+          />
+        )}
 
       {detailView && (
         <Drawer
@@ -334,22 +450,17 @@ const ConfigWizard = ({
           open={drawerOpen}
           onClose={() => closeDetailView(false)}
         >
-          <DrawerContent className={drawerVariant[drawerSize]}>
-            <DrawerHeader>
-              <DrawerTitle className="sr-only">
-                {t("Dialog.InputConfigWizard.DrawerTitle")}
-              </DrawerTitle>
-              <DrawerClose
-                onClick={() => closeDetailView(false)}
-                className="text-primary flex flex-row items-center gap-2 underline-offset-4 hover:underline"
-              >
-                <IconArrowBack size={16} />
-                {t("Dialog.General.GoBack")}
-              </DrawerClose>
-            </DrawerHeader>
+          <DrawerContent className={`pt-4 ${drawerVariant[drawerSize]}`}>
             <div className="flex flex-1 flex-col overflow-y-auto px-4 pb-4">
               {detailView === "precondition" && (
                 <PreconditionsPanel
+                  mode={configItem.Type}
+                  configName={configItem.Name}
+                  onPreconditionsChange={(preconditions) => {
+                    onConfigChange({
+                      ...configItem,
+                      Preconditions: preconditions,
+                    })
                   onPreconditionsChange={(preconditions, actionLabel) => {
                     onConfigChange(
                       {
@@ -366,6 +477,13 @@ const ConfigWizard = ({
               )}
               {detailView === "configReference" && (
                 <ConfigReferencePanel
+                  mode={configItem.Type}
+                  configName={configItem.Name}
+                  onConfigReferencesChange={(configReferences) => {
+                    onConfigChange({
+                      ...configItem,
+                      ConfigRefs: configReferences,
+                    })
                   onConfigReferencesChange={(configReferences, actionLabel) => {
                     onConfigChange(
                       {
@@ -394,6 +512,8 @@ const ConfigWizard = ({
               )}
               {detailView === "action" && (
                 <ActionEditor
+                  mode={configItem.Type}
+                  configName={configItem.Name}
                   event={event}
                   buttonOptions={
                     event.variant === "button"
@@ -404,9 +524,60 @@ const ConfigWizard = ({
                   onActionChange={handleActionChange}
                 />
               )}
+
+              {detailView === "source" && (
+                <SourceEditor
+                  configName={configItem.Name}
+                  source={(configItem as OutputConfigItem).Source}
+                  onSourceChange={(source) => {
+                    onConfigChange({
+                      ...configItem,
+                      Source: source,
+                    } as OutputConfigItem)
+                  }}
+                />
+              )}
+
+              {detailView === "display" && (
+                <OutputDeviceEditor
+                  configItem={configItem as OutputConfigItem}
+                  onConfigChange={(config) => {
+                    onConfigChange(config)
+                  }}
+                />
+              )}
+
+              {detailView === "source" && (
+                <SourceEditor
+                  configName={configItem.Name}
+                  source={(configItem as OutputConfigItem).Source}
+                  onSourceChange={(source) => {
+                    onConfigChange({
+                      ...configItem,
+                      Source: source,
+                    } as OutputConfigItem)
+                  }}
+                />
+              )}
+
+              {detailView === "display" && (
+                <OutputDeviceEditor
+                  configItem={configItem as OutputConfigItem}
+                  onConfigChange={(config) => {
+                    onConfigChange(config)
+                  }}
+                />
+              )}
             </div>
             <DrawerFooter className="shrink-0 flex-row justify-start border-t">
               {historyControls}
+            </DrawerFooter>
+            <DrawerFooter className={`flex flex-row items-center justify-end`}>
+              <Button
+                onClick={() => closeDetailView(false)}
+              >
+                {t("Dialog.General.Done")}
+              </Button>
             </DrawerFooter>
           </DrawerContent>
         </Drawer>

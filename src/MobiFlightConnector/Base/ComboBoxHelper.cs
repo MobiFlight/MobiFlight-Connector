@@ -1,6 +1,4 @@
 ﻿using MobiFlight;
-using MobiFlight.Base;
-using MobiFlight.Firmware;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -47,32 +45,6 @@ namespace System
             foreach (object item in comboBox.Items)
             {
                 if (item?.ToString() == value)
-                {
-                    comboBox.SelectedItem = item;
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        static public bool SetSelectedListItemByValue<T>(ComboBox comboBox, T listItem) where T : class
-        {
-            foreach (ListItem<T> item in comboBox.Items)
-            {
-                if (listItem.AreEqual(item.Value))
-                {
-                    comboBox.SelectedItem = item;
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        static public bool SetSelectedDeviceByDeviceName(ComboBox comboBox, string name)
-        {
-            foreach (ListItem<IBaseDevice> item in comboBox.Items)
-            {
-                if (item.Value?.Name == name)
                 {
                     comboBox.SelectedItem = item;
                     return true;
@@ -193,6 +165,5 @@ namespace System
                 Log.Instance.log($"Pin assignment to {newPin} went wrong: {ex.Message}", LogSeverity.Error);
             }
         }
-
     }
 }

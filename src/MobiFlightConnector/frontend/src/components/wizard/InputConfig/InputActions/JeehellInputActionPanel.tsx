@@ -1,0 +1,115 @@
+import ComboBox from "@/components/ComboBox"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import SectionHeadline from "@/components/wizard/common/SectionHeadline"
+import WizardSection from "@/components/wizard/common/WizardSection"
+import CodeValueLabel from "@/components/wizard/common/CodeValueLabel"
+import { parsePresets } from "@/lib/configWizard"
+import { JeehellInputAction } from "@/types/config"
+import { useQuery } from "@tanstack/react-query"
+import { useTranslation } from "react-i18next"
+
+export type JeehellInputActionPanelProps = {
+  variant: "summary" | "details"
+  config: JeehellInputAction | null
+  onConfigChange: (config: JeehellInputAction) => void
+}
+
+const JeehellInputActionPanel = ({
+  variant,
+  config,
+  onConfigChange,
+}: JeehellInputActionPanelProps) => {
+  const { t } = useTranslation("wizard")
+  const presetUrl = "/presets/presets_jeehell.cip"
+  const { data: presets = [] /*, isLoading */ } = useQuery({
+    queryKey: [`presets-jeehell`],
+    queryFn: () =>
+      fetch(presetUrl)
+        .then((r) => r.text())
+        .then((content) => parsePresets(content)) as Promise<
+        { name: string; eventId: string; description: string }[]
+      >,
+    staleTime: Infinity, // presets don't change at runtime; HubHopState drives invalidation
+  })
+
+  const selectedPreset = presets.find(
+    (item) => item.eventId === config?.EventId?.toString(),
+  )
+
+  if (variant === "summary") {
+    return (
+      <div className="flex grow flex-row items-center gap-2">
+        <div className="flex w-1/3 flex-col gap-1">
+          <Label htmlFor="mouseParam">
+            {t("ConfigWizard.Input.InputActions.Jeehell.FunctionLabel")}:
+          </Label>
+          <div className="text-sm">{selectedPreset?.name ?? "-"}</div>
+        </div>
+        <div className="flex grow flex-col gap-1">
+          <Label htmlFor="param">
+            {t("ConfigWizard.Input.InputActions.Jeehell.ValueLabel")}:
+          </Label>
+          <CodeValueLabel id="param" className="max-w-80 lg:max-w-100">
+            {config?.Param}
+          </CodeValueLabel>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <WizardSection>
+      <SectionHeadline
+        title={t("ConfigWizard.Input.InputActions.Jeehell.Title")}
+        description={t(
+          "ConfigWizard.Input.InputActions.Jeehell.Description",
+        )}
+      />
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
+          <Label htmlFor="mouseParam">
+            {t("ConfigWizard.Input.InputActions.Jeehell.FunctionLabel")}
+          </Label>
+          <ComboBox
+            placeholder={t(
+              "ConfigWizard.Input.InputActions.Jeehell.SelectFunctionPlaceholder",
+            )}
+            items={presets}
+            getLabel={(item) => item.name}
+            getValue={(item) => item.eventId}
+            isSelected={(item) => item.eventId === config?.EventId?.toString()}
+            selected={selectedPreset}
+            setSelected={(item) =>
+              onConfigChange({
+                ...config,
+                EventId: item ? item.eventId : "",
+              } as JeehellInputAction)
+            }
+            widthClass="w-100"
+          />
+          <p className="text-muted-foreground text-sm">
+            {selectedPreset?.description}
+          </p>
+        </div>
+        <div className="flex w-100 flex-col gap-2">
+          <Label htmlFor="value">
+            {t("ConfigWizard.Input.InputActions.Jeehell.ValueLabel")}
+          </Label>
+          <Input
+            className="font-mono text-sm whitespace-nowrap"
+            id="value"
+            value={config?.Param ?? ""}
+            onChange={(e) =>
+              onConfigChange({
+                ...config,
+                Param: e.target.value,
+              } as JeehellInputAction)
+            }
+          />
+        </div>
+      </div>
+    </WizardSection>
+  )
+}
+export default JeehellInputActionPanel

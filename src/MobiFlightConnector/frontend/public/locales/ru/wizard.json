@@ -1,0 +1,432 @@
+{
+  "ConfigWizard": {
+    "Modifiers": {
+      "Title": "Модификаторы",
+      "Label": "Модификаторы",
+      "Description": "Изменить исходное значение, применив последовательность модификаторов.",
+      "EditButton": "Редактировать модификаторы",
+      "AddButton": "Добавить модификатор",
+      "Type": {
+        "Transformation": {
+          "Label": "Преобразование",
+          "Description": "Применить преобразование значения ввода, используя указанное выражение.",
+          "Expression": "Выражение"
+        },
+        "Substring": {
+          "Label": "Подстрока",
+          "Description": "Извлечь подстроку из значения ввода, используя указанную начальную и конечную позицию.",
+          "From": "От",
+          "To": "До",
+          "Start": "Начальная позиция",
+          "End": "Конечная позиция",
+          "Summary": "От <badge>{{start}}</badge> До <badge>{{end}}</badge>"
+        },
+        "Padding": {
+          "Label": "Заполнение",
+          "Description": "Отрегулируйте заполнение значения ввода, используя указанную длину, символ и направление.",
+          "Length": "Длина",
+          "Character": "Символ",
+          "Direction": "Направление",
+          "Summary": "Длина:<badge>{{length}}</badge> Символ:<badge><kbd>{{character}}</kbd></badge> Направление:<badge>{{direction}}</badge>"
+        },
+        "Interpolation": {
+          "Label": "Интерполяция",
+          "Description": "Определение зависимости между значениями ввода и вывода. Значения, выходящие за пределы диапазона, сжимаются.",
+          "From": "Из",
+          "To": "В",
+          "Action": "Действие",
+          "Mappings": "Преобразуется",
+          "Add": "Добавить зависимость",
+          "Remove": "Удалить сопоставление",
+          "Summary": "Отображает значения <badge>{{count}}</badge> В диапазоне от <badge>{{min}}</badge> До <badge>{{max}}</badge>"
+        },
+        "Comparison": {
+          "Label": "Сравнение",
+          "Description": "Сравниваем текущее значение с другим значением, совпадает оно или нет, и корректируем вывод,.",
+          "IfCurrentValue": "Если текущее значение",
+          "Operator": "Оператор",
+          "Value": "Значение",
+          "Then": "Тогда",
+          "Else": "Если нет",
+          "Summary": "<span>if</span><badge>$ {{operator}} {{value}}</badge><span>then</span><badge>{{ifValue}}</badge><span>else</span><badge>{{elseValue}}</badge>"
+        },
+        "Blink": {
+          "Label": "Мерцание",
+          "Description": "Чередует исходное значение ввода с выключенным значением, используя интервалы, приведенные ниже.",
+          "AlternateValue": "Альтернативное значение (выключено)",
+          "BlinkSequence": "Интервалы мерцания",
+          "On": "Включено (в мс)",
+          "Off": "Выключено (в мс)",
+          "Action": "Действие",
+          "Add": "Добавить интервал мерцания",
+          "Remove": "Удалить интервал мерцания",
+          "Summary": "Значение <badge>{{blinkValue}}</badge> Интервалы <badge>{{on}}</badge> / <badge>{{off}}</badge>"
+        }
+      },
+      "Summary": {
+        "None": "Нет",
+        "More": "+ {{count}} больше"
+      },
+      "Editor": {
+        "Title": "Редактировать модификаторы",
+        "Description": "Добавить, настроить, заменить или удалить модификаторы для изменения исходного значения ввода.",
+        "AddModifier": "Добавить модификатор",
+        "NoModifiers": "Модификаторы не определены.",
+        "DeleteModifier": "Удалить модификатор",
+        "MoveUp": "Модификатор перемещения вверх",
+        "MoveDown": "Модификатор перемещения вниз",
+        "TestPanel": {
+          "Title": "Тестировать модификаторы",
+          "Description": "Проверьте работу настроенных модификаторов."
+        }
+      }
+    },
+    "Preconditions": {
+      "Title": "Предварительные условия",
+      "Label": "Предварительные условия",
+      "Description": "Добавить или изменить условия, которые должны быть выполнены, чтобы ваш триггер сработал.",
+      "EditButton": "Редактировать предварительные условия",
+      "AddButton": "Добавить предварительное условие"
+    },
+    "ConfigReferences": {
+      "Title": "Ссылки",
+      "Label": "Ссылки",
+      "Description": "Добавить ссылки на другие конфигурации и использовать их значения здесь, в этой конфигурации.",
+      "EditButton": "Редактировать ссылки",
+      "AddButton": "Добавить ссылку"
+    },
+    "PreconditionEditor": {
+      "Title": "Редактировать предварительные условия",
+      "Description": "Добавить или изменить условия, которые должны быть выполнены, чтобы действие произошло.",
+      "NoPreconditions": "Предварительные условия не определены.",
+      "AddPrecondition": "Добавить предварительное условие",
+      "Active": "Активный",
+      "TypePlaceholder": "Тип",
+      "SelectConfig": "Выбрать конфигурацию...",
+      "SelectVariable": "Выбрать переменную...",
+      "ValuePlaceholder": "Значение",
+      "DeletePrecondition": "Удалить предварительное условие",
+      "SelectPort": "Выбрать порт...",
+      "SelectPin": "Выбрать пин...",
+      "Types": {
+        "config": "Конфигурация",
+        "variable": "Переменная",
+        "pin": "Arcaze-Pin"
+      },
+      "MoveUp": "Переместить предварительное условие вверх",
+      "MoveDown": "Переместить предварительное условие вниз"
+    },
+    "ConfigReferenceEditor": {
+      "Title": "Редактировать ссылки",
+      "Description": "Добавить или изменить ссылки и определять заполнитель для использования значений в вашей конфигурации.",
+      "NoConfigReferences": "Ссылки не определены.",
+      "AddConfigReference": "Добавить ссылку",
+      "Active": "Активный",
+      "SelectConfig": "Выберите конфигурацию...",
+      "PlaceholderLabel": "Заполнитель",
+      "TestValueLabel": "Тестовое значение",
+      "DeleteConfigReference": "Удалить ссылку"
+    },
+    "Input": {
+      "Description": "Измените все настройки для этой конфигурации ввода в этом диалоговом окне.",
+      "DrawerTitle": "Настройки",
+      "ConfigTrigger": {
+        "Title": "Триггер",
+        "Description": "Триггер определяющий условия или события, которые активируют эту конфигурацию.",
+        "ScanForInput": "Сканировать устройства ввода",
+        "UseAnyInput": "Используйте любые устройства ввода",
+        "ClearInput": "Очистить ввод",
+        "SelectController": "Выберите контроллер...",
+        "SearchController": "Найдите контроллер...",
+        "NoControllerFound": "Контроллер не найден.",
+        "SelectDevice": "Выберите устройство...",
+        "SearchDevice": "Найдите устройство...",
+        "NoDeviceFound": "Устройство не найдено."
+      },
+      "Action": {
+        "Title": "Действия",
+        "Description": "Определите действия для каждого события.",
+        "Copy": "Действие копирования",
+        "Paste": "Действие вставки",
+        "NoTriggerDefined": "Триггер не определен. Пожалуйста, выберите свой контроллер и устройство."
+      },
+      "ActionType": {
+        "Title": "Шаг 1 - Тип действия",
+        "Description": "Выберите тип действия, которое вы хотите выполнить",
+        "Options": {
+          "MSFS2020CustomInputAction": {
+            "label": "Microsoft Flight Simulator (все версии)",
+            "short": "MSFS Предустановки"
+          },
+          "XplaneInputAction": {
+            "label": "X-Plane (все версии)",
+            "short": "X-Plane Предустановки"
+          },
+          "ProSimInputAction": {
+            "label": "ProSim",
+            "short": "ProSim Предустановки"
+          },
+          "VariableInputAction": {
+            "label": "MobiFlight - Переменная",
+            "short": "Переменная"
+          },
+          "RetriggerInputAction": {
+            "label": "MobiFlight - Переключатель перезапуска",
+            "short": "Перезапуск"
+          },
+          "KeyInputAction": {
+            "label": "MobiFlight - Ввод с клавиатуры",
+            "short": "Клавиатура"
+          },
+          "VJoyInputAction": {
+            "label": "MobiFlight -  Ввод с помощью виртуального джойстика (vJoy)",
+            "short": "vJoy"
+          },
+          "FsuipcOffsetInputAction": {
+            "label": "FSUIPC - Offset",
+            "short": "FSUIPC Offset"
+          },
+          "PmdgEventIdInputAction": {
+            "label": "FSUIPC - PMDG - Event ID",
+            "short": "PMDG Event ID"
+          },
+          "LuaMacroInputAction": {
+            "label": "FSUIPC - Lua Macro",
+            "short": "Lua Macro"
+          },
+          "JeehellInputAction": {
+            "label": "FSUIPC - Jeehell - Events",
+            "short": "Jeehell Events"
+          },
+          "EventIdInputAction": {
+            "label": "FSUIPC - EventID",
+            "short": "EventID"
+          }
+        }
+      },
+      "Event": {
+        "Edit": "Редактировать действие {{eventLabel}}",
+        "Remove": "Удалить тействие {{eventLabel}}"
+      },
+      "button": {
+        "Event": {
+          "onPress": {
+            "label": "При нажатии",
+            "description": "Действие будет выполнено один раз при нажатии кнопки."
+          },
+          "onRelease": {
+            "label": "При отпускании",
+            "description": "Действие будет выполнено один раз, когда кнопка будет отпущена."
+          },
+          "onHold": {
+            "label": "При длительном нажатии",
+            "description": "Это действие запускается, когда кнопка удерживается нажатой в течение определенного времени, и может повторяться с указанным интервалом.",
+            "options": {
+              "holdDelay": {
+                "label": "Задержка нажатия (мс)",
+                "description": "Длительность в миллисекундах, в течение которой необходимо удерживать кнопку нажатой, прежде чем сработает действие."
+              },
+              "repeatDelay": {
+                "label": "Задержка повтора (мс)",
+                "description": "Интервал в миллисекундах, через который действие будет запущено повторно при удержании кнопки нажатой. Установите значение 0, чтобы отключить повторение."
+              }
+            }
+          },
+          "onLongRelease": {
+            "label": "При длительном отжатии кнопки",
+            "description": "Действие будет выполнено один раз, когда кнопка будет отпущена после удерживания нажатой в течение указанного времени.",
+            "options": {
+              "longReleaseDelay": {
+                "label": "Длительность задержки срабатывания (мс)",
+                "description": "Длительность в миллисекундах, в течение которой необходимо удерживать кнопку нажатой, прежде чем отпустить ее, чтобы запустить это действие."
+              }
+            }
+          }
+        }
+      },
+      "encoder": {
+        "Event": {
+          "onLeft": {
+            "label": "Влево",
+            "description": "Действие будет выполнено один раз при повороте энкодера влево."
+          },
+          "onRight": {
+            "label": "Вправо",
+            "description": "Действие будет выполнено один раз при повороте энкодера вправо."
+          },
+          "onLeftFast": {
+            "label": "Быстро влево",
+            "description": "Действие будет выполнено один раз при быстром повороте энкодера влево."
+          },
+          "onRightFast": {
+            "label": "Быстро вправо",
+            "description": "Действие будет выполнено один раз при быстром повороте энкодера вправо."
+          }
+        }
+      },
+      "analog": {
+        "Event": {
+          "onChange": {
+            "label": "При изменении",
+            "description": "Действие будет выполнено, как только изменится значение данных ввода."
+          }
+        }
+      },
+      "InputActions": {
+        "Common": {
+          "CodeLabel": "Код",
+          "NoDescriptionAvailable": "Описание недоступно",
+          "DescriptionLabel": "Описание",
+          "FilterPresets": "Фильтровать предварительные настройки по тексту",
+          "FilterByVendor": "Фильтровать по производителям модели самолета",
+          "SearchVendors": "Искать производителя модели...",
+          "FilterByAircraft": "Фильтровать по модели самолета",
+          "SearchAircraft": "Поиск модели самолета...",
+          "FilterBySystem": "Фильтровать по системам самолета",
+          "SearchSystems": "Поиск системы самолета...",
+          "SelectPreset": "Выбрать предустановку",
+          "SearchPresets": "Поиск предустановок...",
+          "PresetsFound": "{{count}} предустановок найдено",
+          "SupportedPlaceholders": "Поддерживает значение ввода (@) и заполнители ($, #, и т.д.)",
+          "ActionLabel": "Действие",
+          "NameLabel": "Имя",
+          "Preset": {
+            "Label": "Предустановка",
+            "Title": "Шаг 2 - Выберите предустановку",
+            "Description": "Выберите пресет из нашей библиотеки пресетов. Используйте фильтры, чтобы сузить область поиска.",
+            "ProjectAircraftOnly": "Только для выбранной модели самолета",
+            "Vendor": "Производитель модели",
+            "Aircraft": "Воздушное Судно",
+            "System": "Система",
+            "Custom": "Пользовательская предустановка",
+            "Author": "Автор",
+            "Date": "Дата",
+            "Code": {
+              "Title": "Шаг 3 - Настраиваемые предустановки (необязательно)",
+              "Description": "Этот предустановленный код используется в вашем тренажере. Вы можете отредактировать его вручную или выбрать пресет из списка выше.",
+              "None": "Нет",
+              "Placeholder": "Введите RPN-код",
+              "Customized": "Вы настроили этот пресет, или он больше недоступен."
+            }
+          }
+        },
+        "Xplane": {
+          "InputTypeLabel": "Тип ввода",
+          "SelectInputTypePlaceholder": "Выбрать тип ввода",
+          "PathLabel": "Путь",
+          "PathPlaceholder": "Введите путь для DataRef или команды, или выберите предустановку, указанную выше",
+          "PathDescription": "Подсказка: Используйте индексную запись для доступа к массивам, например,  sim/cockpit2/annunciators/fuel_pressure_low[0] for 1st engine.",
+          "ValueLabel": "Значение",
+          "ValuePlaceholder": "Введите значение"
+        },
+        "ProSim": {
+          "Preset": {
+            "Title": "Шаг 2 - ProSim Действие ввода",
+            "Description": "Выберите предустановку для настройки ваших действий по вводу."
+          },
+          "PathLabel": "Путь",
+          "NoPresetSelected": "Предустановка не выбрана",
+          "ParameterLabel": "Параметр (необязательный)",
+          "ParameterPlaceholder": "Установить параметр (необязательный)",
+          "ParameterNone": "Нет"
+        },
+        "VJoy": {
+          "Title": "Шаг 2 - Настройка vJoy",
+          "Description": "Определите кнопку или ось vJoy, которые вы хотите использовать.",
+          "Controller": "Контроллер",
+          "Device": "Устройство",
+          "SelectDeviceLabel": "Выберите устройство vJoy",
+          "SelectDevicePlaceholder": "Выберите устройство vJoy...",
+          "ButtonTab": "Кнопка",
+          "AxisTab": "Ось",
+          "ButtonNumberLabel": "Номер кнопки",
+          "SelectButtonPlaceholder": "Выбрать кнопку...",
+          "ButtonStateLabel": "Состояние кнопки",
+          "Pressed": "Нажата",
+          "Released": "Отжата",
+          "SelectAxisPlaceholder": "Выбрать ось...",
+          "AxisValueLabel": "Значение оси",
+          "ControllerLabel": "vJoy Joystick {{index}}",
+          "None": "Нет"
+        },
+        "Keyboard": {
+          "Title": "Шаг 2 - Настройка ввода с клавиатуры",
+          "Description": "Определите комбинацию клавиш клавиатуры, которую вы хотите использовать.",
+          "StopScanning": "Остановка сканирования",
+          "ScanForKeyboard": "Поиск клавиатуры",
+          "KeyComboLabel": "Комбинация клавиш",
+          "None": "Нет",
+          "ClearInput": "Очистить ввод"
+        },
+        "FsuipcOffset": {
+          "Title": "Шаг 2 - Настройка смещения FSUIPC",
+          "Description": "Определите смещение FSUIPC, которое вы хотите использовать.",
+          "TypeLabel": "Тип",
+          "SizeLabel": "Размер",
+          "OffsetLabel": "Смещение",
+          "MaskLabel": "Маска",
+          "BcdModeLabel": "Режим BCD",
+          "ValueLabel": "Значение",
+          "ValuePlaceholder": "Введите значение"
+        },
+        "LuaMacro": {
+          "Title": "Шаг 2 - Действие по вводу макроса Lua",
+          "Description": "Вызовите свой макрос Lua с необязательным параметром. Требуется существующий макрос Lua в FSUIPC.",
+          "MacroNameLabel": "Имя макроса",
+          "MacroNamePlaceholder": "Задать имя макроса",
+          "MacroValueLabel": "Значение макроса",
+          "MacroValuePlaceholder": "Задать значение макроса"
+        },
+        "Jeehell": {
+          "Title": "Шаг 2 - Настройка Jeehell",
+          "Description": "Определите функцию Jeehell, которую вы хотите использовать. Вы можете либо создать новую, либо использовать существующую функцию.",
+          "FunctionLabel": "Функция Jeehell",
+          "SelectFunctionPlaceholder": "Выберите функцию Jeehell...",
+          "ValueLabel": "Значение"
+        },
+        "EventId": {
+          "Title": "Шаг 2 - Определите идентификатор события (Event ID)",
+          "Description": "Определите идентификатор события (Event ID), который вы хотите использовать. Вы можете либо создать новый, либо использовать существующий идентификатор события.",
+          "PmdgAircraftLabel": "Воздушное судно PMDG",
+          "MouseParamLabel": "Параметр мыши",
+          "SelectMouseParamPlaceholder": "Выбрать параметр мыши",
+          "EventIdLabel": "Идентификатор события (Event ID)",
+          "CustomParamLabel": "Пользовательский параметр"
+        },
+        "Retrigger": {
+          "Title": "Повторный запуск",
+          "Summary": "Синхронизация устройств ввода с симулятором.",
+          "NoteLabel": "Примечание",
+          "Description1": "Используйте это действие ввода для повторного запуска всех состояний кнопок.",
+          "Description2": "Это полезно для синхронизации вашего виртуального кокпита с состояниями переключателей и кнопок ваших физических контроллеров."
+        },
+        "Variable": {
+          "Title": "Шаг 2 - Настройка переменной",
+          "Description": "Определите переменную, которую вы хотите использовать. Вы можете либо создать новую, либо использовать существующую переменную.",
+          "ExistingVariable": "Использовать существующую переменную",
+          "VariableTypeLabel": "Тип",
+          "VariableType": {
+            "Number": "Число",
+            "String": "Текст"
+          },
+          "VariableNameLabel": "Имя",
+          "VariableNamePlaceholder": "Введите имя переменной...",
+          "DefaultName": "Новая переменная",
+          "ExpressionLabel": "Выражение",
+          "ExpressionPlaceholder": "Введите выражение...",
+          "ExpressionNone": "нет",
+          "ExpressionHelp": "Используйте <1>$</1> для представления значения переменной в выражениях, например <3>$ * 2</3> чтобы удвоить числовую переменную."
+        },
+        "ProSimDataRef": {
+          "FilterPresetsPlaceholder": "Предустановки фильтра",
+          "NoPresetsAvailable": "Нет доступных предустановок",
+          "RefreshPresets": "Обновить предустановки"
+        },
+        "EventIdPresets": {
+          "SelectPresetLabel": "Выбрать предустановку",
+          "SelectPresetPlaceholder": "Выбрать предустановку..."
+        }
+      }
+    }
+  }
+}

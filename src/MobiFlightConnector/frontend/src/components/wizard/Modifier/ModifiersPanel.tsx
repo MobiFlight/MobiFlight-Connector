@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import SectionHeadline from "@/components/wizard/common/SectionHeadline"
+import ConfigWizardTestPanel from "@/components/wizard/common/ConfigWizardTestPanel"
 import ModifierEditor from "@/components/wizard/Modifier/ModifierEditor"
 import ModifierSummary from "@/components/wizard/Modifier/ModifierSummary"
 import { cn } from "@/lib/utils"
@@ -28,7 +30,7 @@ const ModifiersPanel = ({
   variant,
   liveData,
 }: ModifiersPanelProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const modifiers = configItem.Modifiers?.Items || []
   const hasModifiers = modifiers.length > 0
 
@@ -43,20 +45,16 @@ const ModifiersPanel = ({
     >
       <CardContent className="flex flex-col gap-4 pt-4">
         <div className="flex flex-row items-start justify-between gap-4">
-          <div className="flex flex-col gap-2">
-            <div className="text-lg font-semibold">
-              {t("Dialog.Modifiers.Title")}
-            </div>
-            <div className="text-muted-foreground text-sm">
-              {t("Dialog.Modifiers.Description")}
-            </div>
-          </div>
+          <SectionHeadline
+            title={t("ConfigWizard.Modifiers.Title")}
+            description={t("ConfigWizard.Modifiers.Description")}
+          />
           {hasModifiers && (
             <Button
               variant="ghost"
               size={"sm"}
               onClick={openDetailsPanel}
-              aria-label={t("Dialog.Modifiers.EditButton")}
+              aria-label={t("ConfigWizard.Modifiers.EditButton")}
             >
               <IconEdit className="" />
             </Button>
@@ -72,18 +70,35 @@ const ModifiersPanel = ({
       </CardContent>
     </Card>
   ) : (
-    <ModifierEditor
-      modifiers={modifiers}
-      onModifierChange={(updatedModifiers, actionLabel) =>
-        onConfigChange(
+    <div className="flex grow flex-col gap-4">
+      <ModifierEditor
+        mode={configItem.Type}
+        configName={configItem.Name}
+        modifiers={modifiers}
+        onModifierChange={(updatedModifiers, actionLabel) =>
+          onConfigChange(
           {
-            ...configItem,
-            Modifiers: { Items: updatedModifiers },
-          },
+              ...configItem,
+              Modifiers: { Items: updatedModifiers },
+            },
           actionLabel,
         )
-      }
-    />
+        }
+      />
+      {configItem.Type === "OutputConfigItem" && (
+        <ConfigWizardTestPanel
+          configItem={configItem}
+          title={t("ConfigWizard.Modifiers.Editor.TestPanel.Title")}
+          description={t("ConfigWizard.Modifiers.Editor.TestPanel.Description")}
+          onTestValueChange={(value) => {
+            onConfigChange({
+              ...configItem,
+              TestValue: value
+            })
+          }}
+        />
+      )}
+    </div>
   )
 }
 export default ModifiersPanel

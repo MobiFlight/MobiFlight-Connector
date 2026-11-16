@@ -1,0 +1,270 @@
+import ComboBox from "@/components/ComboBox"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Switch } from "@/components/ui/switch"
+import { VirtualPresetList } from "@/components/wizard/common/VirtualPresetList"
+import { filterPresetByText } from "@/lib/configWizard"
+import { useProjectStore } from "@/stores/projectStore"
+import { Preset, PresetSim, PresetType, XplanePreset } from "@/types/preset"
+import { AircraftInfo } from "@/types/project"
+import { IconX } from "@tabler/icons-react"
+import { useState } from "react"
+import { useTranslation } from "react-i18next"
+import LoadingSpinner from "@/components/wizard/common/LoadingSpinner"
+import SectionHeadline from "@/components/wizard/common/SectionHeadline"
+import { useHubHopPresets } from "@/lib/hooks/useHubHopPresets"
+import { ConfigItemType } from "@/types/config"
+
+type PresetPanelMode = ConfigItemType
+
+
+type PresetSettings = {
+  presetTypes: Record<PresetPanelMode, PresetType[]>
+  getKey: (preset: Preset | XplanePreset) => string
+}
+
+const presetPanelSettings: Record<"msfs" | "xplane", PresetSettings> = {
+  msfs: {
+    presetTypes: {
+      InputConfigItem: ["input", "input (potentiometer)"],
+      OutputConfigItem: ["output"],
+    },
+    getKey: (preset) => preset.id,
+  },
+  xplane: {
+    presetTypes: {
+      // DataRefs can be read and written, so "inputoutput" presets fit both modes.
+      InputConfigItem: ["input", "inputoutput", "input (potentiometer)"],
+      OutputConfigItem: ["output", "inputoutput"],
+    },
+    getKey: (preset) => preset.code,
+  },
+}
+
+export type PresetPanelProps = {
+  sim: PresetSim
+  mode: ConfigItemType
+  isLoading: boolean
+  selectedPresetId: string | null
+  setSelectedPreset: (preset: Preset | XplanePreset | null) => void
+}
+const PresetPanel = ({
+  sim,
+  mode,
+  isLoading,
+  selectedPresetId,
+  setSelectedPreset,
+}: PresetPanelProps) => {
+  const { t } = useTranslation("wizard")
+  const { project } = useProjectStore()
+  const [favoritesOnly, setFavoritesOnly] = useState(true)
+
+  const { presetTypes, getKey } = presetPanelSettings[sim]
+  const validPresetTypes = presetTypes[mode]
+
+  const { data: presets = [] } = useHubHopPresets(sim)
+
+
+  const projectAircraftFilter = (p: Preset) =>
+    (project?.Aircraft?.length ?? 0) > 0
+      ? project!.Aircraft!.some(
+          (a: AircraftInfo) => a.Name === p.aircraft && a.Vendor === p.vendor,
+        )
+      : true
+  const validPresets = presets.filter(
+    (p: Preset) =>
+      validPresetTypes.includes(p.presetType.toLowerCase() as PresetType) &&
+      (favoritesOnly ? projectAircraftFilter(p) : true),
+  )
+  const selectedPreset = validPresets.find((p) => getKey(p) === selectedPresetId)
+  const [filter, setFilter] = useState({
+    vendor: selectedPreset?.vendor || "",
+    aircraft: selectedPreset?.aircraft || "",
+    system: selectedPreset?.system || "",
+    search: "",
+  })
+  const filteredPresets = validPresets.filter(
+    (p) =>
+      (filter.vendor ? p.vendor === filter.vendor : true) &&
+      (filter.aircraft ? p.aircraft === filter.aircraft : true) &&
+      (filter.system ? p.system === filter.system : true) &&
+      filterPresetByText(p, filter.search),
+  )
+  const filteredCategoryPresets = validPresets.filter(
+    (p) =>
+      (filter.vendor ? p.vendor === filter.vendor : true) &&
+      (filter.aircraft ? p.aircraft === filter.aircraft : true) &&
+      filterPresetByText(p, filter.search),
+  )
+  const filteredVendorPresets = validPresets.filter(
+    (p) =>
+      (filter.system ? p.system === filter.system : true) &&
+      (filter.aircraft ? p.aircraft === filter.aircraft : true) &&
+      filterPresetByText(p, filter.search),
+  )
+  const filteredAircraftPresets = validPresets.filter(
+    (p) =>
+      (filter.vendor ? p.vendor === filter.vendor : true) &&
+      (filter.system ? p.system === filter.system : true) &&
+      filterPresetByText(p, filter.search),
+  )
+  const categories = [
+    ...new Set([
+      ...filteredCategoryPresets.map((p) => p.system),
+      ...(filter.system ? [filter.system] : []),
+    ]),
+  ].sort()
+  const aircraft = [
+    ...new Set([
+      ...filteredAircraftPresets.map((p) => p.aircraft),
+      ...(filter.aircraft ? [filter.aircraft] : []),
+    ]),
+  ].sort()
+  const vendors = [
+    ...new Set([
+      ...filteredVendorPresets.map((p) => p.vendor),
+      ...(filter.vendor ? [filter.vendor] : []),
+    ]),
+  ].sort()
+
+  return (
+    <Card className="grow">
+      <CardContent className="flex flex-col gap-4 pt-4">
+        <div className="flex flex-row items-end justify-between">
+          <SectionHeadline
+            title={t(
+              "ConfigWizard.Input.InputActions.Common.Preset.Title",
+            )}
+            description={t(
+              "ConfigWizard.Input.InputActions.Common.Preset.Description",
+            )}
+          />
+          <div className="flex flex-row items-center gap-2">
+            <Switch
+              checked={favoritesOnly}
+              onCheckedChange={(checked) => setFavoritesOnly(checked)}
+            ></Switch>
+            <Label>
+              {t(
+                "ConfigWizard.Input.InputActions.Common.Preset.ProjectAircraftOnly",
+              )}
+            </Label>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <div className="grid grid-cols-4 gap-2">
+            <Input
+              placeholder={t(
+                "ConfigWizard.Input.InputActions.Common.FilterPresets",
+              )}
+              value={filter.search}
+              onChange={(e) =>
+                setFilter((prev) => ({ ...prev, search: e.target.value }))
+              }
+            />
+            <ComboBox
+              align="start"
+              widthClass="flex-1"
+              selected={filter?.vendor}
+              placeholder={t(
+                "ConfigWizard.Input.InputActions.Common.FilterByVendor",
+              )}
+              getLabel={(item) => item}
+              getValue={(item) => item}
+              items={vendors}
+              isSelected={(item) => item === filter?.vendor}
+              setSelected={(item) => {
+                setFilter((prev) => ({ ...prev, vendor: item || "" }))
+              }}
+              searchPlaceholder={t(
+                "ConfigWizard.Input.InputActions.Common.SearchVendors",
+              )}
+            />
+            <ComboBox
+              align="start"
+              widthClass="flex-1"
+              placeholder={t(
+                "ConfigWizard.Input.InputActions.Common.FilterByAircraft",
+              )}
+              getLabel={(item) => item}
+              getValue={(item) => item}
+              items={aircraft}
+              selected={filter?.aircraft}
+              isSelected={(item) => item === filter?.aircraft}
+              setSelected={(item) => {
+                setFilter((prev) => ({ ...prev, aircraft: item || "" }))
+              }}
+              searchPlaceholder={t(
+                "ConfigWizard.Input.InputActions.Common.SearchAircraft",
+              )}
+            />
+            <ComboBox
+              align="start"
+              widthClass="flex-1"
+              placeholder={t(
+                "ConfigWizard.Input.InputActions.Common.FilterBySystem",
+              )}
+              getLabel={(item) => `${item}`}
+              getValue={(item) => item}
+              items={categories}
+              selected={filter?.system}
+              isSelected={(item) => item === filter?.system}
+              setSelected={(item) => {
+                setFilter((prev) => ({ ...prev, system: item || "" }))
+              }}
+              searchPlaceholder={t(
+                "ConfigWizard.Input.InputActions.Common.SearchSystems",
+              )}
+            />
+          </div>
+          <div className="flex flex-row items-center justify-between">
+            <div role="status" className="px-2 py-2 text-sm">
+              {t("ConfigWizard.Input.InputActions.Common.PresetsFound", {
+                count: filteredPresets.length,
+              })}
+            </div>
+            {(filter.aircraft ||
+              filter.vendor ||
+              filter.system ||
+              filter.search) && (
+              <Button
+                size={"sm"}
+                className="w-fit px-2 py-0"
+                variant="ghost"
+                onClick={() =>
+                  setFilter({
+                    vendor: "",
+                    aircraft: "",
+                    system: "",
+                    search: "",
+                  })
+                }
+              >
+                <IconX />
+                <span className="py-0 text-sm">
+                  {t("Dialog.General.ResetFilters")}
+                </span>
+              </Button>
+            )}
+          </div>
+        </div>
+        <div className="-mt-3 flex flex-col gap-2">
+          {isLoading ? (
+            <LoadingSpinner />
+          ) : (
+            <VirtualPresetList
+              presets={filteredPresets}
+              selectedId={selectedPresetId}
+              getPresetId={(preset) => preset.id}
+              setSelectedPreset={setSelectedPreset}
+            />
+          )}
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
+export default PresetPanel

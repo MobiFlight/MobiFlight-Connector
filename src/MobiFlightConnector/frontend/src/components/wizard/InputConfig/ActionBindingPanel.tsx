@@ -1,0 +1,234 @@
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Label } from "@/components/ui/label"
+import { Separator } from "@/components/ui/separator"
+import SectionHeadline from "@/components/wizard/common/SectionHeadline"
+import { ActionSummary } from "@/components/wizard/InputConfig/ActionEditor"
+import {
+  Action,
+  AnalogTrigger,
+  ButtonHoldOptions,
+  ButtonLongReleaseOptions,
+  ButtonTrigger,
+  EncoderTrigger,
+} from "@/types/config"
+import { HistoryAction } from "@/types/history"
+import {
+  IconEdit,
+  IconInfoCircle,
+  IconPlus,
+  IconTrash,
+} from "@tabler/icons-react"
+import { useTranslation } from "react-i18next"
+export type ActionTrigger = ButtonTrigger | EncoderTrigger | AnalogTrigger
+
+export type ActionBindingPanelProps = {
+  variant: "button" | "encoder" | "analog" | "none"
+  trigger?: ActionTrigger
+  onActionEdit: (
+    event: string,
+    action: Action | null,
+    onActionChange: (
+      config: Action,
+      buttonOptions?: Partial<ButtonHoldOptions> &
+        Partial<ButtonLongReleaseOptions>,
+    ) => void,
+  ) => void
+  onTriggerChange: (trigger: ActionTrigger, actionLabel?: HistoryAction) => void
+  // shows a button to remove the whole trigger, e.g. to switch to another kind
+  onRemove?: () => void
+}
+
+const eventActionMap = {
+  button: ["onPress", "onRelease", "onHold", "onLongRelease"],
+  encoder: ["onLeft", "onRight", "onLeftFast", "onRightFast"],
+  analog: ["onChange"],
+  none: [],
+} as const
+
+type EventActionMap = typeof eventActionMap
+type EventActionLabelKey = {
+  [V in keyof EventActionMap]: `ConfigWizard.Input.${V}.Event.${EventActionMap[V][number]}.label`
+}[keyof EventActionMap]
+
+const ActionBindingPanel = ({
+  variant,
+  trigger,
+  onActionEdit,
+  onTriggerChange,
+  onRemove,
+}: ActionBindingPanelProps) => {
+  const { t } = useTranslation("wizard")
+  const events = eventActionMap[variant]
+  const defaultButtonTrigger: ButtonTrigger &
+    Partial<ButtonHoldOptions> &
+    Partial<ButtonLongReleaseOptions> = {
+    onPress: undefined,
+    onRelease: undefined,
+    onHold: undefined,
+    onLongRelease: undefined,
+    HoldDelay: 350,
+    LongReleaseDelay: 350,
+    RepeatDelay: 0,
+  }
+  const current = trigger ?? defaultButtonTrigger
+  const handleOnActionChange = (
+    event: string,
+    action: Action,
+    buttonOptions?: Partial<ButtonHoldOptions> &
+      Partial<ButtonLongReleaseOptions>,
+  ) => {
+    onTriggerChange({
+      ...current,
+      [event]: action,
+      ...buttonOptions,
+    })
+  }
+
+  const removeAction = (event: string) => {
+    const updatedTrigger = {
+      ...current,
+      [event]: null,
+    }
+    onTriggerChange(
+      updatedTrigger,
+      "Dialog.InputConfigWizard.History.ActionTypeChanged",
+    )
+  }
+
+  return (
+    <Card
+      data-testid="action-panel"
+      className="border-primary shadow-md transition-shadow hover:shadow-lg"
+    >
+      <CardContent className="flex flex-col gap-2 py-4">
+        <div className="flex flex-row items-start justify-between gap-2">
+          <SectionHeadline
+            title={t(`ConfigWizard.Input.Action.Title`)}
+            description={t(`ConfigWizard.Input.Action.Description`)}
+          />
+          {onRemove && (
+            <Button size={"sm"} variant="ghost" onClick={onRemove}>
+              <IconTrash />
+              <span className="sr-only">
+                {t(`ConfigWizard.Output.InputAction.Remove`)}
+              </span>
+            </Button>
+          )}
+        </div>
+        {variant === "none" && (
+          <div className="text-muted-foreground flex flex-row items-center justify-center gap-2">
+            <IconInfoCircle className="text-primary" />
+            <div className="text-muted-foreground text-sm">
+              {t(`ConfigWizard.Input.Action.NoTriggerDefined`)}
+            </div>
+          </div>
+        )}
+        {events.map((event, index) => {
+          const action = current[event as keyof ActionTrigger] as
+            | Action
+            | undefined
+          const isLast = index === events.length - 1
+          const eventLabel = t(
+            `ConfigWizard.Input.${variant}.Event.${event}.label` as EventActionLabelKey,
+          )
+          return (
+            action?.Type && (
+              <div key={event} className="flex flex-col gap-2">
+                <div
+                  className="group hover:bg-accent/30 flex flex-row items-center gap-4 rounded-md p-2"
+                  onDoubleClick={() =>
+                    onActionEdit(event, action, (newAction, buttonOptions) =>
+                      handleOnActionChange(event, newAction, buttonOptions),
+                    )
+                  }
+                >
+                  <div className="flex flex-row grow">
+                    <div className="flex w-1/4 flex-col gap-1">
+                      <Label>Event</Label>
+                      <Badge className="w-fit" variant={"secondary"}>
+                        {eventLabel}
+                      </Badge>
+                    </div>
+                    <ActionSummary action={action} />
+                  </div>
+                  <div className="flex w-20 flex-row justify-end pt-4">
+                    <Button
+                      size={"sm"}
+                      className="invisible h-8 px-2 py-1 text-red-600 group-hover:visible hover:text-red-600"
+                      variant="ghost"
+                      onClick={() => removeAction(event)}
+                    >
+                      <IconTrash />
+                      <span className="sr-only">
+                        {t(`ConfigWizard.Input.Event.Remove`, {
+                          eventLabel,
+                        })}
+                      </span>
+                    </Button>
+                    <Button
+                      size={"sm"}
+                      className="group-hover:text-foreground text-muted-foreground h-8 px-2 py-1"
+                      variant="ghost"
+                      onClick={() => {
+                        onActionEdit(
+                          event,
+                          action,
+                          (newAction, buttonOptions) =>
+                            handleOnActionChange(
+                              event,
+                              newAction,
+                              buttonOptions,
+                            ),
+                        )
+                      }}
+                    >
+                      <IconEdit />
+                      <span className="sr-only">
+                        {t(`ConfigWizard.Input.Event.Edit`, {
+                          eventLabel,
+                        })}
+                      </span>
+                    </Button>
+                  </div>
+                </div>
+                {!isLast && <Separator />}
+              </div>
+            )
+          )
+        })}
+
+        <div className="flex flex-row gap-2">
+          {events.map((event) => {
+            const action = current[event as keyof ActionTrigger] as
+              | Action
+              | undefined
+            const eventLabel = t(
+              `ConfigWizard.Input.${variant}.Event.${event}.label` as EventActionLabelKey,
+            )
+
+            return (
+              !action?.Type && (
+                <Button
+                  key={event}
+                  size={"sm"}
+                  variant="outline"
+                  onClick={() => {
+                    onActionEdit(event, null, (newAction, buttonOptions) =>
+                      handleOnActionChange(event, newAction, buttonOptions),
+                    )
+                  }}
+                >
+                  <IconPlus />
+                  {eventLabel}
+                </Button>
+              )
+            )
+          })}
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
+export default ActionBindingPanel

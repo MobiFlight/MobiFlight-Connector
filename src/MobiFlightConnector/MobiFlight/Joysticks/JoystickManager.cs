@@ -417,7 +417,7 @@ namespace MobiFlight
             VirtualButtonEvents.ResolveTimings = resolver;
         }
 
-        internal Joystick GetJoystickBySerial(string serial)
+        public virtual Joystick GetJoystickBySerial(string serial)
         {
             return Joysticks.Values.ToList().Find(js => js.Serial == serial);
         }
