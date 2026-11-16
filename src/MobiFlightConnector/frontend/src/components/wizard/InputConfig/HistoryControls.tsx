@@ -134,7 +134,8 @@ const HistoryControls = ({
                         ? t("ConfigWizard.History.Original")
                         : t("ConfigWizard.History.Oldest")
                       : typeof entry.action === "string"
-                        ? entry.action.startsWith("Dialog.")
+                        ? entry.action.startsWith("ConfigWizard.") ||
+                          entry.action.startsWith("Dialog.")
                           ? t(entry.action)
                           : entry.action
                         : t(entry.action.key, entry.action.params ?? {})
@@ -169,9 +170,7 @@ const HistoryControls = ({
                         <IconCheck
                           size={14}
                           className="text-primary shrink-0"
-                          aria-label={t(
-                            "ConfigWizard.History.Current",
-                          )}
+                          aria-label={t("ConfigWizard.History.Current")}
                         />
                       )}
                     </DropdownMenuItem>

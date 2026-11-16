@@ -48,7 +48,7 @@ const resetTriggersBasedOnDeviceType = (
 }
 
 const ConfigWizardDialog = ({ configId }: ConfigWizardDialogProps) => {
-  const { t } = useTranslation("wizard")
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const location = useLocation()
   const { project, activeConfigFileIndex } = useProjectStore()
@@ -274,7 +274,6 @@ const ConfigWizardDialog = ({ configId }: ConfigWizardDialogProps) => {
               <Button variant="outline" onClick={closeDialog}>
                 {t("Dialog.General.Cancel")}
               </Button>
-
             )}
             {/* primary button stays in place, only its label and action change */}
             <Button
