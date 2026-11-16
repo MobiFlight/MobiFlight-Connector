@@ -119,7 +119,16 @@ export default function SettingsDialog({
           variant="ghost"
           size="sm"
           className="h-auto px-2 py-1 flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground"
-          onClick={() => auth.signinRedirect()}
+          onClick={() => {
+            messageExchange.publish({
+              key: "CommandUserAuthentication",
+              payload: {
+                flow: "login",
+                state: "started",
+                url: `${window.location.origin}/auth/login`,
+              },
+            })
+          }}
         >
           <IconCloudOff className="h-4 w-4" />
           <span>
