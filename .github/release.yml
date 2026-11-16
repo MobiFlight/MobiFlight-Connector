@@ -4,6 +4,13 @@ changelog:
       - ignore-for-release-notes
       - dependencies
   categories:
+    - title: Milestones & highlights 🤩
+      labels:
+        - milestone
+        - highlight
+    - title: Breaking Changes ⚠️
+      labels:
+        - breaking
     - title: New Feature 🎉
       labels:
         - feature
