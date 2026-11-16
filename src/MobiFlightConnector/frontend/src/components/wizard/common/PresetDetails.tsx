@@ -6,10 +6,11 @@ import { IconExclamationCircle } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 import XplanePresetCustomize from "@/components/wizard/common/XplanePresetCustomize"
 import MsfsPresetCustomize from "@/components/wizard/common/MsfsPresetCustomize"
+import { ConfigItemType } from "@/types/config"
 
 export interface PresetDetailsProps {
   sim: "xplane" | "msfs"
-  mode: "input" | "output"
+  mode: ConfigItemType
   preset: XplanePreset | Preset | null
   code: string | null
   value?: string | null
@@ -30,16 +31,16 @@ const PresetDetails = ({
   onValueChange,
   onCodeTypeChange,
 }: PresetDetailsProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   
   return (
     <WizardSection data-testid="preset-code-panel">
       <SectionHeadline
         title={t(
-          "Dialog.InputConfigWizard.InputActions.Common.Preset.Code.Title",
+          "ConfigWizard.Input.InputActions.Common.Preset.Code.Title",
         )}
         description={t(
-          "Dialog.InputConfigWizard.InputActions.Common.Preset.Code.Description",
+          "ConfigWizard.Input.InputActions.Common.Preset.Code.Description",
         )}
       />
       <div className="flex flex-col gap-4">
@@ -51,7 +52,7 @@ const PresetDetails = ({
               <IconExclamationCircle className="text-primary fill-background" />
               <div className="text-primary text-sm">
                 {t(
-                  "Dialog.InputConfigWizard.InputActions.Common.Preset.Code.Customized",
+                  "ConfigWizard.Input.InputActions.Common.Preset.Code.Customized",
                 )}
               </div>
             </div>

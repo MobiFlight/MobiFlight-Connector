@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import OutputDeviceSummary from "@/components/wizard/OutputConfig/OutputDeviceSummary"
 import { OutputConfig, OutputConfigItem } from "@/types/config"
-import { IconPlus, IconTrash } from "@tabler/icons-react"
+import { IconPlus } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 
 export interface OutputActionBindingCardProps {
@@ -36,17 +36,9 @@ const OutputActionBindingCard = ({
       <CardContent className="flex flex-col gap-2 py-4">
         <div className="flex flex-row items-center justify-between gap-2">
           <SectionHeadline
-            title={t(`Dialog.InputConfigWizard.Action.Title`)}
-            description={t(`Dialog.InputConfigWizard.Action.Description`)}
+            title={t(`ConfigWizard.Input.Action.Title`)}
+            description={t(`ConfigWizard.Input.Action.Description`)}
           />
-          {hasOutputDevice && (
-            <Button size={"sm"} variant="ghost" onClick={onRemoveOutputDevice}>
-              <IconTrash />
-              <span className="sr-only">
-                {t(`ConfigWizard.Output.InputAction.Remove`)}
-              </span>
-            </Button>
-          )}
         </div>
 
         {hasOutputDevice && (
@@ -56,6 +48,7 @@ const OutputActionBindingCard = ({
               config={config.Device as OutputConfig}
               controller={config.Controller}
               onEdit={onEdit}
+              onRemove={onRemoveOutputDevice}
             />
           </div>
         )}

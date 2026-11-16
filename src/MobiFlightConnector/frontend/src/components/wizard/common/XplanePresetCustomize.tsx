@@ -2,6 +2,7 @@ import ComboBox from "@/components/ComboBox"
 import Input from "@/components/Input"
 import { Label } from "@/components/ui/label"
 import { useTranslation } from "react-i18next"
+import { ConfigItemType } from "@/types/config"
 
 const INPUT_CODE_TYPE_OPTIONS: ("DataRef" | "Command")[] = [
   "DataRef",
@@ -11,7 +12,7 @@ const OUTPUT_CODE_TYPE_OPTIONS: "DataRef"[] = ["DataRef"]
 
 
 type XplanePresetCustomizeProps = {
-  mode: "input" | "output"
+  mode: ConfigItemType
   codeType: "DataRef" | "Command" | null
   code: string | null
   value?: string | null
@@ -29,24 +30,24 @@ const XplanePresetCustomize = ({
   onValueChange,
   value,
 }: XplanePresetCustomizeProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
 
   return (
     <>
       <div className="flex flex-row gap-2">
         <div className="flex flex-col gap-1">
           <Label>
-            {t(`Dialog.InputConfigWizard.InputActions.Xplane.InputTypeLabel`)}
+            {t(`ConfigWizard.Input.InputActions.Xplane.InputTypeLabel`)}
           </Label>
           <ComboBox
             items={
-              mode === "input"
+              mode === "InputConfigItem"
                 ? INPUT_CODE_TYPE_OPTIONS
                 : OUTPUT_CODE_TYPE_OPTIONS
             }
             selected={codeType ?? undefined}
             placeholder={t(
-              `Dialog.InputConfigWizard.InputActions.Xplane.SelectInputTypePlaceholder`,
+              `ConfigWizard.Input.InputActions.Xplane.SelectInputTypePlaceholder`,
             )}
             getLabel={(item) => item}
             getValue={(item) => item}
@@ -62,7 +63,7 @@ const XplanePresetCustomize = ({
 
         <div className="flex flex-col gap-1">
           <Label htmlFor="path">
-            {t("Dialog.InputConfigWizard.InputActions.Xplane.PathLabel")}
+            {t("ConfigWizard.Input.InputActions.Xplane.PathLabel")}
           </Label>
           <Input
             id="path"
@@ -70,18 +71,18 @@ const XplanePresetCustomize = ({
             value={code ?? ""}
             onChange={onCodeChange}
             placeholder={t(
-              "Dialog.InputConfigWizard.InputActions.Xplane.PathPlaceholder",
+              "ConfigWizard.Input.InputActions.Xplane.PathPlaceholder",
             )}
           />
           <div className="text-muted-foreground text-sm">
-            {t("Dialog.InputConfigWizard.InputActions.Xplane.PathDescription")}
+            {t("ConfigWizard.Input.InputActions.Xplane.PathDescription")}
           </div>
         </div>
       </div>
-      {(mode == "input" && codeType === "DataRef") && (
+      {(mode == "InputConfigItem" && codeType === "DataRef") && (
         <div className="flex flex-col gap-1">
           <Label htmlFor="value">
-            {t(`Dialog.InputConfigWizard.InputActions.Xplane.ValueLabel`)}
+            {t(`ConfigWizard.Input.InputActions.Xplane.ValueLabel`)}
           </Label>
           <Input
             className="font-mono text-sm whitespace-nowrap"
@@ -89,12 +90,12 @@ const XplanePresetCustomize = ({
             value={value ?? ""}
             onChange={(value) => onValueChange?.(value)}
             placeholder={t(
-              `Dialog.InputConfigWizard.InputActions.Xplane.ValuePlaceholder`,
+              `ConfigWizard.Input.InputActions.Xplane.ValuePlaceholder`,
             )}
           />
           <div className="text-muted-foreground text-sm">
             {t(
-              `Dialog.InputConfigWizard.InputActions.Common.SupportedPlaceholders`,
+              `ConfigWizard.Input.InputActions.Common.SupportedPlaceholders`,
             )}
           </div>
         </div>

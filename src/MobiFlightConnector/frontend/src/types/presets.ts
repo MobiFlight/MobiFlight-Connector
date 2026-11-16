@@ -15,7 +15,7 @@ import type {
 } from "@/types/preset"
 
 export const msfsInputActionAdapter: MsfsPresetAdapter<MsfsInputAction> = {
-  mode: "input",
+  mode: "InputConfigItem",
   getPresetId: (action) => action.PresetId,
   getCode: (action) => action.Command,
   withPreset: (action, preset) =>
@@ -28,7 +28,7 @@ export const msfsInputActionAdapter: MsfsPresetAdapter<MsfsInputAction> = {
 }
 
 export const msfsSourceAdapter: MsfsPresetAdapter<SimConnectSource> = {
-  mode: "output",
+  mode: "OutputConfigItem",
   getPresetId: (source) => source.SimConnectValue?.UUID,
   getCode: (source) => source.SimConnectValue?.Value,
   // SimConnectValue is spread, so properties like VarType are kept.
@@ -49,7 +49,7 @@ export const msfsSourceAdapter: MsfsPresetAdapter<SimConnectSource> = {
 
 export const xplaneInputActionAdapter: XplaneInputPresetAdapter<XplaneInputAction> =
   {
-    mode: "input",
+    mode: "InputConfigItem",
     getPresetId: (action) => action.Path,
     getCode: (action) => action.Path,
     getCodeType: (action) => action.InputType,
@@ -66,7 +66,7 @@ export const xplaneInputActionAdapter: XplaneInputPresetAdapter<XplaneInputActio
   }
 
 export const xplaneSourceAdapter: XplaneOutputPresetAdapter<XplaneSource> = {
-  mode: "output",
+  mode: "OutputConfigItem",
   getPresetId: (source) => source.XplaneDataRef.Path,
   getCode: (source) => source.XplaneDataRef.Path,
   getCodeType: () => "DataRef",
@@ -86,7 +86,7 @@ export const xplaneSourceAdapter: XplaneOutputPresetAdapter<XplaneSource> = {
 
 export const proSimInputActionAdapter: ProSimInputPresetAdapter<ProSimInputAction> =
   {
-    mode: "input",
+    mode: "InputConfigItem",
     getPresetId: (action) => action.Path,
     getCode: (action) => action.Path,
     getValue: (action) => action.Expression,
@@ -100,7 +100,7 @@ export const proSimInputActionAdapter: ProSimInputPresetAdapter<ProSimInputActio
   }
 
 export const proSimSourceAdapter: ProSimOutputPresetAdapter<ProSimSource> = {
-  mode: "output",
+  mode: "OutputConfigItem",
   getPresetId: (source) => source.ProSimDataRef.Path,
   getCode: (source) => source.ProSimDataRef.Path,
   withPreset: (source, preset) =>

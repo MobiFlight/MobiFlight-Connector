@@ -51,7 +51,7 @@ const ConfigReferenceItemRow = ({
   onChange,
   onDelete,
 }: ConfigReferenceItemRowProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const selectedConfig = outputConfigs.find(
     (c) => c.GUID === configReference.Ref,
   )
@@ -81,7 +81,7 @@ const ConfigReferenceItemRow = ({
           onChange({ ...configReference, Ref: c?.GUID ?? "" })
         }
         placeholder={t(
-          "Dialog.InputConfigWizard.ConfigReferenceEditor.SelectConfig",
+          "ConfigWizard.ConfigReferenceEditor.SelectConfig",
         )}
         widthClass="flex-1"
       />
@@ -95,18 +95,14 @@ const ConfigReferenceItemRow = ({
         className="w-16"
       />
 
-      {/*
-       * Test value is currently not used, so we won't show it
-       * as soon as we add the test feature, we can uncomment this code and use it again
-       */}
-      {/* <Input
+      <Input
         value={configReference.TestValue}
         onChange={(e) =>
           onChange({ ...configReference, TestValue: e.target.value })
         }
-        placeholder="Value"
-        className="w-16"
-      /> */}
+        placeholder={t("ConfigWizard.ConfigReferenceEditor.TestValueLabel")}
+        className="w-24"
+      />
 
       <Button
         variant="ghost"
@@ -116,7 +112,7 @@ const ConfigReferenceItemRow = ({
       >
         <div className="sr-only">
           {t(
-            "Dialog.InputConfigWizard.ConfigReferenceEditor.DeleteConfigReference",
+            "ConfigWizard.ConfigReferenceEditor.DeleteConfigReference",
           )}
         </div>
         <IconTrash className="h-4 w-4" />
@@ -129,7 +125,8 @@ const EMPTY_CONFIG_REFERENCE: ConfigReference = {
   Active: true,
   Ref: "",
   Placeholder: "",
-  TestValue: "",
+  // same default as the C# ConfigRef
+  TestValue: "1",
 }
 
 const ConfigReferenceEditor = ({
@@ -139,7 +136,7 @@ const ConfigReferenceEditor = ({
   configReferences,
   onConfigReferencesChange,
 }: ConfigReferenceEditorProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const handleChange = (index: number, updated: ConfigReference) => {
     onConfigReferencesChange(
       configReferences.map((c, i) => (i === index ? updated : c)),
@@ -173,12 +170,12 @@ const ConfigReferenceEditor = ({
               mode={mode}
               crumbs={[
                 configName,
-                t("Dialog.InputConfigWizard.ConfigReferences.Title"),
+                t("ConfigWizard.ConfigReferences.Title"),
               ]}
             />
           }
           description={t(
-            "Dialog.InputConfigWizard.ConfigReferenceEditor.Description",
+            "ConfigWizard.ConfigReferenceEditor.Description",
           )}
         />
         <Button
@@ -189,7 +186,7 @@ const ConfigReferenceEditor = ({
         >
           <IconPlus className="h-4 w-4" />
           {t(
-            "Dialog.InputConfigWizard.ConfigReferenceEditor.AddConfigReference",
+            "ConfigWizard.ConfigReferenceEditor.AddConfigReference",
           )}
         </Button>
       </div>
@@ -197,7 +194,7 @@ const ConfigReferenceEditor = ({
       {configReferences.length === 0 ? (
         <div className="text-muted-foreground rounded border p-4 text-center text-sm">
           {t(
-            "Dialog.InputConfigWizard.ConfigReferenceEditor.NoConfigReferences",
+            "ConfigWizard.ConfigReferenceEditor.NoConfigReferences",
           )}
         </div>
       ) : (

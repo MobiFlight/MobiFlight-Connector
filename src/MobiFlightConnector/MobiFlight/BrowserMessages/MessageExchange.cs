@@ -96,34 +96,43 @@ namespace MobiFlight.BrowserMessages
                 subscriptions = _subscribers[eventType].ToList();
             }
 
+            object deserializedPayload = null;
             try
             {
                 var rawPayload = eventToPublish.payload?.ToString();
-                object deserializedPayload = null;
                 if (rawPayload != null)
-                    deserializedPayload =
-                        JsonConvert.DeserializeObject(eventToPublish.payload?.ToString(), eventType);
-
-                foreach (var subscription in subscriptions)
-                {
-                    Action invokeSubscriber = () =>
-                    {
-                        subscription.Callback.GetType().GetMethod("Invoke")?.Invoke(subscription.Callback, new[] { deserializedPayload });
-                    };
-
-                    var isInvokedOnUiThread = subscription.OnUiThread && _uiSynchronizationContext != null;
-
-                    if (isInvokedOnUiThread)
-                    {
-                        _uiSynchronizationContext.Post((_) => invokeSubscriber(), null);
-                        continue;
-                    }
-                    invokeSubscriber();
-                }
+                    deserializedPayload = JsonConvert.DeserializeObject(rawPayload, eventType);
             }
             catch (Exception e)
             {
-                Log.Instance.log(e.Message, LogSeverity.Error);
+                Log.Instance.log($"Failed to deserialize payload for {eventToPublish.key}: {e.Message}", LogSeverity.Error);
+                return;
+            }
+
+            foreach (var subscription in subscriptions)
+            {
+                // Per-subscriber error handling: one failing subscriber must not prevent delivery to the others
+                Action invokeSubscriber = () =>
+                {
+                    try
+                    {
+                        subscription.Callback.GetType().GetMethod("Invoke")?.Invoke(subscription.Callback, new[] { deserializedPayload });
+                    }
+                    catch (Exception e)
+                    {
+                        var cause = (e as System.Reflection.TargetInvocationException)?.InnerException ?? e;
+                        Log.Instance.log($"Subscriber for {eventToPublish.key} failed: {cause.Message}", LogSeverity.Error);
+                    }
+                };
+
+                var isInvokedOnUiThread = subscription.OnUiThread && _uiSynchronizationContext != null;
+
+                if (isInvokedOnUiThread)
+                {
+                    _uiSynchronizationContext.Post((_) => invokeSubscriber(), null);
+                    continue;
+                }
+                invokeSubscriber();
             }
         }
 

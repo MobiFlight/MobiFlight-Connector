@@ -34,7 +34,7 @@ const FsuipcOffsetInputActionPanel = ({
   config,
   onConfigChange,
 }: FsuipcOffsetInputActionPanelProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const currentConfig = config?.FSUIPC ? config : defaultConfig
 
   if (variant === "summary") {
@@ -50,9 +50,9 @@ const FsuipcOffsetInputActionPanel = ({
   return (
     <WizardSection>
       <SectionHeadline
-        title={t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.Title")}
+        title={t("ConfigWizard.Input.InputActions.FsuipcOffset.Title")}
         description={t(
-          "Dialog.InputConfigWizard.InputActions.FsuipcOffset.Description",
+          "ConfigWizard.Input.InputActions.FsuipcOffset.Description",
         )}
       />
       <div className="flex flex-col gap-4">
@@ -68,7 +68,7 @@ const FsuipcOffsetInputActionPanel = ({
 
         <div className="flex flex-col gap-2">
           <Label htmlFor="value">
-            {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.ValueLabel")}
+            {t("ConfigWizard.Input.InputActions.FsuipcOffset.ValueLabel")}
           </Label>
           <Input
             className="font-mono text-sm whitespace-nowrap"
@@ -81,12 +81,12 @@ const FsuipcOffsetInputActionPanel = ({
               })
             }
             placeholder={t(
-              "Dialog.InputConfigWizard.InputActions.FsuipcOffset.ValuePlaceholder",
+              "ConfigWizard.Input.InputActions.FsuipcOffset.ValuePlaceholder",
             )}
           />
           <div className="text-muted-foreground text-sm">
             {t(
-              "Dialog.InputConfigWizard.InputActions.Common.SupportedPlaceholders",
+              "ConfigWizard.Input.InputActions.Common.SupportedPlaceholders",
             )}
           </div>
         </div>

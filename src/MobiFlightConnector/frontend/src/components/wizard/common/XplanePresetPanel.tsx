@@ -22,7 +22,7 @@ const XplanePresetPanel = <T,>({
   const code = adapter.getCode(config) ?? null
   const codeType = adapter.getCodeType(config) ?? null
   const value =
-    adapter.mode === "input" ? (adapter.getValue(config) ?? null) : null
+    adapter.mode === "InputConfigItem" ? (adapter.getValue(config) ?? null) : null
   const preset = presets.find((p) => p.code === code) ?? null
 
   if (variant === "summary") {
@@ -55,13 +55,13 @@ const XplanePresetPanel = <T,>({
           )
         }
         onCodeTypeChange={
-          adapter.mode === "input"
+          adapter.mode === "InputConfigItem"
             ? (codeType) =>
                 onConfigChange?.(adapter.withCodeType(config, codeType))
             : undefined
         }
         onValueChange={
-          adapter.mode === "input"
+          adapter.mode === "InputConfigItem"
             ? (value) => onConfigChange?.(adapter.withValue(config, value))
             : undefined
         }

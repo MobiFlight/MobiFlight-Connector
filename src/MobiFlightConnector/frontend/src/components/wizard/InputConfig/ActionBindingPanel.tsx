@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
+import SummaryButtons from "@/components/wizard/common/SummaryButtons"
 import { ActionSummary } from "@/components/wizard/InputConfig/ActionEditor"
 import {
   Action,
@@ -13,12 +14,7 @@ import {
   ButtonTrigger,
   EncoderTrigger,
 } from "@/types/config"
-import {
-  IconEdit,
-  IconInfoCircle,
-  IconPlus,
-  IconTrash,
-} from "@tabler/icons-react"
+import { IconInfoCircle, IconPlus, IconTrash } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 export type ActionTrigger = ButtonTrigger | EncoderTrigger | AnalogTrigger
 
@@ -48,7 +44,7 @@ const eventActionMap = {
 
 type EventActionMap = typeof eventActionMap
 type EventActionLabelKey = {
-  [V in keyof EventActionMap]: `Dialog.InputConfigWizard.${V}.Event.${EventActionMap[V][number]}.label`
+  [V in keyof EventActionMap]: `ConfigWizard.Input.${V}.Event.${EventActionMap[V][number]}.label`
 }[keyof EventActionMap]
 
 const ActionBindingPanel = ({
@@ -101,8 +97,8 @@ const ActionBindingPanel = ({
       <CardContent className="flex flex-col gap-2 py-4">
         <div className="flex flex-row items-start justify-between gap-2">
           <SectionHeadline
-            title={t(`Dialog.InputConfigWizard.Action.Title`)}
-            description={t(`Dialog.InputConfigWizard.Action.Description`)}
+            title={t(`ConfigWizard.Input.Action.Title`)}
+            description={t(`ConfigWizard.Input.Action.Description`)}
           />
           {onRemove && (
             <Button size={"sm"} variant="ghost" onClick={onRemove}>
@@ -117,7 +113,7 @@ const ActionBindingPanel = ({
           <div className="text-muted-foreground flex flex-row items-center justify-center gap-2">
             <IconInfoCircle className="text-primary" />
             <div className="text-muted-foreground text-sm">
-              {t(`Dialog.InputConfigWizard.Action.NoTriggerDefined`)}
+              {t(`ConfigWizard.Input.Action.NoTriggerDefined`)}
             </div>
           </div>
         )}
@@ -127,7 +123,7 @@ const ActionBindingPanel = ({
             | undefined
           const isLast = index === events.length - 1
           const eventLabel = t(
-            `Dialog.InputConfigWizard.${variant}.Event.${event}.label` as EventActionLabelKey,
+            `ConfigWizard.Input.${variant}.Event.${event}.label` as EventActionLabelKey,
           )
           return (
             action?.Type && (
@@ -149,45 +145,20 @@ const ActionBindingPanel = ({
                     </div>
                     <ActionSummary action={action} />
                   </div>
-                  <div className="flex w-20 flex-row justify-end pt-4">
-                    <Button
-                      size={"sm"}
-                      className="invisible h-8 px-2 py-1 text-red-600 group-hover:visible hover:text-red-600"
-                      variant="ghost"
-                      onClick={() => removeAction(event)}
-                    >
-                      <IconTrash />
-                      <span className="sr-only">
-                        {t(`Dialog.InputConfigWizard.Event.Remove`, {
-                          eventLabel,
-                        })}
-                      </span>
-                    </Button>
-                    <Button
-                      size={"sm"}
-                      className="group-hover:text-foreground text-muted-foreground h-8 px-2 py-1"
-                      variant="ghost"
-                      onClick={() => {
-                        onActionEdit(
-                          event,
-                          action,
-                          (newAction, buttonOptions) =>
-                            handleOnActionChange(
-                              event,
-                              newAction,
-                              buttonOptions,
-                            ),
-                        )
-                      }}
-                    >
-                      <IconEdit />
-                      <span className="sr-only">
-                        {t(`Dialog.InputConfigWizard.Event.Edit`, {
-                          eventLabel,
-                        })}
-                      </span>
-                    </Button>
-                  </div>
+                  <SummaryButtons
+                    onEdit={() =>
+                      onActionEdit(event, action, (newAction, buttonOptions) =>
+                        handleOnActionChange(event, newAction, buttonOptions),
+                      )
+                    }
+                    editLabel={t(`ConfigWizard.Input.Event.Edit`, {
+                      eventLabel,
+                    })}
+                    onRemove={() => removeAction(event)}
+                    removeLabel={t(`ConfigWizard.Input.Event.Remove`, {
+                      eventLabel,
+                    })}
+                  />
                 </div>
                 {!isLast && <Separator />}
               </div>
@@ -201,7 +172,7 @@ const ActionBindingPanel = ({
               | Action
               | undefined
             const eventLabel = t(
-              `Dialog.InputConfigWizard.${variant}.Event.${event}.label` as EventActionLabelKey,
+              `ConfigWizard.Input.${variant}.Event.${event}.label` as EventActionLabelKey,
             )
 
             return (

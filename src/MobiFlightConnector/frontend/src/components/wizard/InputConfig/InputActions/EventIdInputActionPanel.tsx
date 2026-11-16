@@ -27,7 +27,7 @@ const EventIdInputActionPanel = ({
   config,
   onConfigChange,
 }: EventIdInputActionPanelProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const mouseParams = [
     { Label: "MOUSE_FLAG_RIGHTSINGLE", Value: "2147483648" },
     { Label: "MOUSE_FLAG_MIDDLESINGLE", Value: "1073741824" },
@@ -57,8 +57,8 @@ const EventIdInputActionPanel = ({
   if (variant === "summary") {
     const label =
       options === "pmdg"
-        ? t("Dialog.InputConfigWizard.InputActions.EventId.MouseParamLabel")
-        : t("Dialog.InputConfigWizard.InputActions.EventId.CustomParamLabel")
+        ? t("ConfigWizard.Input.InputActions.EventId.MouseParamLabel")
+        : t("ConfigWizard.Input.InputActions.EventId.CustomParamLabel")
 
     const param =
       options === "pmdg"
@@ -70,7 +70,7 @@ const EventIdInputActionPanel = ({
       <div className="flex grow flex-row items-center gap-2">
         <div className="flex w-1/3 flex-col gap-1">
           <Label htmlFor="eventid">
-            {t("Dialog.InputConfigWizard.InputActions.EventId.EventIdLabel")}:
+            {t("ConfigWizard.Input.InputActions.EventId.EventIdLabel")}:
           </Label>
           <div className="text-sm">{config?.EventId ?? "-"}</div>
         </div>
@@ -85,15 +85,15 @@ const EventIdInputActionPanel = ({
   return (
     <WizardSection>
         <SectionHeadline
-          title={t("Dialog.InputConfigWizard.InputActions.EventId.Title")}
-          description={t("Dialog.InputConfigWizard.InputActions.EventId.Description")}
+          title={t("ConfigWizard.Input.InputActions.EventId.Title")}
+          description={t("ConfigWizard.Input.InputActions.EventId.Description")}
         />
         <div className="flex flex-col gap-4">
           {options === "pmdg" && (
             <div className="flex flex-col gap-2">
               <div className="text-sm font-semibold">
                 {t(
-                  "Dialog.InputConfigWizard.InputActions.EventId.PmdgAircraftLabel",
+                  "ConfigWizard.Input.InputActions.EventId.PmdgAircraftLabel",
                 )}
               </div>
               <RadioGroup
@@ -137,7 +137,7 @@ const EventIdInputActionPanel = ({
           />
           <div className="flex w-100 flex-col gap-2">
             <Label htmlFor="eventId">
-              {t("Dialog.InputConfigWizard.InputActions.EventId.EventIdLabel")}
+              {t("ConfigWizard.Input.InputActions.EventId.EventIdLabel")}
             </Label>
             <Input
               id="eventId"
@@ -153,7 +153,7 @@ const EventIdInputActionPanel = ({
             <div className="flex w-100 flex-col gap-2">
               <Label htmlFor="customParam">
                 {t(
-                  "Dialog.InputConfigWizard.InputActions.EventId.CustomParamLabel",
+                  "ConfigWizard.Input.InputActions.EventId.CustomParamLabel",
                 )}
               </Label>
               <Input
@@ -172,12 +172,12 @@ const EventIdInputActionPanel = ({
             <div className="flex flex-col gap-2">
               <Label htmlFor="mouseParam">
                 {t(
-                  "Dialog.InputConfigWizard.InputActions.EventId.MouseParamLabel",
+                  "ConfigWizard.Input.InputActions.EventId.MouseParamLabel",
                 )}
               </Label>
               <ComboBox
                 placeholder={t(
-                  "Dialog.InputConfigWizard.InputActions.EventId.SelectMouseParamPlaceholder",
+                  "ConfigWizard.Input.InputActions.EventId.SelectMouseParamPlaceholder",
                 )}
                 items={mouseParams}
                 getLabel={(item) => item.Label}

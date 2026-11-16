@@ -277,6 +277,24 @@ namespace MobiFlight.BrowserMessages.Tests
         }
 
         [TestMethod()]
+        public void PublishReceivedMessage_ShouldInvokeRemainingSubscribers_WhenEarlierSubscriberThrows()
+        {
+            // Arrange
+            var testEvent = new Test { Property1 = "TestValue" };
+            var messageJson = JsonConvert.SerializeObject(new Message<object>("Test", testEvent));
+
+            messageExchange.Subscribe<Test>(receivedEvent => throw new InvalidOperationException("failing subscriber"));
+            bool isSecondSubscriberInvoked = false;
+            messageExchange.Subscribe<Test>(receivedEvent => isSecondSubscriberInvoked = true);
+
+            // Act
+            capturedCallback(messageJson);
+
+            // Assert
+            Assert.IsTrue(isSecondSubscriberInvoked, "A throwing subscriber must not prevent delivery to later subscribers.");
+        }
+
+        [TestMethod()]
         public void SubscribeTest_CommandRefreshPresets_DeserializesEnumMemberPayloadToProSim()
         {
             // Arrange

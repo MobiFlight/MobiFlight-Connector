@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next"
 
 type ConfigReferencePanelProps = {
   mode: ConfigItemType
+  configGuid: string
   configName: string
   configReferences: ConfigReference[]
   onConfigReferencesChange?: (configReferences: ConfigReference[]) => void
@@ -20,18 +21,20 @@ type ConfigReferencePanelProps = {
 }
 const ConfigReferencePanel = ({
   mode,
+  configGuid,
   configName,
   configReferences,
   onConfigReferencesChange,
   variant,
   openDetailsPanel,
 }: ConfigReferencePanelProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const { project, activeConfigFileIndex } = useProjectStore()
   const maxDisplayCount = 2
   const outputConfigs =
     project?.ConfigFiles[activeConfigFileIndex].ConfigItems.filter(
-      (item) => item.Type === "OutputConfigItem",
+      // a config can't reference itself
+      (item) => item.Type === "OutputConfigItem" && item.GUID !== configGuid,
     ) || ([] as IConfigItem[])
 
   const hasConfigReferences = configReferences.length > 0
@@ -48,9 +51,9 @@ const ConfigReferencePanel = ({
       <CardContent className="flex flex-col gap-1 pt-4">
         <div className="flex flex-row items-start justify-between gap-4">
           <SectionHeadline
-            title={t("Dialog.InputConfigWizard.ConfigReferences.Title")}
+            title={t("ConfigWizard.ConfigReferences.Title")}
             description={t(
-              "Dialog.InputConfigWizard.ConfigReferences.Description",
+              "ConfigWizard.ConfigReferences.Description",
             )}
           />
           {hasConfigReferences ? (
@@ -59,7 +62,7 @@ const ConfigReferencePanel = ({
               size={"sm"}
               onClick={openDetailsPanel}
               aria-label={t(
-                "Dialog.InputConfigWizard.ConfigReferences.EditButton",
+                "ConfigWizard.ConfigReferences.EditButton",
               )}
             >
               <IconEdit />
@@ -70,11 +73,11 @@ const ConfigReferencePanel = ({
               size={"sm"}
               onClick={openDetailsPanel}
               aria-label={t(
-                "Dialog.InputConfigWizard.ConfigReferences.AddButton",
+                "ConfigWizard.ConfigReferences.AddButton",
               )}
             >
               <IconPlus className="" />
-              {t("Dialog.InputConfigWizard.ConfigReferences.Label")}
+              {t("ConfigWizard.ConfigReferences.Label")}
             </Button>
           )}
         </div>

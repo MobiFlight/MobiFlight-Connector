@@ -25,7 +25,7 @@ const VJoyInputActionPanel = ({
   config,
   setConfig,
 }: VJoyInputActionPanelProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const { publish } = messageExchange
   const { vJoyDefinitions, setVJoyDefinitions } = useVJoyControllerStore()
 
@@ -44,7 +44,7 @@ const VJoyInputActionPanel = ({
   }
 
   const vJoyOptions = vJoyDefinitions.map((def) => ({
-    label: t("Dialog.InputConfigWizard.InputActions.VJoy.ControllerLabel", {
+    label: t("ConfigWizard.Input.InputActions.VJoy.ControllerLabel", {
       index: def.Id,
     }),
     value: def.Id,
@@ -71,23 +71,23 @@ const VJoyInputActionPanel = ({
   const activeTab = config?.axisString ? "axis" : "button"
 
   const controllerLabel = config?.vJoyID
-    ? t("Dialog.InputConfigWizard.InputActions.VJoy.ControllerLabel", {
+    ? t("ConfigWizard.Input.InputActions.VJoy.ControllerLabel", {
         index: config?.vJoyID,
       })
-    : t("Dialog.InputConfigWizard.InputActions.VJoy.None")
+    : t("ConfigWizard.Input.InputActions.VJoy.None")
 
   if (variant === "summary") {
     return (
       <div className="flex flex-row">
         <div className="flex w-1/2 flex-col gap-1">
           <Label>
-            {t("Dialog.InputConfigWizard.InputActions.VJoy.Controller")}:
+            {t("ConfigWizard.Input.InputActions.VJoy.Controller")}:
           </Label>
           <div className="text-sm">{controllerLabel}</div>
         </div>
         <div className="flex w-1/4 flex-col gap-1">
           <Label>
-            {t("Dialog.InputConfigWizard.InputActions.VJoy.Device")}:
+            {t("ConfigWizard.Input.InputActions.VJoy.Device")}:
           </Label>
           {activeTab === "button" && (
             <div className="text-sm">Button {config?.buttonNr}</div>
@@ -99,19 +99,19 @@ const VJoyInputActionPanel = ({
         {activeTab === "button" && (
           <div className="flex w-1/4 flex-col gap-1">
             <Label>
-              {t("Dialog.InputConfigWizard.InputActions.VJoy.ButtonStateLabel")}
+              {t("ConfigWizard.Input.InputActions.VJoy.ButtonStateLabel")}
             </Label>
             <Badge variant={"secondary"} className="w-fit">
               {config?.buttonComand
-                ? t("Dialog.InputConfigWizard.InputActions.VJoy.Pressed")
-                : t("Dialog.InputConfigWizard.InputActions.VJoy.Released")}
+                ? t("ConfigWizard.Input.InputActions.VJoy.Pressed")
+                : t("ConfigWizard.Input.InputActions.VJoy.Released")}
             </Badge>
           </div>
         )}
         {activeTab === "axis" && (
           <div className="flex w-1/4 flex-col gap-1">
             <Label>
-              {t("Dialog.InputConfigWizard.InputActions.VJoy.AxisValueLabel")}
+              {t("ConfigWizard.Input.InputActions.VJoy.AxisValueLabel")}
             </Label>
             <CodeValueLabel>{config?.sendValue ?? "-"}</CodeValueLabel>
           </div>
@@ -123,19 +123,19 @@ const VJoyInputActionPanel = ({
   return (
     <WizardSection>
       <SectionHeadline
-        title={t("Dialog.InputConfigWizard.InputActions.VJoy.Title")}
+        title={t("ConfigWizard.Input.InputActions.VJoy.Title")}
         description={t(
-          "Dialog.InputConfigWizard.InputActions.VJoy.Description",
+          "ConfigWizard.Input.InputActions.VJoy.Description",
         )}
       />
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
           <Label htmlFor="joystick">
-            {t("Dialog.InputConfigWizard.InputActions.VJoy.SelectDeviceLabel")}
+            {t("ConfigWizard.Input.InputActions.VJoy.SelectDeviceLabel")}
           </Label>
           <ComboBox
             placeholder={t(
-              "Dialog.InputConfigWizard.InputActions.VJoy.SelectDevicePlaceholder",
+              "ConfigWizard.Input.InputActions.VJoy.SelectDevicePlaceholder",
             )}
             items={vJoyOptions}
             getLabel={(item) => item.label}
@@ -172,10 +172,10 @@ const VJoyInputActionPanel = ({
         >
           <TabsList>
             <TabsTrigger key="button" value="button">
-              {t("Dialog.InputConfigWizard.InputActions.VJoy.ButtonTab")}
+              {t("ConfigWizard.Input.InputActions.VJoy.ButtonTab")}
             </TabsTrigger>
             <TabsTrigger key="axis" value="axis">
-              {t("Dialog.InputConfigWizard.InputActions.VJoy.AxisTab")}
+              {t("ConfigWizard.Input.InputActions.VJoy.AxisTab")}
             </TabsTrigger>
           </TabsList>
           <TabsContent key="button" value="button">
@@ -183,12 +183,12 @@ const VJoyInputActionPanel = ({
               <div className="flex flex-col gap-2">
                 <Label htmlFor="buttonNr">
                   {t(
-                    "Dialog.InputConfigWizard.InputActions.VJoy.ButtonNumberLabel",
+                    "ConfigWizard.Input.InputActions.VJoy.ButtonNumberLabel",
                   )}
                 </Label>
                 <ComboBox
                   placeholder={t(
-                    "Dialog.InputConfigWizard.InputActions.VJoy.SelectButtonPlaceholder",
+                    "ConfigWizard.Input.InputActions.VJoy.SelectButtonPlaceholder",
                   )}
                   items={buttonOptions}
                   getLabel={(item) => `Button ${item}`}
@@ -209,7 +209,7 @@ const VJoyInputActionPanel = ({
               <div className="flex flex-col gap-2">
                 <Label htmlFor="buttonCommand">
                   {t(
-                    "Dialog.InputConfigWizard.InputActions.VJoy.ButtonStateLabel",
+                    "ConfigWizard.Input.InputActions.VJoy.ButtonStateLabel",
                   )}
                 </Label>
                 <div className="flex flex-row items-center gap-2">
@@ -228,9 +228,9 @@ const VJoyInputActionPanel = ({
                     data-testid="vjoy-button-command-state"
                   >
                     {config?.buttonComand
-                      ? t("Dialog.InputConfigWizard.InputActions.VJoy.Pressed")
+                      ? t("ConfigWizard.Input.InputActions.VJoy.Pressed")
                       : t(
-                          "Dialog.InputConfigWizard.InputActions.VJoy.Released",
+                          "ConfigWizard.Input.InputActions.VJoy.Released",
                         )}
                   </span>
                 </div>
@@ -241,7 +241,7 @@ const VJoyInputActionPanel = ({
             <div className="flex flex-col gap-4 pt-2">
               <ComboBox
                 placeholder={t(
-                  "Dialog.InputConfigWizard.InputActions.VJoy.SelectAxisPlaceholder",
+                  "ConfigWizard.Input.InputActions.VJoy.SelectAxisPlaceholder",
                 )}
                 items={axisOptions}
                 getLabel={(item) => item}
@@ -261,7 +261,7 @@ const VJoyInputActionPanel = ({
               <div className="flex flex-col gap-2">
                 <Label htmlFor="axisValue">
                   {t(
-                    "Dialog.InputConfigWizard.InputActions.VJoy.AxisValueLabel",
+                    "ConfigWizard.Input.InputActions.VJoy.AxisValueLabel",
                   )}
                 </Label>
                 <Input
