@@ -2449,6 +2449,28 @@ test.describe("Output Config Wizard - Preconditions, References and Modifiers", 
     await expect(preconditionsPanel.getByText(/7-Segment/)).toBeVisible()
   })
 
+  test("Config references do not offer the config itself", async ({
+    configListPage,
+    page,
+  }) => {
+    await openWizardForRow(configListPage, page, ROW.Output)
+
+    await page
+      .getByTestId("config-reference-panel")
+      .getByRole("button", { name: "Edit references" })
+      .click()
+    await page
+      .getByTestId("config-reference-item-row")
+      .first()
+      .getByRole("combobox")
+      .click()
+
+    await expect(page.getByRole("option").first()).toBeVisible()
+    await expect(
+      page.getByRole("option", { name: "LED 1", exact: true }),
+    ).toHaveCount(0)
+  })
+
   test("Config without references and preconditions hides their summaries", async ({
     configListPage,
     page,
