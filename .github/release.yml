@@ -20,6 +20,9 @@ changelog:
     - title: New UI Language 🌍  
       labels:
         - i18n
+    - title: Performance 👟
+      labels:
+        - performance
     - title: Improvement ✨
       labels:
         - enhancement
