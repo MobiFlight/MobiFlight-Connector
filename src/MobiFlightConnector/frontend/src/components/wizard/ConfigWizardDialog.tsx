@@ -14,7 +14,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area"
 import ConfigWizard from "@/components/wizard/ConfigWizard"
 import messageExchange from "@/lib/messageExchange"
-import HistoryControls from "@/components/wizard/components/HistoryControls"
+import HistoryControls from "@/components/wizard/InputConfig/HistoryControls"
 import { cn } from "@/lib/utils"
 import { useProjectStore } from "@/stores/projectStore"
 import { useConfigItemStateValue } from "@/stores/configItemStateStore"

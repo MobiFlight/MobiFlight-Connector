@@ -26,7 +26,7 @@ import { ProjectInfo } from "@/types/project"
 import { useModal } from "@/lib/hooks/useModal"
 import { CommandUndoConfigList } from "@/types/commands"
 import { useHistoryStore } from "@/stores/historyStore"
-import HistoryControls from "@/components/wizard/components/HistoryControls"
+import HistoryControls from "../wizard/InputConfig/HistoryControls"
 
 export type ProjectNameLabelProps = {
   project: Project | null

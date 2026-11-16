@@ -540,29 +540,34 @@ const ActionEditor = ({
               onActionChange={onActionChange}
             />
           )}
-      <Card>
-        <CardContent className="pt-4">
-          <div className="flex flex-col gap-4">
-            <div className="flex flex-row items-end justify-between">
-              <ActionTypeComboBox
-                selectedActionType={selectedActionType}
-                setSelectedActionType={(option) => {
-                  onActionChange(
-                    option ? { ...action, Type: option.value } : null,
-                  )
-                }}
-              />
-              <CopyPasteActionPanel
-                action={action}
-                onActionChange={(newAction) => {
-                  onActionChange(newAction)
-                }}
-              />
-            </div>
+        </WizardSection>
+      )}
+      <WizardSection>
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-row items-end justify-between">
+            <ActionTypeComboBox
+              selectedActionType={selectedActionType}
+              setSelectedActionType={handleActionTypeChange}
+            />
+            <CopyPasteActionPanel
+              action={action}
+              onActionChange={(newAction) => {
+                const actionLabel =
+                  action?.Type !== newAction?.Type
+                    ? "Dialog.InputConfigWizard.History.ActionTypeChanged"
+                    : "Dialog.InputConfigWizard.History.ActionChanged"
+                onActionChange(newAction, undefined, actionLabel)
+              }}
+            />
           </div>
-        </CardContent>
-      </Card>
-      <ActionPanel onActionChange={onActionChange} action={action} />
+        </div>
+      </WizardSection>
+      <ActionPanel
+        action={action}
+        onActionChange={(updatedAction, actionLabel) => {
+          onActionChange(updatedAction, undefined, actionLabel ?? "Dialog.InputConfigWizard.History.ActionChanged")
+        }}
+        />
     </div>
   )
 }
