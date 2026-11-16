@@ -2008,7 +2008,7 @@ namespace MobiFlight.Tests
             MessageExchange.Instance.Publish(
                 new CommandConfigContextMenu
                 {
-                    Action = "duplicate",
+                    Action = CommandConfigContextMenuAction.duplicate,
                     Item = original
                 }
             );

@@ -477,7 +477,7 @@ namespace MobiFlight
                 IConfigItem cfg;
                 switch (message.Action)
                 {
-                    case "duplicate":
+                    case CommandConfigContextMenuAction.duplicate:
                         int duplicateIndex = ConfigItems.FindIndex(
                              i => i.GUID == message.Item.GUID
                          );
