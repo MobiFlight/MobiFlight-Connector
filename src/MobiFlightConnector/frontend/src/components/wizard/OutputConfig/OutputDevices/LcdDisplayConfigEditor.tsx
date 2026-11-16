@@ -289,7 +289,7 @@ export const LcdDisplayConfigEditor = ({
           <div className="w-fit rounded-md bg-linear-to-br from-gray-700 to-slate-900 to-15% p-4 drop-shadow-md drop-shadow-mist-900">
             <div
               role="textbox"
-              aria-label={t("ConfigWizard.Device.LcdDisplay.Editor.Template")}
+              aria-label={t("ConfigWizard.Device.LcdDisplay.Editor.Content.Title")}
               tabIndex={0}
               className="focus-visible:ring-ring inline-grid w-fit gap-0.5 rounded-md bg-blue-700 p-2 outline-none focus-visible:ring-2"
               style={{ gridTemplateColumns: `repeat(${cols}, auto)` }}
