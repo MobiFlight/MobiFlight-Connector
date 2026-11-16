@@ -23,6 +23,7 @@
       "Title": "Source value",
       "Description": "Configure the value for this output configuration.",
       "Label": "Source",
+      "Edit": "Edit source",
       "Remove": "Remove source"
     },
     "SourceType": {
@@ -57,6 +58,7 @@
         "Description": "Test the functionality of this output device configuration."
       },
       "Edit": "Edit output device",
+      "Remove": "Remove output device",
       "Stepper": {
         "Title": "Step 2 - Stepper settings",
         "Description": "Select the stepper and configure how values map to its movement.",

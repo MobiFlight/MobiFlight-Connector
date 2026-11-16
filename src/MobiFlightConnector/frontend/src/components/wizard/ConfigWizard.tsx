@@ -239,6 +239,7 @@ const ConfigWizard = ({
             <div className="lg:w-1/2">
               <ConfigReferencePanel
                 mode={configItem.Type}
+                configGuid={configItem.GUID}
                 configName={configItem.Name}
                 configReferences={configItem.ConfigRefs ?? []}
                 variant="summary"
@@ -426,6 +427,7 @@ const ConfigWizard = ({
               {detailView === "configReference" && (
                 <ConfigReferencePanel
                   mode={configItem.Type}
+                  configGuid={configItem.GUID}
                   configName={configItem.Name}
                   onConfigReferencesChange={(configReferences) => {
                     onConfigChange({

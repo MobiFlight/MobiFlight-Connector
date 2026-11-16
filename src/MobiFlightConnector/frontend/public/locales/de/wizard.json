@@ -23,6 +23,7 @@
       "Title": "Quellwert",
       "Description": "Konfiguriere den Wert für diese Ausgabe-Konfiguration.",
       "Label": "Quelle",
+      "Edit": "Quelle bearbeiten",
       "Remove": "Quelle entfernen"
     },
     "SourceType": {
@@ -57,6 +58,7 @@
         "Description": "Teste die Funktion dieses Ausgabegeräts."
       },
       "Edit": "Ausgabegerät bearbeiten",
+      "Remove": "Ausgabegerät entfernen",
       "Stepper": {
         "Title": "Schritt 2 - Schrittmotor-Einstellungen",
         "Description": "Wähle den Schrittmotor aus und lege fest, wie Werte auf seine Bewegung abgebildet werden.",

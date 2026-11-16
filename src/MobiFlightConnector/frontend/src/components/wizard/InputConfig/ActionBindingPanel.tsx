@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
+import SummaryButtons from "@/components/wizard/common/SummaryButtons"
 import { ActionSummary } from "@/components/wizard/InputConfig/ActionEditor"
 import {
   Action,
@@ -13,12 +14,7 @@ import {
   ButtonTrigger,
   EncoderTrigger,
 } from "@/types/config"
-import {
-  IconEdit,
-  IconInfoCircle,
-  IconPlus,
-  IconTrash,
-} from "@tabler/icons-react"
+import { IconInfoCircle, IconPlus, IconTrash } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 export type ActionTrigger = ButtonTrigger | EncoderTrigger | AnalogTrigger
 
@@ -149,45 +145,20 @@ const ActionBindingPanel = ({
                     </div>
                     <ActionSummary action={action} />
                   </div>
-                  <div className="flex w-20 flex-row justify-end pt-4">
-                    <Button
-                      size={"sm"}
-                      className="invisible h-8 px-2 py-1 text-red-600 group-hover:visible hover:text-red-600"
-                      variant="ghost"
-                      onClick={() => removeAction(event)}
-                    >
-                      <IconTrash />
-                      <span className="sr-only">
-                        {t(`ConfigWizard.Input.Event.Remove`, {
-                          eventLabel,
-                        })}
-                      </span>
-                    </Button>
-                    <Button
-                      size={"sm"}
-                      className="group-hover:text-foreground text-muted-foreground h-8 px-2 py-1"
-                      variant="ghost"
-                      onClick={() => {
-                        onActionEdit(
-                          event,
-                          action,
-                          (newAction, buttonOptions) =>
-                            handleOnActionChange(
-                              event,
-                              newAction,
-                              buttonOptions,
-                            ),
-                        )
-                      }}
-                    >
-                      <IconEdit />
-                      <span className="sr-only">
-                        {t(`ConfigWizard.Input.Event.Edit`, {
-                          eventLabel,
-                        })}
-                      </span>
-                    </Button>
-                  </div>
+                  <SummaryButtons
+                    onEdit={() =>
+                      onActionEdit(event, action, (newAction, buttonOptions) =>
+                        handleOnActionChange(event, newAction, buttonOptions),
+                      )
+                    }
+                    editLabel={t(`ConfigWizard.Input.Event.Edit`, {
+                      eventLabel,
+                    })}
+                    onRemove={() => removeAction(event)}
+                    removeLabel={t(`ConfigWizard.Input.Event.Remove`, {
+                      eventLabel,
+                    })}
+                  />
                 </div>
                 {!isLast && <Separator />}
               </div>

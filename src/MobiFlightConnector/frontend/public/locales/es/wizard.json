@@ -23,6 +23,7 @@
       "Title": "Valor de la fuente",
       "Description": "Configura el valor para esta configuración de salida.",
       "Label": "Fuente",
+      "Edit": "Editar fuente",
       "Remove": "Eliminar fuente"
     },
     "SourceType": {
@@ -57,6 +58,7 @@
         "Description": "Prueba el funcionamiento de este dispositivo de salida."
       },
       "Edit": "Editar dispositivo de salida",
+      "Remove": "Eliminar dispositivo de salida",
       "Stepper": {
         "Title": "Paso 2 - Ajustes de Stepper",
         "Description": "Selecciona el Stepper y configura cómo se asignan los valores a su movimiento.",
