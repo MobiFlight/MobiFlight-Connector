@@ -34,7 +34,10 @@ const LcdDisplayPanel = ({
 }: LcdDisplayPanelProps) => {
   const { t } = useTranslation("wizard")
   const [view, setView] = useState<LcdEditorView>("template")
-  const previewLines = useLcdDisplayPreview(configItem)
+  const previewLines = useLcdDisplayPreview(
+    configItem,
+    view === "livepreview",
+  )
 
   if (variant == "details") {
     const selectedDevice = devices.find(

@@ -10,7 +10,7 @@ import { DeviceReference } from "@/types/controller"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 
-export type LcdEditorView = "template" | "visualization"
+export type LcdEditorView = "template" | "livepreview"
 
 // the placeholder for the value of this config
 const OWN_VALUE_PLACEHOLDER = "$"
@@ -142,7 +142,7 @@ export const LcdDisplayConfigEditor = ({
 
   const grid = toGrid(config.Lines ?? [], rows, cols)
   const shownGrid =
-    view === "visualization" && previewLines
+    view === "livepreview" && previewLines
       ? toGrid(previewLines, rows, cols)
       : grid
 
@@ -343,9 +343,9 @@ export const LcdDisplayConfigEditor = ({
             <Switch
               id="lcd-editor-view"
               data-testid="lcd-editor-view"
-              checked={view === "visualization"}
+              checked={view === "livepreview"}
               onCheckedChange={(checked) =>
-                onViewChange(checked ? "visualization" : "template")
+                onViewChange(checked ? "livepreview" : "template")
               }
             />
             <Label htmlFor="lcd-editor-view">

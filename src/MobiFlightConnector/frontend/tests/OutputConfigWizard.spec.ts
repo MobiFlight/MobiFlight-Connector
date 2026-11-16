@@ -2214,14 +2214,20 @@ test.describe("Output Config Wizard - LCD Display Device", () => {
       await expect(cell(2, 5)).toHaveText("6")
     })
 
+    const previewCommands = async () =>
+      (await configListPage.mobiFlightPage.getTrackedCommands())?.filter(
+        (c) => c.key === "CommandLcdDisplayPreview",
+      ) ?? []
+
+    await test.step("Without live preview no preview is requested", async () => {
+      expect(await previewCommands()).toHaveLength(0)
+    })
+
     await test.step("The visualization shows the text rendered by the backend", async () => {
-      const commands = await configListPage.mobiFlightPage.getTrackedCommands()
-      const previewCommand = commands
-        ?.filter((c) => c.key === "CommandLcdDisplayPreview")
-        .pop()
-      expect(previewCommand?.payload.item.GUID).toBe(
-        "61ae4145-c7d5-41ef-b2a9-c993f8986be1",
-      )
+      await lcdEditor.getByTestId("lcd-editor-view").click()
+      await expect
+        .poll(async () => (await previewCommands()).pop()?.payload.item.GUID)
+        .toBe("61ae4145-c7d5-41ef-b2a9-c993f8986be1")
 
       await configListPage.mobiFlightPage.publishMessage({
         key: "LcdDisplayPreview",
@@ -2230,7 +2236,6 @@ test.describe("Output Config Wizard - LCD Display Device", () => {
           Lines: ["1234567890123456", "Hello MobiFlight", "118.567890123456"],
         } as LcdDisplayPreview,
       })
-      await lcdEditor.getByTestId("lcd-editor-view").click()
       await expect(cell(2, 0)).toHaveText("1")
       await expect(cell(2, 4)).toHaveText("5")
       // the fourth row is not part of the preview, so it is blank
