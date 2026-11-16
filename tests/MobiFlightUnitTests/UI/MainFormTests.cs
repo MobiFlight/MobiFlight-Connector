@@ -101,6 +101,9 @@ namespace MobiFlight.UI.Tests
         [TestInitialize]
         public void SetUp()
         {
+            // Drop subscribers leaked by other test classes before MainForm registers its own
+            MessageExchange.Instance.ClearSubscriptions();
+
             // Initialize the MainForm
             _mainForm = new TestableMainForm();
 
@@ -133,6 +136,9 @@ namespace MobiFlight.UI.Tests
             Properties.Settings.Default.Save();
 
             _mainForm.RestorePublisher();
+
+            // Stale ExecutionManager subscribers on the singleton would otherwise handle (and throw on) later tests' messages
+            MessageExchange.Instance.ClearSubscriptions();
 
             try
             {
