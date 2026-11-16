@@ -544,6 +544,29 @@ namespace MobiFlight.UI.Tests
             Assert.AreEqual(!initialAutoRun, settingsMessage.AutoRun,
                 "AutoRun should be toggled in published settings");
         }
+
+        [TestMethod]
+        public void CommandAddConfigItem_CreatesOutputConfigItemWithoutSourceSet()
+        {
+            // Arrange
+            _mainForm.InitializeExecutionManager();
+            _mainForm.InitializeControllerBindingService();
+            var executionManager = _mainForm.ExecutionManager;
+            
+            var configFile = new ConfigFile() { Label = "TestConfigFile" };
+            executionManager.Project.Sim = "msfs";
+            executionManager.Project.ConfigFiles.Add(configFile);
+            
+            // Act - Simulate Frontend action to add config item
+            var jsonMessage = JsonConvert.SerializeObject(new BrowserMessages.Message<CommandAddConfigItem>(new CommandAddConfigItem()));
+
+            _mainForm.Publisher.SimulateIncomingMessage(jsonMessage);
+            
+            // Assert - The new config item should be added to the project's config file
+            Assert.HasCount(1, configFile.ConfigItems, "There should be one config item in the config file");
+            Assert.IsInstanceOfType<OutputConfigItem>(configFile.ConfigItems[0], "Config should be an OutputConfigItem");
+            Assert.IsNull((configFile.ConfigItems[0] as OutputConfigItem).Source, "The Source of the new config item should be null");
+        }
         #endregion
 
         public class TestMessagePublisher : IMessagePublisher
