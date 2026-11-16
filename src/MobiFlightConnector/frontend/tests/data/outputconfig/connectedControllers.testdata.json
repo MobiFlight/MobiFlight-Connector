@@ -54,6 +54,12 @@
         "Capabilities": { "Digits": 8 }
       },
       {
+        "Name": "TM1637",
+        "Label": "TM1637",
+        "Type": "LedModule",
+        "Capabilities": { "Digits": 4 }
+      },
+      {
         "Name": "ShiftRegister 1",
         "Label": "ShiftRegister 1",
         "Type": "ShiftRegister",

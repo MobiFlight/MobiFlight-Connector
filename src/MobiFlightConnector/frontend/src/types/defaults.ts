@@ -68,7 +68,10 @@ export const OutputDeviceConfigDefaults = {
       case "Output":
         return OutputDeviceConfigDefaults.createOutputConfig(name)
       case "LedModule":
-        return OutputDeviceConfigDefaults.createLedModuleConfig(name)
+        return OutputDeviceConfigDefaults.createLedModuleConfig(
+          name,
+          capability,
+        )
       case "LcdDisplay":
         return OutputDeviceConfigDefaults.createLcdDisplayConfig(name)
       case "Servo":
@@ -96,18 +99,28 @@ export const OutputDeviceConfigDefaults = {
     Address: name,
     Pin: "Output 0"
   }),
-  createLedModuleConfig: (name: string): LedModuleConfig => ({
-    Type: "LedModule",
-    Name: name,
-    DisplayLedAddress: name,
-    DisplayLedModuleSize: 8,
-    DisplayLedPadding: false,
-    DisplayLedPaddingChar: "0",
-    DisplayLedDigits: [],
-    DisplayLedDecimalPoints: [],
-    DisplayLedReverseDigits: false,
-    DisplayLedBrightnessReference: "",
-  }),
+  // The value uses all digits of the display by default
+  createLedModuleConfig: (
+    name: string,
+    capability?: DeviceCapability,
+  ): LedModuleConfig => {
+    const moduleSize = capability?.Digits ?? 8
+    return {
+      Type: "LedModule",
+      Name: name,
+      DisplayLedAddress: name,
+      DisplayLedModuleSize: moduleSize,
+      DisplayLedPadding: false,
+      DisplayLedPaddingChar: "0",
+      DisplayLedDigits: Array.from(
+        { length: moduleSize },
+        (_, index) => `${index}`,
+      ),
+      DisplayLedDecimalPoints: [],
+      DisplayLedReverseDigits: false,
+      DisplayLedBrightnessReference: "",
+    }
+  },
   createLcdDisplayConfig: (name: string): LcdDisplayConfig => ({
     Type: "LcdDisplay",
     Name: name,

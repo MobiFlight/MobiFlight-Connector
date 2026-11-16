@@ -3,6 +3,7 @@ import { IConfigItem, LedModuleConfig } from "@/types/config"
 import { DeviceReference, Controller } from "@/types/controller"
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import ComboBox from "@/components/ComboBox"
 import OutputDeviceComboBox from "@/components/wizard/OutputConfig/OutputDevices/OutputDeviceComboBox"
@@ -10,6 +11,7 @@ import { Separator } from "@/components/ui/separator"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import WizardSection from "@/components/wizard/common/WizardSection"
 import { useProjectStore } from "@/stores/projectStore"
+import { Fragment } from "react"
 import { useTranslation } from "react-i18next"
 
 type Option = { label: string; value: string }
@@ -97,17 +99,37 @@ const LedModulePanel = ({
     const toggle = (list: string[], digit: string, checked: boolean) =>
       checked ? [...list, digit] : list.filter((item) => item !== digit)
 
-    const updateModuleSize = (value: string) => {
-      const size = Number(value)
-      // drop digits that are no longer visible
+    // drop digits that are no longer visible
+    const withModuleSize = (
+      ledConfig: LedModuleConfig,
+      size: number,
+    ): LedModuleConfig => {
       const isVisible = (digit: string) => Number(digit) < size
-      onChange?.({
-        ...config,
+      return {
+        ...ledConfig,
         DisplayLedModuleSize: size,
-        DisplayLedDigits: config.DisplayLedDigits.filter(isVisible),
+        DisplayLedDigits: ledConfig.DisplayLedDigits.filter(isVisible),
         DisplayLedDecimalPoints:
-          config.DisplayLedDecimalPoints.filter(isVisible),
-      })
+          ledConfig.DisplayLedDecimalPoints.filter(isVisible),
+      }
+    }
+
+    const updateModuleSize = (value: string) =>
+      onChange?.(withModuleSize(config, Number(value)))
+
+    // a smaller display can't show all digits of the current module size
+    const updateDisplay = (address: string) => {
+      const display = devices.find((device) => device.Name === address)
+      const size = Math.min(
+        config.DisplayLedModuleSize,
+        display?.Capabilities?.Digits ?? config.DisplayLedModuleSize,
+      )
+      onChange?.(
+        withModuleSize(
+          { ...config, DisplayLedAddress: address, Name: address },
+          size,
+        ),
+      )
     }
 
     const moduleSizeOptions: Option[] = Array.from(
@@ -128,13 +150,7 @@ const LedModulePanel = ({
               devices={devices}
               deviceType="LedModule"
               selectedName={config.DisplayLedAddress}
-              onChange={(address) =>
-                onChange?.({
-                  ...config,
-                  DisplayLedAddress: address,
-                  Name: address,
-                })
-              }
+              onChange={updateDisplay}
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -147,53 +163,83 @@ const LedModulePanel = ({
           </div>
         </div>
         <Separator />
-        <div className="flex flex-col gap-2">
-          <Label>{t("ConfigWizard.Device.SevenSegment.UseDigits")}</Label>
-          <div className="text-muted-foreground flex flex-row gap-3 text-xs">
-            {digitIndexes.map((digit) => (
-              <span key={digit} className="w-4 text-center">
-                {Number(digit) + 1}
-              </span>
-            ))}
-          </div>
-          <div className="flex flex-row gap-3">
-            {digitIndexes.map((digit) => (
-              <Checkbox
-                key={digit}
-                checked={config.DisplayLedDigits.includes(digit)}
-                onCheckedChange={(checked) =>
-                  onChange?.({
-                    ...config,
-                    DisplayLedDigits: toggle(
-                      config.DisplayLedDigits,
-                      digit,
-                      !!checked,
-                    ),
-                  })
-                }
-              />
-            ))}
-          </div>
-        </div>
-        <div className="flex flex-col gap-2">
-          <Label>{t("ConfigWizard.Device.SevenSegment.DecimalPoints")}</Label>
-          <div className="flex flex-row gap-3">
-            {digitIndexes.map((digit) => (
-              <Checkbox
-                key={digit}
-                checked={config.DisplayLedDecimalPoints.includes(digit)}
-                onCheckedChange={(checked) =>
-                  onChange?.({
-                    ...config,
-                    DisplayLedDecimalPoints: toggle(
-                      config.DisplayLedDecimalPoints,
-                      digit,
-                      !!checked,
-                    ),
-                  })
-                }
-              />
-            ))}
+        {/* one column per digit with its number, digit and decimal point */}
+        <div className="grid grid-flow-col grid-rows-3 items-center justify-start justify-items-center gap-x-3 gap-y-2">
+          <span />
+          <Label className="justify-self-start">
+            {t("ConfigWizard.Device.SevenSegment.UseDigits")}
+          </Label>
+          <Label className="justify-self-start">
+            {t("ConfigWizard.Device.SevenSegment.DecimalPoints")}
+          </Label>
+          {digitIndexes.map((digit) => {
+            const position = Number(digit) + 1
+            const digitId = `led-digit-${digit}`
+            return (
+              <Fragment key={digit}>
+                <Label
+                  htmlFor={digitId}
+                  className="text-muted-foreground w-4 text-center text-xs"
+                >
+                  {position}
+                </Label>
+                <Checkbox
+                  id={digitId}
+                  aria-label={t("ConfigWizard.Device.SevenSegment.DigitLabel", {
+                    position,
+                  })}
+                  checked={config.DisplayLedDigits.includes(digit)}
+                  onCheckedChange={(checked) =>
+                    onChange?.({
+                      ...config,
+                      DisplayLedDigits: toggle(
+                        config.DisplayLedDigits,
+                        digit,
+                        !!checked,
+                      ),
+                    })
+                  }
+                />
+                <Checkbox
+                  aria-label={t(
+                    "ConfigWizard.Device.SevenSegment.DecimalPointLabel",
+                    { position },
+                  )}
+                  checked={config.DisplayLedDecimalPoints.includes(digit)}
+                  onCheckedChange={(checked) =>
+                    onChange?.({
+                      ...config,
+                      DisplayLedDecimalPoints: toggle(
+                        config.DisplayLedDecimalPoints,
+                        digit,
+                        !!checked,
+                      ),
+                    })
+                  }
+                />
+              </Fragment>
+            )
+          })}
+          <span />
+          <div className="flex flex-row gap-3 pl-2">
+            <Button
+              variant="link"
+              size="sm"
+              className="h-auto p-0"
+              onClick={() =>
+                onChange?.({ ...config, DisplayLedDigits: digitIndexes })
+              }
+            >
+              {t("ConfigWizard.Device.SevenSegment.SelectAllDigits")}
+            </Button>
+            <Button
+              variant="link"
+              size="sm"
+              className="h-auto p-0"
+              onClick={() => onChange?.({ ...config, DisplayLedDigits: [] })}
+            >
+              {t("ConfigWizard.Device.SevenSegment.ClearDigits")}
+            </Button>
           </div>
         </div>
         <Separator />
