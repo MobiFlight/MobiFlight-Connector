@@ -90,6 +90,9 @@ export interface CommandAddConfigItem extends CommandMessageBase {
   payload: {
     name: string
     type: ConfigItemType
+    // GUID of the config the new config is inserted after,
+    // it is added at the end of the list if not set
+    insertAfterGuid?: string
   }
 }
 
