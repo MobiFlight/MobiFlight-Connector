@@ -151,8 +151,13 @@ export const useCloudSettingsSync = () => {
       try {
         const cloudData = await fetchCloudSettings(auth)
 
+        if (!cloudData || !cloudData.content) {
+          await handleInitialUpload(current)
+          return
+        }
+
         const noCloudSettingsExistYet =
-          Object.keys(cloudData?.content ?? {}).length === 0
+          Object.keys(cloudData.content).length === 0
         if (noCloudSettingsExistYet) {
           await handleInitialUpload(current)
           return
@@ -160,11 +165,11 @@ export const useCloudSettingsSync = () => {
 
         const localSettingsAndCloudAreSame = isEqual(
           current,
-          cloudData!.content,
+          cloudData.content,
         )
         if (localSettingsAndCloudAreSame) {
-          if (cloudData!.contentHash) {
-            cloudSyncStorage.setLastSyncedHash(cloudData!.contentHash)
+          if (cloudData.contentHash) {
+            cloudSyncStorage.setLastSyncedHash(cloudData.contentHash)
             cloudSyncStorage.setLastSyncedSettings(current)
           }
           return
@@ -175,30 +180,29 @@ export const useCloudSettingsSync = () => {
         const localModified =
           !lastSyncedSettings || !isEqual(current, lastSyncedSettings)
 
-        const cloudUnchangedSinceLastSync = Boolean(
-          lastSyncedHash && cloudData!.contentHash === lastSyncedHash,
-        )
-        if (cloudUnchangedSinceLastSync) {
+        const cloudUnchangedSinceLastSync =
+          lastSyncedHash !== null &&
+          cloudData.contentHash === lastSyncedHash
+        if (cloudUnchangedSinceLastSync && lastSyncedHash) {
           await handleAutoUpload(
             current,
-            lastSyncedHash!,
-            cloudData!.content,
-            cloudData!.contentHash,
+            lastSyncedHash,
+            cloudData.content,
+            cloudData.contentHash,
           )
           return
         }
 
-        const onlyCloudChangedRemotely = Boolean(
-          lastSyncedHash &&
-            !localModified &&
-            cloudData!.contentHash !== lastSyncedHash,
-        )
+        const onlyCloudChangedRemotely =
+          lastSyncedHash !== null &&
+          !localModified &&
+          cloudData.contentHash !== lastSyncedHash
         if (onlyCloudChangedRemotely) {
-          handleAutoDownload(current, cloudData!)
+          handleAutoDownload(current, cloudData)
           return
         }
 
-        handleConflict(cloudData!.content, cloudData!.contentHash)
+        handleConflict(cloudData.content, cloudData.contentHash)
       } catch {
         showSyncNotification("failed_fetch")
       }
