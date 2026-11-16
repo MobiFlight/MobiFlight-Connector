@@ -79,6 +79,26 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod]
+        public void Execute_ShouldExecute_WhenConfigItemIsInactiveAndTested()
+        {
+            // Arrange
+            var cfg = new OutputConfigItem
+            {
+                Active = false,
+                TestValue = new ConnectorValue { type = FSUIPCOffsetType.Float, Float64 = 2 }
+            };
+            cfg.Modifiers.Items.Add(new Transformation() { Active = true, Expression = "$*10" });
+            var updatedValues = new ConcurrentDictionary<string, IConfigItem>();
+
+            // Act
+            executor.Execute(cfg, updatedValues, isTest: true);
+
+            // Assert
+            Assert.AreEqual("2", cfg.RawValue, "RawValue should be the test value");
+            Assert.AreEqual("20", cfg.Value, "The modifier should have been applied to the test value");
+        }
+
+        [TestMethod]
         public void Execute_ShouldExecute_WhenNoSourceIsSet()
         {
             // Arrange

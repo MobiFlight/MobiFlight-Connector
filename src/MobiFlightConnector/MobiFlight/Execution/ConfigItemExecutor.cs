@@ -60,14 +60,18 @@ namespace MobiFlight.Execution
             this.ConfigItemInTestMode = configItemInTestMode;
         }
 
-        public void Execute(OutputConfigItem cfg, ConcurrentDictionary<string, IConfigItem> updatedValues)
+        // Runs the pipeline for one config:
+        // read source -> modify (with config reference values) -> check preconditions -> display.
+        // A test uses the test value instead of reading the source and skips the preconditions.
+        public void Execute(OutputConfigItem cfg, ConcurrentDictionary<string, IConfigItem> updatedValues, bool isTest = false)
         {
-            if (!cfg.Active) return;
+            // inactive configs are not executed, but can still be tested
+            if (!cfg.Active && !isTest) return;
 
             var originalCfg = cfg.Clone() as ConfigItem;
 
-            // Handle test mode
-            if (ConfigItemInTestMode != null && ConfigItemInTestMode.GUID == cfg.GUID)
+            // A config in test mode is skipped by the regular execution
+            if (!isTest && ConfigItemInTestMode != null && ConfigItemInTestMode.GUID == cfg.GUID)
             {
                 cfg.Status[ConfigItemStatusType.Test] = "TESTING";
                 if (!cfg.Equals(originalCfg))
@@ -79,57 +83,11 @@ namespace MobiFlight.Execution
 
             ConfigRefChecker.UpdateStatus(cfg, ConfigItems);
 
-            // If not connected to FSUIPC show an error message
-            if (cfg.Source is FsuipcSource && !fsuipcCache.IsConnected())
+            // 1. Read source - a test uses the test value instead
+            var value = isTest ? cfg.TestValue.Clone() as ConnectorValue : ReadSource(cfg);
+            if (value == null)
             {
-                cfg.Status[ConfigItemStatusType.Source] = "FSUIPC_NOT_AVAILABLE";
-            }
-            else if (cfg.Source is SimConnectSource && !simConnectCache.IsConnected())
-            {
-                cfg.Status[ConfigItemStatusType.Source] = "SIMCONNECT_NOT_AVAILABLE";
-            }
-            else if (cfg.Source is XplaneSource && !xplaneCache.IsConnected())
-            {
-                cfg.Status[ConfigItemStatusType.Source] = "XPLANE_NOT_AVAILABLE";
-            }
-            else if (cfg.Source is ProSimSource && !proSimCache.IsConnected())
-            {
-                cfg.Status[ConfigItemStatusType.Source] = "PROSIM_NOT_AVAILABLE";
-            }
-            else
-            {
-                cfg.Status.Remove(ConfigItemStatusType.Source);
-            }
-
-            ConnectorValue value;
-            ConnectorValue processedValue;
-
-            // Read value from source - wrap in try-catch to handle source read errors
-            try
-            {
-                if (cfg.Source != null)
-                {
-                    value = ExecuteRead(cfg);
-                }
-                else
-                {
-                    // this case is new since we can unset the source in the UI
-                    // without source, a config can still be processed
-                    // and modifiers and config references can be evaluated
-                    // and the final value can be sent to the device
-                    value = new();
-                }
-                processedValue = value;
-                cfg.RawValue = value.ToString();
-                cfg.Value = processedValue.ToString();
-            }
-            catch (Exception ex)
-            {
-                // Error reading from source (FSUIPC, SimConnect, XPlane, ProSim, Variables)
-                Log.Instance.log($"Source read error ({cfg.Name}): {ex.Message}", LogSeverity.Error);
-                cfg.Status[ConfigItemStatusType.Source] = "ReadError";
-
-                // Add to updatedValues and stop further evaluation
+                // Source read error, stop further evaluation
                 if (!originalCfg.Equals(cfg))
                 {
                     updatedValues[cfg.GUID] = cfg;
@@ -137,6 +95,11 @@ namespace MobiFlight.Execution
                 return;
             }
 
+            var processedValue = value;
+            cfg.RawValue = value.ToString();
+            cfg.Value = processedValue.ToString();
+
+            // 2. Modify, using the config reference values
             List<ConfigRefValue> configRefs = GetRefs(cfg.ConfigRefs);
             cfg.Status.Remove(ConfigItemStatusType.Modifier);
 
@@ -163,11 +126,11 @@ namespace MobiFlight.Execution
                 // so keep continuing
             }
 
-            // Check preconditions
+            // 3. Check preconditions - a test always displays
             try
             {
                 var precondition = true;
-                if (!PreconditionChecker.CheckPrecondition(cfg, processedValue, ConfigItems, arcazeCache, mobiFlightCache))
+                if (!isTest && !PreconditionChecker.CheckPrecondition(cfg, processedValue, ConfigItems, arcazeCache, mobiFlightCache))
                 {
                     if (!cfg.Preconditions.ExecuteOnFalse)
                     {
@@ -189,7 +152,7 @@ namespace MobiFlight.Execution
                 {
                     cfg.Status.Remove(ConfigItemStatusType.Precondition);
 
-                    // Execute display - wrap in try-catch as device errors occur here
+                    // 4. Display - wrap in try-catch as device errors occur here
                     try
                     {
                         ExecuteDisplay(processedValue.ToString(), cfg);
@@ -311,6 +274,52 @@ namespace MobiFlight.Execution
 
             cfg.Status.Remove(ConfigItemStatusType.Test);
             MessageExchange.Instance.Publish(new ConfigValueRawAndFinalUpdate(new ConfigValueOnlyItem(cfg)));
+        }
+
+        // Reads the current value from the config's source.
+        // Returns null if reading failed, the status of the config tells why.
+        private ConnectorValue ReadSource(OutputConfigItem cfg)
+        {
+            // If not connected to the sim show an error message
+            if (cfg.Source is FsuipcSource && !fsuipcCache.IsConnected())
+            {
+                cfg.Status[ConfigItemStatusType.Source] = "FSUIPC_NOT_AVAILABLE";
+            }
+            else if (cfg.Source is SimConnectSource && !simConnectCache.IsConnected())
+            {
+                cfg.Status[ConfigItemStatusType.Source] = "SIMCONNECT_NOT_AVAILABLE";
+            }
+            else if (cfg.Source is XplaneSource && !xplaneCache.IsConnected())
+            {
+                cfg.Status[ConfigItemStatusType.Source] = "XPLANE_NOT_AVAILABLE";
+            }
+            else if (cfg.Source is ProSimSource && !proSimCache.IsConnected())
+            {
+                cfg.Status[ConfigItemStatusType.Source] = "PROSIM_NOT_AVAILABLE";
+            }
+            else
+            {
+                cfg.Status.Remove(ConfigItemStatusType.Source);
+            }
+
+            // Read value from source - wrap in try-catch to handle source read errors
+            try
+            {
+                // this case is new since we can unset the source in the UI
+                // without source, a config can still be processed
+                // and modifiers and config references can be evaluated
+                // and the final value can be sent to the device
+                if (cfg.Source == null) return new ConnectorValue();
+
+                return ExecuteRead(cfg);
+            }
+            catch (Exception ex)
+            {
+                // Error reading from source (FSUIPC, SimConnect, XPlane, ProSim, Variables)
+                Log.Instance.log($"Source read error ({cfg.Name}): {ex.Message}", LogSeverity.Error);
+                cfg.Status[ConfigItemStatusType.Source] = "ReadError";
+                return null;
+            }
         }
 
         private ConnectorValue ExecuteRead(OutputConfigItem cfg)

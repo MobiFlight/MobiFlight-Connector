@@ -132,7 +132,20 @@
         "Title": "Paso 2 - Ajustes de LCD Display",
         "Description": "Selecciona el LCD Display y configura sus ajustes.",
         "Label": "LCD Display",
-        "Lines": "Líneas"
+        "Lines": "Líneas",
+        "Editor": {
+          "Content": {
+            "Title": "Contenido del display",
+            "Description": "Haz clic en el display y escribe tu texto o usa valores dinámicos. Cada celda contiene un carácter, al igual que en el display real."
+          },
+          "Visualization": "Vista previa en vivo",
+          "Placeholder": {
+            "Title": "Valores dinámicos",
+            "Description": "Selecciona una o más celdas en el display y luego haz clic en un valor a continuación para mostrarlo en esas celdas."
+          },
+          "ThisConfig": "Valor de esta configuración",
+          "AdditionalReferencesHint": "¿Necesitas más valores? Agrega más referencias a esta configuración y aparecerán aquí."
+        }
       },
       "CustomDevice": {
         "Title": "Paso 2 - Ajustes de Custom Device",

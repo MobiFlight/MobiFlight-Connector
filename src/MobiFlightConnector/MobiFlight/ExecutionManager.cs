@@ -437,6 +437,11 @@ namespace MobiFlight
                 }
             });
 
+            MessageExchange.Instance.Subscribe<CommandLcdDisplayPreview>((message) =>
+            {
+                PublishLcdDisplayPreview(message.Item as OutputConfigItem);
+            });
+
             MessageExchange.Instance.SubscribeOnUiThread<CommandConfigContextMenu>((message) =>
             {
                 IConfigItem cfg;
@@ -1581,6 +1586,36 @@ namespace MobiFlight
             }
         }
 
+        /// <summary>
+        /// Renders the LCD text for a draft config item with the same code that
+        /// drives the hardware and publishes it for the config wizard preview.
+        /// </summary>
+        public void PublishLcdDisplayPreview(OutputConfigItem cfg)
+        {
+            if (!(cfg?.Device is OutputConfig.LcdDisplay lcdConfig)) return;
+
+            // the connected display knows its size, otherwise we use the defaults (16x2)
+            var serial = cfg.Controller?.Serial;
+            var module = serial != null ? mobiFlightCache.GetModuleBySerial(serial) : null;
+            var display = module
+                ?.GetConnectedDevices(lcdConfig.Address)
+                .OfType<MobiFlightLcdDisplay>()
+                .FirstOrDefault() ?? new MobiFlightLcdDisplay();
+
+            // during a test the references use their test values, like the test execution itself,
+            // otherwise the live value of the referenced config, falling back to the test value
+            var isTesting = ConfigItemInTestMode?.GUID == cfg.GUID;
+            var replacements = cfg.ConfigRefs
+                .Where(r => r.Active)
+                .Select(r => new ConfigRefValue(r, isTesting
+                    ? r.TestValue
+                    : ConfigItems.Find(i => i.GUID == r.Ref)?.Value ?? r.TestValue))
+                .ToList();
+
+            var displayText = display.Apply(lcdConfig, cfg.Value, replacements);
+            MessageExchange.Instance.Publish(LcdDisplayPreview.FromDisplayText(cfg.GUID, displayText, display.Cols));
+        }
+
         public void ExecuteTestOn(OutputConfigItem cfg)
         {
             // for the case that this is an individual test
@@ -1588,25 +1623,21 @@ namespace MobiFlight
             // in all other cases it will already be running
             mobiFlightCache.StartKeepAwake();
 
-            var value = cfg.TestValue;
-            var configRefs = cfg.ConfigRefs
-                    .Where(r => r.Active)
-                    .Select(r => new ConfigRefValue(r, r.TestValue))
-                    .ToList();
+            // The test state: only the referenced configs, each with its test value as current value.
+            // Modifiers and display resolve the config references from it, like in a regular run.
+            var referencedConfigsForTest = cfg.ConfigRefs
+                .Where(r => r.Active)
+                .Select(r =>
+                {
+                    var referencedConfig = ConfigItems.Find(i => i.GUID == r.Ref)?.Clone() as IConfigItem;
+                    if (referencedConfig != null) referencedConfig.Value = r.TestValue;
+                    return referencedConfig;
+                })
+                // a reference can point to a config that was deleted
+                .Where(c => c != null)
+                .ToList();
 
-            // For testing, the test value is the raw value
-            cfg.RawValue = value.ToString();
-            
-            // All modifiers are now also applied during testing.
-            foreach (var modifier in cfg.Modifiers.Items.Where(m => m.Active))
-            {
-                value = modifier.Apply(value, configRefs);
-            }
-
-            // Like always, the modified result is the final value
-            cfg.Value = value.ToString();
-
-            var executor = new ConfigItemExecutor(ConfigItems,
+            var executor = new ConfigItemExecutor(referencedConfigsForTest,
                                                   arcazeCache,
                                                   fsuipcCache,
                                                   simConnectCache,
@@ -1617,8 +1648,12 @@ namespace MobiFlight
                                                   midiBoardManager,
                                                   inputActionExecutionCache,
                                                   ConfigItemInTestMode);
-            executor.ExecuteTestOn(cfg, value);
+            executor.Execute(cfg, new ConcurrentDictionary<string, IConfigItem>(), isTest: true);
             ConfigItemInTestMode = cfg;
+
+            // the test panel and the LCD preview show the values of the test
+            cfg.Status[ConfigItemStatusType.Test] = "TEST_EXECUTION";
+            MessageExchange.Instance.Publish(new ConfigValueRawAndFinalUpdate(new ConfigValueOnlyItem(cfg)));
         }
 
         private void ClearErrorMessages()
