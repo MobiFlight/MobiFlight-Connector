@@ -19,9 +19,7 @@ import {
 import {
   Drawer,
   DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerClose,
+  DrawerFooter,
 } from "@/components/ui/drawer"
 import { IconPlus } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
@@ -94,37 +92,79 @@ const ConfigWizard = ({
     event: string
   }>({ variant: "button", event: "" })
 
-  const initialButtonOptions = configItem.button
-    ? (configItem.button as Partial<ButtonHoldOptions> &
-        Partial<ButtonLongReleaseOptions>)
+  // an output config either controls a device or triggers an input action
+  const outputItem = configItem as OutputConfigItem
+
+  const isOutputConfig = variant === "OutputConfigItem"
+
+  const hasInputAction =
+    outputItem.ButtonInputConfig != null || outputItem.AnalogInputConfig != null
+
+  const currentButtonTrigger = (
+    isOutputConfig
+      ? outputItem.ButtonInputConfig
+      : (configItem.button ??
+        configItem.inputMultiplexer ??
+        configItem.inputShiftRegister)
+  ) as
+    | (ButtonTrigger & Partial<ButtonHoldOptions> & Partial<ButtonLongReleaseOptions>)
     | undefined
+
+  const currentButtonOptions:
+    Partial<ButtonHoldOptions> &
+    Partial<ButtonLongReleaseOptions> = currentButtonTrigger ?? {
+      HoldDelay: 350,
+      LongReleaseDelay: 350,
+      RepeatDelay: 0,
+    }
 
   const currentAction: Action | null =
     event.variant === "button"
       ? (currentButtonTrigger?.[
-          event.event as "onPress" | "onRelease" | "onHold" | "onLongRelease"
+          event.event as
+            | "onPress"
+            | "onRelease"
+            | "onHold"
+            | "onLongRelease"
         ] ?? null)
       : event.variant === "encoder"
-        ? (configItem.encoder?.[event.event as keyof EncoderTrigger] ?? null)
-        : (configItem.analog?.onChange ?? null)
+        ? (configItem.encoder?.[
+            event.event as keyof EncoderTrigger
+          ] ?? null)
+        : (isOutputConfig
+            ? outputItem.AnalogInputConfig?.onChange
+            : configItem.analog?.onChange) ?? null
 
   const handleActionChange = (
     action: Action | null,
-    options?: Partial<ButtonHoldOptions> & Partial<ButtonLongReleaseOptions>,
+    options?: Partial<ButtonHoldOptions> &
+      Partial<ButtonLongReleaseOptions>,
     actionLabel?: HistoryAction,
   ) => {
     if (event.variant === "button") {
-      onConfigChange(
-        {
-          ...configItem,
-          button: {
-            ...currentButtonTrigger,
-            [event.event]: action,
-            ...options,
-          } as ButtonTrigger,
-        },
-        actionLabel,
-      )
+      const updatedButton = {
+        ...currentButtonTrigger,
+        [event.event]: action,
+        ...options,
+      } as ButtonTrigger
+
+      if (isOutputConfig) {
+        onConfigChange(
+          {
+            ...outputItem,
+            ButtonInputConfig: updatedButton,
+          } as OutputConfigItem,
+          actionLabel,
+        )
+      } else {
+        onConfigChange(
+          {
+            ...configItem,
+            button: updatedButton,
+          },
+          actionLabel,
+        )
+      }
       return
     }
 
@@ -142,22 +182,31 @@ const ConfigWizard = ({
       return
     }
 
-    onConfigChange(
-      {
-        ...configItem,
-        analog: {
-          ...configItem.analog,
-          onChange: action ?? undefined,
-        } as AnalogTrigger,
-      },
-      actionLabel,
-    )
-  }
+    const updatedAnalog = {
+      ...(isOutputConfig
+        ? outputItem.AnalogInputConfig
+        : configItem.analog),
+      onChange: action ?? undefined,
+    } as AnalogTrigger
 
-  // an output config either controls a device or triggers an input action
-  const outputItem = configItem as OutputConfigItem
-  const hasInputAction =
-    outputItem.ButtonInputConfig != null || outputItem.AnalogInputConfig != null
+    if (isOutputConfig) {
+      onConfigChange(
+        {
+          ...outputItem,
+          AnalogInputConfig: updatedAnalog,
+        } as OutputConfigItem,
+        actionLabel,
+      )
+    } else {
+      onConfigChange(
+        {
+          ...configItem,
+          analog: updatedAnalog,
+        },
+        actionLabel,
+      )
+    }
+  }
 
   const startInputAction = (kind: "button" | "analog") => {
     onConfigChange({
@@ -188,18 +237,8 @@ const ConfigWizard = ({
   // opens the action editor for an event of the input action of an output config
   const handleActionEdit =
     (eventVariant: "button" | "analog") =>
-    (
-      eventName: string,
-      action: Action | null,
-      onActionChange: (
-        config: Action,
-        buttonOptions?: Partial<ButtonHoldOptions> &
-          Partial<ButtonLongReleaseOptions>,
-      ) => void,
-    ) => {
+    (eventName: string) => {
       setEvent({ variant: eventVariant, event: eventName })
-      setEditAction(action)
-      setOnActionChange(() => onActionChange)
       navigateToDetailView("action")
     }
 
@@ -456,11 +495,6 @@ const ConfigWizard = ({
                 <PreconditionsPanel
                   mode={configItem.Type}
                   configName={configItem.Name}
-                  onPreconditionsChange={(preconditions) => {
-                    onConfigChange({
-                      ...configItem,
-                      Preconditions: preconditions,
-                    })
                   onPreconditionsChange={(preconditions, actionLabel) => {
                     onConfigChange(
                       {
@@ -479,11 +513,6 @@ const ConfigWizard = ({
                 <ConfigReferencePanel
                   mode={configItem.Type}
                   configName={configItem.Name}
-                  onConfigReferencesChange={(configReferences) => {
-                    onConfigChange({
-                      ...configItem,
-                      ConfigRefs: configReferences,
-                    })
                   onConfigReferencesChange={(configReferences, actionLabel) => {
                     onConfigChange(
                       {
@@ -517,7 +546,7 @@ const ConfigWizard = ({
                   event={event}
                   buttonOptions={
                     event.variant === "button"
-                      ? currentButtonTrigger
+                      ? currentButtonOptions
                       : undefined
                   }
                   action={currentAction}
@@ -546,33 +575,9 @@ const ConfigWizard = ({
                   }}
                 />
               )}
-
-              {detailView === "source" && (
-                <SourceEditor
-                  configName={configItem.Name}
-                  source={(configItem as OutputConfigItem).Source}
-                  onSourceChange={(source) => {
-                    onConfigChange({
-                      ...configItem,
-                      Source: source,
-                    } as OutputConfigItem)
-                  }}
-                />
-              )}
-
-              {detailView === "display" && (
-                <OutputDeviceEditor
-                  configItem={configItem as OutputConfigItem}
-                  onConfigChange={(config) => {
-                    onConfigChange(config)
-                  }}
-                />
-              )}
             </div>
-            <DrawerFooter className="shrink-0 flex-row justify-start border-t">
-              {historyControls}
-            </DrawerFooter>
-            <DrawerFooter className={`flex flex-row items-center justify-end`}>
+            <DrawerFooter className="shrink-0 flex-row justify-between items-center border-t">
+              <div>{historyControls}</div>
               <Button
                 onClick={() => closeDetailView(false)}
               >
