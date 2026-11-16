@@ -1107,6 +1107,21 @@ test.describe("Output Config Wizard - Output Device Panel", () => {
     ).not.toBeVisible()
   })
 
+  test("Double click on the output device summary opens the device editor", async ({
+    configListPage,
+    page,
+  }) => {
+    await openWizardForRow(configListPage, page, ROW.Output)
+
+    const actionPanel = page.getByTestId("action-panel")
+    const deviceEditor = page.getByTestId("output-device-editor")
+
+    await actionPanel.getByText("LED 2", { exact: true }).dblclick()
+    await expect(deviceEditor).toBeVisible()
+    await closeDrawer(page)
+    await expect(deviceEditor).not.toBeVisible()
+  })
+
   test("Config without device shows the add buttons", async ({
     configListPage,
     page,

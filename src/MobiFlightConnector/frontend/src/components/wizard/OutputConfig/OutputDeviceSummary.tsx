@@ -38,7 +38,10 @@ const OutputDeviceSummary = ({
   }
 
   return (
-    <div className="flex grow flex-row items-center gap-2">
+    <div
+      className="flex grow flex-row items-center gap-2"
+      onDoubleClick={onEdit}
+    >
       {config.Type === "Output" && (
         <OutputPanel
           variant="summary"
