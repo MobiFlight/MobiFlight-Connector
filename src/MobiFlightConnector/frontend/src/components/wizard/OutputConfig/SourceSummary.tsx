@@ -1,10 +1,8 @@
-import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Source } from "@/types/config"
 import { FsuipcOffsetSummary } from "@/components/wizard/common/FsuipcOffsetPanel"
 import MsfsPresetPanel from "@/components/wizard/common/MsfsPresetPanel"
 import { Badge } from "@/components/ui/badge"
-import { IconEdit, IconTrash } from "@tabler/icons-react"
 import {
   msfsSourceAdapter,
   proSimSourceAdapter,
@@ -14,6 +12,7 @@ import XplanePresetPanel from "@/components/wizard/common/XplanePresetPanel"
 import { useTranslation } from "react-i18next"
 import { ProSimPresetPanel } from "@/components/wizard/common/ProSimPresetPanel"
 import { VariablePanel } from "@/components/wizard/common/VariablePanel"
+import SummaryButtons from "@/components/wizard/common/SummaryButtons"
 
 export interface SourceSummaryProps {
   source: Source
@@ -97,25 +96,12 @@ const SourceSummary = ({
         </div>
       </div>
 
-      <div className="flex w-20 flex-row justify-end pt-4">
-        <Button
-          size={"sm"}
-          className="invisible h-8 px-2 py-1 text-red-600 group-hover:visible hover:text-red-600"
-          variant="ghost"
-          onClick={onRemove}
-        >
-          <IconTrash />
-          <span className="sr-only">{t("ConfigWizard.Source.Remove")}</span>
-        </Button>
-        <Button
-          size={"sm"}
-          className="group-hover:text-foreground text-muted-foreground h-8 px-2 py-1"
-          variant="ghost"
-          onClick={onEdit}
-        >
-          <IconEdit />
-        </Button>
-      </div>
+      <SummaryButtons
+        onEdit={onEdit}
+        editLabel={t("ConfigWizard.Source.Edit")}
+        onRemove={onRemove}
+        removeLabel={t("ConfigWizard.Source.Remove")}
+      />
     </div>
   )
 }
