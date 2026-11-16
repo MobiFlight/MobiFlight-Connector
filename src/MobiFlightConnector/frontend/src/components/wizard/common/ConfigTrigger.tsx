@@ -187,7 +187,7 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
             }
           : null,
       },
-      "Dialog.InputConfigWizard.History.TriggerChanged",
+      "ConfigWizard.History.TriggerChanged",
     )
   }
 

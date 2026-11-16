@@ -52,7 +52,7 @@ const ModifierEditor = ({
     const newModifier = ModifierFactory.createModifier(type)
     setNewlyAddedId(newModifier.Id ?? null)
     onModifierChange([...modifiers, newModifier], {
-      key: "Dialog.InputConfigWizard.History.ModifierAdded",
+      key: "ConfigWizard.History.ModifierAdded",
       params: {
         type: newModifier.Type,
       },
@@ -62,7 +62,7 @@ const ModifierEditor = ({
     onModifierChange(
       [...modifiers.slice(0, index), ...modifiers.slice(index + 1)],
       {
-        key: "Dialog.InputConfigWizard.History.ModifierRemoved",
+        key: "ConfigWizard.History.ModifierRemoved",
         params: {
           type: modifiers[index].Type,
         },
@@ -77,7 +77,7 @@ const ModifierEditor = ({
     onModifierChange(
       [...modifiers.slice(0, index), updated, ...modifiers.slice(index + 1)],
       actionLabel ?? {
-        key: "Dialog.InputConfigWizard.History.ModifierChanged",
+        key: "ConfigWizard.History.ModifierChanged",
         params: {
           type: updated.Type,
         },
@@ -93,7 +93,7 @@ const ModifierEditor = ({
     newModifiers[index - 1] = newModifiers[index]
     newModifiers[index] = temp
     onModifierChange(newModifiers, {
-      key: "Dialog.InputConfigWizard.History.ModifierChanged",
+      key: "ConfigWizard.History.ModifierChanged",
       params: {
         type: modifiers[index].Type,
       },
@@ -108,7 +108,7 @@ const ModifierEditor = ({
     newModifiers[index + 1] = newModifiers[index]
     newModifiers[index] = temp
     onModifierChange(newModifiers, {
-      key: "Dialog.InputConfigWizard.History.ModifierChanged",
+      key: "ConfigWizard.History.ModifierChanged",
       params: {
         type: modifiers[index].Type,
       },

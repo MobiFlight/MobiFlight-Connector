@@ -93,7 +93,7 @@ const ActionBindingPanel = ({
     }
     onTriggerChange(
       updatedTrigger,
-      "Dialog.InputConfigWizard.History.ActionTypeChanged",
+      "ConfigWizard.History.ActionTypeChanged",
     )
   }
 

@@ -130,8 +130,8 @@ const PreconditionItemRow = ({
           onChange(
             { ...precondition, Active: !!checked },
             checked
-              ? "Dialog.InputConfigWizard.History.PreconditionEnabled"
-              : "Dialog.InputConfigWizard.History.PreconditionDisabled",
+              ? "ConfigWizard.History.PreconditionEnabled"
+              : "ConfigWizard.History.PreconditionDisabled",
           )
         }
       />
@@ -285,14 +285,14 @@ const PreconditionEditor = ({
   ) => {
     onPreconditionsChange(
       preconditions.map((p, i) => (i === index ? updated : p)),
-      actionLabel ?? "Dialog.InputConfigWizard.History.PreconditionChanged",
+      actionLabel ?? "ConfigWizard.History.PreconditionChanged",
     )
   }
 
   const handleDelete = (index: number) => {
     onPreconditionsChange(
       preconditions.filter((_, i) => i !== index),
-      "Dialog.InputConfigWizard.History.PreconditionRemoved",
+      "ConfigWizard.History.PreconditionRemoved",
     )
   }
 
@@ -301,7 +301,7 @@ const PreconditionEditor = ({
     const newPrecondition = { ...EMPTY_PRECONDITION, Type: preconditionType }
     onPreconditionsChange(
       [...preconditions, newPrecondition],
-      "Dialog.InputConfigWizard.History.PreconditionAdded",
+      "ConfigWizard.History.PreconditionAdded",
     )
   }
 
@@ -316,7 +316,7 @@ const PreconditionEditor = ({
     newPreconditions[index] = temp
     onPreconditionsChange(
       newPreconditions,
-      "Dialog.InputConfigWizard.History.PreconditionChanged",
+      "ConfigWizard.History.PreconditionChanged",
     )
   }
 
@@ -329,7 +329,7 @@ const PreconditionEditor = ({
     newPreconditions[index] = temp
     onPreconditionsChange(
       newPreconditions,
-      "Dialog.InputConfigWizard.History.PreconditionChanged",
+      "ConfigWizard.History.PreconditionChanged",
     )
   }
 

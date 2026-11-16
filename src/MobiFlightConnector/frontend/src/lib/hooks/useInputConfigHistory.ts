@@ -85,7 +85,7 @@ const useInputConfigHistory = (configItem: IConfigItem | undefined) => {
         snapshot,
         action:
           actionLabel ??
-          "Dialog.InputConfigWizard.History.ConfigurationChanged",
+          "ConfigWizard.History.ConfigurationChanged",
       })
     }
 
@@ -200,7 +200,7 @@ const useInputConfigHistory = (configItem: IConfigItem | undefined) => {
 
       const label =
         drawerLabels[session.view] ??
-        "Dialog.InputConfigWizard.History.ConfigurationChanged"
+        "ConfigWizard.History.ConfigurationChanged"
 
       const updatedHistory = [
         ...previous.history.slice(0, previous.cursor + 1),

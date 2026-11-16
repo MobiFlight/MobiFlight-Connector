@@ -197,7 +197,7 @@ const ConfigWizardDialog = ({ configId }: ConfigWizardDialogProps) => {
                       Name: newName,
                     },
                     {
-                      key: "Dialog.InputConfigWizard.History.NameChanged",
+                      key: "ConfigWizard.History.NameChanged",
                       params: {
                         name: newName,
                       },

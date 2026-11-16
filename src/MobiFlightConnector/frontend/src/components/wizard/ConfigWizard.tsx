@@ -380,7 +380,7 @@ const ConfigWizard = ({
             }
             onConfigChange(
               updatedConfigItem,
-              actionLabel ?? "Dialog.InputConfigWizard.History.TriggerChanged",
+              actionLabel ?? "ConfigWizard.History.TriggerChanged",
             )
           }}
         />
@@ -402,7 +402,7 @@ const ConfigWizard = ({
                 ...configItem,
                 encoder: trigger as EncoderTrigger,
               },
-              actionLabel ?? "Dialog.InputConfigWizard.History.TriggerChanged",
+              actionLabel ?? "ConfigWizard.History.TriggerChanged",
             )
           }}
         />
@@ -424,7 +424,7 @@ const ConfigWizard = ({
                 ...configItem,
                 analog: trigger as AnalogTrigger,
               },
-              actionLabel ?? "Dialog.InputConfigWizard.History.TriggerChanged",
+              actionLabel ?? "ConfigWizard.History.TriggerChanged",
             )
           }}
         />

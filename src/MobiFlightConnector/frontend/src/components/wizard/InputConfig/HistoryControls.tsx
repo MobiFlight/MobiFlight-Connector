@@ -47,8 +47,8 @@ const HistoryControls = ({
   const canUndo = cursor > 0
   const hasHistory = history.length > 1
 
-  const undoTitle = t("Dialog.InputConfigWizard.History.Undo")
-  const historyTitle = t("Dialog.InputConfigWizard.History.Title")
+  const undoTitle = t("ConfigWizard.History.Undo")
+  const historyTitle = t("ConfigWizard.History.Title")
 
   return (
     <div
@@ -56,7 +56,7 @@ const HistoryControls = ({
       className={cn(
         "group/undo relative inline-flex h-9 shrink-0 items-stretch",
         showFrame
-          ? "border-input bg-background rounded-md border"
+          ? "border-`input` bg-background rounded-md border"
           : "border-0 bg-transparent shadow-none",
       )}
     >
@@ -131,8 +131,8 @@ const HistoryControls = ({
                   const label =
                     index === 0
                       ? historyStart === 0
-                        ? t("Dialog.InputConfigWizard.History.Original")
-                        : t("Dialog.InputConfigWizard.History.Oldest")
+                        ? t("ConfigWizard.History.Original")
+                        : t("ConfigWizard.History.Oldest")
                       : typeof entry.action === "string"
                         ? entry.action.startsWith("Dialog.")
                           ? t(entry.action)
@@ -170,7 +170,7 @@ const HistoryControls = ({
                           size={14}
                           className="text-primary shrink-0"
                           aria-label={t(
-                            "Dialog.InputConfigWizard.History.Current",
+                            "ConfigWizard.History.Current",
                           )}
                         />
                       )}

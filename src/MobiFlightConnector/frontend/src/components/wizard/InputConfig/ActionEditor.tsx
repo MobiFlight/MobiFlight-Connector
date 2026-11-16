@@ -2,9 +2,8 @@ import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
-import WizardSection, {
-  type ActionTypeOption,
-} from "@/components/wizard/common/WizardSection"
+import WizardSection from "@/components/wizard/common/WizardSection"
+import {type ActionTypeOption} from "@/components/wizard/InputConfig/ActionTypeComboBox"
 import ActionTypeComboBox from "@/components/wizard/InputConfig/ActionTypeComboBox"
 import CopyPasteActionPanel from "@/components/wizard/InputConfig/CopyPasteActionPanel"
 import EventIdInputActionPanel from "@/components/wizard/InputConfig/InputActions/EventIdInputActionPanel"
@@ -196,10 +195,8 @@ const ActionPanel = ({
           variant="details"
           adapter={msfsInputActionAdapter}
           config={action as MsfsInputAction}
-          onConfigChange={onActionChange}
-          config={action ? (action as MsfsInputAction) : null}
-          onConfigChange={(config, actionLabel) =>
-            onActionChange(config, actionLabel)
+          onConfigChange={(config) =>
+            onActionChange(config, "ConfigWizard.History.ActionChanged")
           }
         />
       )
@@ -220,13 +217,13 @@ const ActionPanel = ({
           currentVariable={
             action ? (action as MobiFlightVariableAction).Variable : undefined
           }
-          onVariableChange={(variable, actionLabel) =>
+          onVariableChange={(variable) =>
             onActionChange(
               {
                 ...(action as MobiFlightVariableAction),
                 Variable: variable,
               } as MobiFlightVariableAction,
-              actionLabel,
+              "ConfigWizard.History.ActionChanged",
             )
           }
         />
@@ -374,7 +371,7 @@ const ButtonOnHoldOptions = ({
                 HoldDelay: value ? parseInt(value) : undefined,
                 RepeatDelay: buttonOptions?.RepeatDelay,
               },
-              "Dialog.InputConfigWizard.History.TriggerChanged",
+              "ConfigWizard.History.TriggerChanged",
             )
           }}
         />
@@ -401,7 +398,7 @@ const ButtonOnHoldOptions = ({
                 HoldDelay: buttonOptions?.HoldDelay,
                 RepeatDelay: value ? parseInt(value) : undefined,
               },
-              "Dialog.InputConfigWizard.History.TriggerChanged",
+              "ConfigWizard.History.TriggerChanged",
             )
           }}
         />
@@ -442,7 +439,7 @@ const ButtonOnLongReleaseOptions = ({
               {
                 LongReleaseDelay: value ? parseInt(value) : undefined,
               },
-              "Dialog.InputConfigWizard.History.TriggerChanged",
+              "ConfigWizard.History.TriggerChanged",
             )
           }}
           value={buttonOptions?.LongReleaseDelay}
@@ -466,7 +463,7 @@ const ActionEditor = ({
     ? ActionTypeOptions.find((option) => option.value === action.Type)
     : undefined
   const handleActionTypeChange = (option: ActionTypeOption | null) => {
-    const actionLabel = "Dialog.InputConfigWizard.History.ActionTypeChanged"
+    const actionLabel = "ConfigWizard.History.ActionTypeChanged"
 
     if (!option) {
       onActionChange(null, undefined, actionLabel)
@@ -554,8 +551,8 @@ const ActionEditor = ({
               onActionChange={(newAction) => {
                 const actionLabel =
                   action?.Type !== newAction?.Type
-                    ? "Dialog.InputConfigWizard.History.ActionTypeChanged"
-                    : "Dialog.InputConfigWizard.History.ActionChanged"
+                    ? "ConfigWizard.History.ActionTypeChanged"
+                    : "ConfigWizard.History.ActionChanged"
                 onActionChange(newAction, undefined, actionLabel)
               }}
             />
@@ -565,7 +562,7 @@ const ActionEditor = ({
       <ActionPanel
         action={action}
         onActionChange={(updatedAction, actionLabel) => {
-          onActionChange(updatedAction, undefined, actionLabel ?? "Dialog.InputConfigWizard.History.ActionChanged")
+          onActionChange(updatedAction, undefined, actionLabel ?? "ConfigWizard.History.ActionChanged")
         }}
         />
     </div>
