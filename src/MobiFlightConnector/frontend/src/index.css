@@ -4,6 +4,12 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@font-face {
+    font-family: "lcd1602";
+    font-display: swap;
+    src: url("/font/lcd1602.woff2") format("woff2");
+}
+
 @theme {
   --ring-width-2: 1px;
 
@@ -60,6 +66,11 @@
   --animate-highlight: highlight 2s ease-out;
   --animate-sponsor-tagline-fade-in: sponsor-tagline-fade-in 2s ease-out both;
   --animate-sponsor-row-cycle: sponsor-row-cycle 2s ease-in-out both;
+
+  --color-cfgoutput: var(--color-pink-600);
+  --color-cfginput: var(--color-teal-700);
+
+  --font-lcd: "lcd1602";
 
   @keyframes accordion-down {
     from {
@@ -152,6 +163,14 @@
   --animate-collapsible-down: collapsible-down 0.2s ease-out;
   --animate-collapsible-up: collapsible-up 0.2s ease-out;
 }
+
+@layer theme {
+  .dark {
+    --color-cfgoutput: var(--color-pink-900);
+    --color-cfginput: var(--color-teal-900);
+  }
+}
+
 /*
   The default border color has changed to `currentcolor` in Tailwind CSS v4,
   so we've added these compatibility styles to make sure everything still
@@ -252,7 +271,10 @@
     font-size: 10.5pt;
     @apply border-border;
   }
+  html,
   body {
+    height: 100%;
+    overflow: hidden;
     @apply bg-background text-foreground;
   }
 }

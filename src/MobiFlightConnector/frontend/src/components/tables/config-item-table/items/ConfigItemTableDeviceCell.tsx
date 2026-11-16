@@ -65,7 +65,7 @@ function ConfigItemTableDeviceCell({ row }: ConfigItemTableDeviceCellProps) {
   const runtimeState = useConfigItemStateValue(item.GUID)
 
   const Status = runtimeState?.Status ?? item.Status
-  const Device = Status && !isEmpty(Status["Device"])
+  const hasDeviceError = Status && !isEmpty(Status["Device"])
 
   const controllerName = item.Controller?.Name ?? ""
 
@@ -83,7 +83,7 @@ function ConfigItemTableDeviceCell({ row }: ConfigItemTableDeviceCellProps) {
   const hasInputAction = (item as OutputConfigItem)?.ButtonInputConfig != null || (item as OutputConfigItem)?.AnalogInputConfig != null
 
   const deviceType =
-    (item.Device as IDeviceConfig)?.Type ?? (hasInputAction ? "InputAction" : "-")
+    (item.Device as IDeviceConfig)?.Type ?? (hasInputAction ? "InputAction" : null)
 
   const icon = (
     <DeviceIcon
@@ -99,7 +99,7 @@ function ConfigItemTableDeviceCell({ row }: ConfigItemTableDeviceCellProps) {
         ? (midiControllerDefinition.ProcessedLabels?.[deviceName] ?? deviceName)
         : deviceName
 
-  const statusIcon = Device ? (
+  const statusIcon = hasDeviceError ? (
     <StackedIcons
       bottomIcon={icon}
       topIcon={
@@ -113,11 +113,11 @@ function ConfigItemTableDeviceCell({ row }: ConfigItemTableDeviceCellProps) {
     `Types.${deviceType?.replace("MobiFlight.OutputConfigItem", "").replace("MobiFlight.InputConfigItem", "")}`,
   )
 
-  const tooltipLabel = Device
+  const tooltipLabel = hasDeviceError
     ? t(`ConfigList.Status.Device.${Status["Device"]}`)
     : typeLabel
 
-  return deviceType != "-" ? (
+  return (item.Device != null || hasInputAction) ? (
     <ToolTip content={tooltipLabel}>
       <div className="flex flex-row items-center gap-2">
         {statusIcon}

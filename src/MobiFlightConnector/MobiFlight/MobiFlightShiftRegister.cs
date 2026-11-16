@@ -1,6 +1,6 @@
 ﻿using CommandMessenger;
+using MobiFlight.Base;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
@@ -94,10 +94,10 @@ namespace MobiFlight
         public void Display(String outputPins, String value)
         {
             var v = value == "0" ? "0" : "1";
-            var pins = outputPins.Replace(LABEL_PREFIX + " ", "")
-                                 .Split('|')
-                                 .Select(p => p.Trim())
-                                 .ToList();
+            var pins = DeviceReference.SplitNames(outputPins)
+                        .Select(p => p.Replace(LABEL_PREFIX + " ", "").Trim())
+                        .ToList();
+
             lock (_lock)
             {
                 pins.ForEach(p =>

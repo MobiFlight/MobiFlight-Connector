@@ -535,6 +535,125 @@ namespace MobiFlight.Base.Tests
 
         #endregion
 
+        #region Export Tests
+
+        [TestMethod()]
+        public void CreateProjectFromConfigFile_ShouldOnlyContainSelectedConfigFile()
+        {
+            // Arrange
+            var configItem = new OutputConfigItem { GUID = System.Guid.NewGuid().ToString(), Name = "Output" };
+            var project = new Project
+            {
+                Name = "Source Project",
+                FilePath = "source.mfproj",
+                Sim = "msfs"
+            };
+            project.Features.FSUIPC = true;
+            project.Aircraft.Add(new AircraftInfo { Name = "A320", Vendor = "Vendor" });
+            project.ConfigFiles.Add(new ConfigFile { Label = "First Profile", EmbedContent = true });
+            project.ConfigFiles.Add(new ConfigFile
+            {
+                Label = "Second Profile",
+                FileName = "second.mcc",
+                EmbedContent = false,
+                ReferenceOnly = true,
+                ConfigItems = { configItem }
+            });
+
+            // Act
+            var exportedProject = project.CreateProjectFromConfigFile(1);
+
+            // Assert
+            Assert.AreEqual("Second Profile", exportedProject.Name);
+            Assert.IsNull(exportedProject.FilePath);
+            Assert.AreEqual("msfs", exportedProject.Sim);
+            Assert.IsTrue(exportedProject.Features.FSUIPC);
+            Assert.AreNotSame(project.Features, exportedProject.Features);
+            Assert.HasCount(1, exportedProject.Aircraft);
+            Assert.AreEqual("A320", exportedProject.Aircraft[0].Name);
+
+            Assert.HasCount(1, exportedProject.ConfigFiles);
+            var exportedConfigFile = exportedProject.ConfigFiles[0];
+            Assert.AreEqual("Second Profile", exportedConfigFile.Label);
+            Assert.IsTrue(exportedConfigFile.EmbedContent, "Exported content must be embedded to be self-contained");
+            Assert.IsFalse(exportedConfigFile.ReferenceOnly);
+            Assert.IsNull(exportedConfigFile.FileName);
+            Assert.HasCount(1, exportedConfigFile.ConfigItems);
+            Assert.AreEqual(configItem.GUID, exportedConfigFile.ConfigItems[0].GUID);
+        }
+
+        [TestMethod()]
+        public void CreateProjectFromConfigFile_ShouldNotModifySourceProject()
+        {
+            // Arrange
+            var project = new Project { Name = "Source Project", FilePath = "source.mfproj" };
+            var configFile = new ConfigFile { Label = "Profile", FileName = "profile.mcc", EmbedContent = false };
+            project.ConfigFiles.Add(configFile);
+
+            // Act
+            project.CreateProjectFromConfigFile(0);
+
+            // Assert
+            Assert.AreEqual("Source Project", project.Name);
+            Assert.AreEqual("source.mfproj", project.FilePath);
+            Assert.HasCount(1, project.ConfigFiles);
+            Assert.AreSame(configFile, project.ConfigFiles[0]);
+            Assert.AreEqual("profile.mcc", configFile.FileName);
+            Assert.IsFalse(configFile.EmbedContent);
+        }
+
+        [TestMethod()]
+        public void CreateProjectFromConfigFile_WithInvalidIndex_ShouldThrowException()
+        {
+            // Arrange
+            var project = new Project();
+            project.ConfigFiles.Add(new ConfigFile { Label = "Profile" });
+
+            // Act & Assert
+            Assert.ThrowsExactly<System.ArgumentOutOfRangeException>(() => project.CreateProjectFromConfigFile(-1));
+            Assert.ThrowsExactly<System.ArgumentOutOfRangeException>(() => project.CreateProjectFromConfigFile(1));
+        }
+
+        [TestMethod()]
+        public void ExportConfigFile_ShouldSaveProjectThatCanBeMerged()
+        {
+            // Arrange
+            var tempFile = Path.Combine(Path.GetTempPath(), $"project_export_test_{System.Guid.NewGuid()}.mfproj");
+            var configItem = new OutputConfigItem { GUID = System.Guid.NewGuid().ToString(), Name = "Output" };
+            var project = new Project { Name = "Source Project", FilePath = "source.mfproj" };
+            project.ConfigFiles.Add(new ConfigFile { Label = "First Profile", EmbedContent = true });
+            project.ConfigFiles.Add(new ConfigFile { Label = "Second Profile", EmbedContent = true, ConfigItems = { configItem } });
+
+            try
+            {
+                // Act
+                project.ExportConfigFile(1, tempFile);
+
+                // Assert
+                Assert.AreEqual("source.mfproj", project.FilePath, "Exporting must not change the current project file");
+
+                var exportedProject = new Project { FilePath = tempFile };
+                exportedProject.OpenFile();
+                Assert.AreEqual("Second Profile", exportedProject.Name);
+                Assert.HasCount(1, exportedProject.ConfigFiles);
+                Assert.AreEqual("Second Profile", exportedProject.ConfigFiles[0].Label);
+                Assert.HasCount(1, exportedProject.ConfigFiles[0].ConfigItems);
+                Assert.AreEqual(configItem.GUID, exportedProject.ConfigFiles[0].ConfigItems[0].GUID);
+
+                var targetProject = new Project();
+                targetProject.ConfigFiles.Add(new ConfigFile { Label = "Existing Profile", EmbedContent = true });
+                targetProject.MergeFromProjectFile(tempFile);
+                Assert.HasCount(2, targetProject.ConfigFiles);
+                Assert.AreEqual("Second Profile", targetProject.ConfigFiles[1].Label);
+            }
+            finally
+            {
+                try { if (File.Exists(tempFile)) File.Delete(tempFile); } catch { }
+            }
+        }
+
+        #endregion
+
         #region ProjectInfo Tests
         [TestMethod()]
         public void DetermineProjectInfos_WithEmptyProject_ShouldHaveCorrectDefaults()

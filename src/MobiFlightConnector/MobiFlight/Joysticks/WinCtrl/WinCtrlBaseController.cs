@@ -36,7 +36,8 @@ namespace MobiFlight.Joysticks.WinCtrl
             // Initialize LCD and LED device lists and current value cache
             foreach (string displayName in displayNames)
             {
-                LcdDevices.Add(new LcdDisplay() { Name = displayName }); // Col and Lines values don't matter   
+                // No size in the WinCtrl definitions; each entry is a single value, so assume 1 row x 8 chars
+                LcdDevices.Add(new LcdDisplay() { Name = displayName, Cols = 8, Lines = 1 });
             }
             foreach (string ledName in ledNames)
             {
@@ -68,7 +69,7 @@ namespace MobiFlight.Joysticks.WinCtrl
             if (LedDevices.Count > 0)
             {
                 deviceTypes.Add(DeviceType.Output);
-            }          
+            }
             return deviceTypes;
         }
 
@@ -91,7 +92,28 @@ namespace MobiFlight.Joysticks.WinCtrl
 
         public override List<DeviceReference> GetAvailableOutputDevices()
         {
-            return LedDevices;
+            var result = new List<DeviceReference>();
+            // add Lights
+            result.AddRange(LedDevices);
+
+            // add LCDs
+            foreach (var lcd in LcdDevices)
+            {
+                result.Add(
+                    new ControllerDevice()
+                    {
+                        Name = lcd.Name,
+                        Label = lcd.Name,
+                        Type = DeviceType.LcdDisplay,
+                        Capabilities = new DeviceCapability
+                        {
+                            Rows = (lcd as LcdDisplay)?.Lines,
+                            Columns = (lcd as LcdDisplay)?.Cols
+                        }
+                    });
+            }
+
+            return result;
         }
 
         public override void UpdateOutputDeviceStates()
@@ -113,6 +135,6 @@ namespace MobiFlight.Joysticks.WinCtrl
         {
             DisplayControl.Shutdown();
         }
-        
+
     }
 }

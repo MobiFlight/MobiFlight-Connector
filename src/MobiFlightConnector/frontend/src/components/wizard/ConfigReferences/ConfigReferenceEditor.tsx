@@ -3,12 +3,16 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Switch } from "@/components/ui/switch"
+import DrawerBreadcrumb from "@/components/wizard/common/DrawerTitle"
+import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import { configReferenceVariants } from "@/components/wizard/variants"
-import { ConfigReference, IConfigItem } from "@/types/config"
+import { ConfigItemType, ConfigReference, IConfigItem } from "@/types/config"
 import { IconPlus, IconTrash } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 
 export interface ConfigReferenceEditorProps {
+  mode: ConfigItemType
+  configName: string
   outputConfigs: IConfigItem[]
   configReferences: ConfigReference[]
   onConfigReferencesChange: (configReferences: ConfigReference[]) => void
@@ -47,7 +51,7 @@ const ConfigReferenceItemRow = ({
   onChange,
   onDelete,
 }: ConfigReferenceItemRowProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const selectedConfig = outputConfigs.find(
     (c) => c.GUID === configReference.Ref,
   )
@@ -77,7 +81,7 @@ const ConfigReferenceItemRow = ({
           onChange({ ...configReference, Ref: c?.GUID ?? "" })
         }
         placeholder={t(
-          "Dialog.InputConfigWizard.ConfigReferenceEditor.SelectConfig",
+          "ConfigWizard.ConfigReferenceEditor.SelectConfig",
         )}
         widthClass="flex-1"
       />
@@ -91,18 +95,14 @@ const ConfigReferenceItemRow = ({
         className="w-16"
       />
 
-      {/*
-       * Test value is currently not used, so we won't show it
-       * as soon as we add the test feature, we can uncomment this code and use it again
-       */}
-      {/* <Input
+      <Input
         value={configReference.TestValue}
         onChange={(e) =>
           onChange({ ...configReference, TestValue: e.target.value })
         }
-        placeholder="Value"
-        className="w-16"
-      /> */}
+        placeholder={t("ConfigWizard.ConfigReferenceEditor.TestValueLabel")}
+        className="w-24"
+      />
 
       <Button
         variant="ghost"
@@ -112,7 +112,7 @@ const ConfigReferenceItemRow = ({
       >
         <div className="sr-only">
           {t(
-            "Dialog.InputConfigWizard.ConfigReferenceEditor.DeleteConfigReference",
+            "ConfigWizard.ConfigReferenceEditor.DeleteConfigReference",
           )}
         </div>
         <IconTrash className="h-4 w-4" />
@@ -125,15 +125,18 @@ const EMPTY_CONFIG_REFERENCE: ConfigReference = {
   Active: true,
   Ref: "",
   Placeholder: "",
-  TestValue: "",
+  // same default as the C# ConfigRef
+  TestValue: "1",
 }
 
 const ConfigReferenceEditor = ({
+  mode,
+  configName,
   outputConfigs,
   configReferences,
   onConfigReferencesChange,
 }: ConfigReferenceEditorProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const handleChange = (index: number, updated: ConfigReference) => {
     onConfigReferencesChange(
       configReferences.map((c, i) => (i === index ? updated : c)),
@@ -161,14 +164,20 @@ const ConfigReferenceEditor = ({
       data-testid="config-reference-editor"
     >
       <div className="flex flex-row justify-between gap-4">
-        <div className="flex flex-col gap-2">
-          <div className="text-lg font-semibold">
-            {t("Dialog.InputConfigWizard.ConfigReferenceEditor.Title")}
-          </div>
-          <div className="text-muted-foreground text-sm">
-            {t("Dialog.InputConfigWizard.ConfigReferenceEditor.Description")}
-          </div>
-        </div>
+        <SectionHeadline
+          title={
+            <DrawerBreadcrumb
+              mode={mode}
+              crumbs={[
+                configName,
+                t("ConfigWizard.ConfigReferences.Title"),
+              ]}
+            />
+          }
+          description={t(
+            "ConfigWizard.ConfigReferenceEditor.Description",
+          )}
+        />
         <Button
           variant="default"
           className="self-end"
@@ -177,7 +186,7 @@ const ConfigReferenceEditor = ({
         >
           <IconPlus className="h-4 w-4" />
           {t(
-            "Dialog.InputConfigWizard.ConfigReferenceEditor.AddConfigReference",
+            "ConfigWizard.ConfigReferenceEditor.AddConfigReference",
           )}
         </Button>
       </div>
@@ -185,7 +194,7 @@ const ConfigReferenceEditor = ({
       {configReferences.length === 0 ? (
         <div className="text-muted-foreground rounded border p-4 text-center text-sm">
           {t(
-            "Dialog.InputConfigWizard.ConfigReferenceEditor.NoConfigReferences",
+            "ConfigWizard.ConfigReferenceEditor.NoConfigReferences",
           )}
         </div>
       ) : (

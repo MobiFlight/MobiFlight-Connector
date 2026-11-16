@@ -1,0 +1,373 @@
+import { Button } from "@/components/ui/button"
+import { Label } from "@/components/ui/label"
+import { Switch } from "@/components/ui/switch"
+import CodeValueLabel from "@/components/wizard/common/CodeValueLabel"
+import { cn } from "@/lib/utils"
+import { useConfigItemStateStore } from "@/stores/configItemStateStore"
+import { useProjectStore } from "@/stores/projectStore"
+import { ConfigReference, LcdDisplayConfig } from "@/types/config"
+import { DeviceReference } from "@/types/controller"
+import { useState } from "react"
+import { useTranslation } from "react-i18next"
+
+export type LcdEditorView = "template" | "livepreview"
+
+// the placeholder for the value of this config
+const OWN_VALUE_PLACEHOLDER = "$"
+
+// one colour per value: "$" first, then the config references in order
+const COLORS = [
+  "border-b-cfgoutput bg-cfgoutput/30",
+  "border-b-amber-500 bg-amber-500/30",
+  "border-b-emerald-500 bg-emerald-500/30",
+  "border-b-fuchsia-500 bg-fuchsia-500/30",
+  "border-b-rose-500 bg-rose-500/30",
+  "border-b-violet-500 bg-violet-500/30",
+  "border-b-teal-500 bg-teal-500/30",
+  "border-b-orange-500 bg-orange-500/30",
+]
+
+type LcdValue = {
+  placeholder: string
+  name: string
+  value: string
+  color: string
+}
+
+// every line gets exactly `cols` characters, the grid exactly `rows` lines
+const toGrid = (lines: string[], rows: number, cols: number) =>
+  Array.from({ length: rows }, (_, row) =>
+    (lines[row] ?? "").padEnd(cols).slice(0, cols),
+  )
+
+const setChar = (line: string, col: number, char: string) =>
+  line.slice(0, col) + char + line.slice(col + 1)
+
+const fill = (line: string, from: number, to: number, char: string) =>
+  line.slice(0, from) + char.repeat(to - from + 1) + line.slice(to + 1)
+
+type LcdCellProps = {
+  char: string
+  color?: string
+  isCaret: boolean
+  isSelected: boolean
+  onMouseDown: () => void
+  onMouseEnter: () => void
+  testId: string
+}
+
+const LcdCell = ({
+  char,
+  color,
+  isCaret,
+  isSelected,
+  onMouseDown,
+  onMouseEnter,
+  testId,
+}: LcdCellProps) => (
+  <div className="flex bg-blue-600">
+    <div
+      data-testid={testId}
+      className={cn(
+        "font-lcd flex h-8 w-5 cursor-pointer items-center justify-center text-white select-none",
+        color ? `border-b-4 ${color}` : "border-b-4 border-b-transparent",
+        isCaret && "border-b-4 border-b-white/80",
+        isSelected &&
+          "border-b-4 border-b-white/10 bg-white/10 ring-2 ring-white/60",
+      )}
+      onMouseDown={onMouseDown}
+      onMouseEnter={onMouseEnter}
+    >
+      <span className="-mb-1.5 text-xl text-shadow-blue-400 text-shadow-md">
+        {char}
+      </span>
+    </div>
+  </div>
+)
+
+type ValueRowProps = {
+  value: LcdValue
+  onClick: () => void
+}
+
+const ValueRow = ({ value, onClick }: ValueRowProps) => (
+  <Button variant="outline" onClick={onClick} className="pl-1">
+    <span
+      className={cn(
+        "flex h-8 w-5 items-center justify-center border-b-2 font-mono",
+        value.color,
+      )}
+    >
+      {value.placeholder}
+    </span>
+    <span className="grow text-left">{value.name}</span>
+    <CodeValueLabel>{value.value ?? "-"}</CodeValueLabel>
+  </Button>
+)
+
+export type LcdDisplayConfigEditorProps = {
+  config: LcdDisplayConfig
+  device?: DeviceReference
+  configRefs: ConfigReference[]
+  // the GUID of the config item, used to show its live value
+  configId: string
+  // the display text rendered by the backend, one string per row
+  previewLines: string[] | null
+  view: LcdEditorView
+  onViewChange: (view: LcdEditorView) => void
+  onChange: (config: LcdDisplayConfig) => void
+}
+
+export const LcdDisplayConfigEditor = ({
+  config,
+  device,
+  configRefs,
+  configId,
+  previewLines,
+  view,
+  onViewChange,
+  onChange,
+}: LcdDisplayConfigEditorProps) => {
+  const { t } = useTranslation("wizard")
+  const rows = device?.Capabilities?.Rows ?? 2
+  const cols = device?.Capabilities?.Columns ?? 16
+
+  const [caret, setCaret] = useState({ row: 0, col: 0 })
+  // column where a selection on the caret row started, null = nothing selected
+  const [anchor, setAnchor] = useState<number | null>(null)
+  const [dragStart, setDragStart] = useState<{
+    row: number
+    col: number
+  } | null>(null)
+
+  const grid = toGrid(config.Lines ?? [], rows, cols)
+  const shownGrid =
+    view === "livepreview" && previewLines
+      ? toGrid(previewLines, rows, cols)
+      : grid
+
+  const liveValues = useConfigItemStateStore((s) => s.values)
+  const { project, activeConfigFileIndex } = useProjectStore()
+  const configItems =
+    project?.ConfigFiles[activeConfigFileIndex]?.ConfigItems ?? []
+
+  const values: LcdValue[] = [
+    {
+      placeholder: OWN_VALUE_PLACEHOLDER,
+      name: t("ConfigWizard.Device.LcdDisplay.Editor.ThisConfig"),
+      value: liveValues[configId]?.Value ?? "",
+      color: COLORS[0],
+    },
+    ...configRefs
+      .filter((ref) => ref.Active)
+      .map((ref, index) => ({
+        placeholder: ref.Placeholder,
+        name: configItems.find((c) => c.GUID === ref.Ref)?.Name ?? ref.Ref,
+        value: liveValues[ref.Ref]?.Value ?? ref.TestValue,
+        color: COLORS[(index + 1) % COLORS.length],
+      })),
+  ]
+  const colorFor = (char: string) =>
+    values.find((v) => v.placeholder === char)?.color
+
+  const selection =
+    anchor === null
+      ? null
+      : { from: Math.min(anchor, caret.col), to: Math.max(anchor, caret.col) }
+
+  const updateLine = (row: number, line: string) => {
+    const lines = grid.map((l, i) => (i === row ? line : l))
+    onChange({ ...config, Lines: lines.map((l) => l.trimEnd()) })
+  }
+
+  const moveCaret = (row: number, col: number, keepSelection: boolean) => {
+    const next = {
+      row: Math.max(0, Math.min(rows - 1, row)),
+      col: Math.max(0, Math.min(cols - 1, col)),
+    }
+    if (keepSelection && next.row === caret.row) setAnchor(anchor ?? caret.col)
+    else setAnchor(null)
+    setCaret(next)
+  }
+
+  // writes the character into the selection or into the caret cell
+  const write = (char: string) => {
+    if (selection) {
+      updateLine(
+        caret.row,
+        fill(grid[caret.row], selection.from, selection.to, char),
+      )
+      moveCaret(caret.row, selection.to + 1, false)
+    } else {
+      updateLine(caret.row, setChar(grid[caret.row], caret.col, char))
+      moveCaret(caret.row, caret.col + 1, false)
+    }
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    const focusIsButton = e.target instanceof HTMLButtonElement
+    const isButtonInteraction = focusIsButton && (e.code === "Space" || e.code === "Enter")
+    if (isButtonInteraction) return
+    
+    const { row, col } = caret
+    switch (e.key) {
+      case "ArrowLeft":
+        moveCaret(row, col - 1, e.shiftKey)
+        break
+      case "ArrowRight":
+        moveCaret(row, col + 1, e.shiftKey)
+        break
+      case "ArrowUp":
+        moveCaret(row - 1, col, false)
+        break
+      case "ArrowDown":
+        moveCaret(row + 1, col, false)
+        break
+      case "Home":
+        moveCaret(row, 0, e.shiftKey)
+        break
+      case "End":
+        moveCaret(row, cols - 1, e.shiftKey)
+        break
+      case "Enter":
+        moveCaret(row + 1, 0, false)
+        break
+      case "Backspace":
+        if (selection) {
+          updateLine(row, fill(grid[row], selection.from, selection.to, " "))
+          moveCaret(row, selection.from, false)
+          break
+        }
+        updateLine(row, setChar(grid[row], col, " "))
+
+        if (col > 0) {
+          // updateLine(row, setChar(grid[row], col-1, " "))
+          moveCaret(row, col - 1, false)
+        }
+        break
+      case "Delete":
+        if (selection) {
+          updateLine(row, fill(grid[row], selection.from, selection.to, " "))
+          moveCaret(row, selection.from, false)
+        } else {
+          updateLine(row, setChar(grid[row], col, " "))
+        }
+        break
+      case "Escape":
+        if (!selection) break
+        moveCaret(row, selection.from, false)
+        setAnchor(null)
+        break
+      default:
+        // a single printable character
+        if (e.key.length === 1 && !e.ctrlKey && !e.metaKey) write(e.key)
+        else return
+    }
+    e.preventDefault()
+  }
+
+  return (
+    <div
+      className="flex flex-col gap-4"
+      data-testid="lcd-editor"
+      onKeyDown={handleKeyDown}
+    >
+      <div className="flex flex-col gap-1">
+        <Label>
+          {t("ConfigWizard.Device.LcdDisplay.Editor.Content.Title")}
+        </Label>
+        <p className="text-muted-foreground text-sm">
+          {t("ConfigWizard.Device.LcdDisplay.Editor.Content.Description")}
+        </p>
+      </div>
+      <div className="flex flex-col items-center">
+        <div className="relative w-fit rounded-2xl bg-linear-to-br from-green-700 via-green-800 to-green-900 p-6 drop-shadow-lg">
+          <div className="bg-background absolute top-2 left-2 h-4 w-4 rounded-full border-3 border-amber-400"></div>
+          <div className="bg-background absolute bottom-2 left-2 h-4 w-4 rounded-full border-3 border-amber-400"></div>
+          <div className="bg-background absolute right-2 bottom-2 h-4 w-4 rounded-full border-3 border-amber-400"></div>
+          <div className="bg-background absolute top-2 right-2 h-4 w-4 rounded-full border-3 border-amber-400"></div>
+          <div className="w-fit rounded-md bg-linear-to-br from-gray-700 to-slate-900 to-15% p-4 drop-shadow-md drop-shadow-mist-900">
+            <div
+              role="textbox"
+              aria-label={t("ConfigWizard.Device.LcdDisplay.Editor.Content.Title")}
+              tabIndex={0}
+              className="focus-visible:ring-ring inline-grid w-fit gap-0.5 rounded-md bg-blue-700 p-2 outline-none focus-visible:ring-2"
+              style={{ gridTemplateColumns: `repeat(${cols}, auto)` }}
+              onMouseUp={() => setDragStart(null)}
+              onMouseLeave={() => setDragStart(null)}
+            >
+              {shownGrid.map((line, row) =>
+                Array.from(line).map((char, col) => (
+                  <LcdCell
+                    key={`${row}-${col}`}
+                    testId={`lcd-cell-${row}-${col}`}
+                    char={char}
+                    color={colorFor(grid[row][col])}
+                    isCaret={caret.row === row && caret.col === col}
+                    isSelected={
+                      caret.row === row &&
+                      selection !== null &&
+                      col >= selection.from &&
+                      col <= selection.to
+                    }
+                    onMouseDown={() => {
+                      moveCaret(row, col, false)
+                      setDragStart({ row, col })
+                    }}
+                    onMouseEnter={() => {
+                      if (dragStart?.row !== row) return
+                      setAnchor(dragStart.col)
+                      setCaret({ row, col })
+                    }}
+                  />
+                )),
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <div className="flex flex-row items-center justify-between gap-2">
+          <div className="flex flex-col gap-1">
+            <Label>
+              {t("ConfigWizard.Device.LcdDisplay.Editor.Placeholder.Title")}
+            </Label>
+            <p className="text-muted-foreground text-sm">
+              {t(
+                "ConfigWizard.Device.LcdDisplay.Editor.Placeholder.Description",
+              )}
+            </p>
+          </div>
+          <div className="flex flex-row items-center gap-2">
+            <Switch
+              id="lcd-editor-view"
+              data-testid="lcd-editor-view"
+              checked={view === "livepreview"}
+              onCheckedChange={(checked) =>
+                onViewChange(checked ? "livepreview" : "template")
+              }
+            />
+            <Label htmlFor="lcd-editor-view">
+              {t("ConfigWizard.Device.LcdDisplay.Editor.Visualization")}
+            </Label>
+          </div>
+        </div>
+        {values.map((value) => (
+          <ValueRow
+            key={value.placeholder}
+            value={value}
+            onClick={() => write(value.placeholder)}
+          />
+        ))}
+        <div>
+          <p className="text-muted-foreground text-sm">
+            {t(
+              "ConfigWizard.Device.LcdDisplay.Editor.AdditionalReferencesHint",
+            )}
+          </p>
+        </div>
+      </div>
+    </div>
+  )
+}

@@ -8,6 +8,7 @@ using MobiFlight.ProSim;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.xplane;
 using Moq;
+using Moq.Protected;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -75,6 +76,45 @@ namespace MobiFlight.Tests
 
             // Assert
             Assert.IsEmpty(updatedValues);
+        }
+
+        [TestMethod]
+        public void Execute_ShouldExecute_WhenConfigItemIsInactiveAndTested()
+        {
+            // Arrange
+            var cfg = new OutputConfigItem
+            {
+                Active = false,
+                TestValue = new ConnectorValue { type = FSUIPCOffsetType.Float, Float64 = 2 }
+            };
+            cfg.Modifiers.Items.Add(new Transformation() { Active = true, Expression = "$*10" });
+            var updatedValues = new ConcurrentDictionary<string, IConfigItem>();
+
+            // Act
+            executor.Execute(cfg, updatedValues, isTest: true);
+
+            // Assert
+            Assert.AreEqual("2", cfg.RawValue, "RawValue should be the test value");
+            Assert.AreEqual("20", cfg.Value, "The modifier should have been applied to the test value");
+        }
+
+        [TestMethod]
+        public void Execute_ShouldExecute_WhenNoSourceIsSet()
+        {
+            // Arrange
+            var cfg = new OutputConfigItem { Active = true };
+            cfg.Modifiers.Items.Add(new Transformation() { Active = true, Expression = "123" });
+
+            var updatedValues = new ConcurrentDictionary<string, IConfigItem>();
+
+            // Act
+            executor.Execute(cfg, updatedValues);
+
+            // Assert
+            Assert.HasCount(1, updatedValues);
+            Assert.AreEqual(new ConnectorValue().ToString(), cfg.RawValue, "RawValue should be the default ConnectorValue");
+            Assert.AreEqual("123", cfg.Value, "The modifier should have set it to 123");
+            Assert.IsFalse(cfg.Status.ContainsKey(ConfigItemStatusType.Source), "There should not be the error status for an empty source");
         }
 
         [TestMethod]
@@ -367,6 +407,87 @@ namespace MobiFlight.Tests
             executor.ExecuteTestOff(cfg);
             // Assert
             mockMobiFlightCache.Verify(m => m.SetValue(serial, name, "0"), Times.Once);
+        }
+
+        [TestMethod]
+        public void ExecuteTestOn_ShouldSetEveryPin_WhenJoystickOutputHasMultiplePins()
+        {
+            // Arrange
+            var joystick = new Mock<Joystick>(null, new JoystickDefinition() { InstanceName = "Joystick X" });
+            mockJoystickManager.Setup(m => m.GetJoystickBySerial("JS-123")).Returns(joystick.Object);
+            var cfg = new OutputConfigItem
+            {
+                Controller = new Controller { Name = "Joystick X", Serial = "JS-123" },
+                Device = new OutputConfig.Output { Pin = "LED A|LED B" }
+            };
+
+            // Act
+            executor.ExecuteTestOn(cfg, new ConnectorValue { type = FSUIPCOffsetType.Float, Float64 = 1 });
+
+            // Assert
+            joystick.Protected().Verify("OnSetOutputDeviceState", Times.Once(), "LED A", (byte)1);
+            joystick.Protected().Verify("OnSetOutputDeviceState", Times.Once(), "LED B", (byte)1);
+            joystick.Verify(j => j.UpdateOutputDeviceStates(), Times.Once());
+        }
+
+        [TestMethod]
+        public void ExecuteTestOn_ShouldSetEveryPin_WhenMobiFlightOutputHasMultiplePins()
+        {
+            // Arrange
+            var rawSerial = "Test / SN-123";
+            var serial = SerialNumber.ExtractSerial(rawSerial);
+            var cfg = new OutputConfigItem
+            {
+                Controller = SerialNumber.CreateController(rawSerial),
+                Device = new OutputConfig.Output { Pin = "LED A|LED B", PwmMode = false, Brightness = 255 }
+            };
+
+            // Act
+            executor.ExecuteTestOn(cfg, new ConnectorValue { type = FSUIPCOffsetType.Float, Float64 = 1 });
+
+            // Assert
+            mockMobiFlightCache.Verify(m => m.SetValue(serial, "LED A", "255"), Times.Once);
+            mockMobiFlightCache.Verify(m => m.SetValue(serial, "LED B", "255"), Times.Once);
+        }
+
+#if ARCAZE
+        [TestMethod]
+        public void ExecuteTestOn_ShouldSetEveryPin_WhenArcazeOutputHasMultiplePins()
+        {
+            // Arrange
+            var cfg = new OutputConfigItem
+            {
+                Controller = new Controller { Name = "Arcaze v5.54", Serial = "0123456789AB" },
+                Device = new OutputConfig.Output { Pin = "A01|C05", Brightness = 255 }
+            };
+
+            // Act
+            executor.ExecuteTestOn(cfg, new ConnectorValue { type = FSUIPCOffsetType.Float, Float64 = 1 });
+
+            // Assert
+            mockArcazeCache.Verify(m => m.setValue("0123456789AB", "A01", "255"), Times.Once);
+            mockArcazeCache.Verify(m => m.setValue("0123456789AB", "C05", "255"), Times.Once);
+        }
+#endif
+
+        [TestMethod]
+        public void ExecuteTestOn_ShouldSetEveryPin_WhenMidiBoardOutputHasMultiplePins()
+        {
+            // Arrange
+            var midiBoard = new Mock<MidiBoard>(null, null, "MIDI Controller", new MidiBoardDefinition() { InstanceName = "MIDI Controller" });
+            mockMidiBoardManager.Setup(m => m.GetMidiBoardBySerial("MI-123")).Returns(midiBoard.Object);
+            var cfg = new OutputConfigItem
+            {
+                Controller = new Controller { Name = "MIDI Controller", Serial = "MI-123" },
+                Device = new OutputConfig.Output { Pin = "Note 1|Note 2" }
+            };
+
+            // Act
+            executor.ExecuteTestOn(cfg, new ConnectorValue { type = FSUIPCOffsetType.Float, Float64 = 1 });
+
+            // Assert
+            midiBoard.Verify(m => m.SetOutputDeviceState("Note 1", 1), Times.Once());
+            midiBoard.Verify(m => m.SetOutputDeviceState("Note 2", 1), Times.Once());
         }
 
         [TestMethod]

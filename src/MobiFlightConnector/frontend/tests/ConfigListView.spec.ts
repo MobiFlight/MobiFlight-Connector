@@ -253,6 +253,8 @@ test.describe("Confirm content and basic functions are working", () => {
     const lastCommand = postedCommands!.pop()
     expect(lastCommand.key).toEqual("CommandAddConfigItem")
     expect(lastCommand.payload.type).toEqual("OutputConfig")
+    // without a selection the config is added at the end of the list
+    expect(lastCommand.payload.insertAfterGuid).toBeUndefined()
   })
 
   test("Confirm add input config is working", async ({
@@ -272,6 +274,49 @@ test.describe("Confirm content and basic functions are working", () => {
     const lastCommand = postedCommands!.pop()
     expect(lastCommand.key).toEqual("CommandAddConfigItem")
     expect(lastCommand.payload.type).toEqual("InputConfig")
+    // without a selection the config is added at the end of the list
+    expect(lastCommand.payload.insertAfterGuid).toBeUndefined()
+  })
+
+  test("Confirm add config inserts after the last selected config", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+    await configListPage.mobiFlightPage.trackCommand("CommandAddConfigItem")
+
+    const testProject = await configListPage.mobiFlightPage.getTestProjectData()
+    const configItems = testProject.ConfigFiles[0].ConfigItems
+    const selectionButton = page.getByRole("button", { name: "rows selected" })
+
+    await test.step("Add output config after a single selected config", async () => {
+      await page.getByRole("row").nth(2).click()
+      await expect(selectionButton).toHaveText("1 rows selected")
+      await page.getByRole("button", { name: "Add Output Config" }).click()
+
+      const postedCommands =
+        await configListPage.mobiFlightPage.getTrackedCommands()
+      const lastCommand = postedCommands!.pop()
+      expect(lastCommand.payload.type).toEqual("OutputConfig")
+      expect(lastCommand.payload.insertAfterGuid).toEqual(configItems[1].GUID)
+    })
+
+    await test.step("Add input config after the last of several selected configs", async () => {
+      // the position in the list counts, not the order of selection
+      await page.getByRole("row").nth(3).click()
+      await page.keyboard.down("Shift")
+      await page.getByRole("row").nth(1).click()
+      await page.keyboard.up("Shift")
+      await expect(selectionButton).toHaveText("3 rows selected")
+      await page.getByRole("button", { name: "Add Input Config" }).click()
+
+      const postedCommands =
+        await configListPage.mobiFlightPage.getTrackedCommands()
+      const lastCommand = postedCommands!.pop()
+      expect(lastCommand.payload.type).toEqual("InputConfig")
+      expect(lastCommand.payload.insertAfterGuid).toEqual(configItems[2].GUID)
+    })
   })
   test("Duplicated input config item is selected", async ({
     configListPage,
@@ -291,6 +336,10 @@ test.describe("Confirm content and basic functions are working", () => {
 
     await configListPage.duplicateConfigItem(0, "inputaction")
     await page.mouse.move(0, 0)
+    await page
+      .getByTestId("configwizard-dialog-footer")
+      .getByRole("button", { name: "Close" })
+      .click()
     const duplicatedRow = await configListPage.getConfigItemRow(2)
     await expect(duplicatedRow).toHaveAttribute("data-state", "selected")
   })
@@ -947,17 +996,14 @@ test.describe("Filter toolbar tests", () => {
     // simulate a newly created item
     await configListPage.addNewConfigItem("OutputConfigItem")
 
-    // the config wizard opens and triggers this state
-    await configListPage.setOverlayState({ Visible: true })
-    const loaderOverlay = page.getByTestId("loader-overlay")
-    await expect(loaderOverlay).toBeVisible()
-    await expect(page.getByText("Opening wizard...")).toBeVisible()
-
-    // the config wizard closes and triggers this state
-    await configListPage.setOverlayState({ Visible: false })
-    await expect(loaderOverlay).not.toBeVisible()
-
+    const dialog = page.getByTestId("configwizard-dialog")
+    await expect(dialog).toBeVisible()
     const notification = page.getByRole("alert")
+    await expect(notification).not.toBeVisible()
+
+    await page.getByTestId("dialog-config-name").getByRole("textbox").press("Enter")
+    await page.keyboard.press("Escape")
+    await expect(dialog).not.toBeVisible()
     await expect(
       notification.getByText("New config created but not visible."),
     ).toBeVisible()
@@ -1646,7 +1692,7 @@ test.describe("Confirm context menu actions are working", () => {
     const firstRow = page.getByRole("row").nth(1)
 
     const menuOptions = [
-      { label: "Edit", command: true },
+      { label: "Edit", command: false },
       { label: "Rename", command: false },
       { label: "Delete", command: true },
       { label: "Duplicate", command: true },
@@ -1678,6 +1724,13 @@ test.describe("Confirm context menu actions are working", () => {
         expect(lastCommand.payload.action).toEqual(label.toLowerCase())
       }
 
+      if (label === "Edit") {
+        const dialog = page.getByTestId("configwizard-dialog")
+        await expect(dialog).toBeVisible()
+        await page.keyboard.press("Escape")
+        await expect(dialog).not.toBeVisible()
+      }
+
       if (label === "Rename") {
         const inlineEdit = firstRow.getByRole("textbox")
         await expect(inlineEdit).toBeVisible()
@@ -1699,7 +1752,7 @@ test.describe("Confirm context menu actions are working", () => {
       .first()
 
     const menuOptions = [
-      { label: "Edit", command: true },
+      { label: "Edit", command: false },
       { label: "Rename", command: false },
       { label: "Delete", command: true },
       { label: "Duplicate", command: true },
@@ -1729,6 +1782,13 @@ test.describe("Confirm context menu actions are working", () => {
         const lastCommand = postedCommands!.pop()
         expect(lastCommand.key).toEqual("CommandConfigContextMenu")
         expect(lastCommand.payload.action).toEqual(label.toLowerCase())
+      }
+
+      if (label === "Edit") {
+        const dialog = page.getByTestId("configwizard-dialog")
+        await expect(dialog).toBeVisible()
+        await page.keyboard.press("Escape")
+        await expect(dialog).not.toBeVisible()
       }
 
       if (label === "Rename") {

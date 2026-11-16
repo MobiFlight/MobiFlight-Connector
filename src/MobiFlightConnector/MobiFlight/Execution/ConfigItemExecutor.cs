@@ -60,14 +60,18 @@ namespace MobiFlight.Execution
             this.ConfigItemInTestMode = configItemInTestMode;
         }
 
-        public void Execute(OutputConfigItem cfg, ConcurrentDictionary<string, IConfigItem> updatedValues)
+        // Runs the pipeline for one config:
+        // read source -> modify (with config reference values) -> check preconditions -> display.
+        // A test uses the test value instead of reading the source and skips the preconditions.
+        public void Execute(OutputConfigItem cfg, ConcurrentDictionary<string, IConfigItem> updatedValues, bool isTest = false)
         {
-            if (!cfg.Active) return;
+            // inactive configs are not executed, but can still be tested
+            if (!cfg.Active && !isTest) return;
 
             var originalCfg = cfg.Clone() as ConfigItem;
 
-            // Handle test mode
-            if (ConfigItemInTestMode != null && ConfigItemInTestMode.GUID == cfg.GUID)
+            // A config in test mode is skipped by the regular execution
+            if (!isTest && ConfigItemInTestMode != null && ConfigItemInTestMode.GUID == cfg.GUID)
             {
                 cfg.Status[ConfigItemStatusType.Test] = "TESTING";
                 if (!cfg.Equals(originalCfg))
@@ -79,46 +83,11 @@ namespace MobiFlight.Execution
 
             ConfigRefChecker.UpdateStatus(cfg, ConfigItems);
 
-            // If not connected to FSUIPC show an error message
-            if (cfg.Source is FsuipcSource && !fsuipcCache.IsConnected())
+            // 1. Read source - a test uses the test value instead
+            var value = isTest ? cfg.TestValue.Clone() as ConnectorValue : ReadSource(cfg);
+            if (value == null)
             {
-                cfg.Status[ConfigItemStatusType.Source] = "FSUIPC_NOT_AVAILABLE";
-            }
-            else if (cfg.Source is SimConnectSource && !simConnectCache.IsConnected())
-            {
-                cfg.Status[ConfigItemStatusType.Source] = "SIMCONNECT_NOT_AVAILABLE";
-            }
-            else if (cfg.Source is XplaneSource && !xplaneCache.IsConnected())
-            {
-                cfg.Status[ConfigItemStatusType.Source] = "XPLANE_NOT_AVAILABLE";
-            }
-            else if (cfg.Source is ProSimSource && !proSimCache.IsConnected())
-            {
-                cfg.Status[ConfigItemStatusType.Source] = "PROSIM_NOT_AVAILABLE";
-            }
-            else
-            {
-                cfg.Status.Remove(ConfigItemStatusType.Source);
-            }
-
-            ConnectorValue value;
-            ConnectorValue processedValue;
-            
-            // Read value from source - wrap in try-catch to handle source read errors
-            try
-            {
-                value = ExecuteRead(cfg);
-                processedValue = value;
-                cfg.RawValue = value.ToString();
-                cfg.Value = processedValue.ToString();
-            }
-            catch (Exception ex)
-            {
-                // Error reading from source (FSUIPC, SimConnect, XPlane, ProSim, Variables)
-                Log.Instance.log($"Source read error ({cfg.Name}): {ex.Message}", LogSeverity.Error);
-                cfg.Status[ConfigItemStatusType.Source] = "ReadError";
-                
-                // Add to updatedValues and stop further evaluation
+                // Source read error, stop further evaluation
                 if (!originalCfg.Equals(cfg))
                 {
                     updatedValues[cfg.GUID] = cfg;
@@ -126,6 +95,11 @@ namespace MobiFlight.Execution
                 return;
             }
 
+            var processedValue = value;
+            cfg.RawValue = value.ToString();
+            cfg.Value = processedValue.ToString();
+
+            // 2. Modify, using the config reference values
             List<ConfigRefValue> configRefs = GetRefs(cfg.ConfigRefs);
             cfg.Status.Remove(ConfigItemStatusType.Modifier);
 
@@ -152,11 +126,11 @@ namespace MobiFlight.Execution
                 // so keep continuing
             }
 
-            // Check preconditions
+            // 3. Check preconditions - a test always displays
             try
             {
                 var precondition = true;
-                if (!PreconditionChecker.CheckPrecondition(cfg, processedValue, ConfigItems, arcazeCache, mobiFlightCache))
+                if (!isTest && !PreconditionChecker.CheckPrecondition(cfg, processedValue, ConfigItems, arcazeCache, mobiFlightCache))
                 {
                     if (!cfg.Preconditions.ExecuteOnFalse)
                     {
@@ -177,8 +151,8 @@ namespace MobiFlight.Execution
                 if (precondition)
                 {
                     cfg.Status.Remove(ConfigItemStatusType.Precondition);
-                    
-                    // Execute display - wrap in try-catch as device errors occur here
+
+                    // 4. Display - wrap in try-catch as device errors occur here
                     try
                     {
                         ExecuteDisplay(processedValue.ToString(), cfg);
@@ -262,7 +236,8 @@ namespace MobiFlight.Execution
             }
 
             cfg.Status[ConfigItemStatusType.Test] = "TEST_EXECUTION";
-            MessageExchange.Instance.Publish(new ConfigValuePartialUpdate(cfg));
+            // value-only update, cfg may be an unsaved draft of the listed item
+            MessageExchange.Instance.Publish(new ConfigValueRawAndFinalUpdate(new ConfigValueOnlyItem(cfg)));
         }
 
         public void ExecuteTestOff(OutputConfigItem cfg)
@@ -298,7 +273,53 @@ namespace MobiFlight.Execution
             }
 
             cfg.Status.Remove(ConfigItemStatusType.Test);
-            MessageExchange.Instance.Publish(new ConfigValuePartialUpdate(cfg));
+            MessageExchange.Instance.Publish(new ConfigValueRawAndFinalUpdate(new ConfigValueOnlyItem(cfg)));
+        }
+
+        // Reads the current value from the config's source.
+        // Returns null if reading failed, the status of the config tells why.
+        private ConnectorValue ReadSource(OutputConfigItem cfg)
+        {
+            // If not connected to the sim show an error message
+            if (cfg.Source is FsuipcSource && !fsuipcCache.IsConnected())
+            {
+                cfg.Status[ConfigItemStatusType.Source] = "FSUIPC_NOT_AVAILABLE";
+            }
+            else if (cfg.Source is SimConnectSource && !simConnectCache.IsConnected())
+            {
+                cfg.Status[ConfigItemStatusType.Source] = "SIMCONNECT_NOT_AVAILABLE";
+            }
+            else if (cfg.Source is XplaneSource && !xplaneCache.IsConnected())
+            {
+                cfg.Status[ConfigItemStatusType.Source] = "XPLANE_NOT_AVAILABLE";
+            }
+            else if (cfg.Source is ProSimSource && !proSimCache.IsConnected())
+            {
+                cfg.Status[ConfigItemStatusType.Source] = "PROSIM_NOT_AVAILABLE";
+            }
+            else
+            {
+                cfg.Status.Remove(ConfigItemStatusType.Source);
+            }
+
+            // Read value from source - wrap in try-catch to handle source read errors
+            try
+            {
+                // this case is new since we can unset the source in the UI
+                // without source, a config can still be processed
+                // and modifiers and config references can be evaluated
+                // and the final value can be sent to the device
+                if (cfg.Source == null) return new ConnectorValue();
+
+                return ExecuteRead(cfg);
+            }
+            catch (Exception ex)
+            {
+                // Error reading from source (FSUIPC, SimConnect, XPlane, ProSim, Variables)
+                Log.Instance.log($"Source read error ({cfg.Name}): {ex.Message}", LogSeverity.Error);
+                cfg.Status[ConfigItemStatusType.Source] = "ReadError";
+                return null;
+            }
         }
 
         private ConnectorValue ExecuteRead(OutputConfigItem cfg)
@@ -427,7 +448,16 @@ namespace MobiFlight.Execution
                     default: // LED Output
                         int intState = ParseValue(value);
                         byte state = (byte)Math.Max(Math.Min(255, intState), 0);
-                        joystick.SetOutputDeviceState((cfg.Device as Output).Pin, state);
+
+                        // Hid/Joystick Controller now also support multiple output pins,
+                        // separated by a pipe character (|).
+                        var pins = DeviceReference.SplitNames((cfg.Device as Output).Pin);
+
+                        foreach (var pin in pins)
+                        {
+                            joystick.SetOutputDeviceState(pin, state);
+                        }
+
                         joystick.UpdateOutputDeviceStates();
                         joystick.Update();
                         break;
@@ -446,7 +476,15 @@ namespace MobiFlight.Execution
 
                 byte state = 0;
                 if (value != "0") state = 1;
-                midiBoard.SetOutputDeviceState((cfg.Device as Output).Pin, state);
+
+                // Midi Controller now also support multiple output pins,
+                // separated by a pipe character (|).
+                var pins = DeviceReference.SplitNames((cfg.Device as Output).Pin);
+                
+                foreach (var pin in pins)
+                {
+                    midiBoard.SetOutputDeviceState(pin, state);
+                }
             }
             else if (SerialNumber.IsArcazeSerial(serial))
             {
@@ -456,19 +494,22 @@ namespace MobiFlight.Execution
                     case LedModule device:
                         var val = value.PadRight(device.DisplayLedDigits.Count, device.DisplayLedPaddingChar[0]);
                         if (device.DisplayLedPadding) val = value.PadLeft(device.DisplayLedPadding ? device.DisplayLedDigits.Count : 0, device.DisplayLedPaddingChar[0]);
+                        var (arcazeAddress, arcazeConnector) = device.SplitAddress();
                         arcazeCache.setDisplay(
                             serial,
-                            device.DisplayLedAddress,
-                            device.DisplayLedConnector,
+                            arcazeAddress,
+                            arcazeConnector,
                             device.DisplayLedDigits,
                             device.DisplayLedDecimalPoints,
                             val);
                         break;
 
                     default:
-                        arcazeCache.setValue(serial,
-                            (cfg.Device as Output).Pin,
-                            (value != "0" ? (cfg.Device as Output).Brightness.ToString() : "0"));
+                        var arcazeValue = value != "0" ? (cfg.Device as Output).Brightness.ToString() : "0";
+                        foreach (var pin in DeviceReference.SplitNames((cfg.Device as Output).Pin))
+                        {
+                            arcazeCache.setValue(serial, pin, arcazeValue);
+                        }
                         break;
                 }
 #endif
@@ -479,6 +520,7 @@ namespace MobiFlight.Execution
                 {
                     case LedModule device:
 
+                        var (ledName, ledModule) = device.SplitAddress();
                         var decimalCount = value.Count(c => c == '.');
 
                         var val = value.PadRight(device.DisplayLedDigits.Count + decimalCount, device.DisplayLedPaddingChar[0]);
@@ -497,8 +539,8 @@ namespace MobiFlight.Execution
 
                             mobiFlightCache.SetDisplayBrightness(
                                 serial,
-                                device.DisplayLedAddress,
-                                device.DisplayLedConnector,
+                                ledName,
+                                ledModule,
                                 refValue
                                 );
                         }
@@ -507,8 +549,8 @@ namespace MobiFlight.Execution
 
                         mobiFlightCache.SetDisplay(
                             serial,
-                            device.DisplayLedAddress,
-                            device.DisplayLedConnector,
+                            ledName,
+                            ledModule,
                             device.DisplayLedDigits,
                             decimalPoints,
                             val,
@@ -577,9 +619,10 @@ namespace MobiFlight.Execution
                         if (outputValue != "0" && !output.PwmMode)
                             outputValue = output.Brightness.ToString();
 
-                        mobiFlightCache.SetValue(serial,
-                            output.Pin,
-                            outputValue);
+                        foreach (var pin in DeviceReference.SplitNames(output.Pin))
+                        {
+                            mobiFlightCache.SetValue(serial, pin, outputValue);
+                        }
                         break;
                 }
             }

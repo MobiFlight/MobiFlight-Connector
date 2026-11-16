@@ -11,7 +11,6 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu"
 import messageExchange from "@/lib/messageExchange"
-import { useRowInteraction } from "@/lib/hooks/useRowInteraction"
 import { IConfigItem } from "@/types"
 import { CommandConfigContextMenu } from "@/types/commands"
 import {
@@ -39,22 +38,14 @@ function MenuItems({
 }) {
   const { publish } = messageExchange
   const navigate = useNavigate()
-  const { startNameEdit } = useRowInteraction()
   const context = useContext(ConfigItemTableContext)
-  const isInputConfig = item.Type === "InputConfigItem"
   return (
     <>
       <Label>Actions</Label>
       <Item
         onClick={() => {
-          if (isInputConfig) {
-            navigate("/config/" + item.GUID)
+          navigate("/config/" + item.GUID)
             return
-          }
-          publish({
-            key: "CommandConfigContextMenu",
-            payload: { action: "edit", item },
-          } as CommandConfigContextMenu)
         }}
       >
         <div className="flex items-center gap-2 [&_svg]:size-4">
@@ -67,7 +58,9 @@ function MenuItems({
           using setTimeout makes sure the context menu closes before starting the edit, 
           otherwise the input won't receive focus sometimes 
        */}
-      <Item onClick={() => setTimeout(() => startNameEdit?.(), 0)}>
+      <Item
+        onClick={() => setTimeout(() => context?.startNameEdit(item.GUID), 0)}
+      >
         <div className="flex items-center gap-2 [&_svg]:size-4">
           <IconPencil />
           <span>Rename</span>
@@ -88,7 +81,7 @@ function MenuItems({
       </Item>
       <Item
         onClick={() =>
-         context?.onDuplicate() ||
+          context?.onDuplicate() ||
           publish({
             key: "CommandConfigContextMenu",
             payload: { action: "duplicate", item },
@@ -144,7 +137,7 @@ const ConfigItemRowContextMenu = ({
     <DropdownMenuContent
       align="end"
       data-testid="config-item-context-menu"
-      // Prevent setting focus 
+      // Prevent setting focus
       onCloseAutoFocus={(e) => e.preventDefault()}
     >
       <MenuItems

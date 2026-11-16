@@ -21,7 +21,7 @@ export const InterpolationPanelTrigger = ({
 }: {
   modifier: Interpolation
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
 
   const rangeStart = Object.keys(modifier.Values)
   const interpolationValues = rangeStart.map((start) => ({
@@ -38,11 +38,12 @@ export const InterpolationPanelTrigger = ({
   return (
     <div className="flex flex-row items-center gap-2">
       <div className="text-md w-32 px-2 text-left font-semibold">
-        {t("Dialog.Modifiers.Type.Interpolation.Label")}
+        {t("ConfigWizard.Modifiers.Type.Interpolation.Label")}
       </div>
       <div className="flex flex-row items-center gap-1 text-sm">
         <Trans
-          i18nKey="Dialog.Modifiers.Type.Interpolation.Summary"
+          i18nKey="ConfigWizard.Modifiers.Type.Interpolation.Summary"
+          ns="wizard"
           components={{ badge: <Badge variant={"secondary"} /> }}
           values={{
             count: summaryInfo.mappings,
@@ -62,7 +63,7 @@ export const InterpolationPanelContent = ({
   modifier: Interpolation
   onChange: (updated: Interpolation) => void
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const rangeStart = Object.keys(modifier.Values)
   const [interpolationValues, setInterpolationValues] = useState<
     { start: number; end: number }[]
@@ -140,24 +141,24 @@ export const InterpolationPanelContent = ({
   return (
     <>
       <div className="text-muted-foreground text-sm">
-        {t("Dialog.Modifiers.Type.Interpolation.Description")}
+        {t("ConfigWizard.Modifiers.Type.Interpolation.Description")}
       </div>
       <div>
         <div className="text-md font-semibold">
-          {t("Dialog.Modifiers.Type.Interpolation.Mappings")}
+          {t("ConfigWizard.Modifiers.Type.Interpolation.Mappings")}
         </div>
         <Table className="">
           <TableHeader>
             <TableRow>
               <TableHead>
-                {t("Dialog.Modifiers.Type.Interpolation.From")}
+                {t("ConfigWizard.Modifiers.Type.Interpolation.From")}
               </TableHead>
               <TableHead>
-                {t("Dialog.Modifiers.Type.Interpolation.To")}
+                {t("ConfigWizard.Modifiers.Type.Interpolation.To")}
               </TableHead>
               <TableHead>
                 <span className="sr-only">
-                  {t("Dialog.Modifiers.Type.Interpolation.Action")}
+                  {t("ConfigWizard.Modifiers.Type.Interpolation.Action")}
                 </span>
               </TableHead>
             </TableRow>
@@ -192,7 +193,7 @@ export const InterpolationPanelContent = ({
                     >
                       <IconTrash />
                       <span className="sr-only">
-                        {t("Dialog.Modifiers.Type.Interpolation.Remove")}
+                        {t("ConfigWizard.Modifiers.Type.Interpolation.Remove")}
                       </span>
                     </Button>
                   </TableCell>
@@ -205,7 +206,7 @@ export const InterpolationPanelContent = ({
       <div className="pl-2">
         <Button variant="outline" size="sm" onClick={addMapping}>
           <IconPlus />
-          {t("Dialog.Modifiers.Type.Interpolation.Add")}
+          {t("ConfigWizard.Modifiers.Type.Interpolation.Add")}
         </Button>
       </div>
     </>

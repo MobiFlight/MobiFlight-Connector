@@ -36,6 +36,7 @@ export type AppMessageKey =
   | "LogEntry"
   | "ShutdownConfirmationRequested"
   | "GoldSponsorsUpdate"
+  | "LcdDisplayPreview"
 
 export type AppMessagePayload =
   | StatusBarUpdate
@@ -61,6 +62,15 @@ export type AppMessagePayload =
   | LogEntry
   | ShutdownConfirmationRequested
   | GoldSponsorsUpdate
+  | LcdDisplayPreview
+
+// LcdDisplayPreview
+// is sent from the backend as the answer to CommandLcdDisplayPreview
+// the lines contain the text exactly as the LCD display shows it
+export interface LcdDisplayPreview {
+  GUID: string
+  Lines: string[]
+}
 
 // AppMessage is the message format
 // when receiving messages from the backend

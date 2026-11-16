@@ -80,6 +80,10 @@ namespace MobiFlight
 
         private readonly Timer frontendUpdateTimer = new Timer();
 
+        // test run started from the config wizard, evaluated on every tick
+        private readonly Timer wizardTestTimer = new Timer();
+        private OutputConfigItem wizardTestConfig;
+
         /// <summary>
         /// This list contains preparsed information and cached values for the supervised FSUIPC offsets
         /// </summary>
@@ -211,6 +215,8 @@ namespace MobiFlight
             autoConnectTimer.Interval = 10000;
             autoConnectTimer.Tick += new EventHandler(AutoConnectTimer_TickAsync);
 
+            wizardTestTimer.Tick += (s, e) => ExecuteWizardTest();
+
             testModeTimer.Tick += new EventHandler(testModeTimer_Tick);
             SetTestModeInterval(Properties.Settings.Default.TestTimerInterval);
 
@@ -275,7 +281,9 @@ namespace MobiFlight
                 connectedControllers.Add(new Controller()
                 {
                     Name = controller.Name,
-                    Serial = controller.Serial
+                    Serial = controller.Serial,
+                    Devices = arcazeCache.GetControllerDevices(controller.Serial)
+                                         .ToList<DeviceReference>()
                 });
             });
 #endif
@@ -286,7 +294,7 @@ namespace MobiFlight
                 {
                     Name = controller.Name,
                     Serial = controller.Serial,
-                    Devices = controller.GetConnectedInputDevices()
+                    Devices = controller.GetControllerDevices()
                                         .ToList()
                 });
             });
@@ -309,7 +317,9 @@ namespace MobiFlight
                 {
                     Name = controller.Name,
                     Serial = controller.Serial,
-                    Devices = controller.GetAvailableDevices().ToList<DeviceReference>()
+                    Devices = controller.GetAvailableDevices()
+                                        .Union(controller.GetAvailableOutputDevices())
+                                        .ToList<DeviceReference>()
                 });
             });
 
@@ -364,10 +374,7 @@ namespace MobiFlight
 
             MessageExchange.Instance.SubscribeOnUiThread<CommandAddConfigItem>((message) =>
             {
-                IConfigItem item = new OutputConfigItem()
-                {
-                    Source = SourceFactory.Create(Project.ToProjectInfo().Sim)
-                };
+                IConfigItem item = new OutputConfigItem();
                 if (message.Type == "InputConfig")
                 {
                     item = new InputConfigItem();
@@ -376,7 +383,19 @@ namespace MobiFlight
                 item.GUID = Guid.NewGuid().ToString();
                 item.Name = message.Name;
                 item.Active = true;
-                ConfigItems.Add(item);
+
+                // insert the new item after the selected item in the list, if there is one
+                var index = message.InsertAfterGuid == null
+                    ? -1
+                    : ConfigItems.FindIndex(i => i.GUID == message.InsertAfterGuid);
+                if (index == -1)
+                {
+                    ConfigItems.Add(item);
+                }
+                else
+                {
+                    ConfigItems.Insert(index + 1, item);
+                }
 
                 MessageExchange.Instance.Publish(new ConfigValueFullUpdate(ActiveConfigIndex, ConfigItems));
                 OnConfigHasChanged?.Invoke(item, null);
@@ -407,30 +426,46 @@ namespace MobiFlight
                 OnConfigHasChanged?.Invoke(ConfigItems, null);
             });
 
+            MessageExchange.Instance.Subscribe<CommandStepperCalibration>((message) =>
+            {
+                if (message.Action == StepperCalibrationAction.home)
+                {
+                    getMobiFlightModuleCache().ResetStepper(message.Controller.Serial, message.Stepper.Name);
+                } else if (message.Action == StepperCalibrationAction.move)
+                {
+                    getMobiFlightModuleCache().MoveStepper(message.Controller, message.Stepper, message.Steps ?? 0);
+                }
+            });
+
+            MessageExchange.Instance.Subscribe<CommandLcdDisplayPreview>((message) =>
+            {
+                PublishLcdDisplayPreview(message.Item as OutputConfigItem);
+            });
+
             MessageExchange.Instance.SubscribeOnUiThread<CommandConfigContextMenu>((message) =>
             {
                 IConfigItem cfg;
                 switch (message.Action)
                 {
-                    case "delete":
+                    case CommandConfigContextMenuAction.delete:
                         ConfigItems.RemoveAll(i => i.GUID == message.Item.GUID);
                         OnInputConfigSettingsChanged(this, null); // else InputEventExecutor's cache keeps the deleted item bound
                         break;
 
-                    case "toggle":
+                    case CommandConfigContextMenuAction.toggle:
                         cfg = ConfigItems.Find(i => i.GUID == message.Item.GUID);
                         if (cfg == null) break;
                         cfg.Active = !cfg.Active;
                         break;
 
-                    case "duplicate":
+                    case CommandConfigContextMenuAction.duplicate:
                         var index = ConfigItems.FindIndex(i => i.GUID == message.Item.GUID);
                         if (index == -1) break;
                         var dup = ConfigItems[index].Duplicate();
                         ConfigItems.Insert(index + 1, dup);
                         break;
 
-                    case "test":
+                    case CommandConfigContextMenuAction.test:
                         cfg = ConfigItems.Find(i => i.GUID == message.Item.GUID);
                         if (cfg == null || !(cfg is OutputConfigItem)) break;
                         var toggleTest = cfg.AreEqual(ConfigItemInTestMode);
@@ -460,7 +495,59 @@ namespace MobiFlight
 
                         return;
 
-                    case "settings":
+                    case CommandConfigContextMenuAction.testStart:
+                        cfg = message.Item;
+                        if (cfg == null || !(cfg is OutputConfigItem)) break;
+
+                        // a value change on the same config keeps the device on
+                        if (!IsSameTestTarget(ConfigItemInTestMode, cfg as OutputConfigItem))
+                        {
+                            try
+                            {
+                                ExecuteTestOff(ConfigItemInTestMode, true);
+                            }
+                            catch (Exception e)
+                            {
+                                Log.Instance.log(e.Message, LogSeverity.Error);
+                            }
+                        }
+
+                        wizardTestConfig = cfg as OutputConfigItem;
+                        ExecuteWizardTest();
+                        // modifiers like Blink need continuous evaluation
+                        wizardTestTimer.Interval = Properties.Settings.Default.TestTimerInterval;
+                        wizardTestTimer.Start();
+
+                        return;
+
+                    case CommandConfigContextMenuAction.testStop:
+                        cfg = message.Item;
+                        if (cfg == null || !(cfg is OutputConfigItem)) break;
+
+                        wizardTestTimer.Stop();
+                        wizardTestConfig = null;
+
+                        try
+                        {
+                            ExecuteTestOff(ConfigItemInTestMode, true);
+                        }
+                        catch (Exception e)
+                        {
+                            Log.Instance.log(e.Message, LogSeverity.Error);
+                        }
+
+                        try
+                        {
+                            ExecuteTestOff(cfg as OutputConfigItem, true);
+                        }
+                        catch (Exception e)
+                        {
+                            Log.Instance.log($"Error during test mode execution: {cfg.Name}. {e.Message}", LogSeverity.Error);
+                        }
+
+                        return;
+
+                    case CommandConfigContextMenuAction.settings:
                         cfg = ConfigItems.Find(i => i.GUID == message.Item.GUID);
                         if (cfg == null) return;
 
@@ -557,7 +644,8 @@ namespace MobiFlight
                     case CommandFileContextMenuAction.export:
                         // this is not subscribed here
                         // see MainForm.cs for the subscription there.
-                        break;
+                        // Exporting doesn't change the project.
+                        return;
                     case CommandFileContextMenuAction.moveLeft:
                     case CommandFileContextMenuAction.moveRight:
                         // Issue 3205: swap the profile with its neighbour
@@ -985,6 +1073,7 @@ namespace MobiFlight
         public void TestModeStop()
         {
             testModeTimer.Stop();
+            wizardTestTimer.Stop();
 
             // make sure every device is turned off
             mobiFlightCache.Stop();
@@ -1404,7 +1493,7 @@ namespace MobiFlight
             {
                 try
                 {
-                    ExecuteTestOn(currentConfig as OutputConfigItem, (currentConfig as OutputConfigItem).TestValue);
+                    ExecuteTestOn(currentConfig as OutputConfigItem);
                 }
                 catch (IndexOutOfRangeException ex)
                 {
@@ -1448,14 +1537,107 @@ namespace MobiFlight
             executor.ExecuteTestOff(cfg);
         }
 
-        public void ExecuteTestOn(OutputConfigItem cfg, ConnectorValue value = null)
+        /// <summary>
+        /// Checks if a new wizard test can update the running test without turning the device off first.
+        /// The wizard sends the draft config again on every change, so the GUID alone is not enough:
+        /// a different device, pin or digit would keep the previous one lit.
+        /// </summary>
+        internal static bool IsSameTestTarget(OutputConfigItem previous, OutputConfigItem next)
+        {
+            var isTestRunning = previous != null;
+            var hasNewConfig = next != null;
+            if (!isTestRunning || !hasNewConfig) return false;
+
+            var isSameConfig = previous.GUID == next.GUID;
+            var isSameController = previous.Controller?.Serial == next.Controller?.Serial;
+            if (!isSameConfig || !isSameController) return false;
+
+            var previousDevice = previous.Device;
+            var nextDevice = next.Device;
+            var hasBothDevices = previousDevice != null && nextDevice != null;
+            if (!hasBothDevices) return previousDevice == nextDevice;
+
+            var isSameDeviceType = previousDevice.GetType() == nextDevice.GetType();
+            var isSameDevice = isSameDeviceType && previousDevice.Name == nextDevice.Name;
+            if (!isSameDevice) return false;
+
+            // Turning a stepper or servo off moves it, so setting changes on the same device just update it
+            var turningOffMovesDevice = nextDevice is OutputConfig.Stepper || nextDevice is OutputConfig.Servo;
+            if (turningOffMovesDevice) return true;
+
+            var hasSameSettings = previousDevice.Equals(nextDevice);
+            return hasSameSettings;
+        }
+
+        private void ExecuteWizardTest()
+        {
+            var cfg = wizardTestConfig;
+            if (cfg == null) return;
+
+            try
+            {
+                ExecuteTestOn(cfg);
+            }
+            catch (Exception e)
+            {
+                // stop to avoid logging on every tick
+                wizardTestTimer.Stop();
+                Log.Instance.log($"Error during test mode execution: {cfg.Name}. {e.Message}", LogSeverity.Error);
+            }
+        }
+
+        /// <summary>
+        /// Renders the LCD text for a draft config item with the same code that
+        /// drives the hardware and publishes it for the config wizard preview.
+        /// </summary>
+        public void PublishLcdDisplayPreview(OutputConfigItem cfg)
+        {
+            if (!(cfg?.Device is OutputConfig.LcdDisplay lcdConfig)) return;
+
+            // the connected display knows its size, otherwise we use the defaults (16x2)
+            var serial = cfg.Controller?.Serial;
+            var module = serial != null ? mobiFlightCache.GetModuleBySerial(serial) : null;
+            var display = module
+                ?.GetConnectedDevices(lcdConfig.Address)
+                .OfType<MobiFlightLcdDisplay>()
+                .FirstOrDefault() ?? new MobiFlightLcdDisplay();
+
+            // during a test the references use their test values, like the test execution itself,
+            // otherwise the live value of the referenced config, falling back to the test value
+            var isTesting = ConfigItemInTestMode?.GUID == cfg.GUID;
+            var replacements = cfg.ConfigRefs
+                .Where(r => r.Active)
+                .Select(r => new ConfigRefValue(r, isTesting
+                    ? r.TestValue
+                    : ConfigItems.Find(i => i.GUID == r.Ref)?.Value ?? r.TestValue))
+                .ToList();
+
+            var displayText = display.Apply(lcdConfig, cfg.Value, replacements);
+            MessageExchange.Instance.Publish(LcdDisplayPreview.FromDisplayText(cfg.GUID, displayText, display.Cols));
+        }
+
+        public void ExecuteTestOn(OutputConfigItem cfg)
         {
             // for the case that this is an individual test
             // without MobiFlight in Run-mode nor in test mode
             // in all other cases it will already be running
             mobiFlightCache.StartKeepAwake();
 
-            var executor = new ConfigItemExecutor(ConfigItems,
+            // The test state: only the referenced configs, each with its test value as current value.
+            // Modifiers and display resolve the config references from it, like in a regular run.
+            var referencedConfigsForTest = cfg.ConfigRefs
+                .Where(r => r.Active)
+                .Select(r =>
+                {
+                    var referencedConfig = ConfigItems.Find(i => i.GUID == r.Ref)?.Clone() as IConfigItem;
+                    if (referencedConfig != null) referencedConfig.Value = r.TestValue;
+                    return referencedConfig;
+                })
+                // a reference can point to a config that was deleted
+                .Where(c => c != null)
+                .ToList();
+
+            var executor = new ConfigItemExecutor(referencedConfigsForTest,
                                                   arcazeCache,
                                                   fsuipcCache,
                                                   simConnectCache,
@@ -1466,8 +1648,12 @@ namespace MobiFlight
                                                   midiBoardManager,
                                                   inputActionExecutionCache,
                                                   ConfigItemInTestMode);
-            executor.ExecuteTestOn(cfg, value);
+            executor.Execute(cfg, new ConcurrentDictionary<string, IConfigItem>(), isTest: true);
             ConfigItemInTestMode = cfg;
+
+            // the test panel and the LCD preview show the values of the test
+            cfg.Status[ConfigItemStatusType.Test] = "TEST_EXECUTION";
+            MessageExchange.Instance.Publish(new ConfigValueRawAndFinalUpdate(new ConfigValueOnlyItem(cfg)));
         }
 
         private void ClearErrorMessages()

@@ -1,0 +1,112 @@
+import { useTranslation } from "react-i18next"
+import {
+  CustomDeviceConfig,
+  LcdDisplayConfig,
+  LedModuleConfig,
+  OutputConfig,
+  OutputDeviceConfig,
+  ServoConfig,
+  ShiftRegisterConfig,
+  StepperConfig,
+} from "@/types/config"
+import { Controller } from "@/types/controller"
+import OutputPanel from "@/components/wizard/OutputConfig/OutputDevices/OutputPanel"
+import SummaryButtons from "@/components/wizard/common/SummaryButtons"
+import CustomDevicePanel from "@/components/wizard/OutputConfig/OutputDevices/CustomDevicePanel"
+import LedModulePanel from "@/components/wizard/OutputConfig/OutputDevices/LedModulePanel"
+import LcdDisplayPanel from "@/components/wizard/OutputConfig/OutputDevices/LcdDisplayPanel"
+import ServoPanel from "@/components/wizard/OutputConfig/OutputDevices/ServoPanel"
+import StepperPanel from "@/components/wizard/OutputConfig/OutputDevices/StepperPanel"
+import ShiftRegisterPanel from "@/components/wizard/OutputConfig/OutputDevices/ShiftRegisterPanel"
+
+export interface OutputDeviceSummaryProps {
+  config: OutputDeviceConfig
+  controller: Partial<Controller> | undefined
+  onEdit: () => void
+  onRemove: () => void
+}
+
+const OutputDeviceSummary = ({
+  config,
+  controller,
+  onEdit,
+  onRemove,
+}: OutputDeviceSummaryProps) => {
+  const { t } = useTranslation("wizard")
+  
+  if (config === null) {
+    return null
+  }
+
+  return (
+    <div
+      className="group hover:bg-accent/30 flex grow flex-row items-center gap-2 rounded-md p-2"
+      onDoubleClick={onEdit}
+    >
+      {config.Type === "Output" && (
+        <OutputPanel
+          variant="summary"
+          config={config as OutputConfig}
+          controller={controller}
+        />
+      )}
+
+      {config.Type === "ShiftRegister" && (
+        <ShiftRegisterPanel
+          variant="summary"
+          config={config as ShiftRegisterConfig}
+          controller={controller}
+        />
+      )}
+
+      {config.Type === "LedModule" && (
+        <LedModulePanel
+          variant="summary"
+          config={config as LedModuleConfig}
+          controller={controller}
+        />
+      )}
+
+      {config.Type === "LcdDisplay" && (
+        <LcdDisplayPanel
+          variant="summary"
+          config={config as LcdDisplayConfig}
+          controller={controller}
+        />
+      )}
+
+      {config.Type === "Servo" && (
+        <ServoPanel
+          variant="summary"
+          config={config as ServoConfig}
+          controller={controller}
+        />
+      )}
+
+      {config.Type === "Stepper" && (
+        <StepperPanel
+          variant="summary"
+          config={config as StepperConfig}
+          controller={controller}
+        />
+      )}
+
+      {config.Type === "CustomDevice" && (
+        <CustomDevicePanel
+          variant="summary"
+          config={config as CustomDeviceConfig}
+          controller={controller}
+        />
+      )}
+
+      <SummaryButtons
+        onEdit={onEdit}
+        editLabel={t("ConfigWizard.Device.Edit")}
+        onRemove={onRemove}
+        removeLabel={t("ConfigWizard.Device.Remove")}
+      />
+    </div>
+  )
+}
+
+export default OutputDeviceSummary

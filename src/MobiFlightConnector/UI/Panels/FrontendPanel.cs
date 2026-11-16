@@ -74,7 +74,8 @@ namespace MobiFlight.UI.Panels
 
                 staticPageHandler.RegisterWithWebView(webView);
 
-                webView.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
+                // Default menu stays enabled, the handler reduces it to clipboard items
+                new ClipboardContextMenuHandler().RegisterWithWebView(webView.CoreWebView2);
                 webView.CoreWebView2.Settings.AreBrowserAcceleratorKeysEnabled = false;
             }
 

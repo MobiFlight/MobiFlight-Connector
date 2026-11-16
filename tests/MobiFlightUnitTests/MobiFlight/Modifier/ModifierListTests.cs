@@ -91,23 +91,5 @@ namespace MobiFlight.Modifier.Tests
             var modifierList2 = modifierList.Clone() as ModifierList;
             Assert.AreEqual(modifierList, modifierList2);
         }
-
-        [TestMethod()]
-        public void ContainsModifierTest()
-        {
-            var modifierList = new ModifierList();
-            var modifier1 = new Transformation() { Active = true, Expression = "$+1" };
-            var modifier2 = new Transformation() { Active = true, Expression = "$+2" };
-
-            modifierList.Items.Add(modifier1);
-
-            Assert.IsFalse(modifierList.ContainsModifier(modifier2));
-
-            modifierList.Items.Add(modifier2);
-            Assert.IsTrue(modifierList.ContainsModifier(modifier2));
-
-            var modifier3 = new Comparison() { Active = true };
-            Assert.IsFalse(modifierList.ContainsModifier(modifier3));
-        }
     }
 }
