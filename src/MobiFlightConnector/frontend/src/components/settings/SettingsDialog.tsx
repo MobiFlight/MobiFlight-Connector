@@ -20,6 +20,7 @@ import { Badge } from "@/components/ui/badge"
 import { useAuth } from "react-oidc-context"
 import { uploadCloudSettings } from "@/lib/cloudSettings"
 import useCloudSettingsSync from "@/lib/hooks/useCloudSettingsSync"
+import { cloudSyncStorage } from "@/lib/cloudSyncStorage"
 import { showSyncNotification } from "@/components/settings/SyncNotification"
 import { IconCloud, IconCloudOff, IconCheck } from "@tabler/icons-react"
 
@@ -79,7 +80,7 @@ export default function SettingsDialog({
         auth.isAuthenticated &&
         draftSettings.CloudSettingsSyncEnabled
       ) {
-        const lastSyncedHash = localStorage.getItem("cloud_last_synced_hash")
+        const lastSyncedHash = cloudSyncStorage.getLastSyncedHash()
         uploadCloudSettings(auth, {
           schemaVersion: 1,
           baseHash: lastSyncedHash || undefined,
@@ -87,11 +88,8 @@ export default function SettingsDialog({
         })
           .then((res) => {
             if (res?.contentHash) {
-              localStorage.setItem("cloud_last_synced_hash", res.contentHash)
-              localStorage.setItem(
-                "cloud_last_synced_settings",
-                JSON.stringify(draftSettings),
-              )
+              cloudSyncStorage.setLastSyncedHash(res.contentHash)
+              cloudSyncStorage.setLastSyncedSettings(draftSettings as Settings)
             }
             showSyncNotification("saved")
           })
@@ -118,7 +116,6 @@ export default function SettingsDialog({
     if (!auth.isAuthenticated) {
       return (
         <Button
-          type="button"
           variant="ghost"
           size="sm"
           className="h-auto px-2 py-1 flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground"
