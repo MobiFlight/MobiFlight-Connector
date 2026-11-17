@@ -30,7 +30,7 @@ type EditorState = {
   drawerSession: DrawerSession | null
 }
 
-const useInputConfigHistory = (configItem: IConfigItem | undefined) => {
+const useConfigHistory = (configItem: IConfigItem | undefined) => {
   const {
     getCurrentTextEditId,
     resetTextEditSession,
@@ -190,10 +190,12 @@ const useInputConfigHistory = (configItem: IConfigItem | undefined) => {
       }
 
       const drawerLabels: Record<string, string> = {
-        precondition: "ConfigWizard.Preconditions.Title",
-        configReference: "ConfigWizard.ConfigReferences.Title",
-        modifier: "ConfigWizard.Modifiers.Title",
-        action: "ConfigWizard.Action.Title",
+        precondition: "wizard:ConfigWizard.Preconditions.Title",
+        configReference: "wizard:ConfigWizard.ConfigReferences.Title",
+        modifier: "wizard:ConfigWizard.Modifiers.Title",
+        action: "wizard:ConfigWizard.Input.Action.Title",
+        source: "wizard:ConfigWizard.Source.Title",
+        display: "wizard:ConfigWizard.Device.Title",
       }
 
       const label =
@@ -321,4 +323,4 @@ const useInputConfigHistory = (configItem: IConfigItem | undefined) => {
   }
 }
 
-export default useInputConfigHistory
+export default useConfigHistory

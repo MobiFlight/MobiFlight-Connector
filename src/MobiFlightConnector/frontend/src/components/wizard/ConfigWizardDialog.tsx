@@ -19,7 +19,7 @@ import { cn } from "@/lib/utils"
 import { useProjectStore } from "@/stores/projectStore"
 import { useConfigItemStateValue } from "@/stores/configItemStateStore"
 import { IConfigItem } from "@/types/config"
-import useInputConfigHistory from "@/lib/hooks/useInputConfigHistory"
+import useConfigHistory from "@/lib/hooks/useConfigHistory"
 import { IconChevronRight, IconExclamationCircle } from "@tabler/icons-react"
 import _ from "lodash"
 import { useEffect, useRef, useState } from "react"
@@ -72,7 +72,7 @@ const ConfigWizardDialog = ({ configId }: ConfigWizardDialogProps) => {
     handleUndoKeyDown,
     handleFocusCapture,
     handleBlurCapture,
-  } = useInputConfigHistory(configItem)
+  } = useConfigHistory(configItem)
 
   const [committedConfigItem, setCommittedConfigItem] = useState(() =>
     configItem ? structuredClone(configItem) : undefined,

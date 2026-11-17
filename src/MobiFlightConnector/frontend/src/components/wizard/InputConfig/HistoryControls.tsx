@@ -42,7 +42,7 @@ const HistoryControls = ({
   showUndoLabel = true,
   showFrame = true,
 }: HistoryControlsProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation(["translation", "wizard"])
 
   const canUndo = cursor > 0
   const hasHistory = history.length > 1
@@ -134,10 +134,12 @@ const HistoryControls = ({
                         ? t("Dialog.History.Original")
                         : t("Dialog.History.Oldest")
                       : typeof entry.action === "string"
-                        ? entry.action.startsWith("ConfigWizard.") ||
+                        ? entry.action.startsWith("wizard:") ||
                           entry.action.startsWith("Dialog.")
                           ? t(entry.action)
-                          : entry.action
+                          : entry.action.startsWith("ConfigWizard")
+                            ? t(`wizard:${entry.action}`)
+                            : entry.action
                         : t(entry.action.key, entry.action.params ?? {})
 
                   return (
