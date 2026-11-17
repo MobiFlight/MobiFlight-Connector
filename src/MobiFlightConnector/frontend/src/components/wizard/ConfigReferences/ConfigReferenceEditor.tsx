@@ -73,8 +73,8 @@ const ConfigReferenceItemRow = ({
             onChange(
               { ...configReference, Active: !!checked },
               checked
-                ? "ConfigWizard.History.ConfigReferenceEnabled"
-                : "ConfigWizard.History.ConfigReferenceDisabled",
+                ? "Dialog.History.ConfigReferenceEnabled"
+                : "Dialog.History.ConfigReferenceDisabled",
             )
           }
         />
@@ -89,9 +89,7 @@ const ConfigReferenceItemRow = ({
         setSelected={(c) =>
           onChange({ ...configReference, Ref: c?.GUID ?? "" })
         }
-        placeholder={t(
-          "ConfigWizard.ConfigReferenceEditor.SelectConfig",
-        )}
+        placeholder={t("ConfigWizard.ConfigReferenceEditor.SelectConfig")}
         widthClass="flex-1"
       />
 
@@ -124,9 +122,7 @@ const ConfigReferenceItemRow = ({
         onClick={onDelete}
       >
         <div className="sr-only">
-          {t(
-            "ConfigWizard.ConfigReferenceEditor.DeleteConfigReference",
-          )}
+          {t("ConfigWizard.ConfigReferenceEditor.DeleteConfigReference")}
         </div>
         <IconTrash className="h-4 w-4" />
       </Button>
@@ -156,14 +152,14 @@ const ConfigReferenceEditor = ({
   ) => {
     onConfigReferencesChange(
       configReferences.map((c, i) => (i === index ? updated : c)),
-      actionLabel ?? "ConfigWizard.History.ConfigReferenceChanged",
+      actionLabel ?? "Dialog.History.ConfigReferenceChanged",
     )
   }
 
   const handleDelete = (index: number) => {
     onConfigReferencesChange(
       configReferences.filter((_, i) => i !== index),
-      "ConfigWizard.History.ConfigReferenceRemoved",
+      "Dialog.History.ConfigReferenceRemoved",
     )
   }
 
@@ -177,7 +173,7 @@ const ConfigReferenceEditor = ({
         ...configReferences,
         { ...EMPTY_CONFIG_REFERENCE, Placeholder: suggestedPlaceholder },
       ],
-      "ConfigWizard.History.ConfigReferenceAdded",
+      "Dialog.History.ConfigReferenceAdded",
     )
   }
 
@@ -191,15 +187,10 @@ const ConfigReferenceEditor = ({
           title={
             <DrawerBreadcrumb
               mode={mode}
-              crumbs={[
-                configName,
-                t("ConfigWizard.ConfigReferences.Title"),
-              ]}
+              crumbs={[configName, t("ConfigWizard.ConfigReferences.Title")]}
             />
           }
-          description={t(
-            "ConfigWizard.ConfigReferenceEditor.Description",
-          )}
+          description={t("ConfigWizard.ConfigReferenceEditor.Description")}
         />
         <Button
           variant="default"
@@ -208,17 +199,13 @@ const ConfigReferenceEditor = ({
           size={"sm"}
         >
           <IconPlus className="h-4 w-4" />
-          {t(
-            "ConfigWizard.ConfigReferenceEditor.AddConfigReference",
-          )}
+          {t("ConfigWizard.ConfigReferenceEditor.AddConfigReference")}
         </Button>
       </div>
 
       {configReferences.length === 0 ? (
         <div className="text-muted-foreground rounded border p-4 text-center text-sm">
-          {t(
-            "ConfigWizard.ConfigReferenceEditor.NoConfigReferences",
-          )}
+          {t("ConfigWizard.ConfigReferenceEditor.NoConfigReferences")}
         </div>
       ) : (
         <ScrollArea className="grow">

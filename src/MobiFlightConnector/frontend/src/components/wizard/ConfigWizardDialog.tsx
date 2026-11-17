@@ -48,7 +48,7 @@ const resetTriggersBasedOnDeviceType = (
 }
 
 const ConfigWizardDialog = ({ configId }: ConfigWizardDialogProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("wizard")
   const navigate = useNavigate()
   const location = useLocation()
   const { project, activeConfigFileIndex } = useProjectStore()
@@ -197,7 +197,7 @@ const ConfigWizardDialog = ({ configId }: ConfigWizardDialogProps) => {
                       Name: newName,
                     },
                     {
-                      key: "ConfigWizard.History.NameChanged",
+                      key: "Dialog.History.NameChanged",
                       params: {
                         name: newName,
                       },

@@ -47,8 +47,8 @@ const HistoryControls = ({
   const canUndo = cursor > 0
   const hasHistory = history.length > 1
 
-  const undoTitle = t("ConfigWizard.History.Undo")
-  const historyTitle = t("ConfigWizard.History.Title")
+  const undoTitle = t("Dialog.History.Undo")
+  const historyTitle = t("Dialog.History.Title")
 
   return (
     <div
@@ -131,8 +131,8 @@ const HistoryControls = ({
                   const label =
                     index === 0
                       ? historyStart === 0
-                        ? t("ConfigWizard.History.Original")
-                        : t("ConfigWizard.History.Oldest")
+                        ? t("Dialog.History.Original")
+                        : t("Dialog.History.Oldest")
                       : typeof entry.action === "string"
                         ? entry.action.startsWith("ConfigWizard.") ||
                           entry.action.startsWith("Dialog.")
@@ -170,7 +170,7 @@ const HistoryControls = ({
                         <IconCheck
                           size={14}
                           className="text-primary shrink-0"
-                          aria-label={t("ConfigWizard.History.Current")}
+                          aria-label={t("Dialog.History.Current")}
                         />
                       )}
                     </DropdownMenuItem>

@@ -111,8 +111,8 @@ export const ModifierItem = ({
                 { ...modifier, Active: checked },
                 {
                   key: checked
-                    ? "ConfigWizard.History.ModifierEnabled"
-                    : "ConfigWizard.History.ModifierDisabled",
+                    ? "Dialog.History.ModifierEnabled"
+                    : "Dialog.History.ModifierDisabled",
                   params: {
                     type: modifier.Type,
                   },

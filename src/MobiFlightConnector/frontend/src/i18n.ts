@@ -11,7 +11,7 @@ export default i18n
     fallbackLng: "en",
     ns: ["wizard", "translation", "feed"],
     defaultNS: "translation",
-    fallbackNS: "wizard",
+    fallbackNS: "translation",
     debug: true,
     maxRetries: 2,
     retryTimeout: 100,

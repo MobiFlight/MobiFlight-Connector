@@ -83,7 +83,7 @@ const useInputConfigHistory = (configItem: IConfigItem | undefined) => {
     } else {
       updatedHistory.push({
         snapshot,
-        action: actionLabel ?? "ConfigWizard.History.ConfigurationChanged",
+        action: actionLabel ?? "Dialog.History.ConfigurationChanged",
       })
     }
 
@@ -192,13 +192,12 @@ const useInputConfigHistory = (configItem: IConfigItem | undefined) => {
       const drawerLabels: Record<string, string> = {
         precondition: "ConfigWizard.Preconditions.Title",
         configReference: "ConfigWizard.ConfigReferences.Title",
-        modifier: "Dialog.Modifiers.Title",
+        modifier: "ConfigWizard.Modifiers.Title",
         action: "ConfigWizard.Action.Title",
       }
 
       const label =
-        drawerLabels[session.view] ??
-        "ConfigWizard.History.ConfigurationChanged"
+        drawerLabels[session.view] ?? "Dialog.History.ConfigurationChanged"
 
       const updatedHistory = [
         ...previous.history.slice(0, previous.cursor + 1),

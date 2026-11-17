@@ -53,9 +53,7 @@ export const ControllerComboBox = ({
       items={completeControllers}
       selected={selectedController}
       placeholder={t("ConfigWizard.Input.ConfigTrigger.SelectController")}
-      searchPlaceholder={t(
-        "ConfigWizard.Input.ConfigTrigger.SearchController",
-      )}
+      searchPlaceholder={t("ConfigWizard.Input.ConfigTrigger.SearchController")}
       noOptionsPlaceholder={t(
         "ConfigWizard.Input.ConfigTrigger.NoControllerFound",
       )}
@@ -92,12 +90,8 @@ export const DeviceComboBox = ({
       items={devices}
       selected={selectedDevice}
       placeholder={t("ConfigWizard.Input.ConfigTrigger.SelectDevice")}
-      searchPlaceholder={t(
-        "ConfigWizard.Input.ConfigTrigger.SearchDevice",
-      )}
-      noOptionsPlaceholder={t(
-        "ConfigWizard.Input.ConfigTrigger.NoDeviceFound",
-      )}
+      searchPlaceholder={t("ConfigWizard.Input.ConfigTrigger.SearchDevice")}
+      noOptionsPlaceholder={t("ConfigWizard.Input.ConfigTrigger.NoDeviceFound")}
       disabled={!selectedController}
       setSelected={onChange}
     />
@@ -187,7 +181,7 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
             }
           : null,
       },
-      "ConfigWizard.History.TriggerChanged",
+      "Dialog.History.TriggerChanged",
     )
   }
 

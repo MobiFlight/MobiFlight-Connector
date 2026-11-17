@@ -91,10 +91,7 @@ const ActionBindingPanel = ({
       ...current,
       [event]: null,
     }
-    onTriggerChange(
-      updatedTrigger,
-      "ConfigWizard.History.ActionTypeChanged",
-    )
+    onTriggerChange(updatedTrigger, "Dialog.History.ActionTypeChanged")
   }
 
   return (
@@ -144,7 +141,7 @@ const ActionBindingPanel = ({
                     )
                   }
                 >
-                  <div className="flex flex-row grow">
+                  <div className="flex grow flex-row">
                     <div className="flex w-1/4 flex-col gap-1">
                       <Label>Event</Label>
                       <Badge className="w-fit" variant={"secondary"}>

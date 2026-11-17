@@ -16,11 +16,7 @@ import {
   ConfigItemType,
   OutputConfigItem,
 } from "@/types/config"
-import {
-  Drawer,
-  DrawerContent,
-  DrawerFooter,
-} from "@/components/ui/drawer"
+import { Drawer, DrawerContent, DrawerFooter } from "@/components/ui/drawer"
 import { IconPlus } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 import ActionEditor from "@/components/wizard/InputConfig/ActionEditor"
@@ -107,38 +103,32 @@ const ConfigWizard = ({
         configItem.inputMultiplexer ??
         configItem.inputShiftRegister)
   ) as
-    | (ButtonTrigger & Partial<ButtonHoldOptions> & Partial<ButtonLongReleaseOptions>)
+    | (ButtonTrigger &
+        Partial<ButtonHoldOptions> &
+        Partial<ButtonLongReleaseOptions>)
     | undefined
 
-  const currentButtonOptions:
-    Partial<ButtonHoldOptions> &
+  const currentButtonOptions: Partial<ButtonHoldOptions> &
     Partial<ButtonLongReleaseOptions> = currentButtonTrigger ?? {
-      HoldDelay: 350,
-      LongReleaseDelay: 350,
-      RepeatDelay: 0,
-    }
+    HoldDelay: 350,
+    LongReleaseDelay: 350,
+    RepeatDelay: 0,
+  }
 
   const currentAction: Action | null =
     event.variant === "button"
       ? (currentButtonTrigger?.[
-          event.event as
-            | "onPress"
-            | "onRelease"
-            | "onHold"
-            | "onLongRelease"
+          event.event as "onPress" | "onRelease" | "onHold" | "onLongRelease"
         ] ?? null)
       : event.variant === "encoder"
-        ? (configItem.encoder?.[
-            event.event as keyof EncoderTrigger
-          ] ?? null)
-        : (isOutputConfig
+        ? (configItem.encoder?.[event.event as keyof EncoderTrigger] ?? null)
+        : ((isOutputConfig
             ? outputItem.AnalogInputConfig?.onChange
-            : configItem.analog?.onChange) ?? null
+            : configItem.analog?.onChange) ?? null)
 
   const handleActionChange = (
     action: Action | null,
-    options?: Partial<ButtonHoldOptions> &
-      Partial<ButtonLongReleaseOptions>,
+    options?: Partial<ButtonHoldOptions> & Partial<ButtonLongReleaseOptions>,
     actionLabel?: HistoryAction,
   ) => {
     if (event.variant === "button") {
@@ -183,9 +173,7 @@ const ConfigWizard = ({
     }
 
     const updatedAnalog = {
-      ...(isOutputConfig
-        ? outputItem.AnalogInputConfig
-        : configItem.analog),
+      ...(isOutputConfig ? outputItem.AnalogInputConfig : configItem.analog),
       onChange: action ?? undefined,
     } as AnalogTrigger
 
@@ -236,8 +224,7 @@ const ConfigWizard = ({
 
   // opens the action editor for an event of the input action of an output config
   const handleActionEdit =
-    (eventVariant: "button" | "analog") =>
-    (eventName: string) => {
+    (eventVariant: "button" | "analog") => (eventName: string) => {
       setEvent({ variant: eventVariant, event: eventName })
       navigateToDetailView("action")
     }
@@ -380,7 +367,7 @@ const ConfigWizard = ({
             }
             onConfigChange(
               updatedConfigItem,
-              actionLabel ?? "ConfigWizard.History.TriggerChanged",
+              actionLabel ?? "Dialog.History.TriggerChanged",
             )
           }}
         />
@@ -402,7 +389,7 @@ const ConfigWizard = ({
                 ...configItem,
                 encoder: trigger as EncoderTrigger,
               },
-              actionLabel ?? "ConfigWizard.History.TriggerChanged",
+              actionLabel ?? "Dialog.History.TriggerChanged",
             )
           }}
         />
@@ -424,7 +411,7 @@ const ConfigWizard = ({
                 ...configItem,
                 analog: trigger as AnalogTrigger,
               },
-              actionLabel ?? "ConfigWizard.History.TriggerChanged",
+              actionLabel ?? "Dialog.History.TriggerChanged",
             )
           }}
         />
@@ -576,11 +563,9 @@ const ConfigWizard = ({
                 />
               )}
             </div>
-            <DrawerFooter className="shrink-0 flex-row justify-between items-center border-t">
+            <DrawerFooter className="shrink-0 flex-row items-center justify-between border-t">
               <div>{historyControls}</div>
-              <Button
-                onClick={() => closeDetailView(false)}
-              >
+              <Button onClick={() => closeDetailView(false)}>
                 {t("Dialog.General.Done")}
               </Button>
             </DrawerFooter>

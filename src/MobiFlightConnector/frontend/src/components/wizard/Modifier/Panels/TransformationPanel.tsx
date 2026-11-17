@@ -51,7 +51,7 @@ export const TransformationPanelContent = ({
                 onChange(
                   { ...modifier, Expression: e.target.value },
                   {
-                    key: "ConfigWizard.History.ModifierExpressionChanged",
+                    key: "Dialog.History.ModifierExpressionChanged",
                     params: {
                       type: modifier.Type,
                     },
