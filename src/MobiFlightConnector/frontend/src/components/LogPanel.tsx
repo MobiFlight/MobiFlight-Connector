@@ -60,7 +60,7 @@ const SEVERITY_CLASS: Record<LogLevel, string> = {
 }
 
 const LogPanel = () => {
-  const { t } = useTranslation(["translation", "settings"])
+  const { t } = useTranslation("settings")
   const { publish } = messageExchange
   const { logs } = useLogsStore()
 
@@ -115,9 +115,7 @@ const LogPanel = () => {
     value: level,
     label: (
       <span className={SEVERITY_CLASS[level]}>
-        {t(`Settings.General.Logging.Levels.${LEVEL_LABEL_KEY[level]}`, {
-          ns: "settings",
-        })}
+        {t(`Settings.General.Logging.Levels.${LEVEL_LABEL_KEY[level]}`)}
       </span>
     ),
   }))
@@ -206,7 +204,7 @@ const LogPanel = () => {
               onChange={(e) => setFilterText(e.target.value)}
             />
             <FacetedFilterOptions
-              title={t("Settings.General.Logging.LogLevel", { ns: "settings" })}
+              title={t("Settings.General.Logging.LogLevel")}
               options={levelOptions}
               values={activeLevels}
               onValuesChange={setLevelFilter}
