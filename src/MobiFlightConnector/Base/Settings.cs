@@ -27,6 +27,7 @@ namespace MobiFlight.Base
         public string[] RecentFiles { get; set; }
         public int RecentFilesMaxCount { get; set; }
         public int TestTimerInterval { get; set; }
+        public bool CloudSettingsSyncEnabled { get; set; }
         public int PollInterval { get; set; }
         public string ProSimHost { get; set; }
         public int ProSimPort { get; set; }
@@ -55,6 +56,7 @@ namespace MobiFlight.Base
             Language = settings.Language;
             LogEnabled = settings.LogEnabled;
             LogJoystickAxis = settings.LogJoystickAxis;
+            CloudSettingsSyncEnabled = settings.CloudSettingsSyncEnabled;
 
             try
             {
@@ -101,6 +103,7 @@ namespace MobiFlight.Base
             settings.LogLevel = LogLevel.ToString();
             settings.MinimizeOnAutoRun = MinimizeOnAutoRun;
             settings.ModuleSettings = ModuleSettings;
+            settings.CloudSettingsSyncEnabled = CloudSettingsSyncEnabled;
 
             if (PollInterval > 0)
             {

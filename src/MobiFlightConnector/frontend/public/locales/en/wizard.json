@@ -23,6 +23,7 @@
       "Title": "Source value",
       "Description": "Configure the value for this output configuration.",
       "Label": "Source",
+      "Edit": "Edit source",
       "Remove": "Remove source"
     },
     "SourceType": {
@@ -57,6 +58,7 @@
         "Description": "Test the functionality of this output device configuration."
       },
       "Edit": "Edit output device",
+      "Remove": "Remove output device",
       "Stepper": {
         "Title": "Step 2 - Stepper settings",
         "Description": "Select the stepper and configure how values map to its movement.",
@@ -130,7 +132,20 @@
         "Title": "Step 2 - LCD Display settings",
         "Description": "Select the LCD display and configure its settings.",
         "Label": "LCD Display",
-        "Lines": "Lines"
+        "Lines": "Lines",
+        "Editor": {
+          "Content": {
+            "Title": "Display content",
+            "Description": "Click on the display and type your text or use dynamic values. Each cell holds one character, just like on the real display."
+          },
+          "Visualization": "Live preview",
+          "Placeholder": {
+            "Title": "Dynamic values",
+            "Description": "Select one or more cells on the display, then click a value below to show it in those cells."
+          },
+          "ThisConfig": "Value of this config",
+          "AdditionalReferencesHint": "Need more values? Add more references to this config and they will show up here."
+        }
       },
       "CustomDevice": {
         "Title": "Step 2 - Custom Device settings",

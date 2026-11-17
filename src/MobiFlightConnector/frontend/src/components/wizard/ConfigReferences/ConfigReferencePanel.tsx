@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next"
 
 type ConfigReferencePanelProps = {
   mode: ConfigItemType
+  configGuid: string
   configName: string
   configReferences: ConfigReference[]
   onConfigReferencesChange?: (configReferences: ConfigReference[]) => void
@@ -20,6 +21,7 @@ type ConfigReferencePanelProps = {
 }
 const ConfigReferencePanel = ({
   mode,
+  configGuid,
   configName,
   configReferences,
   onConfigReferencesChange,
@@ -31,7 +33,8 @@ const ConfigReferencePanel = ({
   const maxDisplayCount = 2
   const outputConfigs =
     project?.ConfigFiles[activeConfigFileIndex].ConfigItems.filter(
-      (item) => item.Type === "OutputConfigItem",
+      // a config can't reference itself
+      (item) => item.Type === "OutputConfigItem" && item.GUID !== configGuid,
     ) || ([] as IConfigItem[])
 
   const hasConfigReferences = configReferences.length > 0

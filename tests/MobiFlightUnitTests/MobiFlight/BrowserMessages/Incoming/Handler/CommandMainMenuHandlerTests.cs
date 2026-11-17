@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MobiFlight.BrowserMessages;
 using MobiFlight.BrowserMessages.Incoming;
 using MobiFlight.BrowserMessages.Incoming.Handler;
 using MobiFlight.UI;
@@ -22,6 +23,7 @@ namespace MobiFlightUnitTests.MobiFlight.BrowserMessages.Incoming.Handler
         [TestInitialize]
         public void Setup()
         {
+            MessageExchange.Instance.ClearSubscriptions();
             _mainForm = new TestableMainForm();
             _mainForm.InitializeExecutionManager();
             _handler = new CommandMainMenuHandler(_mainForm);
@@ -33,6 +35,9 @@ namespace MobiFlightUnitTests.MobiFlight.BrowserMessages.Incoming.Handler
         [TestCleanup]
         public void Cleanup()
         {
+            // Stale ExecutionManager subscribers on the singleton would otherwise leak into other test classes
+            MessageExchange.Instance.ClearSubscriptions();
+
             if (File.Exists(_tempFilePath))
             {
                 File.Delete(_tempFilePath);

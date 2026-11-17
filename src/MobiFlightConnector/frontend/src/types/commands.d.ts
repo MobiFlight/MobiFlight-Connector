@@ -23,6 +23,7 @@ export type CommandMessageKey =
   | "CommandShutdown"
   | "CommandUpdateSettings"
   | "CommandStepperCalibration"
+  | "CommandLcdDisplayPreview"
 
 export type CommandMessage =
   | CommandConfigContextMenu
@@ -45,6 +46,7 @@ export type CommandMessage =
   | CommandShutdown
   | CommandUpdateSettings
   | CommandStepperCalibration
+  | CommandLcdDisplayPreview
 
 export interface CommandMessageBase {
   key: CommandMessageKey
@@ -90,6 +92,9 @@ export interface CommandAddConfigItem extends CommandMessageBase {
   payload: {
     name: string
     type: ConfigItemType
+    // GUID of the config the new config is inserted after,
+    // it is added at the end of the list if not set
+    insertAfterGuid?: string
   }
 }
 
@@ -257,5 +262,15 @@ export interface CommandStepperCalibration extends CommandMessageBase {
     stepper: Partial<StepperConfig>
     action: "move" | "home"
     steps?: number
+  }
+}
+
+// CommandLcdDisplayPreview
+// is sent to the backend with the current draft of an LCD config item
+// the backend answers with an LcdDisplayPreview message
+export interface CommandLcdDisplayPreview extends CommandMessageBase {
+  key: "CommandLcdDisplayPreview"
+  payload: {
+    item: IConfigItem
   }
 }

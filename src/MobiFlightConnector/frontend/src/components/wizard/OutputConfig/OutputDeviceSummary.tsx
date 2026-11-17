@@ -11,8 +11,7 @@ import {
 } from "@/types/config"
 import { Controller } from "@/types/controller"
 import OutputPanel from "@/components/wizard/OutputConfig/OutputDevices/OutputPanel"
-import { Button } from "@/components/ui/button"
-import { IconEdit } from "@tabler/icons-react"
+import SummaryButtons from "@/components/wizard/common/SummaryButtons"
 import CustomDevicePanel from "@/components/wizard/OutputConfig/OutputDevices/CustomDevicePanel"
 import LedModulePanel from "@/components/wizard/OutputConfig/OutputDevices/LedModulePanel"
 import LcdDisplayPanel from "@/components/wizard/OutputConfig/OutputDevices/LcdDisplayPanel"
@@ -24,12 +23,14 @@ export interface OutputDeviceSummaryProps {
   config: OutputDeviceConfig
   controller: Partial<Controller> | undefined
   onEdit: () => void
+  onRemove: () => void
 }
 
 const OutputDeviceSummary = ({
   config,
   controller,
   onEdit,
+  onRemove,
 }: OutputDeviceSummaryProps) => {
   const { t } = useTranslation("wizard")
   
@@ -38,7 +39,10 @@ const OutputDeviceSummary = ({
   }
 
   return (
-    <div className="flex grow flex-row items-center gap-2">
+    <div
+      className="group hover:bg-accent/30 flex grow flex-row items-center gap-2 rounded-md p-2"
+      onDoubleClick={onEdit}
+    >
       {config.Type === "Output" && (
         <OutputPanel
           variant="summary"
@@ -95,10 +99,12 @@ const OutputDeviceSummary = ({
         />
       )}
 
-      <Button size={"sm"} variant="ghost" onClick={onEdit}>
-        <IconEdit size={16} />
-        <span className="sr-only">{t("ConfigWizard.Device.Edit")}</span>
-      </Button>
+      <SummaryButtons
+        onEdit={onEdit}
+        editLabel={t("ConfigWizard.Device.Edit")}
+        onRemove={onRemove}
+        removeLabel={t("ConfigWizard.Device.Remove")}
+      />
     </div>
   )
 }

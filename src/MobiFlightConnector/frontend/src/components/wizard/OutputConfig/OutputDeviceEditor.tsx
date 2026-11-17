@@ -214,6 +214,7 @@ const OutputDeviceEditor = ({
         <LcdDisplayPanel
           variant="details"
           config={configItem.Device as LcdDisplayConfig}
+          configItem={configItem}
           controller={configItem.Controller}
           devices={devices.filter((device) => device.Type === "LcdDisplay")}
           onChange={(device) => updateConfigItem(configItem.Controller, device)}
