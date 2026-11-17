@@ -1307,7 +1307,7 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
 
     // Use the existing real-world Input ConfigItem test fixture.
     const originalPreconditions =
-      inputActionTestProject.ConfigFiles[0].ConfigItems[0].Preconditions
+      inputActionTestProject.ConfigFiles[0].ConfigItems[0].Preconditions ?? []
 
     await configListPage.clickEditButtonForRow(1)
 
@@ -1339,7 +1339,8 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
     // Focus a non-text control inside the drawer so
     // Ctrl+Z invokes the ConfigItem Undo handler.
     const goBackButton = page.getByRole("button", {
-      name: "Go back",
+      name: "Done",
+      exact: true,
     })
     await goBackButton.focus()
 
@@ -1354,34 +1355,35 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
 
     await expect(items.first().getByRole("switch")).toBeChecked()
 
-    // Nothing was committed to the backend during editing.
-    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    // All precondition changes were undone.
+    await expect(items).toHaveCount(originalPreconditions.length)
+    await expect(items.first().getByRole("switch")).toBeChecked()
 
-    expect(commands).toHaveLength(0)
-
-    // Close the nested editor and apply the restored draft.
+    // Finish the Drawer session.
     await goBackButton.click()
     await expect(editor).not.toBeVisible()
     await expect(page).not.toHaveURL(/detail=precondition/)
 
-    await page
+    const footer = page.getByTestId("configwizard-dialog-footer")
+
+    // Restoring the original state must leave the wizard clean.
+    await expect(
+      footer.getByRole("button", { name: "Apply changes", exact: true }),
+    ).toHaveCount(0)
+
+    await footer
       .getByRole("button", {
-        name: "Apply changes",
+        name: "Close",
+        exact: true,
       })
       .click()
 
-    const appliedCommands =
-      await configListPage.mobiFlightPage.getTrackedCommands()
+    await expect(page.getByTestId("configwizard-dialog")).not.toBeVisible()
 
-    expect(appliedCommands).toHaveLength(1)
+    // No update should be sent for a fully restored configuration.
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
 
-    if (!appliedCommands) {
-      throw new Error("No tracked commands found")
-    }
-
-    const payload = appliedCommands[0].payload
-
-    expect(payload.item.Preconditions).toEqual(originalPreconditions)
+    expect(commands).toHaveLength(0)
   })
 
   test("Typing in a precondition value creates one Undo step", async ({
@@ -1423,7 +1425,8 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
 
     // Leave the text field so Ctrl+Z targets ConfigItem Undo.
     const goBackButton = page.getByRole("button", {
-      name: "Go back",
+      name: "Done",
+      exact: true,
     })
 
     await goBackButton.focus()
@@ -1812,7 +1815,7 @@ test.describe("Input Config Wizard - Config References panel", () => {
     await expect(secondSwitch).not.toBeChecked()
 
     // Finish the Drawer session.
-    await page.getByRole("button", { name: "Go back" }).click()
+    await page.getByRole("button", { name: "Done", exact: true }).click()
 
     await expect(editor).not.toBeVisible()
     await expect(page).not.toHaveURL(/detail=configReference/)
@@ -1903,7 +1906,7 @@ test.describe("Input Config Wizard - Config References panel", () => {
     await expect(controls.getByTestId("config-history-button")).toHaveCount(0)
 
     // Closing an unchanged Drawer must not add a Wizard history step.
-    await page.getByRole("button", { name: "Go back" }).click()
+    await page.getByRole("button", { name: "Done", exact: true }).click()
     await expect(editor).not.toBeVisible()
 
     const footer = page.getByTestId("configwizard-dialog-footer")
@@ -3053,7 +3056,8 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(modifierItems).toHaveCount(0)
 
     const goBackButton = page.getByRole("button", {
-      name: "Go back",
+      name: "Done",
+      exact: true,
     })
     await goBackButton.focus()
 
@@ -3094,25 +3098,29 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
 
     expect(commandsBeforeApply).toHaveLength(0)
 
-    // Apply the restored configuration.
-    await goBackButton.click()
+    // All modifier changes were undone.
+    await expect(modifierItems).toHaveCount(0)
 
-    await page
+    // Finish the Drawer session.
+    await goBackButton.click()
+    await expect(modifierEditor).not.toBeVisible()
+
+    const footer = page.getByTestId("configwizard-dialog-footer")
+
+    await expect(
+      footer.getByRole("button", { name: "Apply changes", exact: true }),
+    ).toHaveCount(0)
+
+    await footer
       .getByRole("button", {
-        name: "Apply changes",
+        name: "Close",
+        exact: true,
       })
       .click()
 
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
 
-    expect(commands).toHaveLength(1)
-
-    if (!commands || commands.length !== 1) {
-      throw new Error("Expected one configuration update")
-    }
-
-    // All modifier changes were undone.
-    expect(commands[0].payload.item.Modifiers?.Items ?? []).toEqual([])
+    expect(commands).toHaveLength(0)
   })
 
   test("Modifier Undo history is limited to 50 steps", async ({
@@ -3146,7 +3154,8 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(activeSwitch).toBeChecked()
 
     const goBackButton = page.getByRole("button", {
-      name: "Go back",
+      name: "Done",
+      exact: true,
     })
     await goBackButton.focus()
 
@@ -3440,7 +3449,8 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
 
     // Leave the text field to invoke ConfigItem Undo.
     const goBackButton = page.getByRole("button", {
-      name: "Go back",
+      name: "Done",
+      exact: true,
     })
     await goBackButton.focus()
 
@@ -3454,32 +3464,30 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
 
     expect(commands).toHaveLength(0)
 
+    // Undo restored the original MSFS action.
+    await expect(codeInput).toHaveValue(originalCommand)
+
+    // Finish the Drawer session.
     await goBackButton.click()
     await expect(actionEditor).not.toBeVisible()
 
-    await page
+    const footer = page.getByTestId("configwizard-dialog-footer")
+
+    // Nothing remains to be saved.
+    await expect(
+      footer.getByRole("button", { name: "Apply changes", exact: true }),
+    ).toHaveCount(0)
+
+    await footer
       .getByRole("button", {
-        name: "Apply changes",
+        name: "Close",
+        exact: true,
       })
       .click()
 
     commands = await configListPage.mobiFlightPage.getTrackedCommands()
 
-    expect(commands).toHaveLength(1)
-
-    // Undo must restore the complete nested action,
-    // including the original preset association.
-    expect(commands?.[0]?.payload).toMatchObject({
-      item: {
-        button: {
-          onPress: {
-            Type: "MSFS2020CustomInputAction",
-            Command: originalCommand,
-            PresetId: "cf0526c0-da69-404f-a570-9f9d54d2803c",
-          },
-        },
-      },
-    })
+    expect(commands).toHaveLength(0)
   })
 
   test("Summary information is displayed correctly", async ({
