@@ -2570,6 +2570,49 @@ namespace MobiFlight.Tests
             Assert.AreEqual("100", cfg.Value, "Value should have only the active modifiers applied, once");
         }
 
+        [TestMethod]
+        public void ExecuteTestOn_UsesTestValueOfConfigReferences()
+        {
+            // Arrange
+            var referenced = new OutputConfigItem { GUID = "guid-ref", Active = true, Value = "1000" };
+            var cfg = new OutputConfigItem
+            {
+                GUID = "guid-test",
+                TestValue = new ConnectorValue { type = FSUIPCOffsetType.Float, Float64 = 1 }
+            };
+            cfg.ConfigRefs.Add(new ConfigRef { Active = true, Ref = referenced.GUID, Placeholder = "#", TestValue = "5" });
+            cfg.Modifiers.Items.Add(new Modifier.Transformation { Active = true, Expression = "$+#" });
+
+            var project = new Project();
+            project.ConfigFiles.Add(new ConfigFile() { ConfigItems = { referenced, cfg } });
+            _executionManager.Project = project;
+
+            // Act
+            _executionManager.ExecuteTestOn(cfg);
+
+            // Assert
+            Assert.AreEqual("6", cfg.Value, "The reference should use its test value, not its current value");
+            Assert.AreEqual("1000", referenced.Value, "The referenced config itself should not change");
+        }
+
+        [TestMethod]
+        public void ExecuteTestOn_IgnoresReferencesToDeletedConfigs()
+        {
+            // Arrange
+            var cfg = new OutputConfigItem
+            {
+                GUID = "guid-test",
+                TestValue = new ConnectorValue { type = FSUIPCOffsetType.Float, Float64 = 1 }
+            };
+            cfg.ConfigRefs.Add(new ConfigRef { Active = true, Ref = "deleted-guid", Placeholder = "#", TestValue = "5" });
+
+            // Act
+            _executionManager.ExecuteTestOn(cfg);
+
+            // Assert
+            Assert.AreEqual("1", cfg.Value);
+        }
+
             private static OutputConfigItem CreateTestTarget(IDeviceConfig device, string serial = "SN-1", string guid = "guid-1")
         {
             return new OutputConfigItem

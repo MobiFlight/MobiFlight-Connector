@@ -1,17 +1,24 @@
 import DeviceIcon from "@/components/icons/DeviceIcon"
-import { LcdDisplayConfig } from "@/types/config"
+import { LcdDisplayConfig, OutputConfigItem } from "@/types/config"
 import { DeviceReference, Controller } from "@/types/controller"
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
 import OutputDeviceComboBox from "@/components/wizard/OutputConfig/OutputDevices/OutputDeviceComboBox"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import WizardSection from "@/components/wizard/common/WizardSection"
 import { useTranslation } from "react-i18next"
+import {
+  LcdDisplayConfigEditor,
+  LcdEditorView,
+} from "@/components/wizard/OutputConfig/OutputDevices/LcdDisplayConfigEditor"
+import { useLcdDisplayPreview } from "@/lib/hooks/useLcdDisplayPreview"
+import { useState } from "react"
 
 export interface LcdDisplayPanelProps {
   variant: "summary" | "details"
   config: LcdDisplayConfig
+  // the whole draft config item, needed by the details variant for the preview
+  configItem?: OutputConfigItem
   controller?: Partial<Controller>
   devices?: DeviceReference[]
   onChange?: (config: LcdDisplayConfig) => void
@@ -19,29 +26,23 @@ export interface LcdDisplayPanelProps {
 
 const LcdDisplayPanel = ({
   config,
+  configItem,
   variant,
   controller,
   devices = [],
   onChange,
 }: LcdDisplayPanelProps) => {
   const { t } = useTranslation("wizard")
+  const [view, setView] = useState<LcdEditorView>("template")
+  const previewLines = useLcdDisplayPreview(
+    configItem,
+    view === "livepreview",
+  )
+
   if (variant == "details") {
     const selectedDevice = devices.find(
       (device) => device.Name === config.Address,
     )
-    const LCD_ROWS = selectedDevice?.Capabilities?.Rows ?? 1
-    const LCD_COLS = selectedDevice?.Capabilities?.Columns ?? 8
-
-    const lines = Array.from(
-      { length: LCD_ROWS },
-      (_, index) => config.Lines?.[index] ?? "",
-    )
-
-    const updateLine = (index: number, text: string) => {
-      const newLines = [...lines]
-      newLines[index] = text
-      onChange?.({ ...config, Lines: newLines })
-    }
 
     return (
       <WizardSection>
@@ -60,22 +61,16 @@ const LcdDisplayPanel = ({
             }
           />
         </div>
-        <div className="flex flex-col gap-2">
-          <Label>{t("ConfigWizard.Device.LcdDisplay.Lines")}</Label>
-          {lines.map((line, index) => (
-            <Input
-              key={index}
-              className={`w-auto font-mono`}
-              size={LCD_COLS}
-              maxLength={LCD_COLS}
-              value={line}
-              onChange={(e) => updateLine(index, e.target.value)}
-            />
-          ))}
-          <div className="text-muted-foreground text-sm">
-            {t("ConfigWizard.Input.InputActions.Common.SupportedPlaceholders")}
-          </div>
-        </div>
+        <LcdDisplayConfigEditor
+          config={config}
+          device={selectedDevice}
+          configRefs={configItem?.ConfigRefs ?? []}
+          configId={configItem?.GUID ?? ""}
+          previewLines={previewLines}
+          view={view}
+          onViewChange={setView}
+          onChange={(config) => onChange?.(config)}
+        />
       </WizardSection>
     )
   }

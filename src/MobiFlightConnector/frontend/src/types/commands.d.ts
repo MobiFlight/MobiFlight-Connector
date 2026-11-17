@@ -24,6 +24,7 @@ export type CommandMessageKey =
   | "CommandUpdateSettings"
   | "CommandUndoConfigList"
   | "CommandStepperCalibration"
+  | "CommandLcdDisplayPreview"
 
 export type CommandMessage =
   | CommandConfigContextMenu
@@ -47,6 +48,7 @@ export type CommandMessage =
   | CommandUpdateSettings
   | CommandUndoConfigList
   | CommandStepperCalibration
+  | CommandLcdDisplayPreview
 
 export interface CommandMessageBase {
   key: CommandMessageKey
@@ -270,5 +272,15 @@ export interface CommandUndoConfigList extends CommandMessageBase {
   key: "CommandUndoConfigList"
   payload: {
     steps?: number
+  }
+}
+
+// CommandLcdDisplayPreview
+// is sent to the backend with the current draft of an LCD config item
+// the backend answers with an LcdDisplayPreview message
+export interface CommandLcdDisplayPreview extends CommandMessageBase {
+  key: "CommandLcdDisplayPreview"
+  payload: {
+    item: IConfigItem
   }
 }
