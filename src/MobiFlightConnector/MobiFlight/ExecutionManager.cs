@@ -420,35 +420,6 @@ namespace MobiFlight
                 HandleCommandUpdateConfigItem(message.Item, message.Change);
             });
 
-            MessageExchange.Instance.SubscribeOnUiThread<CommandAddConfigItem>((message) =>
-            {
-                IConfigItem item = new OutputConfigItem();
-                if (message.Type == "InputConfig")
-                {
-                    item = new InputConfigItem();
-                }
-
-                item.GUID = Guid.NewGuid().ToString();
-                item.Name = message.Name;
-                item.Active = true;
-
-                // insert the new item after the selected item in the list, if there is one
-                var index = message.InsertAfterGuid == null
-                    ? -1
-                    : ConfigItems.FindIndex(i => i.GUID == message.InsertAfterGuid);
-                if (index == -1)
-                {
-                    ConfigItems.Add(item);
-                }
-                else
-                {
-                    ConfigItems.Insert(index + 1, item);
-                }
-
-                MessageExchange.Instance.Publish(new ConfigValueFullUpdate(ActiveConfigIndex, ConfigItems));
-                OnConfigHasChanged?.Invoke(item, null);
-            });
-
             MessageExchange.Instance.SubscribeOnUiThread<CommandConfigBulkAction>((message) =>
             {
                 if (message.Items == null || message.Items.Count == 0) return;
@@ -859,32 +830,34 @@ namespace MobiFlight
                 // A ConfigItem must belong to an existing profile.
                 if (Project?.ConfigFiles == null || ActiveConfigIndex < 0 || ActiveConfigIndex >= Project.ConfigFiles.Count)
                 {
-                    Log.Instance.log($"Cannot add ConfigItem: no active profile.", LogSeverity.Warn);
+                    Log.Instance.log("Cannot add ConfigItem: no active profile.", LogSeverity.Warn);
                     return;
                 }
 
-                IConfigItem item = new OutputConfigItem()
-                {
-                    Source = SourceFactory.Create(
-                        Project.ToProjectInfo().Sim
-                    )
-                };
-
-                if (message.Type == "InputConfig")
-                {
-                    item = new InputConfigItem();
-                }
+                IConfigItem item = message.Type == "InputConfig"
+                    ? new InputConfigItem()
+                    : new OutputConfigItem();
 
                 item.GUID = Guid.NewGuid().ToString();
                 item.Name = message.Name;
                 item.Active = true;
 
-                ConfigItems.Add(item);
+                // Insert after the selected item if possible.
+                var index = message.InsertAfterGuid == null
+                    ? -1
+                    : ConfigItems.FindIndex(i =>
+                        i.GUID == message.InsertAfterGuid);
+
+                var insertIndex = index == -1
+                    ? ConfigItems.Count
+                    : index + 1;
+
+                ConfigItems.Insert(insertIndex, item);
 
                 // Record the successfully added item.
                 _configListUndoManager.RecordConfigListAddUndo(
                     item,
-                    ConfigItems.Count - 1
+                    insertIndex
                 );
 
                 MessageExchange.Instance.Publish(
