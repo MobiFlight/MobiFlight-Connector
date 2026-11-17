@@ -1105,7 +1105,10 @@ test.describe("Filter toolbar tests", () => {
     const notification = page.getByRole("alert")
     await expect(notification).not.toBeVisible()
 
-    await page.getByTestId("dialog-config-name").getByRole("textbox").press("Enter")
+    await page
+      .getByTestId("dialog-config-name")
+      .getByRole("textbox")
+      .press("Enter")
     await page.keyboard.press("Escape")
     await expect(dialog).not.toBeVisible()
     await expect(
@@ -1798,7 +1801,7 @@ test.describe("Confirm context menu actions are working", () => {
     const firstRow = page.getByRole("row").nth(1)
 
     const menuOptions = [
-      { label: "Edit", key: "CommandConfigContextMenu" },
+      { label: "Edit", key: null },
       { label: "Rename", key: null },
       { label: "Delete", key: "CommandConfigBulkAction" },
       { label: "Duplicate", key: "CommandConfigContextMenu" },
@@ -1866,7 +1869,7 @@ test.describe("Confirm context menu actions are working", () => {
       .first()
 
     const menuOptions = [
-      { label: "Edit", key: "CommandConfigContextMenu" },
+      { label: "Edit", key: null },
       { label: "Rename", key: null },
       { label: "Delete", key: "CommandConfigBulkAction" },
       { label: "Duplicate", key: "CommandConfigContextMenu" },

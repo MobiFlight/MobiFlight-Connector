@@ -346,7 +346,7 @@ test.describe("Config List Global Undo", () => {
     // Apply the local changes.
     await page.getByRole("button", { name: "Apply changes" }).click()
 
-    await expect(page.getByTestId("inputconfigwizard-dialog")).not.toBeVisible()
+    await expect(page.getByTestId("configwizard-dialog")).not.toBeVisible()
 
     // Verify that Apply sends one committed ConfigItem.
     await expect
@@ -580,11 +580,11 @@ test.describe("Config List Global Undo", () => {
 
     // Cancel instead of Apply.
     await page
-      .getByTestId("inputconfigwizard-dialog-footer")
+      .getByTestId("configwizard-dialog-footer")
       .getByRole("button", { name: "Cancel", exact: true })
       .click()
 
-    await expect(page.getByTestId("inputconfigwizard-dialog")).not.toBeVisible()
+    await expect(page.getByTestId("configwizard-dialog")).not.toBeVisible()
 
     // No committed edit should have been sent to the backend.
     const commands = await backend.getTrackedCommands()

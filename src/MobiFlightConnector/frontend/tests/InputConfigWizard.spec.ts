@@ -287,8 +287,17 @@ test.describe("General Input Config Wizard Tests", () => {
     const footer = page.getByTestId("configwizard-dialog-footer")
 
     await test.step("No changes: only Close is offered", async () => {
-      await expect(footer.getByRole("button")).toHaveCount(1)
-      await expect(footer.getByRole("button", { name: "Close" })).toBeVisible()
+      await expect(
+        footer.getByRole("button", { name: "Close", exact: true }),
+      ).toBeVisible()
+
+      await expect(
+        footer.getByRole("button", { name: "Cancel", exact: true }),
+      ).toHaveCount(0)
+
+      await expect(
+        footer.getByRole("button", { name: "Apply changes", exact: true }),
+      ).toHaveCount(0)
     })
 
     await test.step("After a change: Cancel and Apply changes are offered", async () => {
@@ -603,7 +612,7 @@ test.describe("Input Config Wizard - Edit name", () => {
 
     await expect(nameContainer.getByText("Modified Input Config")).toBeVisible()
 
-    const footer = page.getByTestId("inputconfigwizard-dialog-footer")
+    const footer = page.getByTestId("configwizard-dialog-footer")
     const controls = footer.getByTestId("config-history-controls")
 
     const undoButton = controls.getByTestId("config-undo-button")
@@ -1812,7 +1821,7 @@ test.describe("Input Config Wizard - Config References panel", () => {
     await expect(editor).not.toBeVisible()
     await expect(page).not.toHaveURL(/detail=configReference/)
 
-    const footer = page.getByTestId("inputconfigwizard-dialog-footer")
+    const footer = page.getByTestId("configwizard-dialog-footer")
     const wizardControls = footer.getByTestId("config-history-controls")
 
     const wizardHistory = await openConfigHistory(page, wizardControls)
@@ -1901,7 +1910,7 @@ test.describe("Input Config Wizard - Config References panel", () => {
     await page.getByRole("button", { name: "Go back" }).click()
     await expect(editor).not.toBeVisible()
 
-    const footer = page.getByTestId("inputconfigwizard-dialog-footer")
+    const footer = page.getByTestId("configwizard-dialog-footer")
     const wizardControls = footer.getByTestId("config-history-controls")
 
     await expect(
