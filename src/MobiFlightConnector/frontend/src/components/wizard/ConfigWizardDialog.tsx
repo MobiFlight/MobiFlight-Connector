@@ -21,7 +21,7 @@ import { useConfigItemStateValue } from "@/stores/configItemStateStore"
 import { IConfigItem } from "@/types/config"
 import useConfigHistory from "@/lib/hooks/useConfigHistory"
 import { IconChevronRight, IconExclamationCircle } from "@tabler/icons-react"
-import _ from "lodash"
+import { areConfigItemsEquivalent } from "@/lib/configItemComparison"
 import { useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useLocation, useNavigate } from "react-router"
@@ -111,7 +111,9 @@ const ConfigWizardDialog = ({ configId }: ConfigWizardDialogProps) => {
     () => location.state?.editName === true,
   )
 
-  const hasChanged = () => !_.isEqual(committedConfigItem, draftConfigItem)
+  const hasChanged = () =>
+    !areConfigItemsEquivalent(committedConfigItem, draftConfigItem)
+
   const isDirty = hasChanged()
 
   useEffect(() => {

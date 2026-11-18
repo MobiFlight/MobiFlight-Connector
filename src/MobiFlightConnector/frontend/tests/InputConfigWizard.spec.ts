@@ -3174,6 +3174,88 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await page.keyboard.press("Control+z")
     await expect(activeSwitch).toBeChecked()
   })
+
+  test("Adding and deleting a modifier leaves no Wizard history", async ({
+    configListPage,
+    page,
+  }) => {
+    await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
+
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+    const dialog = page.getByTestId("configwizard-dialog")
+    const footer = page.getByTestId("configwizard-dialog-footer")
+    const wizardControls = footer.getByTestId("config-history-controls")
+
+    // Initially there is no Undo history.
+    await expect(
+      wizardControls.getByTestId("config-undo-button"),
+    ).toBeDisabled()
+
+    // Open Modifier Drawer.
+    await dialog.getByRole("button", { name: "Add modifier" }).click()
+
+    const editor = page.getByTestId("modifier-editor")
+
+    // Add a Transformation modifier.
+    await editor.getByRole("button", { name: "Add modifier" }).click()
+
+    await page
+      .getByRole("menuitem", {
+        name: "Transformation",
+        exact: true,
+      })
+      .click()
+
+    const items = editor.getByTestId("modifier-item")
+    await expect(items).toHaveCount(1)
+
+    // Delete the same modifier without using Undo.
+    await items.first().getByRole("button", { name: "Remove Modifier" }).click()
+
+    await expect(items).toHaveCount(0)
+
+    // Both Add and Delete are still in local Drawer history.
+    const drawerControls = page
+      .locator('[data-slot="drawer-content"]')
+      .getByTestId("config-history-controls")
+
+    await expect(drawerControls.getByTestId("config-undo-button")).toBeEnabled()
+
+    // Close the Drawer.
+    await page.getByRole("button", { name: "Done", exact: true }).click()
+
+    await expect(editor).not.toBeVisible()
+
+    // No new Wizard Undo action should exist.
+    await expect(
+      wizardControls.getByTestId("config-undo-button"),
+    ).toBeDisabled()
+
+    await expect(
+      wizardControls.getByTestId("config-history-button"),
+    ).toHaveCount(0)
+
+    // No effective changes means no Apply button.
+    await expect(
+      footer.getByRole("button", {
+        name: "Apply changes",
+        exact: true,
+      }),
+    ).toHaveCount(0)
+
+    await expect(
+      footer.getByRole("button", {
+        name: "Close",
+        exact: true,
+      }),
+    ).toBeVisible()
+
+    // Nothing has been committed to the backend.
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+
+    expect(commands).toHaveLength(0)
+  })
 })
 
 test.describe("Input Config Wizard - Action Type Panel", () => {

@@ -5,6 +5,7 @@ import useTextEditSession, {
   isTextEditingTarget,
 } from "@/lib/hooks/useTextEditSession"
 import type { HistoryAction } from "@/types/history"
+import { areConfigItemsEquivalent } from "@/lib/configItemComparison"
 
 const MAX_UNDO_STEPS = 50
 
@@ -181,9 +182,18 @@ const useConfigHistory = (configItem: IConfigItem | undefined) => {
         return previous
       }
 
-      if (!current || _.isEqual(session.originalSnapshot, current)) {
+      if (!current) {
         return {
           ...previous,
+          drawerSession: null,
+          lastTextEditId: null,
+        }
+      }
+
+      if (areConfigItemsEquivalent(session.originalSnapshot, current)) {
+        return {
+          ...previous,
+          draftConfigItem: structuredClone(session.originalSnapshot),
           drawerSession: null,
           lastTextEditId: null,
         }
