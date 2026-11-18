@@ -1,6 +1,7 @@
 ﻿using MobiFlight.Base;
 using System;
 using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
@@ -396,7 +397,13 @@ namespace MobiFlight.SimConnectMSFS
                    System.IO.File.Exists(Path.Combine(WasmEventsHubHopFolder, WasmEventsXplaneHubHopFileName));
         }
 
-        private static async Task<bool> DownloadSingleFile(Uri uri, string fileName, string targetPath)
+        // Issue 3581: request compressed responses, HubHop presets shrink from ~18 MB to ~3 MB with gzip.
+        private static readonly HttpClient DownloadHttpClient = new(new SocketsHttpHandler
+        {
+            AutomaticDecompression = DecompressionMethods.All
+        });
+
+        internal static async Task<bool> DownloadSingleFile(Uri uri, string fileName, string targetPath)
         {
             var targetFilePath = Path.Combine(targetPath, fileName);
 
@@ -407,12 +414,11 @@ namespace MobiFlight.SimConnectMSFS
             {
                 try
                 {
-                    using (var httpClient = new HttpClient())
                     using (var memoryStream = new MemoryStream())
                     using (var targetFileStream = File.OpenWrite(targetFilePath))
                     {
                         // download the contents and buffer it in a MemoryStream
-                        var stream = await httpClient.GetStreamAsync(uri);
+                        using var stream = await DownloadHttpClient.GetStreamAsync(uri);
                         await stream.CopyToAsync(memoryStream);
                         memoryStream.Seek(0, SeekOrigin.Begin);
 
