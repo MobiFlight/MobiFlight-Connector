@@ -26,7 +26,7 @@ export function SettingsConflictDialog({
   onUploadLocal,
   isProcessing = false,
 }: SettingsConflictDialogProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslation("settings")
 
   const handleOpenChange = (open: boolean) => {
     if (!open) {
