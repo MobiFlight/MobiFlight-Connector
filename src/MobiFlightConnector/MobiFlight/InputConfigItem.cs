@@ -39,6 +39,12 @@ namespace MobiFlight
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public AnalogInputConfig analog { get; set; }
 
+        /// <summary>
+        /// The input value used by the modifier test in the config wizard.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public ConnectorValue TestValue { get; set; }
+
         public override IDeviceConfig Device { get; set; }
 
         public InputConfigItem()
@@ -295,6 +301,7 @@ namespace MobiFlight
             this.encoder = (EncoderInputConfig)config.encoder?.Clone();
             this.analog = (AnalogInputConfig)config.analog?.Clone();
             this.Device = config.Device?.Clone() as IDeviceConfig;
+            this.TestValue = config.TestValue?.Clone() as ConnectorValue;
         }
 
         public override object Clone()
@@ -371,6 +378,7 @@ namespace MobiFlight
                     button.AreEqual(item.button) &&
                     encoder.AreEqual(item.encoder) &&
                     analog.AreEqual(item.analog) &&
+                    TestValue.AreEqual(item.TestValue) &&
                     Preconditions.Equals(item.Preconditions) &&
                     ConfigRefs.Equals(item.ConfigRefs);
         }
