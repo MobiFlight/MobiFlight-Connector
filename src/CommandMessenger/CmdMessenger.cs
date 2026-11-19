@@ -370,6 +370,13 @@ namespace CommandMessenger
             _receiveCommandQueue.Clear();
         }
 
+        /// <summary> Drops incomplete messages and received messages that have not been handled yet. </summary>
+        public void ClearReceiveBuffers()
+        {
+            _communicationManager.ClearReceiveBuffer();
+            _receiveCommandQueue.Clear();
+        }
+
         /// <summary> Clears the send queue. </summary>
         public void ClearSendQueue()
         {
