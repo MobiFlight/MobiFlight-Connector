@@ -60,7 +60,7 @@ const SEVERITY_CLASS: Record<LogLevel, string> = {
 }
 
 const LogPanel = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation("settings")
   const { publish } = messageExchange
   const { logs } = useLogsStore()
 

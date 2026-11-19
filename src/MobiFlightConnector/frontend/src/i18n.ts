@@ -9,7 +9,7 @@ export default i18n
   .use(initReactI18next)
   .init<HttpBackendOptions>({
     fallbackLng: "en",
-    ns: ["wizard", "translation", "feed"],
+    ns: ["settings", "wizard", "translation", "feed"],
     defaultNS: "translation",
     fallbackNS: "translation",
     debug: true,

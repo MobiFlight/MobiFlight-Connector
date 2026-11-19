@@ -14,7 +14,7 @@ export default function SimulatorSettingsCard({
   values,
   onChange,
 }: SimulatorSettingsCardProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslation("settings")
 
   const proSimHost = values.ProSimHost ?? "localhost"
   const proSimPort = values.ProSimPort ?? 8080

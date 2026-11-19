@@ -114,9 +114,14 @@ Tests that need real hardware are skipped automatically.
 
 Translation files are in `public/locales/{lang}/{namespace}.json`. The app uses `react-i18next` — all user-facing strings must go through `t()`. Core languages that must be complete before a PR can be merged: `en`, `de`, `es`.
 
-Texts are split into namespaces, one file per namespace in each `public/locales/{lang}/` folder: `translation` (default), `wizard` and `feed`. Components in `src/components/wizard/` use `useTranslation("wizard")`, and their keys live under `ConfigWizard.*` in `wizard.json`. Shared texts such as `General.*` or `Dialog.General.*` stay in `translation.json` and still resolve in the wizard through `fallbackNS`.
+Texts are organized into namespaces, one `{namespace}.json` file per namespace in each `public/locales/{lang}/` folder. The namespaces are registered in `src/i18n.ts`, where `translation` is configured as the default and fallback namespace (`defaultNS` and `fallbackNS`). Shared texts stay in `translation.json` and resolve across other namespaces via `fallbackNS`.
 
-`<Trans>` doesn't pick up the namespace from `useTranslation`. Pass it explicitly with `<Trans ns="wizard" i18nKey="…">`; otherwise the English text inside the tag is always shown.
+To add a new namespace:
+1. Register the namespace name in the `ns` array in `src/i18n.ts`.
+2. Add the corresponding `{namespace}.json` file under `public/locales/{lang}/` for each supported language.
+3. In components using that namespace, call `useTranslation("<namespace>")`. Shared texts from `translation.json` remain accessible via fallback.
+
+`<Trans>` doesn't pick up the namespace from `useTranslation`. Pass it explicitly with `<Trans ns="<namespace>" i18nKey="…">`; otherwise the English text inside the tag is always shown.
 
 ```sh
 npm run check:i18n                       # run both checks below
