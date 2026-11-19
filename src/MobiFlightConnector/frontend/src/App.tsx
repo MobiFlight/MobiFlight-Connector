@@ -12,6 +12,7 @@ import { Toaster } from "./components/ui/sonner"
 import { useTheme } from "@/lib/hooks/useTheme"
 import { ToastNotificationHandler } from "./components/notifications/ToastNotificationHandler"
 import ConfirmationDialogShutdownHandler from "@/components/ConfirmationDialogShutdownHandler"
+import { useProjectFileDrop } from "@/lib/hooks/useProjectFileDrop"
 
 import DebugInfo from "@/components/DebugInfo"
 import LogPanel from "@/components/LogPanel"
@@ -27,6 +28,7 @@ import ErrorFallback from "@/components/ErrorFallback"
 
 function App() {
   useKeyAccelerators(GlobalKeyAccelerators, true)
+  useProjectFileDrop()
   const outlet = useOutlet()
   const [overlayVisible, setOverlayVisible] = useState(false)
   const { theme } = useTheme()

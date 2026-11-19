@@ -19,6 +19,13 @@ namespace MobiFlight.BrowserMessages.Incoming.Handler
                     _mainForm.newFileToolStripMenuItem_Click(message.Options);
                     break;
                 case CommandMainMenuAction.file_open:
+                    // A file path is set when a project file was dropped onto the window.
+                    if (!string.IsNullOrEmpty(message.Options?.FilePath))
+                    {
+                        _mainForm.OpenProjectFile(message.Options.FilePath);
+                        break;
+                    }
+
                     _mainForm.loadToolStripMenuItem_Click(null, null);
                     break;
                 case CommandMainMenuAction.file_save:

@@ -307,6 +307,34 @@ namespace MobiFlight.UI.Tests
             Assert.DoesNotContain(testFiles[1], projectFiles, "Removed file should not be in ProjectList");
         }
 
+        [TestMethod()]
+        public async Task FileOpen_WithFilePath_ViaCommandMainMenu_ShouldOpenThatProject()
+        {
+            // Arrange
+            _mainForm.InitializeExecutionManager();
+            _mainForm.InitializeControllerBindingService();
+            await _mainForm.InitializeProjectListManagerAsync().ConfigureAwait(false);
+
+            var droppedFile = CreateTestFile("dropped.mfproj");
+
+            // Same command the frontend sends for a dropped project file
+            var command = new CommandMainMenu
+            {
+                Action = CommandMainMenuAction.file_open,
+                Options = new CommandMainMenuOptions { FilePath = droppedFile }
+            };
+
+            var handler = new MobiFlight.BrowserMessages.Incoming.Handler.CommandMainMenuHandler(_mainForm);
+
+            // Act
+            handler.Handle(command);
+
+            // Assert
+            Assert.AreEqual(droppedFile, _mainForm.ExecutionManager.Project.FilePath, "The dropped project should be opened");
+            Assert.IsFalse(_mainForm.ProjectHasUnsavedChanges, "A freshly opened project should not have unsaved changes");
+            Assert.AreEqual(droppedFile, Properties.Settings.Default.RecentFiles[0], "The dropped project should be the most recent file");
+        }
+
         #region Update window title tests
         [TestMethod()]
         public void SetProjectFilePathInTitle_WithSavedProject_ShowsCorrectFilePath()

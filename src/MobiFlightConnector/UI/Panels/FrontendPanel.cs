@@ -48,6 +48,10 @@ namespace MobiFlight.UI.Panels
             await FrontendWebView.EnsureCoreWebView2Async(null);
             await UserAuthenticationWebView.EnsureCoreWebView2Async(null);
 
+            // Files dropped onto the frontend arrive via postMessage, because only WebView2 can resolve their path.
+            new WebViewFileMessageReceiver(FrontendWebView, _frontendBaseUrl).MessageReceived
+                += MessageExchange.Instance.PublishReceivedMessage;
+
             // MainForm's constructor already set the WebSocket publisher on MessageExchange.
             await InitializeWebView(FrontendWebView, "/start", injectWsUrl: true);
 

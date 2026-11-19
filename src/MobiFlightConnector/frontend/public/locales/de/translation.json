@@ -355,6 +355,10 @@
     "ProjectFileLoadError": {
       "Title": "Projekt konnte nicht geladen werden",
       "Description": "Beim Laden ist ein Fehler aufgetreten: {{fileName}} - {{errorMessage}}"
+    },
+    "ProjectFileDropUnsupported": {
+      "Title": "Datei kann nicht geöffnet werden",
+      "Description": "Nur MobiFlight-Projektdateien ({{extensions}}) können durch Ziehen auf das Fenster geöffnet werden."
     }
   },
   "Startup": {
