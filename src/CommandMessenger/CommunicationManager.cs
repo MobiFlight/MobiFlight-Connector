@@ -205,6 +205,15 @@ namespace CommandMessenger
             return new ReceivedCommand { CommunicationManager = this };
         }
 
+        /// <summary> Drops any incomplete message that is still waiting for its command separator. </summary>
+        public void ClearReceiveBuffer()
+        {
+            lock (_parseLinesLock)
+            {
+                _buffer = string.Empty;
+            }
+        }
+
         /// <summary> Blocks until acknowledgement reply has been received. </summary>
         /// <param name="timeout">  Timeout on acknowledge command. </param>
         /// <returns> A received command. </returns>

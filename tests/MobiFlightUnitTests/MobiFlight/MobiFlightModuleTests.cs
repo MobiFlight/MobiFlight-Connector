@@ -801,6 +801,7 @@ namespace MobiFlight.Tests
             // The board stays silent on the first GetInfo and answers the retry.
             var transport = new ScriptedTransport(null, InfoReply);
             var module = CreateModuleWithTransport(transport);
+            module.GetInfoMaxAttempts = 2;
 
             // Act
             var info = module.GetInfo() as MobiFlightModuleInfo;
@@ -811,6 +812,21 @@ namespace MobiFlight.Tests
             Assert.AreEqual("SN-G5E-45E", info.Serial, "Serial should come from the retried reply.");
             Assert.AreEqual("Nano", info.Name, "Name should come from the retried reply.");
             Assert.IsTrue(module.HasMfFirmware(), "Module should be identified as running MobiFlight firmware.");
+        }
+
+        [TestMethod()]
+        public void GetInfo_ShouldSendOneCommandByDefault_WhenBoardNeverAnswers()
+        {
+            // Arrange
+            // Issue 3321: Connect() flushes both ends, so a silent board is not asked again.
+            var transport = new ScriptedTransport();
+            var module = CreateModuleWithTransport(transport);
+
+            // Act
+            module.GetInfo();
+
+            // Assert
+            Assert.AreEqual(1, transport.WriteCount, "A silent board should be asked only once by default.");
         }
 
         [TestMethod()]
@@ -840,8 +856,9 @@ namespace MobiFlight.Tests
 
             var module = new MobiFlightModule("COM1", board)
             {
-                // A silent board would otherwise cost the full 2.5 s per attempt.
-                CommandTimeout = 50
+                // A silent board would otherwise cost the full timeout per attempt.
+                CommandTimeout = 50,
+                GetInfoTimeout = 50
             };
 
             var cmdMessenger = new CmdMessenger(transport, BoardType.Bit16, ',', ';', '\\', board.Connection.MessageSize);
