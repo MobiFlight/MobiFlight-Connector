@@ -5,12 +5,16 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import { VirtualPresetList } from "@/components/wizard/common/VirtualPresetList"
-import { filterPresetByText } from "@/lib/configWizard"
+import {
+  comparePresets,
+  presetRelevance,
+  searchTerms,
+} from "@/lib/presetSearch"
 import { useProjectStore } from "@/stores/projectStore"
 import { Preset, PresetSim, PresetType, XplanePreset } from "@/types/preset"
 import { AircraftInfo } from "@/types/project"
 import { IconX } from "@tabler/icons-react"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import LoadingSpinner from "@/components/wizard/common/LoadingSpinner"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
@@ -65,7 +69,11 @@ const PresetPanel = ({
   const validPresetTypes = presetTypes[mode]
 
   const { data: presets = [] } = useHubHopPresets(sim)
-
+  // same default order as HubHop, sorted once and not on every render
+  const sortedPresets = useMemo(
+    () => [...presets].sort(comparePresets),
+    [presets],
+  )
 
   const projectAircraftFilter = (p: Preset) =>
     (project?.Aircraft?.length ?? 0) > 0
@@ -73,7 +81,7 @@ const PresetPanel = ({
           (a: AircraftInfo) => a.Name === p.aircraft && a.Vendor === p.vendor,
         )
       : true
-  const validPresets = presets.filter(
+  const validPresets = sortedPresets.filter(
     (p: Preset) =>
       validPresetTypes.includes(p.presetType.toLowerCase() as PresetType) &&
       (favoritesOnly ? projectAircraftFilter(p) : true),
@@ -85,30 +93,44 @@ const PresetPanel = ({
     system: selectedPreset?.system || "",
     search: "",
   })
-  const filteredPresets = validPresets.filter(
-    (p) =>
-      (filter.vendor ? p.vendor === filter.vendor : true) &&
-      (filter.aircraft ? p.aircraft === filter.aircraft : true) &&
-      (filter.system ? p.system === filter.system : true) &&
-      filterPresetByText(p, filter.search),
+  // relevance per preset, computed once per render; empty while not searching
+  const terms = searchTerms(filter.search)
+  const relevance = new Map(
+    terms.length > 0
+      ? validPresets.map((p) => [p, presetRelevance(p, terms)])
+      : [],
   )
+  const matchesSearch = (p: Preset) =>
+    terms.length === 0 || (relevance.get(p) ?? 0) > 0
+
+  // search results are sorted by relevance, the stable sort keeps
+  // the default order for presets of equal relevance
+  const filteredPresets = validPresets
+    .filter(
+      (p) =>
+        (filter.vendor ? p.vendor === filter.vendor : true) &&
+        (filter.aircraft ? p.aircraft === filter.aircraft : true) &&
+        (filter.system ? p.system === filter.system : true) &&
+        matchesSearch(p),
+    )
+    .sort((a, b) => (relevance.get(b) ?? 0) - (relevance.get(a) ?? 0))
   const filteredCategoryPresets = validPresets.filter(
     (p) =>
       (filter.vendor ? p.vendor === filter.vendor : true) &&
       (filter.aircraft ? p.aircraft === filter.aircraft : true) &&
-      filterPresetByText(p, filter.search),
+      matchesSearch(p),
   )
   const filteredVendorPresets = validPresets.filter(
     (p) =>
       (filter.system ? p.system === filter.system : true) &&
       (filter.aircraft ? p.aircraft === filter.aircraft : true) &&
-      filterPresetByText(p, filter.search),
+      matchesSearch(p),
   )
   const filteredAircraftPresets = validPresets.filter(
     (p) =>
       (filter.vendor ? p.vendor === filter.vendor : true) &&
       (filter.system ? p.system === filter.system : true) &&
-      filterPresetByText(p, filter.search),
+      matchesSearch(p),
   )
   const categories = [
     ...new Set([
