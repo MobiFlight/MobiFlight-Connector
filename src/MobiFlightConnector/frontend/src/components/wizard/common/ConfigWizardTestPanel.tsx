@@ -52,6 +52,9 @@ const ConfigWizardTestPanel = ({
   const [isTesting, setIsTesting] = useState(false)
 
   const runtimeState = useConfigItemStateValue(configItem?.GUID)
+  // the device of an input config provides the raw value,
+  // the device of an output config displays the final value
+  const isInputConfig = configItem?.Type === "InputConfigItem"
 
   // On closing the wizard, ensure the test is stopped if it was running
   // We have to keep track of the latest state across renders
@@ -131,6 +134,12 @@ const ConfigWizardTestPanel = ({
     <WizardSection data-testid="configwizard-test-panel">
       <SectionHeadline title={title} description={description} />
       <div className="flex grow flex-row items-end gap-2">
+        {isInputConfig && (
+          <>
+            <DeviceIcon variant={configItem?.Device?.Type} />
+            <div className="mt-1 mb-1 h-3 w-4 border-t border-dashed border-gray-800"></div>
+          </>
+        )}
         <div className="flex flex-col gap-1">
           <Label>{t("ConfigList.Header.RawValue")}</Label>
           <Input
@@ -181,8 +190,12 @@ const ConfigWizardTestPanel = ({
             {isTesting ? runtimeState?.Value : "?"}
           </Badge>
         </div>
-        <div className="mt-1 mb-1 h-3 w-4 border-t border-dashed border-gray-800"></div>
-        <DeviceIcon variant={configItem?.Device?.Type} />
+        {!isInputConfig && (
+          <>
+            <div className="mt-1 mb-1 h-3 w-4 border-t border-dashed border-gray-800"></div>
+            <DeviceIcon variant={configItem?.Device?.Type} />
+          </>
+        )}
       </div>
     </WizardSection>
   )
