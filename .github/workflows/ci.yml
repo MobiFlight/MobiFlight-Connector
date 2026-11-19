@@ -103,15 +103,19 @@ jobs:
           script-file: ./Build/setup.nsi
           arguments: "/V3"
 
+      - name: Rename unsigned setup file
+        if: github.event_name == 'release' || env.EVENT_TYPE_OVERRIDE == 'release'
+        shell: pwsh
+        run: Move-Item Build/MobiFlight-Setup.exe Build/MobiFlight-Setup-unsigned.exe
+
       - name: store latest NSIS setup file (unsigned)
         if: github.event_name == 'release' || env.EVENT_TYPE_OVERRIDE == 'release'
         uses: actions/upload-artifact@v7
         id: upload-unsigned-artifact
         with:
-          name: MobiFlight-Setup.exe (unsigned)
           archive: false
           path: |
-            Build/MobiFlight-Setup.exe
+            Build/MobiFlight-Setup-unsigned.exe
 
       - name: submit signing request
         if: github.event_name == 'release' || env.EVENT_TYPE_OVERRIDE == 'release'
@@ -128,12 +132,16 @@ jobs:
           wait-for-completion: true
           output-artifact-directory: 'dist/'
 
+      - name: Rename signed setup file
+        if: steps.signing.outcome == 'success'
+        shell: pwsh
+        run: Move-Item dist/MobiFlight-Setup-unsigned.exe dist/MobiFlight-Setup.exe
+
       - name: store latest NSIS setup file (signed)
         if: steps.signing.outcome == 'success'
         uses: actions/upload-artifact@v7
         id: upload-signed-artifact
         with:
-          name: MobiFlight-Setup.exe (signed)
           archive: false
           path: |
             dist/MobiFlight-Setup.exe
