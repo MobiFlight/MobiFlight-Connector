@@ -1,27 +1,25 @@
-import type {Modifier} from '@dnd-kit/core';
-import {getEventCoordinates} from '@dnd-kit/utilities';
+import { Modifier, DragOperation } from "@dnd-kit/abstract"
+import { Coordinates } from "@dnd-kit/geometry"
 
-export const snapToCursor: Modifier = ({
-  activatorEvent,
-  draggingNodeRect,
-  transform,
-}) => {
-  if (draggingNodeRect && activatorEvent) {
-    const activatorCoordinates = getEventCoordinates(activatorEvent);
+export class SnapToCursor extends Modifier {
+  public apply(operation: DragOperation): Coordinates {
+    if (this.disabled) return operation.transform
 
-    if (!activatorCoordinates) {
-      return transform;
+    const { transform, shape, position } = operation
+
+    if (shape?.current && shape?.initial) {
+      if (!position?.initial) {
+        return transform
+      }
+
+      const offsetX = position.initial.x - shape.initial.boundingRectangle.left
+      const offsetY = position.initial.y - shape.initial.boundingRectangle.top
+
+      return {
+        x: transform.x + offsetX,
+        y: transform.y + offsetY - shape.current.boundingRectangle.height / 2,
+      }
     }
-
-    const offsetY = activatorCoordinates.y - draggingNodeRect.top;
-    const offsetX = activatorCoordinates.x - draggingNodeRect.left;
-
-    return {
-      ...transform,
-      x: transform.x + offsetX,
-      y: transform.y + offsetY - draggingNodeRect.height / 2,
-    };
+    return transform
   }
-
-  return transform;
-};
+}

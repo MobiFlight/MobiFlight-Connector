@@ -1,4 +1,4 @@
-import type { DragEndEvent } from "@dnd-kit/core"
+import type { DragEndEvent } from "@dnd-kit/dom"
 import type { IConfigItem } from "@/types"
 import type { DragState } from "@/components/providers/DragDropProvider"
 import messageExchange from "@/lib/messageExchange"
@@ -40,22 +40,22 @@ export const validateDragEnd = (
   event: DragEndEvent,
   dragState: DragState | null
 ): DragEndValidation => {
-  const { active, over } = event
+  const { source, target } = event.operation
 
   if (!dragState?.items || !dragState.configs) {
     return { isValid: false, reason: "Invalid drag state" }
   }
 
-  if (!active.id) {
+  if (!source?.id) {
     return { isValid: false, reason: "No active item" }
   }
 
-  if (!over?.id) {
+  if (!target?.id) {
     return { isValid: false, reason: "Dropped outside valid zone" }
   }
 
   if (
-    active.id === over.id &&
+    source.id === target.id &&
     dragState.configs.source === dragState.configs.current
   ) {
     return { isValid: false, reason: "Item dropped on itself" }
@@ -157,11 +157,11 @@ export const extractDropContext = (
   sourceConfigIndex: number
   targetConfigIndex: number
 } => {
-  const { over } = event
+  const { target } = event.operation
 
-  const hoveringOverTab = over?.data?.current?.type === "tab"
-  const dropOnPlaceholder = over?.data?.current?.type === "placeholder"
-  const dropTargetItemId = over!.id as string
+  const hoveringOverTab = target?.data?.type === "tab"
+  const dropOnPlaceholder = target?.data?.type === "placeholder"
+  const dropTargetItemId = target!.id as string
 
   // Determine config indices
   const sourceConfigIndex = !hoveringOverTab

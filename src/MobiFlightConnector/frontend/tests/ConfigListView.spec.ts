@@ -497,9 +497,13 @@ test.describe("Drag and drop tests", () => {
     // ensure the tab switch has completed
     await expect(secondTab).toHaveAttribute("aria-selected", "true")
 
-    // find a target row in the second tab to drop on
-    const targetRowInSecondTab = page.getByRole("row").nth(1)
-    await targetRowInSecondTab.hover()
+    // drop at the top of the table in the second tab
+    const tableBody = (await page.getByRole("rowgroup").nth(1).boundingBox())!
+    await page.mouse.move(tableBody.x + 200, tableBody.y + 10, { steps: 5 })
+    await expect(
+      page.getByTestId("config-item-drag-overlay-inside-table"),
+    ).toBeVisible()
+    await page.mouse.move(tableBody.x + 210, tableBody.y + 12)
     await page.mouse.up()
 
     // verify the items moved to the second tab
