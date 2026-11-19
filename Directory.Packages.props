@@ -31,7 +31,7 @@
     <PackageVersion Include="SharpDX.DirectInput" Version="4.2.0" />
     <PackageVersion Include="System.Collections.Immutable" Version="10.0.9" />
     <PackageVersion Include="System.Diagnostics.DiagnosticSource" Version="10.0.9" />
-    <PackageVersion Include="System.IO.Ports" Version="10.0.9" />
+    <PackageVersion Include="System.IO.Ports" Version="11.0.0" />
     <PackageVersion Include="System.Management" Version="10.0.5" />
     <PackageVersion Include="System.Reactive" Version="6.1.0" />
     <PackageVersion Include="System.Reflection.Metadata" Version="10.0.9" />
