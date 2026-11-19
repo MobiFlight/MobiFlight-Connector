@@ -31,11 +31,12 @@ import { IconX } from "@tabler/icons-react"
 import { toast } from "@/components/ui/ToastWrapper"
 import { useConfigItemDragContext } from "@/lib/hooks/useConfigItemDragContext"
 import ConfigItemNoResultsDroppable from "./items/ConfigItemNoResultsDroppable"
-import { useDroppable } from "@dnd-kit/core"
+import { useDroppable } from "@dnd-kit/react"
 import { useErrorFallbackTest } from "@/lib/hooks/useErrorFallbackTest"
 import { useLocation, useNavigate } from "react-router"
 import { ConfigItemTableContext } from "./ConfigItemTableContext"
-
+import { pointerIntersection } from "@dnd-kit/collision"
+import { CollisionPriority } from "@dnd-kit/abstract"
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
@@ -87,14 +88,16 @@ export function ConfigItemTable<TValue>({
     },
   })
 
-  const { setNodeRef: setTableBodyRef } = useDroppable({
+  const { ref: setTableBodyRef } = useDroppable({
     id: "config-item-table-body",
     data: { type: "table" },
+    collisionPriority : CollisionPriority.Low,
   })
 
-  const { setNodeRef: setTableHeaderRef } = useDroppable({
+  const { ref: setTableHeaderRef } = useDroppable({
     id: "config-item-table-header",
     data: { type: "header" },
+    collisionDetector : pointerIntersection,
   })
   const parentRef = useRef<HTMLDivElement>(null)
   const { rows } = table.getRowModel()
