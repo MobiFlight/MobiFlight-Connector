@@ -124,6 +124,7 @@ jobs:
           project-slug: '${{ vars.SIGNPATH_PROJECT_SLUG }}'
           signing-policy-slug: '${{ vars.SIGNPATH_SIGNING_POLICY_SLUG }}'
           github-artifact-id: '${{ steps.upload-unsigned-artifact.outputs.artifact-id }}'
+          skip-decompress: true
           wait-for-completion: true
           output-artifact-directory: 'dist/'
 
