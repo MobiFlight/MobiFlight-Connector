@@ -436,27 +436,32 @@
       "Current": "Текущее состояние",
       "NameChanged": "Имя изменено",
       "TriggerChanged": "Триггер изменён",
-      "PreconditionAdded": "Добавлено",
-      "PreconditionRemoved": "Удалено",
-      "PreconditionChanged": "Изменено",
-      "PreconditionEnabled": "Включено",
-      "PreconditionDisabled": "Выключено",
-      "ModifierAdded": "Добавлено",
-      "ModifierRemoved": "Удалено",
-      "ModifierEnabled": "Включено",
-      "ModifierDisabled": "Выключено",
-      "ModifierExpressionChanged": "Выражение изменено",
-      "ModifierChanged": "Изменено",
-      "ConfigReferenceAdded": "Добавлено",
-      "ConfigReferenceRemoved": "Удалено",
-      "ConfigReferenceEnabled": "Включено",
-      "ConfigReferenceDisabled": "Выключено",
-      "ConfigReferenceChanged": "Изменено",
-      "ActionTypeChanged": "Тип действия изменён",
-      "ActionCodeChanged": "Код изменён",
-      "ActionChanged": "Действие изменено",
-      "ActionPresetChanged": "Пресет изменён",
-      "ActionExpressionChanged": "Выражение изменено"
+      "Precondition": {
+        "Added": "Добавлено",
+        "Removed": "Удалено",
+        "Changed": "Изменено",
+        "Enabled": "Включено",
+        "Disabled": "Выключено"
+      },
+      "Modifier": {
+        "Added": "Добавлено",
+        "Removed": "Удалено",
+        "Enabled": "Включено",
+        "Disabled": "Выключено",
+        "ExpressionChanged": "Выражение изменено",
+        "Changed": "Изменено"
+      },
+      "ConfigReference": {
+        "Added": "Добавлено",
+        "Removed": "Удалено",
+        "Enabled": "Включено",
+        "Disabled": "Выключено",
+        "Changed": "Изменено"
+      },
+      "Action": {
+        "TypeChanged": "Тип действия изменён",
+        "Changed": "Действие изменено"
+      }
     },
     "UnsavedChanges": {
       "Title": "Отменить изменения?",

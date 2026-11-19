@@ -165,6 +165,8 @@ const ProjectPanel = () => {
         type: "merge",
       },
     })
+
+    setTimeout(() => setActiveConfigFileIndex(configFiles.length), 200)
   }
 
   const { dragState } = useConfigItemDragContext()

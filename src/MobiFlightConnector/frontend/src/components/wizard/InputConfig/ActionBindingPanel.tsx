@@ -87,7 +87,7 @@ const ActionBindingPanel = ({
       ...current,
       [event]: null,
     }
-    onTriggerChange(updatedTrigger, "Dialog.History.ActionTypeChanged")
+    onTriggerChange(updatedTrigger, "Dialog.History.Action.TypeChanged")
   }
 
   return (

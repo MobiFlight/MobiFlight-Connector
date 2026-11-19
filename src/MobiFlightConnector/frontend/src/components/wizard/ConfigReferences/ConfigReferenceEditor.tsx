@@ -73,8 +73,8 @@ const ConfigReferenceItemRow = ({
             onChange(
               { ...configReference, Active: !!checked },
               checked
-                ? "Dialog.History.ConfigReferenceEnabled"
-                : "Dialog.History.ConfigReferenceDisabled",
+                ? "Dialog.History.ConfigReference.Enabled"
+                : "Dialog.History.ConfigReference.Disabled",
             )
           }
         />
@@ -149,14 +149,14 @@ const ConfigReferenceEditor = ({
   ) => {
     onConfigReferencesChange(
       configReferences.map((c, i) => (i === index ? updated : c)),
-      actionLabel ?? "Dialog.History.ConfigReferenceChanged",
+      actionLabel ?? "Dialog.History.ConfigReference.Changed",
     )
   }
 
   const handleDelete = (index: number) => {
     onConfigReferencesChange(
       configReferences.filter((_, i) => i !== index),
-      "Dialog.History.ConfigReferenceRemoved",
+      "Dialog.History.ConfigReference.Removed",
     )
   }
 
@@ -170,7 +170,7 @@ const ConfigReferenceEditor = ({
         ...configReferences,
         { ...EMPTY_CONFIG_REFERENCE, Placeholder: suggestedPlaceholder },
       ],
-      "Dialog.History.ConfigReferenceAdded",
+      "Dialog.History.ConfigReference.Added",
     )
   }
 

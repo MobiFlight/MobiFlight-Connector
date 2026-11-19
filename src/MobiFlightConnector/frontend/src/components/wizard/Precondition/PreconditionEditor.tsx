@@ -130,8 +130,8 @@ const PreconditionItemRow = ({
           onChange(
             { ...precondition, Active: !!checked },
             checked
-              ? "Dialog.History.PreconditionEnabled"
-              : "Dialog.History.PreconditionDisabled",
+              ? "Dialog.History.Precondition.Enabled"
+              : "Dialog.History.Precondition.Disabled",
           )
         }
       />
@@ -273,14 +273,14 @@ const PreconditionEditor = ({
   ) => {
     onPreconditionsChange(
       preconditions.map((p, i) => (i === index ? updated : p)),
-      actionLabel ?? "Dialog.History.PreconditionChanged",
+      actionLabel ?? "Dialog.History.Precondition.Changed",
     )
   }
 
   const handleDelete = (index: number) => {
     onPreconditionsChange(
       preconditions.filter((_, i) => i !== index),
-      "Dialog.History.PreconditionRemoved",
+      "Dialog.History.Precondition.Removed",
     )
   }
 
@@ -289,7 +289,7 @@ const PreconditionEditor = ({
     const newPrecondition = { ...EMPTY_PRECONDITION, Type: preconditionType }
     onPreconditionsChange(
       [...preconditions, newPrecondition],
-      "Dialog.History.PreconditionAdded",
+      "Dialog.History.Precondition.Added",
     )
   }
 
@@ -304,7 +304,7 @@ const PreconditionEditor = ({
     newPreconditions[index] = temp
     onPreconditionsChange(
       newPreconditions,
-      "Dialog.History.PreconditionChanged",
+      "Dialog.History.Precondition.Changed",
     )
   }
 
@@ -317,7 +317,7 @@ const PreconditionEditor = ({
     newPreconditions[index] = temp
     onPreconditionsChange(
       newPreconditions,
-      "Dialog.History.PreconditionChanged",
+      "Dialog.History.Precondition.Changed",
     )
   }
 

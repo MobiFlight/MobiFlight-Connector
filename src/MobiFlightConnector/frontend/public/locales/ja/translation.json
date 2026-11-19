@@ -436,27 +436,32 @@
       "Current": "現在の状態",
       "NameChanged": "名前変更",
       "TriggerChanged": "トリガー変更",
-      "PreconditionAdded": "追加",
-      "PreconditionRemoved": "削除",
-      "PreconditionChanged": "変更",
-      "PreconditionEnabled": "有効化",
-      "PreconditionDisabled": "無効化",
-      "ModifierAdded": "追加",
-      "ModifierRemoved": "削除",
-      "ModifierEnabled": "有効化",
-      "ModifierDisabled": "無効化",
-      "ModifierExpressionChanged": "式変更",
-      "ModifierChanged": "変更",
-      "ConfigReferenceAdded": "追加",
-      "ConfigReferenceRemoved": "削除",
-      "ConfigReferenceEnabled": "有効化",
-      "ConfigReferenceDisabled": "無効化",
-      "ConfigReferenceChanged": "変更",
-      "ActionTypeChanged": "アクション種類変更",
-      "ActionCodeChanged": "コード変更",
-      "ActionChanged": "アクション変更",
-      "ActionPresetChanged": "プリセット変更",
-      "ActionExpressionChanged": "式変更"
+      "Precondition": {
+        "Added": "追加",
+        "Removed": "削除",
+        "Changed": "変更",
+        "Enabled": "有効化",
+        "Disabled": "無効化"
+      },
+      "Modifier": {
+        "Added": "追加",
+        "Removed": "削除",
+        "Enabled": "有効化",
+        "Disabled": "無効化",
+        "ExpressionChanged": "式変更",
+        "Changed": "変更"
+      },
+      "ConfigReference": {
+        "Added": "追加",
+        "Removed": "削除",
+        "Enabled": "有効化",
+        "Disabled": "無効化",
+        "Changed": "変更"
+      },
+      "Action": {
+        "TypeChanged": "アクション種類変更",
+        "Changed": "アクション変更"
+      }
     },
     "UnsavedChanges": {
       "Title": "変更事項を削除しますか?",

@@ -91,15 +91,15 @@
     "Stepper": "Schrittmotor",
     "Servo": "Servo",
     "LcdDisplay": "LCD Display",
-    "ShiftRegister": "Output Shift Register",
+    "ShiftRegister": "Ausgabe-Schieberegister",
     "CustomDevice": "Custom Device",
-    "InputShiftRegister": "Input Shift Register",
+    "InputShiftRegister": "Eingbae-Schieberegister",
     "Button": "Schalter",
     "Encoder": "Enkoder",
     "AnalogInput": "Analoger Eingang",
     "-": "nicht verwendet",
-    "OutputConfigItem": "Ausgabe Konfiguration",
-    "InputConfigItem": "Eingabe Konfiguration",
+    "OutputConfigItem": "Ausgabe-Konfiguration",
+    "InputConfigItem": "Eingabe-Konfiguration",
     "InputAction": "Input Action"
   },
   "Project": {
@@ -412,6 +412,7 @@
       "Cancel": "Abbrechen",
       "Close": "Schließen",
       "Save": "Speichern",
+      "Done": "Fertig",
       "SaveChanges": "Änderungen speichern",
       "ApplyChanges": "Änderungen übernehmen",
       "DiscardChanges": "Änderungen verwerfen",
@@ -444,27 +445,32 @@
       "Current": "Aktueller Zustand",
       "NameChanged": "Name geändert",
       "TriggerChanged": "Auslöser geändert",
-      "PreconditionAdded": "Hinzugefügt",
-      "PreconditionRemoved": "Entfernt",
-      "PreconditionChanged": "Geändert",
-      "PreconditionEnabled": "Aktiviert",
-      "PreconditionDisabled": "Deaktiviert",
-      "ModifierAdded": "Hinzugefügt",
-      "ModifierRemoved": "Entfernt",
-      "ModifierEnabled": "Aktiviert",
-      "ModifierDisabled": "Deaktiviert",
-      "ModifierExpressionChanged": "Ausdruck geändert",
-      "ModifierChanged": "Geändert",
-      "ConfigReferenceAdded": "Hinzugefügt",
-      "ConfigReferenceRemoved": "Entfernt",
-      "ConfigReferenceEnabled": "Aktiviert",
-      "ConfigReferenceDisabled": "Deaktiviert",
-      "ConfigReferenceChanged": "Geändert",
-      "ActionTypeChanged": "Aktionstyp geändert",
-      "ActionCodeChanged": "Code geändert",
-      "ActionChanged": "Aktion geändert",
-      "ActionPresetChanged": "Preset geändert",
-      "ActionExpressionChanged": "Ausdruck geändert"
+      "Precondition": {
+        "Added": "Hinzugefügt",
+        "Removed": "Entfernt",
+        "Changed": "Geändert",
+        "Enabled": "Aktiviert",
+        "Disabled": "Deaktiviert"
+      },
+      "Modifier": {
+        "Added": "Hinzugefügt",
+        "Removed": "Entfernt",
+        "Enabled": "Aktiviert",
+        "Disabled": "Deaktiviert",
+        "ExpressionChanged": "Ausdruck geändert",
+        "Changed": "Geändert"
+      },
+      "ConfigReference": {
+        "Added": "Hinzugefügt",
+        "Removed": "Entfernt",
+        "Enabled": "Enabled",
+        "Disabled": "Aktiviert",
+        "Changed": "Geändert"
+      },
+      "Action": {
+        "TypeChanged": "Aktionstyp geändert",
+        "Changed": "Aktion geändert"
+      }
     },
     "UnsavedChanges": {
       "Title": "Änderungen verwerfen?",

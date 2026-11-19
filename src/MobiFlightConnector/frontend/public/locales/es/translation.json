@@ -445,27 +445,32 @@
       "Current": "Estado actual",
       "NameChanged": "Nombre modificado",
       "TriggerChanged": "Disparador modificado",
-      "PreconditionAdded": "Añadido",
-      "PreconditionRemoved": "Eliminado",
-      "PreconditionChanged": "Modificado",
-      "PreconditionEnabled": "Activado",
-      "PreconditionDisabled": "Desactivado",
-      "ModifierAdded": "Añadido",
-      "ModifierRemoved": "Eliminado",
-      "ModifierEnabled": "Activado",
-      "ModifierDisabled": "Desactivado",
-      "ModifierExpressionChanged": "Expresión modificada",
-      "ModifierChanged": "Modificado",
-      "ConfigReferenceAdded": "Añadido",
-      "ConfigReferenceRemoved": "Eliminado",
-      "ConfigReferenceEnabled": "Activado",
-      "ConfigReferenceDisabled": "Desactivado",
-      "ConfigReferenceChanged": "Modificado",
-      "ActionTypeChanged": "Tipo de acción modificado",
-      "ActionCodeChanged": "Código modificado",
-      "ActionChanged": "Acción modificada",
-      "ActionPresetChanged": "Preset modificado",
-      "ActionExpressionChanged": "Expresión modificada"
+      "Precondition": {
+        "Added": "Añadido",
+        "Removed": "Eliminado",
+        "Changed": "Modificado",
+        "Enabled": "Activado",
+        "Disabled": "Desactivado"
+      },
+      "Modifier": {
+        "Added": "Añadido",
+        "Removed": "Eliminado",
+        "Enabled": "Activado",
+        "Disabled": "Desactivado",
+        "ExpressionChanged": "Expresión modificada",
+        "Changed": "Modificado"
+      },
+      "ConfigReference": {
+        "Added": "Añadido",
+        "Removed": "Eliminado",
+        "Enabled": "Activado",
+        "Disabled": "Desactivado",
+        "Changed": "Modificado"
+      },
+      "Action": {
+        "TypeChanged": "Tipo de acción modificado",
+        "Changed": "Acción modificada"
+      }
     },
     "UnsavedChanges": {
       "Title": "¿Descartar cambios?",

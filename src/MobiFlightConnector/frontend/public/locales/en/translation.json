@@ -442,30 +442,35 @@
       "NameChanged": "Name changed",
       "TriggerChanged": "Trigger changed",
 
-      "PreconditionAdded": "Added",
-      "PreconditionRemoved": "Removed",
-      "PreconditionChanged": "Changed",
-      "PreconditionEnabled": "Enabled",
-      "PreconditionDisabled": "Disabled",
+      "Precondition": {
+        "Added": "Added",
+        "Removed": "Removed",
+        "Changed": "Changed",
+        "Enabled": "Enabled",
+        "Disabled": "Disabled"
+      },
 
-      "ModifierAdded": "Added",
-      "ModifierRemoved": "Removed",
-      "ModifierEnabled": "Enabled",
-      "ModifierDisabled": "Disabled",
-      "ModifierExpressionChanged": "Expression changed",
-      "ModifierChanged": "Changed",
+      "Modifier": {
+        "Added": "Added",
+        "Removed": "Removed",
+        "Enabled": "Enabled",
+        "Disabled": "Disabled",
+        "ExpressionChanged": "Expression changed",
+        "Changed": "Changed"
+      },
 
-      "ConfigReferenceAdded": "Added",
-      "ConfigReferenceRemoved": "Removed",
-      "ConfigReferenceEnabled": "Enabled",
-      "ConfigReferenceDisabled": "Disabled",
-      "ConfigReferenceChanged": "Edited",
+      "ConfigReference": {
+        "Added": "Added",
+        "Removed": "Removed",
+        "Enabled": "Enabled",
+        "Disabled": "Disabled",
+        "Changed": "Edited"
+      },
 
-      "ActionTypeChanged": "Action type changed",
-      "ActionCodeChanged": "Code changed",
-      "ActionChanged": "Action changed",
-      "ActionPresetChanged": "Preset changed",
-      "ActionExpressionChanged": "Expression changed"
+      "Action": {
+        "TypeChanged": "Action type changed",
+        "Changed": "Action changed"
+      }
     },
     "UnsavedChanges": {
       "Title": "Discard changes?",

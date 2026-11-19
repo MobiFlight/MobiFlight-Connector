@@ -2702,5 +2702,120 @@ namespace MobiFlight.Tests
 
             Assert.IsFalse(ExecutionManager.IsSameTestTarget(null, next));
         }
+
+
+        [TestMethod]
+        public void CancelLastProfileMerge_RestoresProjectAndPreservesPreviousUndoHistory()
+        {
+            // Arrange: Create a project with one profile.
+            var originalItem = new InputConfigItem
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Name = "Original Input",
+                Active = true
+            };
+
+            var originalProfile = new ConfigFile
+            {
+                Label = "Original Profile",
+                ConfigItems = { originalItem }
+            };
+
+            var project = new Project();
+            project.ConfigFiles.Add(originalProfile);
+
+            _executionManager.Project = project;
+
+            // Record an existing Global Undo action.
+            MessageExchange.Instance.Publish(
+                new CommandConfigBulkAction
+                {
+                    Action = "toggle",
+                    Items = new List<ConfigItem> { originalItem }
+                }
+            );
+
+            Assert.IsFalse(originalProfile.ConfigItems[0].Active);
+
+            var history = GetPublishedMessages<ConfigListUndoState>().Last();
+
+            CollectionAssert.AreEqual(
+                new[] { "Toggle" },
+                history.History
+            );
+
+            // Simulate a merge being recorded.
+            var mergedProfile = new ConfigFile
+            {
+                Label = "Imported Profile"
+            };
+
+            _executionManager.RecordProfileMerged(
+                new List<ConfigFile> { mergedProfile }
+            );
+
+            // Simulate the merge changing the project.
+            project.ConfigFiles.Add(mergedProfile);
+
+            originalProfile.ConfigItems[0].Name =
+                "Modified During Merge";
+
+            Assert.HasCount(2, project.ConfigFiles);
+
+            history = GetPublishedMessages<ConfigListUndoState>().Last();
+
+            CollectionAssert.AreEqual(
+                new[] { "Toggle", "ProfileMerged" },
+                history.History
+            );
+
+            // Act: Simulate a failure after merge recording.
+            _executionManager.CancelLastProfileMerge();
+
+            // Assert: The imported profile must be removed.
+            Assert.HasCount(1, project.ConfigFiles);
+            Assert.AreSame(originalProfile, project.ConfigFiles[0]);
+
+            // The original profile contents must be restored.
+            Assert.HasCount(1, originalProfile.ConfigItems);
+
+            Assert.AreEqual(
+                "Original Input",
+                originalProfile.ConfigItems[0].Name
+            );
+
+            // The earlier Toggle operation must remain applied.
+            Assert.IsFalse(originalProfile.ConfigItems[0].Active);
+
+            // Only ProfileMerged should be removed from History.
+            history = GetPublishedMessages<ConfigListUndoState>().Last();
+
+            CollectionAssert.AreEqual(
+                new[] { "Toggle" },
+                history.History
+            );
+
+            Assert.IsTrue(history.CanUndo);
+            Assert.AreEqual(0L, history.HistoryStart);
+
+            // The restored project must be published to the frontend.
+            var publishedProjects = GetPublishedMessages<Project>();
+
+            Assert.IsNotEmpty(publishedProjects);
+            Assert.AreSame(project, publishedProjects.Last());
+
+            // The earlier Undo action must still work.
+            MessageExchange.Instance.Publish(
+                new CommandUndoConfigList { Steps = 1 }
+            );
+
+            Assert.IsTrue(originalProfile.ConfigItems[0].Active);
+
+            history = GetPublishedMessages<ConfigListUndoState>().Last();
+
+            Assert.IsFalse(history.CanUndo);
+            Assert.HasCount(0, history.History);
+        }
+
     }
 }

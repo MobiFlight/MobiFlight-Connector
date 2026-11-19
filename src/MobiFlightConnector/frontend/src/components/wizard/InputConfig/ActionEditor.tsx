@@ -194,7 +194,7 @@ const ActionPanel = ({
           adapter={msfsInputActionAdapter}
           config={action as MsfsInputAction}
           onConfigChange={(config) =>
-            onActionChange(config, "Dialog.History.ActionChanged")
+            onActionChange(config, "Dialog.History.Action.Changed")
           }
         />
       )
@@ -221,7 +221,7 @@ const ActionPanel = ({
                 ...(action as MobiFlightVariableAction),
                 Variable: variable,
               } as MobiFlightVariableAction,
-              "Dialog.History.ActionChanged",
+              "Dialog.History.Action.Changed",
             )
           }
         />
@@ -461,7 +461,7 @@ const ActionEditor = ({
     ? ActionTypeOptions.find((option) => option.value === action.Type)
     : undefined
   const handleActionTypeChange = (option: ActionTypeOption | null) => {
-    const actionLabel = "Dialog.History.ActionTypeChanged"
+    const actionLabel = "Dialog.History.Action.TypeChanged"
 
     if (!option) {
       onActionChange(null, undefined, actionLabel)
@@ -555,8 +555,8 @@ const ActionEditor = ({
               onActionChange={(newAction) => {
                 const actionLabel =
                   action?.Type !== newAction?.Type
-                    ? "Dialog.History.ActionTypeChanged"
-                    : "Dialog.History.ActionChanged"
+                    ? "Dialog.History.Action.TypeChanged"
+                    : "Dialog.History.Action.Changed"
                 onActionChange(newAction, undefined, actionLabel)
               }}
             />
@@ -569,7 +569,7 @@ const ActionEditor = ({
           onActionChange(
             updatedAction,
             undefined,
-            actionLabel ?? "Dialog.History.ActionChanged",
+            actionLabel ?? "Dialog.History.Action.Changed",
           )
         }}
       />

@@ -436,27 +436,32 @@
       "Current": "현재 상태",
       "NameChanged": "이름 변경",
       "TriggerChanged": "트리거 변경",
-      "PreconditionAdded": "추가",
-      "PreconditionRemoved": "삭제",
-      "PreconditionChanged": "변경",
-      "PreconditionEnabled": "활성화",
-      "PreconditionDisabled": "비활성화",
-      "ModifierAdded": "추가",
-      "ModifierRemoved": "삭제",
-      "ModifierEnabled": "활성화",
-      "ModifierDisabled": "비활성화",
-      "ModifierExpressionChanged": "표현식 변경",
-      "ModifierChanged": "변경",
-      "ConfigReferenceAdded": "추가",
-      "ConfigReferenceRemoved": "삭제",
-      "ConfigReferenceEnabled": "활성화",
-      "ConfigReferenceDisabled": "비활성화",
-      "ConfigReferenceChanged": "변경",
-      "ActionTypeChanged": "동작 유형 변경",
-      "ActionCodeChanged": "코드 변경",
-      "ActionChanged": "동작 변경",
-      "ActionPresetChanged": "프리셋 변경",
-      "ActionExpressionChanged": "표현식 변경"
+      "Precondition": {
+        "Added": "추가",
+        "Removed": "삭제",
+        "Changed": "변경",
+        "Enabled": "활성화",
+        "Disabled": "비활성화"
+      },
+      "Modifier": {
+        "Added": "추가",
+        "Removed": "삭제",
+        "Enabled": "활성화",
+        "Disabled": "비활성화",
+        "ExpressionChanged": "표현식 변경",
+        "Changed": "변경"
+      },
+      "ConfigReference": {
+        "Added": "추가",
+        "Removed": "삭제",
+        "Enabled": "활성화",
+        "Disabled": "비활성화",
+        "Changed": "변경"
+      },
+      "Action": {
+        "TypeChanged": "동작 유형 변경",
+        "Changed": "동작 변경"
+      }
     },
     "UnsavedChanges": {
       "Title": "변경 사항을 취소하시겠습니까?",

@@ -436,27 +436,35 @@
       "Current": "Nykyinen tila",
       "NameChanged": "Nimi muutettu",
       "TriggerChanged": "Laukaisin muutettu",
-      "PreconditionAdded": "Lisätty",
-      "PreconditionRemoved": "Poistettu",
-      "PreconditionChanged": "Muutettu",
-      "PreconditionEnabled": "Otettu käyttöön",
-      "PreconditionDisabled": "Poistettu käytöstä",
-      "ModifierAdded": "Lisätty",
-      "ModifierRemoved": "Poistettu",
-      "ModifierEnabled": "Otettu käyttöön",
-      "ModifierDisabled": "Poistettu käytöstä",
-      "ModifierExpressionChanged": "Lauseke muutettu",
-      "ModifierChanged": "Muutettu",
-      "ConfigReferenceAdded": "Lisätty",
-      "ConfigReferenceRemoved": "Poistettu",
-      "ConfigReferenceEnabled": "Otettu käyttöön",
-      "ConfigReferenceDisabled": "Poistettu käytöstä",
-      "ConfigReferenceChanged": "Muutettu",
-      "ActionTypeChanged": "Toiminnon tyyppi muutettu",
-      "ActionCodeChanged": "Koodi muutettu",
-      "ActionChanged": "Toimintoa muutettu",
-      "ActionPresetChanged": "Esiasetus muutettu",
-      "ActionExpressionChanged": "Lauseke muutettu"
+      "Precondition": {
+        "Added": "Lisätty",
+        "Removed": "Poistettu",
+        "Changed": "Muutettu",
+        "Enabled": "Otettu käyttöön",
+        "Disabled": "Poistettu käytöstä"
+      },
+      "Modifier": {
+        "Added": "Lisätty",
+        "Removed": "Poistettu",
+        "Enabled": "Otettu käyttöön",
+        "Disabled": "Poistettu käytöstä",
+        "ExpressionChanged": "Lauseke muutettu",
+        "Changed": "Muutettu"
+      },
+      "ConfigReference": {
+        "Added": "Lisätty",
+        "Removed": "Poistettu",
+        "Enabled": "Otettu käyttöön",
+        "Disabled": "Poistettu käytöstä",
+        "Changed": "Muutettu"
+      },
+      "Action": {
+        "TypeChanged": "Toiminnon tyyppi muutettu",
+        "CodeChanged": "Koodi muutettu",
+        "Changed": "Toimintoa muutettu",
+        "PresetChanged": "Esiasetus muutettu",
+        "ExpressionChanged": "Lauseke muutettu"
+      }
     },
     "UnsavedChanges": {
       "Title": "Hylätäänkö muutokset?",
