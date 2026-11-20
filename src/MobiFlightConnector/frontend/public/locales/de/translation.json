@@ -93,7 +93,7 @@
     "LcdDisplay": "LCD Display",
     "ShiftRegister": "Ausgabe-Schieberegister",
     "CustomDevice": "Custom Device",
-    "InputShiftRegister": "Eingbae-Schieberegister",
+    "InputShiftRegister": "Eingabe-Schieberegister",
     "Button": "Schalter",
     "Encoder": "Enkoder",
     "AnalogInput": "Analoger Eingang",
@@ -334,18 +334,22 @@
       }
     },
     "History": {
-      "Add": "Hinzugefügt",
-      "Duplicate": "Dupliziert",
-      "Delete": "Gelöscht",
-      "BulkDelete": "Gelöscht",
-      "Toggle": "Aktivierung umgeschaltet",
-      "Resort": "Verschoben",
-      "ProfileAdded": "Profil hinzugefügt",
-      "ProfileRename": "Profil umbenannt",
-      "ProfileDeleted": "Profil gelöscht",
-      "ItemRename": "Konfiguration umbenannt",
-      "ProfileMerged": "Profile zusammengeführt",
-      "ItemEdited": "Konfiguration bearbeitet"
+      "Item": {
+        "Added": "Hinzugefügt",
+        "Duplicated": "Dupliziert",
+        "Deleted": "Gelöscht",
+        "Renamed": "Umbenannt",
+        "Edited": "Bearbeitet",
+        "Toggled": "Aktivierung umgeschaltet",
+        "Moved": "Verschoben"
+      },
+      "Profile": {
+        "Added": "Profil hinzugefügt",
+        "Rename": "Profil umbenannt",
+        "Deleted": "Profil gelöscht",
+        "Merged": "Profile zusammengeführt",
+        "Moved": "Profil verschoben"
+      }
     }
   },
   "Notifications": {
@@ -460,7 +464,7 @@
         "ExpressionChanged": "Ausdruck geändert",
         "Changed": "Geändert"
       },
-      "ConfigReference": {
+      "Reference": {
         "Added": "Hinzugefügt",
         "Removed": "Entfernt",
         "Enabled": "Enabled",

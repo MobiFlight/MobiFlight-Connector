@@ -325,18 +325,22 @@
       }
     },
     "History": {
-      "Add": "Добавлено",
-      "Duplicate": "Дублировано",
-      "Delete": "Удалено",
-      "BulkDelete": "Удалено",
-      "Toggle": "Состояние активности изменено",
-      "Resort": "Перемещено",
-      "ProfileAdded": "Профиль добавлен",
-      "ProfileRename": "Профиль переименован",
-      "ProfileDeleted": "Профиль удалён",
-      "ItemRename": "Конфигурация переименована",
-      "ProfileMerged": "Профили объединены",
-      "ItemEdited": "Конфигурация изменена"
+      "Item": {
+        "Added": "Добавлено",
+        "Duplicated": "Дублировано",
+        "Deleted": "Удалено",
+        "Renamed": "Переименовано",
+        "Edited": "Изменено",
+        "Toggled": "Состояние активности изменено",
+        "Moved": "Перемещено"
+      },
+      "Profile": {
+        "Added": "Профиль добавлен",
+        "Rename": "Профиль переименован",
+        "Deleted": "Профиль удалён",
+        "Merged": "Профили объединены",
+        "Moved": "Профиль перемещён"
+      }
     }
   },
   "Notifications": {
@@ -451,7 +455,7 @@
         "ExpressionChanged": "Выражение изменено",
         "Changed": "Изменено"
       },
-      "ConfigReference": {
+      "Reference": {
         "Added": "Добавлено",
         "Removed": "Удалено",
         "Enabled": "Включено",

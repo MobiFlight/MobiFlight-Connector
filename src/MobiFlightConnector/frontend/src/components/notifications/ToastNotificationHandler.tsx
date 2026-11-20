@@ -5,6 +5,7 @@ import { toast } from "@/components/ui/ToastWrapper"
 import { CommandMainMenu } from "@/types/commands"
 import HubHopUpdateToast from "./HubHopUpdateToast"
 import { useTranslation } from "react-i18next"
+import { getConfigListHistoryTranslationKey } from "@/lib/configListHistory"
 
 export const ToastNotificationHandler = () => {
   const { publish } = messageExchange
@@ -112,9 +113,9 @@ export const ToastNotificationHandler = () => {
         const actionType = notification.Context?.Action
 
         const action = actionType
-          ? t(`ConfigList.History.${actionType}`, {
-              defaultValue: actionType,
-            })
+          ? t(getConfigListHistoryTranslationKey(actionType), {
+            defaultValue: actionType,
+          })
           : t("Notifications.ConfigListUndoFailed.UnknownAction")
 
         toast({
@@ -156,7 +157,7 @@ export const ToastNotificationHandler = () => {
         },
         // The toast uses onCancel to enable the built-in click-to-dismiss behavior.
         // No cancellation action is needed here; the toast wrapper handles dismissal.
-        onCancel: () => {},
+        onCancel: () => { },
       })
     }
 

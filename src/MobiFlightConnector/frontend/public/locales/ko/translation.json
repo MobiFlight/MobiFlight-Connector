@@ -325,18 +325,22 @@
       }
     },
     "History": {
-      "Add": "추가",
-      "Duplicate": "복제",
-      "Delete": "삭제",
-      "BulkDelete": "삭제",
-      "Toggle": "활성 상태 전환",
-      "Resort": "이동",
-      "ProfileAdded": "프로필 추가",
-      "ProfileRename": "프로필 이름 변경",
-      "ProfileDeleted": "프로필 삭제",
-      "ItemRename": "설정 이름 변경",
-      "ProfileMerged": "프로필 병합",
-      "ItemEdited": "설정 편집"
+      "Item": {
+        "Added": "추가",
+        "Duplicated": "복제",
+        "Deleted": "삭제",
+        "Renamed": "이름 변경",
+        "Edited": "편집",
+        "Toggled": "활성 상태 전환",
+        "Moved": "이동"
+      },
+      "Profile": {
+        "Added": "프로필 추가",
+        "Rename": "프로필 이름 변경",
+        "Deleted": "프로필 삭제",
+        "Merged": "프로필 병합",
+        "Moved": "프로필 이동"
+      }
     }
   },
   "Notifications": {
@@ -451,7 +455,7 @@
         "ExpressionChanged": "표현식 변경",
         "Changed": "변경"
       },
-      "ConfigReference": {
+      "Reference": {
         "Added": "추가",
         "Removed": "삭제",
         "Enabled": "활성화",

@@ -325,18 +325,22 @@
       }
     },
     "History": {
-      "Add": "Lisätty",
-      "Duplicate": "Monistettu",
-      "Delete": "Poistettu",
-      "BulkDelete": "Poistettu",
-      "Toggle": "Aktiivisuustila vaihdettu",
-      "Resort": "Siirretty",
-      "ProfileAdded": "Profiili lisätty",
-      "ProfileRename": "Profiili nimetty uudelleen",
-      "ProfileDeleted": "Profiili poistettu",
-      "ItemRename": "Määritys nimetty uudelleen",
-      "ProfileMerged": "Profiilit yhdistetty",
-      "ItemEdited": "Määritystä muokattu"
+      "Item": {
+        "Added": "Lisätty",
+        "Duplicated": "Monistettu",
+        "Deleted": "Poistettu",
+        "Renamed": "Nimetty uudelleen",
+        "Edited": "Muokattu",
+        "Toggled": "Aktiivisuustila vaihdettu",
+        "Moved": "Siirretty"
+      },
+      "Profile": {
+        "Added": "Profiili lisätty",
+        "Rename": "Profiili nimetty uudelleen",
+        "Deleted": "Profiili poistettu",
+        "Merged": "Profiilit yhdistetty",
+        "Moved": "Profiili siirretty"
+      }
     }
   },
   "Notifications": {
@@ -451,7 +455,7 @@
         "ExpressionChanged": "Lauseke muutettu",
         "Changed": "Muutettu"
       },
-      "ConfigReference": {
+      "Reference": {
         "Added": "Lisätty",
         "Removed": "Poistettu",
         "Enabled": "Otettu käyttöön",

@@ -325,18 +325,22 @@
       }
     },
     "History": {
-      "Add": "Adicionado",
-      "Duplicate": "Duplicado",
-      "Delete": "Excluído",
-      "BulkDelete": "Excluído",
-      "Toggle": "Estado de ativação alterado",
-      "Resort": "Movido",
-      "ProfileAdded": "Perfil adicionado",
-      "ProfileRename": "Perfil renomeado",
-      "ProfileDeleted": "Perfil excluído",
-      "ItemRename": "Configuração renomeada",
-      "ProfileMerged": "Perfis mesclados",
-      "ItemEdited": "Configuração editada"
+      "Item": {
+        "Added": "Adicionado",
+        "Duplicated": "Duplicado",
+        "Deleted": "Excluído",
+        "Renamed": "Renomeado",
+        "Edited": "Editado",
+        "Toggled": "Estado de ativação alterado",
+        "Moved": "Movido"
+      },
+      "Profile": {
+        "Added": "Perfil adicionado",
+        "Rename": "Perfil renomeado",
+        "Deleted": "Perfil excluído",
+        "Merged": "Perfis mesclados",
+        "Moved": "Perfil movido"
+      }
     }
   },
   "Notifications": {
@@ -451,7 +455,7 @@
         "ExpressionChanged": "Expressão alterada",
         "Changed": "Alterado"
       },
-      "ConfigReference": {
+      "Reference": {
         "Added": "Adicionado",
         "Removed": "Removido",
         "Enabled": "Ativado",

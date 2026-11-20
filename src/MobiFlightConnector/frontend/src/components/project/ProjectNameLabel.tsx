@@ -27,6 +27,7 @@ import { useModal } from "@/lib/hooks/useModal"
 import { CommandUndoConfigList } from "@/types/commands"
 import { useHistoryStore } from "@/stores/historyStore"
 import HistoryControls from "../wizard/InputConfig/HistoryControls"
+import { getConfigListHistoryTranslationKey } from "@/lib/configListHistory"
 
 export type ProjectNameLabelProps = {
   project: Project | null
@@ -78,8 +79,7 @@ const ProjectNameLabel = () => {
   const historyCount = configListUndoHistory.length
 
   const getHistoryLabel = (action: string) => {
-    const translationKey = action === "rename" ? "ItemRename" : action
-    return t(`ConfigList.History.${translationKey}`, {
+    return t(getConfigListHistoryTranslationKey(action), {
       defaultValue: action,
     })
   }

@@ -325,18 +325,22 @@
       }
     },
     "History": {
-      "Add": "追加",
-      "Duplicate": "複製",
-      "Delete": "削除",
-      "BulkDelete": "削除",
-      "Toggle": "有効・無効の切り替え",
-      "Resort": "移動",
-      "ProfileAdded": "プロファイル追加",
-      "ProfileRename": "プロファイル名変更",
-      "ProfileDeleted": "プロファイル削除",
-      "ItemRename": "設定名変更",
-      "ProfileMerged": "プロファイル統合",
-      "ItemEdited": "設定編集"
+      "Item": {
+        "Added": "追加",
+        "Duplicated": "複製",
+        "Deleted": "削除",
+        "Renamed": "名前変更",
+        "Edited": "編集",
+        "Toggled": "有効・無効の切り替え",
+        "Moved": "移動"
+      },
+      "Profile": {
+        "Added": "プロファイル追加",
+        "Rename": "プロファイル名変更",
+        "Deleted": "プロファイル削除",
+        "Merged": "プロファイル統合",
+        "Moved": "プロファイル移動"
+      }
     }
   },
   "Notifications": {
@@ -451,7 +455,7 @@
         "ExpressionChanged": "式変更",
         "Changed": "変更"
       },
-      "ConfigReference": {
+      "Reference": {
         "Added": "追加",
         "Removed": "削除",
         "Enabled": "有効化",
