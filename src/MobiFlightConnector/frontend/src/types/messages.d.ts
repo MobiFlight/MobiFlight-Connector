@@ -36,6 +36,8 @@ export type AppMessageKey =
   | "LogEntry"
   | "ShutdownConfirmationRequested"
   | "GoldSponsorsUpdate"
+  | "ConfigListUndoState"
+  | "ProfileMoveUndone"
   | "LcdDisplayPreview"
 
 export type AppMessagePayload =
@@ -62,6 +64,8 @@ export type AppMessagePayload =
   | LogEntry
   | ShutdownConfirmationRequested
   | GoldSponsorsUpdate
+  | ConfigListUndoState
+  | ProfileMoveUndone
   | LcdDisplayPreview
 
 // LcdDisplayPreview
@@ -147,6 +151,7 @@ export interface Notification {
     | "SimStopped"
     | "TestModeException"
     | "ProjectFileLoadError"
+    | "ConfigListUndoFailed"
   Guid?: string
   Context: Record<string, string> | null
 }
@@ -168,6 +173,17 @@ export interface ConnectedControllers {
 
 export interface AuthenticationStatus {
   Authenticated: boolean
+}
+
+export interface ConfigListUndoState {
+  CanUndo: boolean
+  History: string[]
+  HistoryStart: number
+}
+
+export interface ProfileMoveUndone {
+  FromIndex: number
+  ToIndex: number
 }
 
 export type ShutdownConfirmationRequested = Record<string, never>

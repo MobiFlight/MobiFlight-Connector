@@ -35,6 +35,7 @@ import {
 import { Preset } from "../src/types/preset"
 import { IConfigItem } from "../src/types/config"
 import { PRECONDITION_TYPES } from "../src/types/typesOptions"
+import inputActionTestProject from "./data/inputaction.testdata.json" with { type: "json" }
 
 const jeehellPresetsContent = `FCU_KNOBS:GROUP
 FCU_HDGKNOB_PRESS:6:FCU Heading Knob Press
@@ -119,6 +120,21 @@ const openWizardAndReturnActionPanel = async (
   await expect(actionPanel).toBeVisible()
 
   return actionPanel
+}
+
+const openConfigHistory = async (page: Page, controls: Locator) => {
+  const undoButton = controls.getByTestId("config-undo-button")
+  const historyButton = controls.getByTestId("config-history-button")
+
+  // History is revealed when hovering over the Undo control.
+  await undoButton.hover()
+  await historyButton.click()
+
+  // Radix renders the dropdown inside a Portal.
+  const historyPanel = page.getByTestId("config-history-panel")
+  await expect(historyPanel).toBeVisible()
+
+  return historyPanel
 }
 
 test.describe("General Input Config Wizard Tests", () => {
@@ -271,8 +287,17 @@ test.describe("General Input Config Wizard Tests", () => {
     const footer = page.getByTestId("configwizard-dialog-footer")
 
     await test.step("No changes: only Close is offered", async () => {
-      await expect(footer.getByRole("button")).toHaveCount(1)
-      await expect(footer.getByRole("button", { name: "Close" })).toBeVisible()
+      await expect(
+        footer.getByRole("button", { name: "Close", exact: true }),
+      ).toBeVisible()
+
+      await expect(
+        footer.getByRole("button", { name: "Cancel", exact: true }),
+      ).toHaveCount(0)
+
+      await expect(
+        footer.getByRole("button", { name: "Apply changes", exact: true }),
+      ).toHaveCount(0)
     })
 
     await test.step("After a change: Cancel and Apply changes are offered", async () => {
@@ -530,6 +555,96 @@ test.describe("Input Config Wizard - Edit name", () => {
     expect(commands).toBeDefined()
     const payload = commands?.pop()?.payload
     expect(payload.item.Name).toEqual(testLabel)
+  })
+
+  test("Undo restores the previous Input Config name", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+
+    await configListPage.clickEditButtonForRow(1)
+
+    const nameContainer = page.getByTestId("dialog-config-name")
+    const originalName = "MSFS Input Action"
+
+    await nameContainer.getByRole("button").dblclick()
+
+    const nameInput = nameContainer.getByRole("textbox")
+    await nameInput.fill("Modified Input Config")
+    await nameInput.press("Enter")
+
+    await expect(nameContainer.getByText("Modified Input Config")).toBeVisible()
+
+    // Move focus away from the text field so Ctrl+Z
+    // targets editor Undo rather than native text Undo.
+    await page.getByRole("button", { name: "Apply changes" }).focus()
+
+    await page.keyboard.press("Control+z")
+
+    await expect(nameContainer.getByText(originalName)).toBeVisible()
+
+    // Undo must not publish the draft to the backend.
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+
+    expect(commands).toHaveLength(0)
+  })
+
+  test("History button appears on hover and hides after dismissing the menu", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+    await configListPage.clickEditButtonForRow(1)
+
+    const nameContainer = page.getByTestId("dialog-config-name")
+
+    // Create one Undo history entry.
+    await nameContainer.getByRole("button").dblclick()
+
+    const nameInput = nameContainer.getByRole("textbox")
+    await nameInput.fill("Modified Input Config")
+    await nameInput.press("Enter")
+
+    await expect(nameContainer.getByText("Modified Input Config")).toBeVisible()
+
+    const footer = page.getByTestId("configwizard-dialog-footer")
+    const controls = footer.getByTestId("config-history-controls")
+
+    const undoButton = controls.getByTestId("config-undo-button")
+    const historyButton = controls.getByTestId("config-history-button")
+
+    await expect(undoButton).toBeEnabled()
+
+    // The button exists but is visually hidden by default.
+    await page.mouse.move(0, 0)
+    await expect(historyButton).toHaveCSS("opacity", "0")
+
+    // Hover over Undo to reveal History.
+    await undoButton.hover()
+    await expect(historyButton).toHaveCSS("opacity", "1")
+
+    await historyButton.click()
+
+    const historyPanel = page.getByTestId("config-history-panel")
+    await expect(historyPanel).toBeVisible()
+
+    // Move away from Undo and dismiss the modal dropdown.
+    await page.mouse.move(0, 0)
+    await page.mouse.click(0, 0)
+
+    await expect(historyPanel).not.toBeVisible()
+
+    // The History arrow must remain hidden after dismissal.
+    await expect(historyButton).toHaveCSS("opacity", "0")
+
+    // Hovering again should reveal it.
+    await undoButton.hover()
+    await expect(historyButton).toHaveCSS("opacity", "1")
   })
 
   test("Config name is automatically in edit mode for new configs", async ({
@@ -1183,6 +1298,152 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
     }
   })
 
+  test("Undo restores nested precondition changes", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+
+    // Use the existing real-world Input ConfigItem test fixture.
+    const originalPreconditions =
+      inputActionTestProject.ConfigFiles[0].ConfigItems[0].Preconditions ?? []
+
+    await configListPage.clickEditButtonForRow(1)
+
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+    const preconditionsPanel = page.getByTestId("precondition-panel")
+    await preconditionsPanel
+      .getByRole("button", { name: "Preconditions" })
+      .click()
+
+    const editor = page.getByTestId("precondition-editor")
+    const items = editor.getByTestId("precondition-item-row")
+
+    await expect(items).toHaveCount(2)
+
+    const firstSwitch = items.first().getByRole("switch")
+
+    await expect(firstSwitch).toBeChecked()
+    await firstSwitch.click()
+    await expect(firstSwitch).not.toBeChecked()
+
+    await items
+      .last()
+      .getByRole("button", { name: "Remove precondition" })
+      .click()
+
+    await expect(items).toHaveCount(1)
+
+    // Focus a non-text control inside the drawer so
+    // Ctrl+Z invokes the ConfigItem Undo handler.
+    const goBackButton = page.getByRole("button", {
+      name: "Done",
+      exact: true,
+    })
+    await goBackButton.focus()
+
+    // First Undo: restore the deleted precondition.
+    await page.keyboard.press("Control+z")
+
+    await expect(items).toHaveCount(2)
+    await expect(items.first().getByRole("switch")).not.toBeChecked()
+
+    // Second Undo: restore the original Active state.
+    await page.keyboard.press("Control+z")
+
+    await expect(items.first().getByRole("switch")).toBeChecked()
+
+    // All precondition changes were undone.
+    await expect(items).toHaveCount(originalPreconditions.length)
+    await expect(items.first().getByRole("switch")).toBeChecked()
+
+    // Finish the Drawer session.
+    await goBackButton.click()
+    await expect(editor).not.toBeVisible()
+    await expect(page).not.toHaveURL(/detail=precondition/)
+
+    const footer = page.getByTestId("configwizard-dialog-footer")
+
+    // Restoring the original state must leave the wizard clean.
+    await expect(
+      footer.getByRole("button", { name: "Apply changes", exact: true }),
+    ).toHaveCount(0)
+
+    await footer
+      .getByRole("button", {
+        name: "Close",
+        exact: true,
+      })
+      .click()
+
+    await expect(page.getByTestId("configwizard-dialog")).not.toBeVisible()
+
+    // No update should be sent for a fully restored configuration.
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+
+    expect(commands).toHaveLength(0)
+  })
+
+  test("Typing in a precondition value creates one Undo step", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+
+    await configListPage.clickEditButtonForRow(1)
+
+    const preconditionsPanel = page.getByTestId("precondition-panel")
+
+    await preconditionsPanel
+      .getByRole("button", { name: "Preconditions" })
+      .click()
+
+    const editor = page.getByTestId("precondition-editor")
+    const firstItem = editor.getByTestId("precondition-item-row").first()
+
+    const activeSwitch = firstItem.getByRole("switch")
+    const valueInput = firstItem.getByRole("textbox", {
+      name: "Value",
+    })
+
+    await expect(activeSwitch).toBeChecked()
+    await expect(valueInput).toHaveValue("1")
+
+    // Action 1: Toggle the precondition.
+    await activeSwitch.click()
+    await expect(activeSwitch).not.toBeChecked()
+
+    // Action 2: Type several characters in one editing session.
+    await valueInput.focus()
+    await valueInput.press("End")
+    await valueInput.pressSequentially("234")
+
+    await expect(valueInput).toHaveValue("1234")
+
+    // Leave the text field so Ctrl+Z targets ConfigItem Undo.
+    const goBackButton = page.getByRole("button", {
+      name: "Done",
+      exact: true,
+    })
+
+    await goBackButton.focus()
+
+    // Undo 1: Restore the whole text edit in one step.
+    await page.keyboard.press("Control+z")
+
+    await expect(valueInput).toHaveValue("1")
+    await expect(activeSwitch).not.toBeChecked()
+
+    // Undo 2: Restore the separate toggle action.
+    await page.keyboard.press("Control+z")
+
+    await expect(activeSwitch).toBeChecked()
+    await expect(valueInput).toHaveValue("1")
+  })
+
   test("Preconditions can be moved up and down", async ({
     configListPage,
     page,
@@ -1488,6 +1749,175 @@ test.describe("Input Config Wizard - Config References panel", () => {
     await expect(configReferenceEditor).not.toBeVisible()
 
     await expect(panel).toBeVisible()
+  })
+
+  test("Drawer changes are grouped into one Wizard Undo step", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+    await configListPage.clickEditButtonForRow(1)
+
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+    const panel = page.getByTestId("config-reference-panel")
+
+    await panel.getByRole("button", { name: "Edit references" }).click()
+
+    const editor = page.getByTestId("config-reference-editor")
+    const rows = editor.getByTestId("config-reference-item-row")
+
+    await expect(rows).toHaveCount(3)
+
+    const firstSwitch = rows.nth(0).getByRole("switch")
+    const secondSwitch = rows.nth(1).getByRole("switch")
+
+    await expect(firstSwitch).toBeChecked()
+    await expect(secondSwitch).toBeChecked()
+
+    // Two independent changes inside the Drawer.
+    await firstSwitch.click()
+    await secondSwitch.click()
+
+    await expect(firstSwitch).not.toBeChecked()
+    await expect(secondSwitch).not.toBeChecked()
+
+    const drawer = page.locator('[data-slot="drawer-content"]')
+    const drawerControls = drawer.getByTestId("config-history-controls")
+
+    const drawerHistory = await openConfigHistory(page, drawerControls)
+
+    // Original state + 2 individual changes.
+    await expect(drawerHistory.getByTestId("config-history-entry")).toHaveCount(
+      3,
+    )
+
+    // Both reference changes were disabling actions.
+    await expect(
+      drawerHistory
+        .getByTestId("config-history-entry")
+        .filter({ hasText: "Disabled" }),
+    ).toHaveCount(2)
+
+    // Close the dropdown before clicking Undo.
+    await page.keyboard.press("Escape")
+    await expect(drawerHistory).not.toBeVisible()
+
+    // Undo only the latest change.
+    await drawerControls.getByTestId("config-undo-button").click()
+
+    await expect(firstSwitch).not.toBeChecked()
+    await expect(secondSwitch).toBeChecked()
+
+    // Restore the second change.
+    await secondSwitch.click()
+    await expect(secondSwitch).not.toBeChecked()
+
+    // Finish the Drawer session.
+    await page.getByRole("button", { name: "Done", exact: true }).click()
+
+    await expect(editor).not.toBeVisible()
+    await expect(page).not.toHaveURL(/detail=configReference/)
+
+    const footer = page.getByTestId("configwizard-dialog-footer")
+    const wizardControls = footer.getByTestId("config-history-controls")
+
+    const wizardHistory = await openConfigHistory(page, wizardControls)
+
+    // The entire Drawer session is one Wizard history step.
+    await expect(wizardHistory.getByTestId("config-history-entry")).toHaveCount(
+      2,
+    )
+
+    // The grouped history entry uses a compact label.
+    await expect(
+      wizardHistory
+        .getByTestId("config-history-entry")
+        .filter({ hasText: "References" }),
+    ).toHaveCount(1)
+
+    await page.keyboard.press("Escape")
+    await expect(wizardHistory).not.toBeVisible()
+
+    // Undo the entire Drawer session.
+    await wizardControls.getByTestId("config-undo-button").click()
+
+    // Reopen the Drawer and check the restored configuration.
+    await panel.getByRole("button", { name: "Edit references" }).click()
+
+    await expect(firstSwitch).toBeChecked()
+    await expect(secondSwitch).toBeChecked()
+
+    // Editing and Undo must not publish changes to the backend.
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toHaveLength(0)
+  })
+
+  test("Selecting a History entry restores the previous reference state", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+    await configListPage.clickEditButtonForRow(1)
+
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+    const panel = page.getByTestId("config-reference-panel")
+
+    await panel.getByRole("button", { name: "Edit references" }).click()
+
+    const editor = page.getByTestId("config-reference-editor")
+    const rows = editor.getByTestId("config-reference-item-row")
+
+    await expect(rows).toHaveCount(3)
+
+    const firstSwitch = rows.nth(0).getByRole("switch")
+    const secondSwitch = rows.nth(1).getByRole("switch")
+
+    // Create two history entries.
+    await firstSwitch.click()
+    await secondSwitch.click()
+
+    await expect(firstSwitch).not.toBeChecked()
+    await expect(secondSwitch).not.toBeChecked()
+
+    const drawer = page.locator('[data-slot="drawer-content"]')
+    const controls = drawer.getByTestId("config-history-controls")
+
+    const historyPanel = await openConfigHistory(page, controls)
+    const historyEntries = historyPanel.getByTestId("config-history-entry")
+
+    await expect(historyEntries).toHaveCount(3)
+
+    // Jump directly to the original configuration.
+    await historyEntries.filter({ hasText: "Original configuration" }).click()
+
+    await expect(historyPanel).not.toBeVisible()
+
+    // Both changes must be restored at once.
+    await expect(firstSwitch).toBeChecked()
+    await expect(secondSwitch).toBeChecked()
+
+    // No more Undo steps are available.
+    await expect(controls.getByTestId("config-undo-button")).toBeDisabled()
+
+    await expect(controls.getByTestId("config-history-button")).toHaveCount(0)
+
+    // Closing an unchanged Drawer must not add a Wizard history step.
+    await page.getByRole("button", { name: "Done", exact: true }).click()
+    await expect(editor).not.toBeVisible()
+
+    const footer = page.getByTestId("configwizard-dialog-footer")
+    const wizardControls = footer.getByTestId("config-history-controls")
+
+    await expect(
+      wizardControls.getByTestId("config-undo-button"),
+    ).toBeDisabled()
+
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toHaveLength(0)
   })
 })
 
@@ -2585,6 +3015,247 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await firstRemoveButton.click()
     await expect(firstRemoveButton).toBeDisabled()
   })
+
+  test("Undo restores modifier additions, changes, and deletion", async ({
+    configListPage,
+    page,
+  }) => {
+    await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
+
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+    // Action 1: Add a Transformation modifier.
+    const modifierEditor = await addModifierItemAndReturnEditor(
+      "Transformation",
+      page,
+    )
+
+    const modifierItems = modifierEditor.getByTestId("modifier-item")
+    await expect(modifierItems).toHaveCount(1)
+
+    const modifier = modifierItems.first()
+    const expressionInput = modifier.getByRole("textbox", {
+      name: "Expression",
+    })
+    const activeSwitch = modifier.getByRole("switch")
+
+    await expect(expressionInput).toHaveValue("$")
+    await expect(activeSwitch).toBeChecked()
+
+    // Action 2: Change the modifier expression.
+    await expressionInput.fill("$*2")
+    await expect(expressionInput).toHaveValue("$*2")
+
+    // Action 3: Disable the modifier.
+    await activeSwitch.click()
+    await expect(activeSwitch).not.toBeChecked()
+
+    // Action 4: Delete the modifier.
+    await modifier.getByRole("button", { name: "Remove Modifier" }).click()
+
+    await expect(modifierItems).toHaveCount(0)
+
+    const goBackButton = page.getByRole("button", {
+      name: "Done",
+      exact: true,
+    })
+    await goBackButton.focus()
+
+    // Undo 1: Restore the deleted modifier.
+    await page.keyboard.press("Control+z")
+
+    await expect(modifierItems).toHaveCount(1)
+    await expect(activeSwitch).not.toBeChecked()
+
+    const modifierHeader = getModifierHeader(modifierEditor, "Transformation")
+    await expandModifierIfCollapsed(modifierHeader)
+
+    await expect(expressionInput).toHaveValue("$*2")
+
+    await goBackButton.focus()
+
+    // Undo 2: Restore the modifier's Active state.
+    await page.keyboard.press("Control+z")
+
+    await expect(activeSwitch).toBeChecked()
+    await expect(expressionInput).toHaveValue("$*2")
+
+    // Undo 3: Restore the original expression.
+    await page.keyboard.press("Control+z")
+
+    await expect(expressionInput).toHaveValue("$")
+    await expect(activeSwitch).toBeChecked()
+
+    // Undo 4: Remove the originally added modifier.
+    await goBackButton.focus()
+    await page.keyboard.press("Control+z")
+
+    await expect(modifierItems).toHaveCount(0)
+
+    // Undo must not send changes to the backend.
+    const commandsBeforeApply =
+      await configListPage.mobiFlightPage.getTrackedCommands()
+
+    expect(commandsBeforeApply).toHaveLength(0)
+
+    // All modifier changes were undone.
+    await expect(modifierItems).toHaveCount(0)
+
+    // Finish the Drawer session.
+    await goBackButton.click()
+    await expect(modifierEditor).not.toBeVisible()
+
+    const footer = page.getByTestId("configwizard-dialog-footer")
+
+    await expect(
+      footer.getByRole("button", { name: "Apply changes", exact: true }),
+    ).toHaveCount(0)
+
+    await footer
+      .getByRole("button", {
+        name: "Close",
+        exact: true,
+      })
+      .click()
+
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+
+    expect(commands).toHaveLength(0)
+  })
+
+  test("Modifier Undo history is limited to 50 steps", async ({
+    configListPage,
+    page,
+  }) => {
+    await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
+
+    const modifierEditor = await addModifierItemAndReturnEditor(
+      "Transformation",
+      page,
+    )
+
+    const activeSwitch = modifierEditor
+      .getByTestId("modifier-item")
+      .first()
+      .getByRole("switch")
+
+    await expect(activeSwitch).toBeChecked()
+
+    for (let i = 0; i < 54; i++) {
+      await activeSwitch.click()
+
+      if (i % 2 === 0) {
+        await expect(activeSwitch).not.toBeChecked()
+      } else {
+        await expect(activeSwitch).toBeChecked()
+      }
+    }
+
+    await expect(activeSwitch).toBeChecked()
+
+    const goBackButton = page.getByRole("button", {
+      name: "Done",
+      exact: true,
+    })
+    await goBackButton.focus()
+
+    for (let i = 0; i < 50; i++) {
+      await page.keyboard.press("Control+z")
+
+      if (i % 2 === 0) {
+        await expect(activeSwitch).not.toBeChecked()
+      } else {
+        await expect(activeSwitch).toBeChecked()
+      }
+    }
+
+    await expect(activeSwitch).toBeChecked()
+
+    await page.keyboard.press("Control+z")
+    await expect(activeSwitch).toBeChecked()
+  })
+
+  test("Adding and deleting a modifier leaves no Wizard history", async ({
+    configListPage,
+    page,
+  }) => {
+    await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
+
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+    const dialog = page.getByTestId("configwizard-dialog")
+    const footer = page.getByTestId("configwizard-dialog-footer")
+    const wizardControls = footer.getByTestId("config-history-controls")
+
+    // Initially there is no Undo history.
+    await expect(
+      wizardControls.getByTestId("config-undo-button"),
+    ).toBeDisabled()
+
+    // Open Modifier Drawer.
+    await dialog.getByRole("button", { name: "Add modifier" }).click()
+
+    const editor = page.getByTestId("modifier-editor")
+
+    // Add a Transformation modifier.
+    await editor.getByRole("button", { name: "Add modifier" }).click()
+
+    await page
+      .getByRole("menuitem", {
+        name: "Transformation",
+        exact: true,
+      })
+      .click()
+
+    const items = editor.getByTestId("modifier-item")
+    await expect(items).toHaveCount(1)
+
+    // Delete the same modifier without using Undo.
+    await items.first().getByRole("button", { name: "Remove Modifier" }).click()
+
+    await expect(items).toHaveCount(0)
+
+    // Both Add and Delete are still in local Drawer history.
+    const drawerControls = page
+      .locator('[data-slot="drawer-content"]')
+      .getByTestId("config-history-controls")
+
+    await expect(drawerControls.getByTestId("config-undo-button")).toBeEnabled()
+
+    // Close the Drawer.
+    await page.getByRole("button", { name: "Done", exact: true }).click()
+
+    await expect(editor).not.toBeVisible()
+
+    // No new Wizard Undo action should exist.
+    await expect(
+      wizardControls.getByTestId("config-undo-button"),
+    ).toBeDisabled()
+
+    await expect(
+      wizardControls.getByTestId("config-history-button"),
+    ).toHaveCount(0)
+
+    // No effective changes means no Apply button.
+    await expect(
+      footer.getByRole("button", {
+        name: "Apply changes",
+        exact: true,
+      }),
+    ).toHaveCount(0)
+
+    await expect(
+      footer.getByRole("button", {
+        name: "Close",
+        exact: true,
+      }),
+    ).toBeVisible()
+
+    // Nothing has been committed to the backend.
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+
+    expect(commands).toHaveLength(0)
+  })
 })
 
 test.describe("Input Config Wizard - Action Type Panel", () => {
@@ -2826,6 +3497,79 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
     await expect(
       presetCodePanel.getByRole("textbox", { name: "Enter RPN code" }),
     ).toHaveValue("(>K:AP_PANEL_HEADING_HOLD)")
+  })
+
+  test("Undo restores the MSFS action while the editor is open", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionPanel = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      1,
+    )
+
+    await actionPanel
+      .getByRole("button", { name: "Edit On Press Action" })
+      .click()
+
+    const actionEditor = page.getByTestId("action-editor")
+    const codeInput = actionEditor.getByRole("textbox", {
+      name: "Enter RPN code",
+    })
+
+    const originalCommand = "(>K:AP_PANEL_HEADING_HOLD)"
+    const modifiedCommand = "(>K:LIGHTS_TOGGLE)"
+
+    await expect(codeInput).toHaveValue(originalCommand)
+
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+    // Modify a nested Input Action.
+    await codeInput.fill(modifiedCommand)
+    await expect(codeInput).toHaveValue(modifiedCommand)
+
+    // Leave the text field to invoke ConfigItem Undo.
+    const goBackButton = page.getByRole("button", {
+      name: "Done",
+      exact: true,
+    })
+    await goBackButton.focus()
+
+    await page.keyboard.press("Control+z")
+
+    // The open Action Editor must reflect the restored draft.
+    await expect(codeInput).toHaveValue(originalCommand)
+
+    // No changes should reach the backend before Apply.
+    let commands = await configListPage.mobiFlightPage.getTrackedCommands()
+
+    expect(commands).toHaveLength(0)
+
+    // Undo restored the original MSFS action.
+    await expect(codeInput).toHaveValue(originalCommand)
+
+    // Finish the Drawer session.
+    await goBackButton.click()
+    await expect(actionEditor).not.toBeVisible()
+
+    const footer = page.getByTestId("configwizard-dialog-footer")
+
+    // Nothing remains to be saved.
+    await expect(
+      footer.getByRole("button", { name: "Apply changes", exact: true }),
+    ).toHaveCount(0)
+
+    await footer
+      .getByRole("button", {
+        name: "Close",
+        exact: true,
+      })
+      .click()
+
+    commands = await configListPage.mobiFlightPage.getTrackedCommands()
+
+    expect(commands).toHaveLength(0)
   })
 
   test("Summary information is displayed correctly", async ({
@@ -4110,6 +4854,7 @@ test.describe("Input Config Wizard - Variable Input Action Panel", () => {
       Variable: {
         TYPE: "number",
         Name: "TestVariable",
+        Number: 0,
         Text: "",
         Expression: "123",
       },
@@ -4182,6 +4927,7 @@ test.describe("Input Config Wizard - Variable Input Action Panel", () => {
       Variable: {
         TYPE: "string",
         Name: "TestVariable",
+        Number: 0,
         Text: "",
         Expression: "123",
       },

@@ -13,6 +13,7 @@ import {
   Controller,
   InputDeviceType,
 } from "@/types/controller"
+import { HistoryAction } from "@/types/history"
 import { ScanForInputResult } from "@/types/messages"
 import { InputDeviceTypes } from "@/types/typesOptions"
 import { IconLoader2, IconTrash } from "@tabler/icons-react"
@@ -21,7 +22,7 @@ import { useTranslation } from "react-i18next"
 
 export type ConfigTriggerProps = {
   configItem: IConfigItem
-  setConfigItem: (item: IConfigItem) => void
+  setConfigItem: (item: IConfigItem, actionLabel?: HistoryAction) => void
 }
 
 export const ControllerComboBox = ({
@@ -52,9 +53,7 @@ export const ControllerComboBox = ({
       items={completeControllers}
       selected={selectedController}
       placeholder={t("ConfigWizard.Input.ConfigTrigger.SelectController")}
-      searchPlaceholder={t(
-        "ConfigWizard.Input.ConfigTrigger.SearchController",
-      )}
+      searchPlaceholder={t("ConfigWizard.Input.ConfigTrigger.SearchController")}
       noOptionsPlaceholder={t(
         "ConfigWizard.Input.ConfigTrigger.NoControllerFound",
       )}
@@ -91,12 +90,8 @@ export const DeviceComboBox = ({
       items={devices}
       selected={selectedDevice}
       placeholder={t("ConfigWizard.Input.ConfigTrigger.SelectDevice")}
-      searchPlaceholder={t(
-        "ConfigWizard.Input.ConfigTrigger.SearchDevice",
-      )}
-      noOptionsPlaceholder={t(
-        "ConfigWizard.Input.ConfigTrigger.NoDeviceFound",
-      )}
+      searchPlaceholder={t("ConfigWizard.Input.ConfigTrigger.SearchDevice")}
+      noOptionsPlaceholder={t("ConfigWizard.Input.ConfigTrigger.NoDeviceFound")}
       disabled={!selectedController}
       setSelected={onChange}
     />
@@ -168,23 +163,26 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
     controller: Partial<Controller> | undefined,
     device: DeviceReference | undefined,
   ) => {
-    setConfigItem({
-      ...configItem,
-      Controller: controller
-        ? {
-            ...controller,
-            // unset Devices
-            // before sending it back to backend.
-            Devices: undefined,
-          }
-        : undefined,
-      Device: device
-        ? {
-            Name: device.Name,
-            Type: device.Type,
-          }
-        : null,
-    })
+    setConfigItem(
+      {
+        ...configItem,
+        Controller: controller
+          ? {
+              ...controller,
+              // unset Devices
+              // before sending it back to backend.
+              Devices: undefined,
+            }
+          : undefined,
+        Device: device
+          ? {
+              Name: device.Name,
+              Type: device.Type,
+            }
+          : null,
+      },
+      "Dialog.History.TriggerChanged",
+    )
   }
 
   const [scanning, setScanning] = useState(false)

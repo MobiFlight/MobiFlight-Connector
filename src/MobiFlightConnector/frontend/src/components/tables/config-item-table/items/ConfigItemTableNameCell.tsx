@@ -28,11 +28,11 @@ function ConfigItemTableNameCell({ row }: ConfigItemTableNameCellProps) {
     return () => tableContext?.registerNameEdit(item.GUID, null)
   }, [item.GUID, tableContext])
 
-  const saveChanges = (label: string) => {
-    const updatedItem = { ...item, Name: label }
+  const saveChanges = (newName: string) => {
+    if (newName === item.Name) return
     publish({
       key: "CommandUpdateConfigItem",
-      payload: { item: updatedItem },
+      payload: { item: { ...item, Name: newName }, change: "rename" },
     } as CommandUpdateConfigItem)
   }
 

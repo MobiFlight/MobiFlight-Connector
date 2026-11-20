@@ -15,5 +15,5 @@ export default i18n
     debug: true,
     maxRetries: 2,
     retryTimeout: 100,
-    load: "languageOnly"
+    load: "languageOnly",
   })
