@@ -74,13 +74,13 @@ test.describe("Config List Global Undo", () => {
     ).toBeVisible()
 
     await expect(
-      historyPanel.getByText("Item renamed", {
+      historyPanel.getByText("Renamed", {
         exact: true,
       }),
     ).toBeVisible()
 
     await expect(
-      historyPanel.getByText("Config edited", {
+      historyPanel.getByText("Edited", {
         exact: true,
       }),
     ).toBeVisible()
@@ -395,7 +395,7 @@ test.describe("Config List Global Undo", () => {
     ).toBeVisible()
 
     await expect(
-      historyPanel.getByText("Config edited", {
+      historyPanel.getByText("Edited", {
         exact: true,
       }),
     ).toBeVisible()
@@ -444,9 +444,9 @@ test.describe("Config List Global Undo", () => {
       (item, index) =>
         index === 0
           ? {
-              ...item,
-              Active: false,
-            }
+            ...item,
+            Active: false,
+          }
           : item,
     )
 
@@ -486,7 +486,7 @@ test.describe("Config List Global Undo", () => {
     ).toBeVisible()
 
     await expect(
-      remainingHistory.getByText("Config edited", {
+      remainingHistory.getByText("Edited", {
         exact: true,
       }),
     ).toHaveCount(0)
@@ -633,7 +633,7 @@ test.describe("Config List Global Undo", () => {
     ).toHaveCount(1)
 
     await expect(
-      historyPanel.getByText("Config edited", {
+      historyPanel.getByText("Edited", {
         exact: true,
       }),
     ).toHaveCount(0)
