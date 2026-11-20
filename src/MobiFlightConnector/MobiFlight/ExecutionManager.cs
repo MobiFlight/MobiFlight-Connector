@@ -618,14 +618,18 @@ namespace MobiFlight
 
             MessageExchange.Instance.SubscribeOnUiThread<CommandResortConfigItem>((message) =>
             {
-                if (
-                    message.Items == null ||
-                    message.Items.Length == 0 ||
+                bool hasNoItems =
+                    message.Items == null || message.Items.Length == 0;
+
+                bool isSourceIndexInvalid =
                     message.SourceFileIndex < 0 ||
-                    message.SourceFileIndex >= Project.ConfigFiles.Count ||
+                    message.SourceFileIndex >= Project.ConfigFiles.Count;
+
+                bool isTargetIndexInvalid =
                     message.TargetFileIndex < 0 ||
-                    message.TargetFileIndex >= Project.ConfigFiles.Count
-                )
+                    message.TargetFileIndex >= Project.ConfigFiles.Count;
+
+                if (hasNoItems || isSourceIndexInvalid || isTargetIndexInvalid)
                 {
                     return;
                 }
@@ -936,11 +940,18 @@ namespace MobiFlight
 
         public void HandleCommandUpdateConfigItem(ConfigItem item, string change = null)
         {
-            if (
-                item == null ||
-                Project == null ||
-                ActiveConfigIndex < 0 ||
-                ActiveConfigIndex >= Project.ConfigFiles.Count) return;
+            bool isItemMissing = item == null;
+            bool isProjectMissing = Project == null;
+
+            bool isActiveConfigIndexInvalid =
+                !isProjectMissing &&
+                (ActiveConfigIndex < 0 ||
+                 ActiveConfigIndex >= Project.ConfigFiles.Count);
+
+            if (isItemMissing || isProjectMissing || isActiveConfigIndexInvalid)
+            {
+                return;
+            }
 
             var file = Project.ConfigFiles[ActiveConfigIndex];
 
