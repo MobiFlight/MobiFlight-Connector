@@ -4,6 +4,13 @@ changelog:
       - ignore-for-release-notes
       - dependencies
   categories:
+    - title: Milestones & highlights 🤩
+      labels:
+        - milestone
+        - highlight
+    - title: Breaking Changes ⚠️
+      labels:
+        - breaking
     - title: New Feature 🎉
       labels:
         - feature
@@ -20,6 +27,9 @@ changelog:
     - title: New UI Language 🌍  
       labels:
         - i18n
+    - title: Performance 👟
+      labels:
+        - performance
     - title: Improvement ✨
       labels:
         - enhancement

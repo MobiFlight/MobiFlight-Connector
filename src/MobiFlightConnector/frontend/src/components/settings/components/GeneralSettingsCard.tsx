@@ -21,7 +21,7 @@ export default function GeneralSettingsCard({
   values,
   onChange,
 }: GeneralSettingsCardProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslation("settings")
 
   const logEnabled = values.LogEnabled ?? true
   const logLevel = values.LogLevel ?? "info"
@@ -113,6 +113,19 @@ export default function GeneralSettingsCard({
                 checked={values.CommunityFeedback ?? false}
                 onCheckedChange={(checked) =>
                   onChange("CommunityFeedback", !!checked)
+                }
+              />
+            </SettingsRow>
+
+            <SettingsRow
+              htmlFor="cloud-settings-sync"
+              label={t("Settings.General.CloudSettingsSync", "Cloud Settings Sync")}
+            >
+              <Switch
+                id="cloud-settings-sync"
+                checked={values.CloudSettingsSyncEnabled ?? false}
+                onCheckedChange={(checked) =>
+                  onChange("CloudSettingsSyncEnabled", !!checked)
                 }
               />
             </SettingsRow>
