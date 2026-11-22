@@ -1,0 +1,108 @@
+{
+  "$schema": "../mfjoystick.schema.json",
+  "InstanceName": "WINWING URSA MINOR CIVIL FLIGHT STICK L",
+  "VendorId": "0x4098",
+  "ProductId": "0xBC27",
+  "Inputs": [
+    {
+      "Id": 21,
+      "Type": "Button",
+      "Label": "Trigger"
+    },
+    {
+      "Id": 22,
+      "Type": "Button",
+      "Label": "Thumb button"
+    },
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "Left button 1"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "Left button 2"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "Left button 3"
+    },
+    {
+      "Id": 4,
+      "Type": "Button",
+      "Label": "Left button 4"
+    },
+    {
+      "Id": 5,
+      "Type": "Button",
+      "Label": "Left button 5"
+    },
+    {
+      "Id": 6,
+      "Type": "Button",
+      "Label": "Left button 6"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "Left button 7"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "Right button 8"
+    },
+    {
+      "Id": 9,
+      "Type": "Button",
+      "Label": "Right button 9"
+    },
+    {
+      "Id": 10,
+      "Type": "Button",
+      "Label": "Right button 10"
+    },
+    {
+      "Id": 11,
+      "Type": "Button",
+      "Label": "Right button 11"
+    },
+    {
+      "Id": 12,
+      "Type": "Button",
+      "Label": "Right button 12"
+    },
+    {
+      "Id": 13,
+      "Type": "Button",
+      "Label": "Right button 13"
+    },
+    {
+      "Id": 14,
+      "Type": "Button",
+      "Label": "Right button 14"
+    },
+    {
+      "Id": 48,
+      "Type": "Axis",
+      "Label": "Roll"
+    },
+    {
+      "Id": 49,
+      "Type": "Axis",
+      "Label": "Pitch"
+    },
+    {
+      "Id": 50,
+      "Type": "Axis",
+      "Label": "Twist"
+    },
+    {
+      "Id": 54,
+      "Type": "Axis",
+      "Label": "Slider"
+    }
+  ]
+}
