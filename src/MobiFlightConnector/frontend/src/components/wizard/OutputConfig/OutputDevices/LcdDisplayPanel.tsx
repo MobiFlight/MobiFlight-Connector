@@ -34,10 +34,12 @@ const LcdDisplayPanel = ({
 }: LcdDisplayPanelProps) => {
   const { t } = useTranslation("wizard")
   const [view, setView] = useState<LcdEditorView>("template")
-  const previewLines = useLcdDisplayPreview(
-    configItem,
-    view === "livepreview",
-  )
+  const previewLines = useLcdDisplayPreview(configItem, view === "livepreview")
+
+  // We have to derive type information from config (by serial prefix)
+  // because controller might not be connected
+  const isMobiFlightController =
+    configItem?.Controller?.Serial?.startsWith("SN-")
 
   if (variant == "details") {
     const selectedDevice = devices.find(
@@ -61,16 +63,18 @@ const LcdDisplayPanel = ({
             }
           />
         </div>
-        <LcdDisplayConfigEditor
-          config={config}
-          device={selectedDevice}
-          configRefs={configItem?.ConfigRefs ?? []}
-          configId={configItem?.GUID ?? ""}
-          previewLines={previewLines}
-          view={view}
-          onViewChange={setView}
-          onChange={(config) => onChange?.(config)}
-        />
+        {isMobiFlightController && (
+          <LcdDisplayConfigEditor
+            config={config}
+            device={selectedDevice}
+            configRefs={configItem?.ConfigRefs ?? []}
+            configId={configItem?.GUID ?? ""}
+            previewLines={previewLines}
+            view={view}
+            onViewChange={setView}
+            onChange={(config) => onChange?.(config)}
+          />
+        )}
       </WizardSection>
     )
   }

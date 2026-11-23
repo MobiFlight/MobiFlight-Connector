@@ -1,5 +1,5 @@
 import { Controller } from "./controller"
-import { ModifierList, Modifier } from "./modifier"
+import { ModifierList } from "./modifier"
 import { InputDeviceType, OutputDeviceType } from "./controller"
 import type { ConnectorValueType } from "./connectorValue"
 
@@ -251,7 +251,7 @@ export interface FsuipcOffsetInputAction extends Action {
   Type: "FsuipcOffsetInputAction"
   FSUIPC: FsuipcOffset
   Value: string
-  Modifiers: Modifier[]
+  Modifiers: ModifierList
 }
 
 export type PreconditionType = "variable" | "pin" | "config"
