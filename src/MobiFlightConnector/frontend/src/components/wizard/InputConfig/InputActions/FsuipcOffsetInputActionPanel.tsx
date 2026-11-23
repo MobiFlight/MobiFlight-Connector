@@ -1,5 +1,6 @@
 import { Input } from "@/components/ui/input"
 import { FsuipcOffsetInputAction } from "@/types/config"
+import { ModifierList } from "@/types/modifier"
 import { Label } from "@/components/ui/label"
 import { useTranslation } from "react-i18next"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
@@ -25,7 +26,7 @@ const defaultConfig: FsuipcOffsetInputAction = {
     Mask: 0xff,
     BcdMode: false,
   },
-  Modifiers: [],
+  Modifiers: { Items: [] },
   Value: "",
 }
 
