@@ -317,6 +317,9 @@ namespace MobiFlight.UI.Tests
 
             var droppedFile = CreateTestFile("dropped.mfproj");
 
+            // Opening a file asks to save unsaved changes in a modal dialog, which would block the test run.
+            _mainForm.ProjectHasUnsavedChanges = false;
+
             // Same command the frontend sends for a dropped project file
             var command = new CommandMainMenu
             {
