@@ -387,7 +387,14 @@
     "certified": false,
     "Devices": [
       { "Name": "AP Mode - HDG", "Label": "AP Mode - HDG", "Type": "Output" },
-      { "Name": "AP Mode - NAV", "Label": "AP Mode - NAV", "Type": "Output" }
+      { "Name": "AP Mode - NAV", "Label": "AP Mode - NAV", "Type": "Output" },
+      {
+        "Label": "AP Display - HDG",
+        "Id": "AP.display.hdg",
+        "Byte": 1,
+        "Bit": 1,
+        "Type": "LcdDisplay"
+      }
     ]
   },
   {
