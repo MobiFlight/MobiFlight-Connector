@@ -107,8 +107,7 @@
     {
       "Id": 20,
       "Type": "Button",
-      "Label": "Hat Switch Center Press"
-    },
-
+      "Label": "Hat Switch Center"
+    }
   ]
 }
