@@ -5091,7 +5091,7 @@ test.describe("Input Config Wizard - FSUIPC Offset Input Action Panel", () => {
         BcdMode: true,
       },
       Value: "1234",
-      Modifiers: [],
+      Modifiers: { Items: [] },
     } as FsuipcOffsetInputAction)
   })
 
@@ -5170,7 +5170,7 @@ test.describe("Input Config Wizard - FSUIPC Offset Input Action Panel", () => {
         BcdMode: false,
       },
       Value: "1.234",
-      Modifiers: [],
+      Modifiers: { Items: [] },
     } as FsuipcOffsetInputAction)
   })
 
@@ -5238,7 +5238,7 @@ test.describe("Input Config Wizard - FSUIPC Offset Input Action Panel", () => {
         BcdMode: false,
       },
       Value: "Test String",
-      Modifiers: [],
+      Modifiers: { Items: [] },
     } as FsuipcOffsetInputAction)
   })
 })
