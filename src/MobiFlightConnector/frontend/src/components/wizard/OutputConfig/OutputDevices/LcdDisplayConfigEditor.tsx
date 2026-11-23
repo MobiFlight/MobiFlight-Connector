@@ -40,6 +40,8 @@ const toGrid = (lines: string[], rows: number, cols: number) =>
     (lines[row] ?? "").padEnd(cols).slice(0, cols),
   )
 
+const getChar = (line: string, col: number) => line[col] ?? ""
+
 const setChar = (line: string, col: number, char: string) =>
   line.slice(0, col) + char + line.slice(col + 1)
 
@@ -206,10 +208,12 @@ export const LcdDisplayConfigEditor = ({
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     const focusIsButton = e.target instanceof HTMLButtonElement
-    const isButtonInteraction = focusIsButton && (e.code === "Space" || e.code === "Enter")
+    const isButtonInteraction =
+      focusIsButton && (e.code === "Space" || e.code === "Enter")
     if (isButtonInteraction) return
-    
+
     const { row, col } = caret
+
     switch (e.key) {
       case "ArrowLeft":
         moveCaret(row, col - 1, e.shiftKey)
@@ -232,19 +236,23 @@ export const LcdDisplayConfigEditor = ({
       case "Enter":
         moveCaret(row + 1, 0, false)
         break
-      case "Backspace":
+      case "Backspace": {
         if (selection) {
           updateLine(row, fill(grid[row], selection.from, selection.to, " "))
           moveCaret(row, selection.from, false)
           break
         }
-        updateLine(row, setChar(grid[row], col, " "))
 
-        if (col > 0) {
-          // updateLine(row, setChar(grid[row], col-1, " "))
-          moveCaret(row, col - 1, false)
-        }
+        const isLastColumnAndHasValue =
+          col === cols - 1 && getChar(grid[row], col) !== " "
+        const isFirstColumn = col === 0
+        const stayOnCell = isLastColumnAndHasValue || isFirstColumn
+        const target = stayOnCell ? col : col - 1
+
+        moveCaret(row, target, false)
+        updateLine(row, setChar(grid[row], target, " "))
         break
+      }
       case "Delete":
         if (selection) {
           updateLine(row, fill(grid[row], selection.from, selection.to, " "))
@@ -289,7 +297,9 @@ export const LcdDisplayConfigEditor = ({
           <div className="w-fit rounded-md bg-linear-to-br from-gray-700 to-slate-900 to-15% p-4 drop-shadow-md drop-shadow-mist-900">
             <div
               role="textbox"
-              aria-label={t("ConfigWizard.Device.LcdDisplay.Editor.Content.Title")}
+              aria-label={t(
+                "ConfigWizard.Device.LcdDisplay.Editor.Content.Title",
+              )}
               tabIndex={0}
               className="focus-visible:ring-ring inline-grid w-fit gap-0.5 rounded-md bg-blue-700 p-2 outline-none focus-visible:ring-2"
               style={{ gridTemplateColumns: `repeat(${cols}, auto)` }}

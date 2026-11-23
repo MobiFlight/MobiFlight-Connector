@@ -1,0 +1,125 @@
+{
+  "Settings": {
+    "General": {
+      "Title": "Geral",
+      "Application": {
+        "Title": "Aplicação"
+      },
+      "Logging": {
+        "Title": "Registro de logs",
+        "Enabled": "habilitado",
+        "ShowLogPanel": "Mostrar painel de logs",
+        "LogLevel": "Nível de log",
+        "Levels": {
+          "Debug": "Debug",
+          "Info": "Info",
+          "Warn": "Warn",
+          "Error": "Error"
+        },
+        "LogJoystickAxis": "Registrar eixos do joystick"
+      },
+      "StartupAndRunOptions": {
+        "Title": "Opções de inicialização e execução"
+      },
+      "RecentFiles": {
+        "Title": "Arquivos recentes",
+        "Description": "Definir o número de arquivos mostrados na lista para"
+      },
+      "BetaVersions": {
+        "Title": "Versões Beta",
+        "Description": "Receber atualizações de versões beta."
+      },
+      "CommunityFeedback": {
+        "Title": "Programa de feedback da comunidade",
+        "Description": "Participar do programa de feedback da comunidade e ajudar a melhorar o MobiFlight."
+      },
+      "RunOptions": {
+        "Title": "Opções de inicialização e execução",
+        "AutoRetrigger": "Executar automaticamente a ação de reativação no modo \"run\"",
+        "MinimizeOnAutoRun": "Minimizar ao executar automaticamente"
+      },
+      "HubHop": {
+        "Title": "HubHop",
+        "AutoCheck": "Verificar presets do HubHop ao iniciar o aplicativo."
+      },
+      "Language": {
+        "Title": "Idioma",
+        "Description": "Alterar o idioma da interface:",
+        "RestartRequired": "É necessário reiniciar o MobiFlight ao alterar o idioma."
+      },
+      "ExecutionSpeed": {
+        "Title": "Velocidade de execução da configuração",
+        "Description": "Você pode controlar a velocidade de execução, por exemplo, se notar atraso na entrada. Configurações muito rápidas podem afetar o desempenho.",
+        "Slow": "lento",
+        "Fast": "muito rápido"
+      },
+      "TestModeSpeed": {
+        "Title": "Velocidade do modo de teste",
+        "Slow": "lento",
+        "Fast": "muito rápido"
+      },
+      "CloudSettingsSync": "Sincronização de configurações na nuvem"
+    },
+    "Simulator": {
+      "Title": "Simuladores",
+      "ProSim": {
+        "Title": "ProSim / HomeSim",
+        "ConnectionSettings": "Configurações de conexão",
+        "Host": "Host",
+        "Port": "Porta",
+        "AutoConnect": "Conexão automática ao ProSim",
+        "MaxRetryAttempts": "Máx. tentativas"
+      }
+    },
+    "Discard": {
+      "Title": "Descartar alterações?",
+      "Description": "Você tem alterações não salvas. Tem certeza de que deseja descartá-las?",
+      "KeepEditing": "Continuar editando",
+      "DiscardChanges": "Descartar alterações"
+    },
+    "ManageControllerNote": "Encontre <strong>MobiFlight Boards</strong> e <strong>Peripherals</strong> em <strong>{{menuPath}}</strong>",
+    "Conflict": {
+      "Title": "Conflito de configurações",
+      "Description": "Encontramos versões diferentes das suas configurações neste dispositivo e na nuvem. Escolha qual versão deseja manter.",
+      "UseCloud": "Usar configurações da nuvem",
+      "UseCloudDesc": "Substituir as configurações locais pela versão da nuvem.",
+      "UseLocal": "Usar configurações locais",
+      "UseLocalDesc": "Salvá-las na nuvem, substituindo a versão na nuvem.",
+      "TurnOffSync": "Desactivar sincronização na nuvem",
+      "TurnOffSyncDesc": "Manter suas configurações locais e não atualizar a versão na nuvem."
+    },
+    "Sync": {
+      "Notifications": {
+        "restored": {
+          "Title": "Configurações restauradas",
+          "Description": "Suas configurações mais recentes foram restauradas da nuvem."
+        },
+        "synced": {
+          "Title": "Configurações sincronizadas",
+          "Description": "Suas alterações locais mais recentes foram sincronizadas com a nuvem."
+        },
+        "saved": {
+          "Title": "Configurações salvas",
+          "Description": "Suas configurações locais foram salvas na nuvem."
+        },
+        "updated": {
+          "Title": "Atualização de configurações",
+          "Description": "Suas configurações mais recentes foram restauradas da nuvem."
+        },
+        "failed_upload": {
+          "Title": "Falha na sincronização",
+          "Description": "Não foi possível salvar suas configurações na nuvem. Verifique sua conexão."
+        },
+        "failed_fetch": {
+          "Title": "Nuvem indisponível",
+          "Description": "Não foi possível conectar à nuvem para recuperar suas configurações."
+        }
+      },
+      "Status": {
+        "SignInToSync": "Entre para sincronizar as configurações",
+        "SyncPaused": "Sincronização na nuvem pausada",
+        "Synced": "Configurações sincronizadas"
+      }
+    }
+  }
+}
