@@ -7,107 +7,107 @@
     {
       "Id": 21,
       "Type": "Button",
-      "Label": "Trigger / Push to Talk"
+      "Label": "Button 21 - Trigger"
     },
     {
       "Id": 22,
       "Type": "Button",
-      "Label": "Thumb Button / AP Disconnect"
+      "Label": "Button 22 - Thumb button"
     },
     {
       "Id": 1,
       "Type": "Button",
-      "Label": "Left Button 1"
+      "Label": "Button 1 - Left base"
     },
     {
       "Id": 2,
       "Type": "Button",
-      "Label": "Left Button 2"
+      "Label": "Button 2 - Left base"
     },
     {
       "Id": 3,
       "Type": "Button",
-      "Label": "Left Button 3"
+      "Label": "Button 3 - Left base"
     },
     {
       "Id": 4,
       "Type": "Button",
-      "Label": "Left Button 4"
+      "Label": "Button 4 - Left base"
     },
     {
       "Id": 5,
       "Type": "Button",
-      "Label": "Left Button 5"
+      "Label": "Button 5 - Left base"
     },
     {
       "Id": 6,
       "Type": "Button",
-      "Label": "Left Button 6"
+      "Label": "Button 6 - Left base"
     },
     {
       "Id": 7,
       "Type": "Button",
-      "Label": "Left Button 7"
+      "Label": "Button 7 - Left base"
     },
     {
       "Id": 8,
       "Type": "Button",
-      "Label": "Right Button 8"
+      "Label": "Button 8 - Right base"
     },
     {
       "Id": 9,
       "Type": "Button",
-      "Label": "Right Button 9"
+      "Label": "Button 9 - Right base"
     },
     {
       "Id": 10,
       "Type": "Button",
-      "Label": "Right Button 10"
+      "Label": "Button 10 - Right base"
     },
     {
       "Id": 11,
       "Type": "Button",
-      "Label": "Right Button 11"
+      "Label": "Button 11 - Right base"
     },
     {
       "Id": 12,
       "Type": "Button",
-      "Label": "Right Button 12"
+      "Label": "Button 12 - Right base"
     },
     {
       "Id": 13,
       "Type": "Button",
-      "Label": "Right Button 13"
+      "Label": "Button 13 - Right base"
     },
     {
       "Id": 14,
       "Type": "Button",
-      "Label": "Right Button 14"
+      "Label": "Button 14 - Right base"
     },
     {
       "Id": 48,
       "Type": "Axis",
-      "Label": "Roll"
+      "Label": "Axis - Roll"
     },
     {
       "Id": 49,
       "Type": "Axis",
-      "Label": "Pitch"
+      "Label": "Axis - Pitch"
     },
     {
       "Id": 50,
       "Type": "Axis",
-      "Label": "Twist"
+      "Label": "Axis - Twist"
     },
     {
       "Id": 54,
       "Type": "Axis",
-      "Label": "Slider"
+      "Label": "Axis - Slider"
     },
     {
       "Id": 20,
       "Type": "Button",
-      "Label": "Hat Switch Center"
+      "Label": "Button 20 - Hat switch center"
     }
   ]
 }
