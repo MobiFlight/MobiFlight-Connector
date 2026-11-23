@@ -1,7 +1,12 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
+using System.IO.Compression;
+using System.Net;
+using System.Net.Sockets;
 using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace MobiFlight.SimConnectMSFS.Tests
 {
@@ -216,6 +221,99 @@ namespace MobiFlight.SimConnectMSFS.Tests
             using (new FileStream(userCfg, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
             {
                 // opening exclusively succeeds only if the reader was disposed
+            }
+        }
+
+        #endregion
+
+        #region DownloadSingleFile
+
+        private const string DownloadPayload = "{\"presets\":[\"A32NX_EFIS_L_CHRONO_PUSHED\",\"A32NX_EFIS_R_CHRONO_PUSHED\"]}";
+
+        // Serves DownloadPayload gzipped only if the client asks for gzip, and records the Accept-Encoding header.
+        private static (HttpListener listener, Uri uri, Task<string> acceptEncoding) StartGzipServer()
+        {
+            var port = GetFreeTcpPort();
+            var prefix = $"http://localhost:{port}/";
+            var listener = new HttpListener();
+            listener.Prefixes.Add(prefix);
+            listener.Start();
+
+            var acceptEncoding = Task.Run(async () =>
+            {
+                var context = await listener.GetContextAsync();
+                var requested = context.Request.Headers["Accept-Encoding"] ?? string.Empty;
+                var body = Encoding.UTF8.GetBytes(DownloadPayload);
+
+                if (requested.Contains("gzip"))
+                {
+                    using var compressed = new MemoryStream();
+                    using (var gzip = new GZipStream(compressed, CompressionLevel.Optimal, leaveOpen: true))
+                    {
+                        gzip.Write(body, 0, body.Length);
+                    }
+                    body = compressed.ToArray();
+                    context.Response.AddHeader("Content-Encoding", "gzip");
+                }
+
+                context.Response.ContentLength64 = body.Length;
+                await context.Response.OutputStream.WriteAsync(body);
+                context.Response.Close();
+                return requested;
+            });
+
+            return (listener, new Uri(prefix + "presets.json"), acceptEncoding);
+        }
+
+        private static int GetFreeTcpPort()
+        {
+            var tcpListener = new TcpListener(IPAddress.Loopback, 0);
+            tcpListener.Start();
+            var port = ((IPEndPoint)tcpListener.LocalEndpoint).Port;
+            tcpListener.Stop();
+            return port;
+        }
+
+        [TestMethod()]
+        public async Task DownloadSingleFile_ShouldRequestGzipEncoding()
+        {
+            // Arrange
+            var (listener, uri, acceptEncoding) = StartGzipServer();
+
+            try
+            {
+                // Act
+                var result = await WasmModuleUpdater.DownloadSingleFile(uri, "presets.json", testDirectory);
+
+                // Assert
+                Assert.IsTrue(result);
+                Assert.Contains("gzip", await acceptEncoding);
+            }
+            finally
+            {
+                listener.Stop();
+            }
+        }
+
+        [TestMethod()]
+        public async Task DownloadSingleFile_ShouldWriteDecompressedContent_WhenResponseIsGzipped()
+        {
+            // Arrange
+            var (listener, uri, acceptEncoding) = StartGzipServer();
+
+            try
+            {
+                // Act
+                var result = await WasmModuleUpdater.DownloadSingleFile(uri, "presets.json", testDirectory);
+                await acceptEncoding;
+
+                // Assert
+                Assert.IsTrue(result);
+                Assert.AreEqual(DownloadPayload, File.ReadAllText(Path.Combine(testDirectory, "presets.json")));
+            }
+            finally
+            {
+                listener.Stop();
             }
         }
 

@@ -25,7 +25,7 @@ const defaultConfig: FsuipcOffsetInputAction = {
     Mask: 0xff,
     BcdMode: false,
   },
-  Modifiers: [],
+  Modifiers: { Items: [] },
   Value: "",
 }
 

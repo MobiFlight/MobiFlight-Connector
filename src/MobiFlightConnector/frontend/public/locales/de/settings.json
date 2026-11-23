@@ -1,0 +1,125 @@
+{
+  "Settings": {
+    "General": {
+      "Title": "Allgemein",
+      "Application": {
+        "Title": "Anwendung"
+      },
+      "Logging": {
+        "Title": "Protokollierung",
+        "Enabled": "aktiviert",
+        "ShowLogPanel": "Log-Panel anzeigen",
+        "LogLevel": "Log-Level",
+        "Levels": {
+          "Debug": "Debug",
+          "Info": "Info",
+          "Warn": "Warn",
+          "Error": "Error"
+        },
+        "LogJoystickAxis": "Joystick-Achsen protokollieren"
+      },
+      "StartupAndRunOptions": {
+        "Title": "Start- und Ausführungsoptionen"
+      },
+      "RecentFiles": {
+        "Title": "Zuletzt verwendete Dateien",
+        "Description": "Anzahl der in der Liste angezeigten Dateien festlegen auf"
+      },
+      "BetaVersions": {
+        "Title": "Beta-Versionen",
+        "Description": "Beta-Versionen-Updates erhalten."
+      },
+      "CommunityFeedback": {
+        "Title": "Community-Feedback-Programm",
+        "Description": "Am Community-Feedback-Programm teilnehmen und helfen, MobiFlight zu verbessern."
+      },
+      "RunOptions": {
+        "Title": "Start- und Ausführungsoptionen",
+        "AutoRetrigger": "Automatisches Nachdrücken im \"Run\"-Modus ausführen",
+        "MinimizeOnAutoRun": "Bei AutoRun minimieren"
+      },
+      "HubHop": {
+        "Title": "HubHop",
+        "AutoCheck": "Beim Anwendungsstart nach HubHop-Presets suchen."
+      },
+      "Language": {
+        "Title": "Sprache",
+        "Description": "Sprache der Benutzeroberfläche ändern:",
+        "RestartRequired": "Ein Neustart von MobiFlight ist erforderlich, wenn Sie die Sprache ändern."
+      },
+      "ExecutionSpeed": {
+        "Title": "Konfigurationsausführungsgeschwindigkeit",
+        "Description": "Sie können die Ausführungsgeschwindigkeit steuern, z. B. wenn bei der Eingabe Verzögerungen auftreten. Sehr schnelle Einstellungen können die Leistung beeinträchtigen.",
+        "Slow": "langsam",
+        "Fast": "sehr schnell"
+      },
+      "TestModeSpeed": {
+        "Title": "Testmodus-Geschwindigkeit",
+        "Slow": "langsam",
+        "Fast": "sehr schnell"
+      },
+      "CloudSettingsSync": "Cloud-Einstellungssynchronisierung"
+    },
+    "Simulator": {
+      "Title": "Simulatoren",
+      "ProSim": {
+        "Title": "ProSim / HomeSim",
+        "ConnectionSettings": "Verbindungseinstellungen",
+        "Host": "Host",
+        "Port": "Port",
+        "AutoConnect": "Automatische ProSim-Verbindung",
+        "MaxRetryAttempts": "Max. Wiederholungsversuche"
+      }
+    },
+    "Discard": {
+      "Title": "Änderungen verwerfen?",
+      "Description": "Sie haben nicht gespeicherte Änderungen. Möchten Sie diese wirklich verwerfen?",
+      "KeepEditing": "Weiter bearbeiten",
+      "DiscardChanges": "Änderungen verwerfen"
+    },
+    "ManageControllerNote": "Finde <strong>MobiFlight Boards</strong> und <strong>Peripherals</strong> in <strong>{{menuPath}}</strong>",
+    "Conflict": {
+      "Title": "Einstellungskonflikt",
+      "Description": "Wir haben unterschiedliche Versionen Ihrer Einstellungen auf diesem Gerät und in der Cloud gefunden. Wählen Sie, welche Version Sie behalten möchten.",
+      "UseCloud": "Cloud-Einstellungen verwenden",
+      "UseCloudDesc": "Lokale Einstellungen durch die Cloud-Version ersetzen.",
+      "UseLocal": "Lokale Einstellungen verwenden",
+      "UseLocalDesc": "In der Cloud speichern und die Cloud-Version ersetzen.",
+      "TurnOffSync": "Cloud-Synchronisierung deaktivieren",
+      "TurnOffSyncDesc": "Lokale Einstellungen behalten und die Cloud-Version nicht aktualisieren."
+    },
+    "Sync": {
+      "Notifications": {
+        "restored": {
+          "Title": "Einstellungen wiederhergestellt",
+          "Description": "Ihre neuesten Einstellungen wurden aus der Cloud wiederhergestellt."
+        },
+        "synced": {
+          "Title": "Einstellungen synchronisiert",
+          "Description": "Ihre neuesten lokalen Änderungen wurden mit der Cloud synchronisiert."
+        },
+        "saved": {
+          "Title": "Einstellungen gespeichert",
+          "Description": "Ihre lokalen Einstellungen wurden in der Cloud gespeichert."
+        },
+        "updated": {
+          "Title": "Einstellungen aktualisiert",
+          "Description": "Ihre neuesten Einstellungen wurden aus der Cloud wiederhergestellt."
+        },
+        "failed_upload": {
+          "Title": "Synchronisierung fehlgeschlagen",
+          "Description": "Ihre Einstellungen konnten nicht in der Cloud gespeichert werden. Bitte überprüfen Sie Ihre Verbindung."
+        },
+        "failed_fetch": {
+          "Title": "Cloud nicht erreichbar",
+          "Description": "Verbindung zur Cloud zum Abrufen Ihrer Einstellungen fehlgeschlagen."
+        }
+      },
+      "Status": {
+        "SignInToSync": "Anmelden, um Einstellungen zu synchronisieren",
+        "SyncPaused": "Cloud-Synchronisierung angehalten",
+        "Synced": "Einstellungen synchronisiert"
+      }
+    }
+  }
+}

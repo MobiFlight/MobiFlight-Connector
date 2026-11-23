@@ -1412,13 +1412,9 @@ test.describe("Input Config Wizard - Config References panel", () => {
         expected.placeholder,
       )
 
-      // This input is not displayed until we have the proper test feature in place
-      await expect(row.getByRole("textbox").nth(1)).not.toBeVisible()
-
-      // once the test feature is available, we can uncomment this line to verify that the value is correct
-      // await expect(row.getByRole("textbox").nth(1)).toHaveValue(
-      //   expected.testValue,
-      // )
+      await expect(row.getByRole("textbox").nth(1)).toHaveValue(
+        expected.testValue,
+      )
     }
   })
 
@@ -5095,7 +5091,7 @@ test.describe("Input Config Wizard - FSUIPC Offset Input Action Panel", () => {
         BcdMode: true,
       },
       Value: "1234",
-      Modifiers: [],
+      Modifiers: { Items: [] },
     } as FsuipcOffsetInputAction)
   })
 
@@ -5174,7 +5170,7 @@ test.describe("Input Config Wizard - FSUIPC Offset Input Action Panel", () => {
         BcdMode: false,
       },
       Value: "1.234",
-      Modifiers: [],
+      Modifiers: { Items: [] },
     } as FsuipcOffsetInputAction)
   })
 
@@ -5242,7 +5238,7 @@ test.describe("Input Config Wizard - FSUIPC Offset Input Action Panel", () => {
         BcdMode: false,
       },
       Value: "Test String",
-      Modifiers: [],
+      Modifiers: { Items: [] },
     } as FsuipcOffsetInputAction)
   })
 })

@@ -73,7 +73,7 @@ export const OutputDeviceConfigDefaults = {
           capability,
         )
       case "LcdDisplay":
-        return OutputDeviceConfigDefaults.createLcdDisplayConfig(name)
+        return OutputDeviceConfigDefaults.createLcdDisplayConfig(name, capability)
       case "Servo":
         return OutputDeviceConfigDefaults.createServoConfig(name)
       case "Stepper":
@@ -99,6 +99,7 @@ export const OutputDeviceConfigDefaults = {
     Address: name,
     Pin: "Output 0"
   }),
+
   // The value uses all digits of the display by default
   createLedModuleConfig: (
     name: string,
@@ -121,11 +122,13 @@ export const OutputDeviceConfigDefaults = {
       DisplayLedBrightnessReference: "",
     }
   },
-  createLcdDisplayConfig: (name: string): LcdDisplayConfig => ({
+  createLcdDisplayConfig: (name: string, capability?: DeviceCapability): LcdDisplayConfig => ({
     Type: "LcdDisplay",
     Name: name,
     Address: name,
-    Lines: [],
+    // a demo template so users see how static text and placeholders work,
+    // single row displays only get the placeholder
+    Lines: capability?.Rows === 1 ? ["$$$$"] : ["TEST", "$$$$"],
   }),
   // C# model has no defaults, values taken from legacy ServoPanel
   createServoConfig: (name: string): ServoConfig => ({

@@ -95,18 +95,14 @@ const ConfigReferenceItemRow = ({
         className="w-16"
       />
 
-      {/*
-       * Test value is currently not used, so we won't show it
-       * as soon as we add the test feature, we can uncomment this code and use it again
-       */}
-      {/* <Input
+      <Input
         value={configReference.TestValue}
         onChange={(e) =>
           onChange({ ...configReference, TestValue: e.target.value })
         }
-        placeholder="Value"
-        className="w-16"
-      /> */}
+        placeholder={t("ConfigWizard.ConfigReferenceEditor.TestValueLabel")}
+        className="w-24"
+      />
 
       <Button
         variant="ghost"
@@ -129,7 +125,8 @@ const EMPTY_CONFIG_REFERENCE: ConfigReference = {
   Active: true,
   Ref: "",
   Placeholder: "",
-  TestValue: "",
+  // same default as the C# ConfigRef
+  TestValue: "1",
 }
 
 const ConfigReferenceEditor = ({

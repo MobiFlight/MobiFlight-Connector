@@ -70,7 +70,7 @@ namespace MobiFlight.xplane
         private void WaitForConnection()
         {
             var dataRefTime = new DataRefElement() { DataRef = "sim/time/total_running_time_sec", Frequency = 1, Value = 0 };
-            
+
             Connector.Start();
             Connector.Unsubscribe(dataRefTime.DataRef);
             Connector.Subscribe(dataRefTime, 1, (e, v) =>
@@ -174,10 +174,14 @@ namespace MobiFlight.xplane
 
         private void UnsubscribeAll()
         {
-            foreach (var dataRef in SubscribedDataRefs)
+            if (_connected)
             {
-                Connector.Unsubscribe(dataRef.Value.DataRef);
+                foreach (var dataRef in SubscribedDataRefs)
+                {
+                    Connector.Unsubscribe(dataRef.Value.DataRef);
+                }
             }
+
             SubscribedDataRefs.Clear();
         }
 

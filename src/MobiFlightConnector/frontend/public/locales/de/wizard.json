@@ -23,6 +23,7 @@
       "Title": "Quellwert",
       "Description": "Konfiguriere den Wert für diese Ausgabe-Konfiguration.",
       "Label": "Quelle",
+      "Edit": "Quelle bearbeiten",
       "Remove": "Quelle entfernen"
     },
     "SourceType": {
@@ -57,6 +58,7 @@
         "Description": "Teste die Funktion dieses Ausgabegeräts."
       },
       "Edit": "Ausgabegerät bearbeiten",
+      "Remove": "Ausgabegerät entfernen",
       "Stepper": {
         "Title": "Schritt 2 - Schrittmotor-Einstellungen",
         "Description": "Wähle den Schrittmotor aus und lege fest, wie Werte auf seine Bewegung abgebildet werden.",
@@ -134,7 +136,20 @@
         "Title": "Schritt 2 - LCD Display-Einstellungen",
         "Description": "Wähle das LCD Display aus und konfiguriere seine Einstellungen.",
         "Label": "LCD Display",
-        "Lines": "Zeilen"
+        "Lines": "Zeilen",
+        "Editor": {
+          "Content": {
+            "Title": "Display-Inhalt",
+            "Description": "Klicke auf das Display und gib deinen Text ein oder verwende dynamische Werte. Jede Zelle enthält ein Zeichen, genau wie auf dem echten Display."
+          },
+          "Visualization": "Live-Vorschau",
+          "Placeholder": {
+            "Title": "Dynamische Werte",
+            "Description": "Wähle eine oder mehrere Zellen auf dem Display aus und klicke dann auf einen Wert unten, um ihn in diesen Zellen anzuzeigen."
+          },
+          "ThisConfig": "Wert dieser Konfiguration",
+          "AdditionalReferencesHint": "Brauchst du mehr Werte? Füge dieser Konfiguration weitere Referenzen hinzu, und sie werden hier angezeigt."
+        }
       },
       "CustomDevice": {
         "Title": "Schritt 2 - Custom Device-Einstellungen",

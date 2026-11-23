@@ -6,6 +6,7 @@ import msfsOutputPresetsResponse from "./data/outputconfig/msfspresets.testdata.
 import xplanePresetsResponse from "./data/inputaction/xplanepresets.testdata.json" with { type: "json" }
 import { Project } from "../src/types"
 import { IConfigItem, Source } from "../src/types/config"
+import { LcdDisplayPreview } from "../src/types/messages"
 
 // Rows in the config list of the default test project (row 0 is the header)
 const ROW = {
@@ -438,6 +439,20 @@ test.describe("Output Config Wizard - Source Panel", () => {
     await expect(
       sourceEditor.getByText("Source value", { exact: true }),
     ).toBeVisible()
+  })
+
+  test("Edit button of the source summary opens the source editor", async ({
+    configListPage,
+    page,
+  }) => {
+    await openWizardForRow(configListPage, page, ROW.Output)
+
+    const sourceEditor = page.getByTestId("source-editor")
+    await page
+      .getByTestId("trigger-panel")
+      .getByRole("button", { name: "Edit source" })
+      .click()
+    await expect(sourceEditor).toBeVisible()
   })
 
   test("Double click on the source summary opens the source editor", async ({
@@ -1107,6 +1122,21 @@ test.describe("Output Config Wizard - Output Device Panel", () => {
     ).not.toBeVisible()
   })
 
+  test("Double click on the output device summary opens the device editor", async ({
+    configListPage,
+    page,
+  }) => {
+    await openWizardForRow(configListPage, page, ROW.Output)
+
+    const actionPanel = page.getByTestId("action-panel")
+    const deviceEditor = page.getByTestId("output-device-editor")
+
+    await actionPanel.getByText("LED 2", { exact: true }).dblclick()
+    await expect(deviceEditor).toBeVisible()
+    await closeDrawer(page)
+    await expect(deviceEditor).not.toBeVisible()
+  })
+
   test("Config without device shows the add buttons", async ({
     configListPage,
     page,
@@ -1132,9 +1162,10 @@ test.describe("Output Config Wizard - Output Device Panel", () => {
     await openWizardForRow(configListPage, page, ROW.Output)
 
     const actionPanel = page.getByTestId("action-panel")
-    // TODO: the remove button for the output device reuses the "Remove input action" label
+    // the remove button is only visible on hover
+    await actionPanel.getByText("LED 2", { exact: true }).hover()
     await actionPanel
-      .getByRole("button", { name: "Remove input action" })
+      .getByRole("button", { name: "Remove output device" })
       .click()
 
     await expect(
@@ -1259,7 +1290,10 @@ test.describe("Output Config Wizard - Device Test Panel", () => {
     page,
   }) => {
     await openWizardForRow(configListPage, page, ROW.Output)
-    await page.getByTestId("action-panel").getByRole("button").last().click()
+    await page
+      .getByTestId("action-panel")
+      .getByRole("button", { name: "Edit output device" })
+      .click()
 
     const deviceEditor = page.getByTestId("output-device-editor")
     await configListPage.mobiFlightPage.trackCommand("CommandConfigContextMenu")
@@ -1285,7 +1319,10 @@ test.describe("Output Config Wizard - Device Test Panel", () => {
     page,
   }) => {
     await openWizardForRow(configListPage, page, ROW.Output)
-    await page.getByTestId("action-panel").getByRole("button").last().click()
+    await page
+      .getByTestId("action-panel")
+      .getByRole("button", { name: "Edit output device" })
+      .click()
 
     const deviceEditor = page.getByTestId("output-device-editor")
     await deviceEditor.getByPlaceholder("Enter raw value").fill("42")
@@ -1319,7 +1356,10 @@ test.describe("Output Config Wizard - Device Test Panel", () => {
     page,
   }) => {
     await openWizardForRow(configListPage, page, ROW.Output)
-    await page.getByTestId("action-panel").getByRole("button").last().click()
+    await page
+      .getByTestId("action-panel")
+      .getByRole("button", { name: "Edit output device" })
+      .click()
 
     const deviceEditor = page.getByTestId("output-device-editor")
     await configListPage.mobiFlightPage.trackCommand("CommandConfigContextMenu")
@@ -1339,14 +1379,17 @@ test.describe("Output Config Wizard - Device Test Panel", () => {
     page,
   }) => {
     await openWizardForRow(configListPage, page, ROW.Output)
-    await page.getByTestId("action-panel").getByRole("button").last().click()
+    await page
+      .getByTestId("action-panel")
+      .getByRole("button", { name: "Edit output device" })
+      .click()
 
     const deviceEditor = page.getByTestId("output-device-editor")
     await expect(deviceEditor).toBeVisible()
 
     const testPanel = deviceEditor.getByTestId("configwizard-test-panel")
     await expect(testPanel).toBeVisible()
-    
+
     const testValueInput = testPanel.getByPlaceholder("Enter raw value")
     await testValueInput.clear()
     // typed key by key, so the intermediate "1." must not lose its dot
@@ -1695,7 +1738,10 @@ test.describe("Output Config Wizard - Stepper Device", () => {
       page: Page,
     ) => {
       await openWizardForRow(configListPage, page, ROW.Stepper)
-      await page.getByTestId("action-panel").getByRole("button").last().click()
+      await page
+        .getByTestId("action-panel")
+        .getByRole("button", { name: "Edit output device" })
+        .click()
       const deviceEditor = page.getByTestId("output-device-editor")
       await expect(deviceEditor).toBeVisible()
       await configListPage.mobiFlightPage.trackCommand(
@@ -2326,21 +2372,106 @@ test.describe("Output Config Wizard - LCD Display Device", () => {
     const deviceEditor = page.getByTestId("output-device-editor")
     await expect(deviceEditor).toBeVisible()
 
-    // One input per display row, limited to the number of display columns
-    const lineInputs = deviceEditor.locator('input[maxlength="16"]')
+    const lcdEditor = page.getByTestId("lcd-editor")
+    const cell = (row: number, col: number) =>
+      lcdEditor.getByTestId(`lcd-cell-${row}-${col}`)
 
-    await test.step("Details show one line per display row", async () => {
+    await test.step("Details show the display as a 16x4 grid", async () => {
       await expect(
         deviceEditor.getByRole("combobox").filter({ hasText: /^LCD 1$/ }),
       ).toBeVisible()
-      await expect(lineInputs).toHaveCount(4)
-      await expect(lineInputs.nth(0)).toHaveValue("1234567890123456")
-      await expect(lineInputs.nth(1)).toHaveValue("******Test******")
+      await expect(lcdEditor.locator('[data-testid^="lcd-cell-"]')).toHaveCount(
+        4 * 16,
+      )
+      await expect(cell(0, 0)).toHaveText("1")
+      await expect(cell(1, 6)).toHaveText("T")
     })
 
-    await test.step("Change the second line", async () => {
-      await lineInputs.nth(1).fill("Hello MobiFlight")
-      await expect(lineInputs.nth(1)).toHaveValue("Hello MobiFlight")
+    await configListPage.mobiFlightPage.trackCommand("CommandLcdDisplayPreview")
+
+    await test.step("Typing overwrites the second line", async () => {
+      await cell(1, 0).click()
+      await page.keyboard.type("Hello MobiFlight")
+      await expect(cell(1, 0)).toHaveText("H")
+      await expect(cell(1, 15)).toHaveText("t")
+    })
+
+    await test.step("Backspace on the first column clears it and stays", async () => {
+      await cell(1, 0).click()
+      await page.keyboard.type("A")
+      await expect(cell(1, 0)).toHaveText("A")
+      await cell(1, 0).click()
+      await page.keyboard.press("Backspace")
+      await expect(cell(1, 0)).toHaveText("")
+      await page.keyboard.type("H")
+      await expect(cell(1, 0)).toHaveText("H")
+    })
+
+    await test.step("Backspace on the last column with value first clears it and stays", async () => {
+      await cell(1, 0).click()
+      await page.keyboard.type("Hello MobiFlight")
+      await expect(cell(1, 15)).toHaveText("t")
+      await page.keyboard.press("Backspace")
+      await expect(cell(1, 15)).toHaveText("")
+      await page.keyboard.type("t")
+      await expect(cell(1, 15)).toHaveText("t")
+    })
+
+    await test.step("Backspace on the last column with empty cell moves cursor and clears that cell", async () => {
+      await cell(1, 0).click()
+      await page.keyboard.type("Hello MobiFlight")
+      await page.keyboard.press("Backspace")
+      await cell(1, 15).click()
+      await page.keyboard.press("Backspace")
+      await expect(cell(1, 14)).toHaveText("")
+      await page.keyboard.type("h")
+      await expect(cell(1, 14)).toHaveText("h")
+
+      // reset the test value in 2nd row back to "Hello MobiFlight"
+      await cell(1, 0).click()
+      await page.keyboard.type("Hello MobiFlight")
+    })
+
+    await test.step("Selected cells get the placeholder of a value", async () => {
+      await cell(2, 0).click()
+      for (let i = 0; i < 4; i++) await page.keyboard.press("Shift+ArrowRight")
+      await lcdEditor
+        .getByRole("button", { name: "Value of this config" })
+        .click()
+      await expect(cell(2, 0)).toHaveText("$")
+      await expect(cell(2, 4)).toHaveText("$")
+      await expect(cell(2, 5)).toHaveText("6")
+    })
+
+    const previewCommands = async () =>
+      (await configListPage.mobiFlightPage.getTrackedCommands())?.filter(
+        (c) => c.key === "CommandLcdDisplayPreview",
+      ) ?? []
+
+    await test.step("Without live preview no preview is requested", async () => {
+      expect(await previewCommands()).toHaveLength(0)
+    })
+
+    await test.step("The visualization shows the text rendered by the backend", async () => {
+      await lcdEditor.getByTestId("lcd-editor-view").click()
+      await expect
+        .poll(async () => (await previewCommands()).pop()?.payload.item.GUID)
+        .toBe("61ae4145-c7d5-41ef-b2a9-c993f8986be1")
+
+      await configListPage.mobiFlightPage.publishMessage({
+        key: "LcdDisplayPreview",
+        payload: {
+          GUID: "61ae4145-c7d5-41ef-b2a9-c993f8986be1",
+          Lines: ["1234567890123456", "Hello MobiFlight", "118.567890123456"],
+        } as LcdDisplayPreview,
+      })
+      await expect(cell(2, 0)).toHaveText("1")
+      await expect(cell(2, 4)).toHaveText("5")
+      // the fourth row is not part of the preview, so it is blank
+      await expect(cell(3, 0)).toHaveText("")
+
+      await lcdEditor.getByTestId("lcd-editor-view").click()
+      await expect(cell(2, 0)).toHaveText("$")
     })
 
     await closeDrawer(page)
@@ -2354,10 +2485,61 @@ test.describe("Output Config Wizard - LCD Display Device", () => {
       Lines: [
         "1234567890123456",
         "Hello MobiFlight",
-        "1234567890123456",
+        "$$$$$67890123456",
         "******Test******",
       ],
     })
+  })
+
+  test("Lcd Display Editor shows for MobiFlight Controller", async ({
+    configListPage,
+    page,
+  }) => {
+    await createEmptyOutputConfigAndOpenWizard(configListPage, page)
+    await openOutputDevicePanel(page)
+
+    const deviceEditor = page.getByTestId("output-device-editor")
+    await selectComboBoxOption(
+      page,
+      deviceEditor.getByRole("combobox").first(),
+      "ProtoBoard-v2",
+    )
+    await selectComboBoxOption(
+      page,
+      deviceEditor.getByRole("combobox").nth(1),
+      "LCD Display",
+    )
+
+    const lcdEditor = page.getByTestId("lcd-editor")
+    await expect(lcdEditor).toBeVisible()
+  })
+
+  test("Lcd Display Editor should not show for Hid Controller", async ({
+    configListPage,
+    page,
+  }) => {
+    await createEmptyOutputConfigAndOpenWizard(configListPage, page)
+    await openOutputDevicePanel(page)
+
+    const deviceEditor = page.getByTestId("output-device-editor")
+    await selectComboBoxOption(
+      page,
+      deviceEditor.getByRole("combobox").first(),
+      "Bravo Throttle Quadrant",
+    )
+    await selectComboBoxOption(
+      page,
+      deviceEditor.getByRole("combobox").nth(1),
+      "LCD Display",
+    )
+
+    const lcdDisplayComboBox = deviceEditor
+      .getByRole("combobox")
+      .filter({ hasText: /^AP Display - HDG$/ })
+    await expect(lcdDisplayComboBox).toBeVisible()
+
+    const lcdEditor = page.getByTestId("lcd-editor")
+    await expect(lcdEditor).not.toBeVisible()
   })
 })
 
@@ -2550,6 +2732,28 @@ test.describe("Output Config Wizard - Preconditions, References and Modifiers", 
 
     const preconditionsPanel = page.getByTestId("precondition-panel")
     await expect(preconditionsPanel.getByText(/7-Segment/)).toBeVisible()
+  })
+
+  test("Config references do not offer the config itself", async ({
+    configListPage,
+    page,
+  }) => {
+    await openWizardForRow(configListPage, page, ROW.Output)
+
+    await page
+      .getByTestId("config-reference-panel")
+      .getByRole("button", { name: "Edit references" })
+      .click()
+    await page
+      .getByTestId("config-reference-item-row")
+      .first()
+      .getByRole("combobox")
+      .click()
+
+    await expect(page.getByRole("option").first()).toBeVisible()
+    await expect(
+      page.getByRole("option", { name: "LED 1", exact: true }),
+    ).toHaveCount(0)
   })
 
   test("Config without references and preconditions hides their summaries", async ({

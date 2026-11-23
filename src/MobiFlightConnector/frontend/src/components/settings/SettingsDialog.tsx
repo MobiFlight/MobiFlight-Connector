@@ -17,6 +17,12 @@ import messageExchange from "@/lib/messageExchange"
 import Settings from "@/types/settings"
 import { ScrollArea } from "../ui/scroll-area"
 import { Badge } from "@/components/ui/badge"
+import { useAuth } from "react-oidc-context"
+import { uploadCloudSettings } from "@/lib/cloudSettings"
+import useCloudSettingsSync from "@/lib/hooks/useCloudSettingsSync"
+import { cloudSyncStorage } from "@/lib/cloudSyncStorage"
+import { showSyncNotification } from "@/components/settings/SyncNotification"
+import { IconCloud, IconCloudOff, IconCheck } from "@tabler/icons-react"
 
 export type SettingsDialogProps = {
   isOpen: boolean
@@ -27,10 +33,11 @@ export default function SettingsDialog({
   isOpen,
   onOpenChange,
 }: SettingsDialogProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslation("settings")
   const originalSettings = useSettingsStore((state) => state.settings)
   const setSettings = useSettingsStore((state) => state.setSettings)
 
+  const auth = useAuth()
   const [prevOriginalSettings, setPrevOriginalSettings] =
     useState(originalSettings)
   const [draftSettings, setDraftSettings] = useState<Partial<Settings>>(
@@ -51,8 +58,13 @@ export default function SettingsDialog({
       [key]: value,
     }))
   }
+  const { triggerSyncCheck } = useCloudSettingsSync()
+  const handleSave = async () => {
+    const isEnablingSync =
+      draftSettings.CloudSettingsSyncEnabled &&
+      !originalSettings?.CloudSettingsSyncEnabled &&
+      auth.isAuthenticated
 
-  const handleSave = () => {
     if (draftSettings) {
       setSettings(draftSettings as Settings)
       messageExchange.publish({
@@ -61,14 +73,91 @@ export default function SettingsDialog({
           Settings: draftSettings,
         },
       })
+
+      if (isEnablingSync) {
+        triggerSyncCheck(draftSettings)
+      } else if (
+        auth.isAuthenticated &&
+        draftSettings.CloudSettingsSyncEnabled
+      ) {
+        const lastSyncedHash = cloudSyncStorage.getLastSyncedHash()
+        uploadCloudSettings(auth, {
+          schemaVersion: 1,
+          baseHash: lastSyncedHash || undefined,
+          content: draftSettings,
+        })
+          .then((res) => {
+            if (res?.contentHash) {
+              cloudSyncStorage.setLastSyncedHash(res.contentHash)
+              cloudSyncStorage.setLastSyncedSettings(draftSettings as Settings)
+            }
+            showSyncNotification("saved")
+          })
+          .catch((err: unknown) => {
+            console.error(
+              "[SettingsDialog] Failed to upload settings to cloud on save:",
+              err,
+            )
+            showSyncNotification("failed_upload")
+          })
+      }
     }
     onOpenChange(false)
   }
+
   const [showDiscardConfirm, setShowDiscardConfirm] = useState(false)
 
   const hasUnsavedChanges = () => {
     if (!originalSettings) return Object.keys(draftSettings).length > 0
     return JSON.stringify(draftSettings) !== JSON.stringify(originalSettings)
+  }
+
+  const renderSyncStatus = () => {
+    if (!auth.isAuthenticated) {
+      return (
+        <Button
+          variant="ghost"
+          size="sm"
+          className="h-auto px-2 py-1 flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground"
+          onClick={() => {
+            messageExchange.publish({
+              key: "CommandUserAuthentication",
+              payload: {
+                flow: "login",
+                state: "started",
+                url: `${window.location.origin}/auth/login`,
+              },
+            })
+          }}
+        >
+          <IconCloudOff className="h-4 w-4" />
+          <span>
+            {t("Settings.Sync.Status.SignInToSync", "Sign in to sync settings")}
+          </span>
+        </Button>
+      )
+    }
+
+    if (!draftSettings.CloudSettingsSyncEnabled) {
+      return (
+        <div className="flex items-center gap-2 text-xs text-muted-foreground select-none">
+          <IconCloudOff className="h-5 w-5 text-muted-foreground/70" />
+          <span>{t("Settings.Sync.Status.SyncPaused", "Cloud sync paused")}</span>
+        </div>
+      )
+    }
+
+    return (
+      <div className="flex items-center gap-2 text-xs text-muted-foreground select-none">
+        <div className="relative flex items-center justify-center">
+          <IconCloud className="h-5 w-5 text-blue-500" />
+          <IconCheck className="h-3 w-3 text-emerald-500 absolute -bottom-0.5 -right-1 stroke-[3]" />
+        </div>
+        <span className="text-gray-700 dark:text-gray-300 font-medium">
+          {t("Settings.Sync.Status.Synced", "Settings synced")}
+        </span>
+      </div>
+    )
   }
 
   const handleRequestClose = () => {
@@ -123,6 +212,7 @@ export default function SettingsDialog({
                 {t("General.NewFeature")}
               </Badge>
               <Trans
+                ns="settings"
                 i18nKey="Settings.ManageControllerNote"
                 shouldUnescape={true}
                 values={{
@@ -167,13 +257,16 @@ export default function SettingsDialog({
             </TabsContent>
           </Tabs>
 
-          <DialogFooter className="shrink-0 gap-2 sm:gap-0">
-            <Button variant="secondary" onClick={handleRequestClose}>
-              {t("Dialog.General.Cancel")}
-            </Button>
-            <Button onClick={handleSave}>
-              {t("MainMenu.File.Save", "Save")}
-            </Button>
+          <DialogFooter className="flex w-full shrink-0 flex-row items-center justify-between sm:justify-between">
+            {renderSyncStatus()}
+            <div className="flex items-center gap-2">
+              <Button variant="secondary" onClick={handleRequestClose}>
+                {t("Dialog.General.Cancel")}
+              </Button>
+              <Button onClick={handleSave}>
+                {t("MainMenu.File.Save", "Save")}
+              </Button>
+            </div>
           </DialogFooter>
         </DialogContent>
       </Dialog>
