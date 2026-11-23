@@ -389,11 +389,10 @@
       { "Name": "AP Mode - HDG", "Label": "AP Mode - HDG", "Type": "Output" },
       { "Name": "AP Mode - NAV", "Label": "AP Mode - NAV", "Type": "Output" },
       {
+        "Name": "AP Display - HDG",
         "Label": "AP Display - HDG",
-        "Id": "AP.display.hdg",
-        "Byte": 1,
-        "Bit": 1,
-        "Type": "LcdDisplay"
+        "Type": "LcdDisplay",
+        "Capabilities": { "Rows": 1, "Columns": 8 }
       }
     ]
   },
