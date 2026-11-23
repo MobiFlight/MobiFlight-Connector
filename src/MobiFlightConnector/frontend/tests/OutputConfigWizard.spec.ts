@@ -2385,6 +2385,11 @@ test.describe("Output Config Wizard - LCD Display Device", () => {
       "LCD Display",
     )
 
+    const lcdDisplayComboBox = deviceEditor
+      .getByRole("combobox")
+      .filter({ hasText: /^AP Display - HDG$/ })
+    await expect(lcdDisplayComboBox).toBeVisible()
+
     const lcdEditor = page.getByTestId("lcd-editor")
     await expect(lcdEditor).not.toBeVisible()
   })
