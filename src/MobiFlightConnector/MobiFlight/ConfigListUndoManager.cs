@@ -164,7 +164,7 @@ namespace MobiFlight
                 _listUndoHistory.LastOrDefault() is ItemCreatedUndoEntry created &&
                 created.MatchesCreation(Project, file, ActiveConfigIndex, originalItem.GUID);
 
-            if (!isLatestCreation) return true;
+            if (isLatestCreation) return true;
 
             PushConfigListUndo(new ItemUpdatedUndoEntry(
                 Project, file, ActiveConfigIndex, originalItem, change));
