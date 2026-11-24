@@ -2342,6 +2342,57 @@ test.describe("Output Config Wizard - LCD Display Device", () => {
       ],
     })
   })
+
+  test("Lcd Display Editor shows for MobiFlight Controller", async ({
+    configListPage,
+    page,
+  }) => {
+    await createEmptyOutputConfigAndOpenWizard(configListPage, page)
+    await openOutputDevicePanel(page)
+
+    const deviceEditor = page.getByTestId("output-device-editor")
+    await selectComboBoxOption(
+      page,
+      deviceEditor.getByRole("combobox").first(),
+      "ProtoBoard-v2",
+    )
+    await selectComboBoxOption(
+      page,
+      deviceEditor.getByRole("combobox").nth(1),
+      "LCD Display",
+    )
+
+    const lcdEditor = page.getByTestId("lcd-editor")
+    await expect(lcdEditor).toBeVisible()
+  })
+
+  test("Lcd Display Editor should not show for Hid Controller", async ({
+    configListPage,
+    page,
+  }) => {
+    await createEmptyOutputConfigAndOpenWizard(configListPage, page)
+    await openOutputDevicePanel(page)
+
+    const deviceEditor = page.getByTestId("output-device-editor")
+    await selectComboBoxOption(
+      page,
+      deviceEditor.getByRole("combobox").first(),
+      "Bravo Throttle Quadrant",
+    )
+    await selectComboBoxOption(
+      page,
+      deviceEditor.getByRole("combobox").nth(1),
+      "LCD Display",
+    )
+
+    const lcdDisplayComboBox = deviceEditor
+      .getByRole("combobox")
+      .filter({ hasText: /^AP Display - HDG$/ })
+    await expect(lcdDisplayComboBox).toBeVisible()
+
+    const lcdEditor = page.getByTestId("lcd-editor")
+    await expect(lcdEditor).not.toBeVisible()
+  })
 })
 
 test.describe("Output Config Wizard - Custom Device", () => {
