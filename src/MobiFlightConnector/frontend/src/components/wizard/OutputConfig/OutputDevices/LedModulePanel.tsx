@@ -157,57 +157,67 @@ const LedModulePanel = ({
               aria-label={t("ConfigWizard.Device.SevenSegment.UseDigits")}
               className="flex flex-row gap-0.5"
             >
-              {digitIndexes.map((digit) => (
-                <SevenSegmentButton
-                  key={digit}
-                  value={(Number(digit)+1).toString()}
-                  position={Number(digit)+1}
-                  digitActive={config.DisplayLedDigits.includes(digit)}
-                  decimalPointActive={config.DisplayLedDecimalPoints.includes(
-                    digit,
-                  )}
-                  onClickSegment={() =>
-                    onChange?.({
-                      ...config,
-                      DisplayLedDigits: toggle(
-                        config.DisplayLedDigits,
-                        digit,
-                        !config.DisplayLedDigits.includes(digit),
-                      ),
-                    })
-                  }
-                  onClickDecimalPoint={() =>
-                    onChange?.({
-                      ...config,
-                      DisplayLedDecimalPoints: toggle(
-                        config.DisplayLedDecimalPoints,
-                        digit,
-                        !config.DisplayLedDecimalPoints.includes(digit),
-                      ),
-                    })
-                  }
-                />
-              ))}
+              {digitIndexes.map((digit) => {
+                const digitIndex = (currentModuleSize - 1 - Number(digit)).toString()
+                return (
+                  <SevenSegmentButton
+                    key={digit}
+                    value={(Number(digit) + 1).toString()}
+                    position={Number(digit) + 1}
+                    digitActive={config.DisplayLedDigits.includes(digitIndex)}
+                    decimalPointActive={config.DisplayLedDecimalPoints.includes(
+                      digitIndex,
+                    )}
+                    onClickSegment={() =>
+                      onChange?.({
+                        ...config,
+                        DisplayLedDigits: toggle(
+                          config.DisplayLedDigits,
+                          digitIndex,
+                          !config.DisplayLedDigits.includes(digitIndex),
+                        ),
+                      })
+                    }
+                    onClickDecimalPoint={() =>
+                      onChange?.({
+                        ...config,
+                        DisplayLedDecimalPoints: toggle(
+                          config.DisplayLedDecimalPoints,
+                          digitIndex,
+                          !config.DisplayLedDecimalPoints.includes(digitIndex),
+                        ),
+                      })
+                    }
+                  />
+                )
+              })}
             </div>
-            <div className="flex flex-row gap-2 items-center">
-              <Button 
+            <div className="flex flex-row items-center gap-2">
+              <Button
                 size={"sm"}
                 variant="outline"
                 onClick={() =>
-                onChange?.({
-                  ...config,
-                  DisplayLedDigits: config.DisplayLedDigits.length > 0 ? [] : digitIndexes,
-                })
-              }>Toggle digits</Button>
-              <Button 
+                  onChange?.({
+                    ...config,
+                    DisplayLedDigits:
+                      config.DisplayLedDigits.length > 0 ? [] : digitIndexes,
+                  })
+                }
+              >
+                Toggle digits
+              </Button>
+              <Button
                 size={"sm"}
                 variant="outline"
                 onClick={() =>
-                onChange?.({
-                  ...config,
-                  DisplayLedDecimalPoints: [],
-                })
-              }>Clear decimal points</Button>
+                  onChange?.({
+                    ...config,
+                    DisplayLedDecimalPoints: [],
+                  })
+                }
+              >
+                Clear decimal points
+              </Button>
             </div>
           </div>
         </div>
