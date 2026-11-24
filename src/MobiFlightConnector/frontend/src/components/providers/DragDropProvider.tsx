@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react"
+import React, { useCallback, useEffect, useMemo, useState } from "react"
 import { flushSync } from "react-dom"
 // Note: the library's DragDropProvider is not this file's ConfigItemDragProvider
 import { DragDropProvider } from "@dnd-kit/react"
@@ -69,6 +69,9 @@ export interface ConfigItemDragVisualContextType {
 }
 
 const EMPTY_DRAGGED_ITEM_IDS: ReadonlySet<string> = new Set()
+
+// How long a drag must rest on a tab before that tab opens
+const TAB_HOVER_DELAY_MS = 600
 
 // One pointer sensor covers mouse, touch and pen.
 // Defined once so the provider receives a stable array.
@@ -234,6 +237,27 @@ export function ConfigItemDragProvider({
     [dragState, moveItemsBetweenConfigs],
   )
 
+  const hoveredTabIndex = dragState?.ui.hoveredTabIndex ?? -1
+  const currentConfigIndex = dragState?.configs.current ?? -1
+
+  // Move the items and open the tab together, so the items are never in a tab
+  // the user cannot see. Leaving the tab or ending the drag clears the timer.
+  useEffect(() => {
+    if (hoveredTabIndex === -1 || hoveredTabIndex === currentConfigIndex) return
+
+    const timeout = setTimeout(() => {
+      moveItemsToHoveredTab(hoveredTabIndex)
+      selectActiveFile(hoveredTabIndex)
+    }, TAB_HOVER_DELAY_MS)
+
+    return () => clearTimeout(timeout)
+  }, [
+    hoveredTabIndex,
+    currentConfigIndex,
+    moveItemsToHoveredTab,
+    selectActiveFile,
+  ])
+
   /**
    * Simplified drag cancellation - restore items to initial config
    */
@@ -334,18 +358,6 @@ export function ConfigItemDragProvider({
 
       const target = event.operation.target
       const hoveringOverTab = target?.data?.type === "tab"
-      const hoveredTabIndex = target?.data?.index
-
-      // Move items if hovering over a different tab
-      if (
-        hoveringOverTab &&
-        hoveredTabIndex !== undefined &&
-        hoveredTabIndex !== dragState.configs.current
-      ) {
-        moveItemsToHoveredTab(hoveredTabIndex)
-        return
-      }
-
       const hoveringOverTable = ["table", "row"].includes(target?.data?.type)
 
       if (hoveringOverTable && !dragState.ui.isInsideTable) {
@@ -405,7 +417,7 @@ export function ConfigItemDragProvider({
         )
       }
     },
-    [dragState, tableContainerRef, moveItemsToHoveredTab],
+    [dragState, tableContainerRef],
   )
 
   // Context value that child components can access

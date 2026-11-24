@@ -688,6 +688,125 @@ test.describe("Drag and drop tests", () => {
     // No commands should have been posted
     expect(postedCommands).toHaveLength(0)
   })
+
+  test("Confirm quickly passing over another tab keeps the item in its tab", async ({
+    configListPage,
+    page,
+  }) => {
+    // Arrange
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+    await configListPage.mobiFlightPage.trackCommand("CommandResortConfigItem")
+
+    const firstTab = page.getByRole("tab").nth(0)
+    const secondTab = page.getByRole("tab").nth(1)
+    const dragHandle = page.getByRole("row").nth(1).getByRole("button").first()
+    const dropTarget = page.getByRole("row", { name: "ShiftRegister" })
+    const insideOverlay = page.getByTestId(
+      "config-item-drag-overlay-inside-table",
+    )
+    const outsideOverlay = page.getByTestId(
+      "config-item-drag-overlay-outside-table",
+    )
+
+    // read the positions before the drag because rows move during it
+    const tabBox = (await secondTab.boundingBox())!
+    const tabCenterX = tabBox.x + tabBox.width / 2
+    const tabCenterY = tabBox.y + tabBox.height / 2
+    const dropBox = (await dropTarget.boundingBox())!
+    const dropX = dropBox.x + 200
+    const dropY = dropBox.y + dropBox.height / 2
+    const outsideRight = page.viewportSize()!.width + 40
+
+    // Act
+    await test.step("Drag the first row up and out of the window, crossing the second tab", async () => {
+      await dragHandle.hover()
+      await page.mouse.down()
+      await page.mouse.move(10, 10)
+      await page.mouse.move(10, 20)
+      await expect(outsideOverlay).toBeVisible()
+      await page.mouse.move(tabCenterX, tabCenterY)
+      await page.mouse.move(tabCenterX + 2, tabCenterY)
+      // the tab must really be hovered, otherwise this test proves nothing
+      await expect(secondTab.getByRole("button").first()).toContainClass(
+        "bg-muted",
+      )
+      // leave the window before the tab opens
+      await page.mouse.move(tabCenterX, -40)
+    })
+
+    await test.step("Come back and drop on a row of the first tab", async () => {
+      // go around outside so that the pointer does not cross the first tab
+      await page.mouse.move(outsideRight, -40)
+      await page.mouse.move(outsideRight, dropY)
+      await page.mouse.move(dropX, dropY, { steps: 5 })
+      await expect(insideOverlay).toBeVisible()
+      // the second mouse move updates the target after the rows shifted
+      await page.mouse.move(dropX + 10, dropY + 2)
+      await page.mouse.up()
+    })
+
+    // Assert
+    await expect(firstTab).toHaveAttribute("aria-selected", "true")
+    await expect(page.getByRole("row").nth(6)).toContainText("7-Segment")
+
+    const postedCommands =
+      await configListPage.mobiFlightPage.getTrackedCommands()
+    const lastCommand = postedCommands!.pop()
+    expect(lastCommand.payload.sourceFileIndex).toEqual(0)
+    expect(lastCommand.payload.targetFileIndex).toEqual(0)
+    expect(lastCommand.payload.newIndex).toEqual(5)
+
+    // the item must not be in the second tab
+    await secondTab.getByRole("button").first().click()
+    await expect(secondTab).toHaveAttribute("aria-selected", "true")
+    await expect(page.getByRole("row", { name: "7-Segment" })).toHaveCount(0)
+  })
+
+  test("Confirm dropping on a third tab does not duplicate the item", async ({
+    configListPage,
+    page,
+  }) => {
+    // Arrange
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+    await configListPage.mobiFlightPage.trackCommand("CommandResortConfigItem")
+
+    const secondTab = page.getByRole("tab").nth(1)
+    const thirdTab = page.getByRole("tab").nth(2)
+    const draggedRow = page.getByRole("row", { name: "7-Segment" })
+    const dragHandle = page.getByRole("row").nth(1).getByRole("button").first()
+
+    // Act
+    await test.step("Rest on the second tab until it opens", async () => {
+      await dragHandle.hover()
+      await page.mouse.down()
+      await page.mouse.move(10, 10)
+      await page.mouse.move(10, 20)
+      await secondTab.hover()
+      await expect(secondTab).toHaveAttribute("aria-selected", "true")
+    })
+
+    await test.step("Drop on the third tab before it opens", async () => {
+      await thirdTab.hover()
+      await page.mouse.up()
+    })
+
+    // Assert
+    await secondTab.getByRole("button").first().click()
+    await expect(secondTab).toHaveAttribute("aria-selected", "true")
+    await expect(draggedRow).toHaveCount(0)
+
+    await thirdTab.getByRole("button").first().click()
+    await expect(thirdTab).toHaveAttribute("aria-selected", "true")
+    await expect(draggedRow).toHaveCount(1)
+
+    const postedCommands =
+      await configListPage.mobiFlightPage.getTrackedCommands()
+    const lastCommand = postedCommands!.pop()
+    expect(lastCommand.payload.sourceFileIndex).toEqual(0)
+    expect(lastCommand.payload.targetFileIndex).toEqual(2)
+  })
 })
 
 test("Confirm dark mode is working", async ({ configListPage, page }) => {

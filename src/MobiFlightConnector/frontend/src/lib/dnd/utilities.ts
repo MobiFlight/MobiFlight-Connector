@@ -164,12 +164,11 @@ export const extractDropContext = (
   const dropTargetItemId = target!.id as string
 
   // Determine config indices
-  const sourceConfigIndex = !hoveringOverTab
-    ? dragState.configs.current
-    : dragState.configs.source
-  const targetConfigIndex = !hoveringOverTab
-    ? dragState.configs.current
-    : dragState.ui.hoveredTabIndex
+  // The items are always in the current config, wherever the drag started
+  const sourceConfigIndex = dragState.configs.current
+  const targetConfigIndex = hoveringOverTab
+    ? (target!.data.index as number)
+    : dragState.configs.current
 
   // Get items and filter out dragged ones
   const currentItems = getConfigItems(sourceConfigIndex)

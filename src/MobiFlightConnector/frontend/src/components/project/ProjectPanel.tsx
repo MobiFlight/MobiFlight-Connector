@@ -203,25 +203,7 @@ const ProjectPanel = () => {
     setIsDialogOpen(false)
   }
 
-  // Hover timer ref
-  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const activeProfileTabRef = useRef<HTMLDivElement | null>(null)
-
-  useEffect(() => {
-    if (
-      dragState?.ui.hoveredTabIndex !== undefined &&
-      dragState?.ui.hoveredTabIndex !== -1
-    ) {
-      hoverTimeoutRef.current = setTimeout(() => {
-        selectActiveFile(dragState?.ui.hoveredTabIndex)
-      }, 600)
-    } else {
-      if (hoverTimeoutRef.current) {
-        clearTimeout(hoverTimeoutRef.current)
-        hoverTimeoutRef.current = null
-      }
-    }
-  }, [dragState?.ui.hoveredTabIndex, selectActiveFile])
 
   // clear timers on unmount
   useEffect(() => {
@@ -229,10 +211,6 @@ const ProjectPanel = () => {
       if (scrollIntoViewTimeoutRef.current) {
         clearTimeout(scrollIntoViewTimeoutRef.current)
         scrollIntoViewTimeoutRef.current = null
-      }
-      if (hoverTimeoutRef.current) {
-        clearTimeout(hoverTimeoutRef.current)
-        hoverTimeoutRef.current = null
       }
       if (scrollIntervalRef.current) {
         clearInterval(scrollIntervalRef.current)
