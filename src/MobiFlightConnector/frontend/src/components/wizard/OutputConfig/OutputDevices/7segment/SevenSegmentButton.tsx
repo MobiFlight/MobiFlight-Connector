@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils"
+import { useTranslation } from "react-i18next"
 
 type SegmentButtonProps = {
   value: string
@@ -41,27 +42,33 @@ export const SevenSegmentButton = ({
   decimalPointActive,
   onClickSegment,
   onClickDecimalPoint,
+  className,
   ...props
 }: SegmentButtonProps) => {
+  const { t } = useTranslation("wizard")
   const activeSegments = valueToSegments[value] || []
   const isSegmentActive = (segment: string) => activeSegments.includes(segment)
 
   const colorVariants = {
-    active: "bg-red-600 fill-red-600 group-hover:fill-red-500 group-hover:bg-red-500",
-    inactive: "bg-red-950 fill-red-950 group-hover:fill-red-800/70 group-hover:bg-red-800/70",
+    active:
+      "bg-red-600 fill-red-600 group-hover:fill-red-500 group-hover:bg-red-500",
+    inactive:
+      "bg-red-950 fill-red-950 group-hover:fill-red-800/70 group-hover:bg-red-800/70",
   }
   return (
     <div className="flex flex-col gap-1">
-      <div className="relative bg-foreground">
+      <div className="bg-foreground relative">
         <button
           onClick={onClickSegment}
           type="button"
           role="checkbox"
-          className={cn("group h-12 w-8 bg-gray-900 px-0.5 py-1", props?.className)}
+          className={cn("group h-12 w-8 bg-gray-900 px-0.5 py-1", className)}
           data-i={position}
-          aria-pressed="true"
-          aria-label={`Digit ${position}, used by this value`}
-          title={`Toggle digit ${position}`}
+          aria-checked={digitActive}
+          aria-label={t("ConfigWizard.Device.SevenSegment.Digit", { position })}
+          title={t("ConfigWizard.Device.SevenSegment.ToggleDigit", {
+            position,
+          })}
           {...props}
         >
           <svg viewBox="-12 0 76 100" aria-hidden="true">
@@ -78,9 +85,16 @@ export const SevenSegmentButton = ({
           </svg>
         </button>
         <button
+          type="button"
+          role="checkbox"
           onClick={onClickDecimalPoint}
-          aria-label="decimal point"
-          title="Toggle decimal point"
+          aria-checked={decimalPointActive}
+          aria-label={t("ConfigWizard.Device.SevenSegment.DecimalPoint", {
+            position,
+          })}
+          title={t("ConfigWizard.Device.SevenSegment.ToggleDecimalPoint", {
+            position,
+          })}
           className="group absolute -right-0.5 bottom-0.5 p-1"
         >
           <div
@@ -93,13 +107,14 @@ export const SevenSegmentButton = ({
           ></div>
         </button>
       </div>
-      <button onClick={onClickSegment} className="px-0.5">
+      {/* extra mouse target for the digit; keyboard and screen readers use the digit checkbox */}
+      <div aria-hidden="true" onClick={onClickSegment} className="px-0.5">
         {digitActive ? (
           <div className="bg-primary h-1 w-full"></div>
         ) : (
           <div className="bg-muted-foreground/50 h-1 w-full"></div>
         )}
-      </button>
+      </div>
     </div>
   )
 }

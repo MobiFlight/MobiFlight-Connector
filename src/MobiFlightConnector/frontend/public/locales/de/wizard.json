@@ -114,6 +114,10 @@
         "Digits": "Stellen",
         "UseDigits": "Stellen verwenden",
         "DecimalPoints": "Dezimalpunkte",
+        "Digit": "Stelle {{position}}",
+        "ToggleDigit": "Stelle {{position}} umschalten",
+        "DecimalPoint": "Dezimalpunkt {{position}}",
+        "ToggleDecimalPoint": "Dezimalpunkt {{position}} umschalten",
         "AdvancedOptions": {
           "Title": "Erweiterte Optionen",
           "Description": "Konfiguriere erweiterte Anzeigeoptionen für das 7-Segment-Modul.",

@@ -1949,6 +1949,58 @@ test.describe("Output Config Wizard - 7-Segment Device", () => {
     })
   })
 
+  test("Digits and decimal points can be toggled as checkboxes", async ({
+    configListPage,
+    page,
+  }) => {
+    await openWizardForRow(configListPage, page, ROW.SevenSegment)
+
+    const actionPanel = page.getByTestId("action-panel")
+    await actionPanel.getByRole("button").last().click()
+    const deviceEditor = page.getByTestId("output-device-editor")
+    await expect(deviceEditor).toBeVisible()
+
+    const useDigits = deviceEditor.getByRole("group", { name: "Use digits" })
+    const digit1 = useDigits.getByRole("checkbox", {
+      name: "Digit 1",
+      exact: true,
+    })
+    const decimalPoint3 = useDigits.getByRole("checkbox", {
+      name: "Decimal point 3",
+      exact: true,
+    })
+
+    await test.step("Each digit has one checkbox for the digit and one for its decimal point", async () => {
+      // module size of the test data is 8
+      await expect(useDigits.getByRole("checkbox")).toHaveCount(16)
+      await expect(digit1).not.toBeChecked()
+      await expect(decimalPoint3).not.toBeChecked()
+    })
+
+    await test.step("Enable digit 1 and decimal point 3", async () => {
+      await digit1.click()
+      await decimalPoint3.click()
+      await expect(digit1).toBeChecked()
+      await expect(decimalPoint3).toBeChecked()
+      await expect(
+        useDigits.getByRole("checkbox", { name: "Decimal point 1", exact: true }),
+      ).not.toBeChecked()
+      await expect(
+        useDigits.getByRole("checkbox", { name: "Digit 3", exact: true }),
+      ).not.toBeChecked()
+    })
+
+    await closeDrawer(page)
+    await expect(deviceEditor).not.toBeVisible()
+
+    const payload = await applyChangesAndReturnPayload(configListPage, page)
+    expect(payload.item.Device).toMatchObject({
+      Type: "LedModule",
+      DisplayLedDigits: ["0"],
+      DisplayLedDecimalPoints: ["2"],
+    })
+  })
+
   test("Brightness can be controlled by another output config", async ({
     configListPage,
     page,

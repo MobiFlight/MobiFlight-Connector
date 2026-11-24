@@ -152,7 +152,11 @@ const LedModulePanel = ({
         <div className="flex flex-col gap-2">
           <Label>{t("ConfigWizard.Device.SevenSegment.UseDigits")}</Label>
           <div className="flex flex-row gap-4">
-            <div className="flex flex-row gap-0.5">
+            <div
+              role="group"
+              aria-label={t("ConfigWizard.Device.SevenSegment.UseDigits")}
+              className="flex flex-row gap-0.5"
+            >
               {digitIndexes.map((digit) => (
                 <SevenSegmentButton
                   key={digit}
