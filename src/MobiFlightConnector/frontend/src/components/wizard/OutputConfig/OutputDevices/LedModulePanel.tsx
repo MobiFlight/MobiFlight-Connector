@@ -92,7 +92,7 @@ const LedModulePanel = ({
   if (variant == "details") {
     // digit 0 is the rightmost digit on the display
     const digitIndexes = Array.from(
-      { length: config.DisplayLedModuleSize },
+      { length: currentModuleSize },
       (_, index) => `${index}`,
     )
 
