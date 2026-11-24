@@ -51,7 +51,7 @@ export const SevenSegmentButton = ({
 
   const colorVariants = {
     active:
-      "bg-red-600 fill-red-600 group-hover:fill-red-500 group-hover:bg-red-500",
+      "bg-red-600 fill-red-600 group-hover:fill-red-500 group-hover:bg-red-500 shadow-md [filter:drop-shadow(0_0_4px_var(--color-red-500))_drop-shadow(0_0_24px_var(--color-red-500))]",
     inactive:
       "bg-red-950 fill-red-950 group-hover:fill-red-800/70 group-hover:bg-red-800/70",
   }
