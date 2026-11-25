@@ -1903,30 +1903,30 @@ test.describe("Output Config Wizard - 7-Segment Device", () => {
     const deviceEditor = page.getByTestId("output-device-editor")
     await expect(deviceEditor).toBeVisible()
 
-    const paddingCheckbox = deviceEditor.getByRole("checkbox", {
-      name: "Padding with",
+    const alignSwitch = deviceEditor.getByRole("switch", {
+      name: "Align right",
     })
-    const reverseDigitsCheckbox = deviceEditor.getByRole("checkbox", {
-      name: "Reverse digits",
+    const reverseDigitsCheckbox = deviceEditor.getByRole("switch", {
+      name: "Reverse digit order",
     })
 
     await test.step("Details show the 7-segment settings", async () => {
       await expect(
         deviceEditor.getByRole("combobox").filter({ hasText: /^7-Segment$/ }),
       ).toBeVisible()
-      await expect(paddingCheckbox).not.toBeChecked()
+      await expect(alignSwitch).not.toBeChecked()
       await expect(reverseDigitsCheckbox).not.toBeChecked()
     })
 
     await test.step("Enable padding with space and reverse digits", async () => {
-      await paddingCheckbox.click()
+      await alignSwitch.click()
       await selectComboBoxOption(
         page,
-        deviceEditor.getByRole("combobox").filter({ hasText: /^0$/ }),
+        deviceEditor.getByRole("combobox").filter({ hasText: /^0 \(Zero\)$/ }),
         "Space",
       )
       await reverseDigitsCheckbox.click()
-      await expect(paddingCheckbox).toBeChecked()
+      await expect(alignSwitch).toBeChecked()
       await expect(reverseDigitsCheckbox).toBeChecked()
     })
 
@@ -1934,8 +1934,8 @@ test.describe("Output Config Wizard - 7-Segment Device", () => {
     await expect(deviceEditor).not.toBeVisible()
 
     await test.step("Summary shows the enabled options", async () => {
-      await expect(actionPanel.getByText("Padding with")).toBeVisible()
-      await expect(actionPanel.getByText("Reverse digits")).toBeVisible()
+      await expect(actionPanel.getByText("Align right")).toBeVisible()
+      await expect(actionPanel.getByText("Reverse digit order")).toBeVisible()
     })
 
     const payload = await applyChangesAndReturnPayload(configListPage, page)
