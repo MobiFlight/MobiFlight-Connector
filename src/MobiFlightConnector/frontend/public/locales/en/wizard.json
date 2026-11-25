@@ -121,15 +121,26 @@
         "AdvancedOptions": {
           "Title": "Advanced options",
           "Description": "Configure advanced display options for the 7-segment module.",
-          "Padding": "Padding with",
-          "PaddingSpace": "Space",
-          "ReverseDigits": "Reverse digits"
-        },
-        "Brightness": {
-          "Label": "Brightness",
-          "Description": "Use the value of another output config to set the brightness of the display.",
-          "None": "None",
-          "Summary": "Brightness: {{name}}"
+          "Padding": {
+            "Label": "Align right",
+            "Description": "When enabled, your values on the display will be aligned to the right."
+          },
+          "PaddingCharacter": {
+            "Label": "Padding character",
+            "Description": "Select the character used for padding the display.",
+            "Space": "Space",
+            "Zero": "0 (Zero)"
+          },
+          "ReverseDigits": {
+            "Label": "Reverse digit order",
+            "Description": "Reverse the order of the digits on the display. This is sometimes required for custom built 7-segment displays."
+          },
+          "Brightness": {
+            "Label": "Brightness",
+            "Description": "Use the value of another output config to set the brightness of the display.",
+            "None": "None",
+            "Summary": "Brightness: {{name}}"
+          }
         }
       },
       "LcdDisplay": {

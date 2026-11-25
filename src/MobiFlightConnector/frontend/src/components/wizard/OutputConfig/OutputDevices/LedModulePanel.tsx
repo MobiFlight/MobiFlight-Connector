@@ -3,7 +3,6 @@ import { IConfigItem, LedModuleConfig } from "@/types/config"
 import { DeviceReference, Controller } from "@/types/controller"
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
-import { Checkbox } from "@/components/ui/checkbox"
 import ComboBox from "@/components/ComboBox"
 import OutputDeviceComboBox from "@/components/wizard/OutputConfig/OutputDevices/OutputDeviceComboBox"
 import { Separator } from "@/components/ui/separator"
@@ -13,6 +12,8 @@ import { useProjectStore } from "@/stores/projectStore"
 import { useTranslation } from "react-i18next"
 import { SevenSegmentButton } from "@/components/wizard/OutputConfig/OutputDevices/7segment/SevenSegmentButton"
 import { Button } from "@/components/ui/button"
+import { Switch } from "@/components/ui/switch"
+import SettingsRow from "@/components/settings/components/SettingsRow"
 
 type Option = { label: string; value: string }
 
@@ -20,13 +21,15 @@ const OptionComboBox = ({
   options,
   value,
   onChange,
+  id,
 }: {
   options: Option[]
   value: string
   onChange: (value: string) => void
+  id?: string
 }) => (
   <ComboBox
-    widthClass="w-24"
+    widthClass="w-56"
     align="start"
     variant="nofilter"
     items={options}
@@ -34,6 +37,7 @@ const OptionComboBox = ({
     getValue={(option) => option.value}
     isSelected={(option, selected) => option.value === selected?.value}
     selected={options.find((option) => option.value === value)}
+    id={id}
     setSelected={(option) => option && onChange(option.value)}
   />
 )
@@ -70,13 +74,20 @@ const LedModulePanel = ({
   )
   const noBrightnessReference = {
     GUID: "",
-    Name: t("ConfigWizard.Device.SevenSegment.Brightness.None"),
+    Name: t("ConfigWizard.Device.SevenSegment.AdvancedOptions.Brightness.None"),
   } as IConfigItem
 
   const paddingCharOptions: Option[] = [
-    { label: "0", value: "0" },
     {
-      label: t("ConfigWizard.Device.SevenSegment.AdvancedOptions.PaddingSpace"),
+      label: t(
+        "ConfigWizard.Device.SevenSegment.AdvancedOptions.PaddingCharacter.Zero",
+      ),
+      value: "0",
+    },
+    {
+      label: t(
+        "ConfigWizard.Device.SevenSegment.AdvancedOptions.PaddingCharacter.Space",
+      ),
       value: " ",
     },
   ]
@@ -158,7 +169,11 @@ const LedModulePanel = ({
               className="flex flex-row gap-0.5"
             >
               {digitIndexes.map((digit) => {
-                const digitIndex = (currentModuleSize - 1 - Number(digit)).toString()
+                const digitIndex = (
+                  currentModuleSize -
+                  1 -
+                  Number(digit)
+                ).toString()
                 return (
                   <SevenSegmentButton
                     key={digit}
@@ -223,6 +238,8 @@ const LedModulePanel = ({
         </div>
         <Separator />
         <div className="flex flex-col gap-2">
+
+        <div className="flex flex-col gap-1">
           <Label>
             {t("ConfigWizard.Device.SevenSegment.AdvancedOptions.Title")}
           </Label>
@@ -230,52 +247,68 @@ const LedModulePanel = ({
             {t("ConfigWizard.Device.SevenSegment.AdvancedOptions.Description")}
           </div>
         </div>
-        <div className="flex flex-row items-center gap-4">
-          <div className="flex flex-row items-center gap-2">
-            <Checkbox
-              id="led-padding"
-              checked={config.DisplayLedPadding}
-              onCheckedChange={(checked) =>
-                onChange?.({ ...config, DisplayLedPadding: !!checked })
-              }
+        <SettingsRow
+          label={t(
+            "ConfigWizard.Device.SevenSegment.AdvancedOptions.Padding.Label",
+          )}
+          description={t(
+            "ConfigWizard.Device.SevenSegment.AdvancedOptions.Padding.Description",
+          )}
+          htmlFor="option-left-padding"
+          >
+          <Switch
+            id="option-left-padding"
+            aria-label={t("ConfigWizard.Device.SevenSegment.AdvancedOptions.Padding.Label")}
+            checked={config.DisplayLedPadding}
+            onCheckedChange={(checked) =>
+              onChange?.({ ...config, DisplayLedPadding: !!checked })
+            }
             />
-            <Label htmlFor="led-padding">
-              {t("ConfigWizard.Device.SevenSegment.AdvancedOptions.Padding")}
-            </Label>
-          </div>
+        </SettingsRow>
+        <SettingsRow
+          label={t(
+            "ConfigWizard.Device.SevenSegment.AdvancedOptions.PaddingCharacter.Label",
+          )}
+          description={t(
+            "ConfigWizard.Device.SevenSegment.AdvancedOptions.PaddingCharacter.Description",
+          )}
+          htmlFor="option-padding-character"
+          >
           <OptionComboBox
+            id="option-padding-character"
             options={paddingCharOptions}
             value={config.DisplayLedPaddingChar}
             onChange={(value) =>
               onChange?.({ ...config, DisplayLedPaddingChar: value })
             }
-          />
-          <Separator orientation="vertical" className="h-6" />
-          <div className="flex flex-row items-center gap-2">
-            <Checkbox
-              id="led-reverse-digits"
-              checked={config.DisplayLedReverseDigits}
-              onCheckedChange={(checked) =>
-                onChange?.({ ...config, DisplayLedReverseDigits: !!checked })
-              }
             />
-            <Label htmlFor="led-reverse-digits">
-              {t(
-                "ConfigWizard.Device.SevenSegment.AdvancedOptions.ReverseDigits",
-              )}
-            </Label>
-          </div>
-        </div>
-        <Separator />
-        <div className="flex flex-row items-center justify-between gap-4">
-          <div className="flex flex-col gap-1">
-            <Label>
-              {t("ConfigWizard.Device.SevenSegment.Brightness.Label")}
-            </Label>
-            <div className="text-muted-foreground text-sm">
-              {t("ConfigWizard.Device.SevenSegment.Brightness.Description")}
-            </div>
-          </div>
+        </SettingsRow>
+        <SettingsRow
+          label={t(
+            "ConfigWizard.Device.SevenSegment.AdvancedOptions.ReverseDigits.Label",
+          )}
+          description={t(
+            "ConfigWizard.Device.SevenSegment.AdvancedOptions.ReverseDigits.Description",
+          )}
+          >
+          <Switch
+            id="option-reverse-digits"
+            aria-label={t("ConfigWizard.Device.SevenSegment.AdvancedOptions.ReverseDigits.Label")}
+            checked={config.DisplayLedReverseDigits}
+            onCheckedChange={(checked) =>
+              onChange?.({ ...config, DisplayLedReverseDigits: !!checked })
+            }
+            />
+        </SettingsRow>
+        <SettingsRow
+          label={t(
+            "ConfigWizard.Device.SevenSegment.AdvancedOptions.Brightness.Label",
+          )}
+          description={t(
+            "ConfigWizard.Device.SevenSegment.AdvancedOptions.Brightness.Description",
+          )}
+          htmlFor="option-brightness"
+          >
           <ComboBox
             widthClass="w-56"
             align="end"
@@ -290,8 +323,9 @@ const LedModulePanel = ({
                 DisplayLedBrightnessReference: item?.GUID ?? "",
               })
             }
-          />
-        </div>
+            />
+        </SettingsRow>
+            </div>
       </WizardSection>
     )
   }
@@ -327,20 +361,20 @@ const LedModulePanel = ({
               {config.DisplayLedPadding && (
                 <Badge variant="secondary">
                   {t(
-                    "ConfigWizard.Device.SevenSegment.AdvancedOptions.Padding",
+                    "ConfigWizard.Device.SevenSegment.AdvancedOptions.Padding.Label",
                   )}
                 </Badge>
               )}
               {config.DisplayLedReverseDigits && (
                 <Badge variant="secondary">
                   {t(
-                    "ConfigWizard.Device.SevenSegment.AdvancedOptions.ReverseDigits",
+                    "ConfigWizard.Device.SevenSegment.AdvancedOptions.ReverseDigits.Label",
                   )}
                 </Badge>
               )}
               {brightnessReference && (
                 <Badge variant="secondary">
-                  {t("ConfigWizard.Device.SevenSegment.Brightness.Summary", {
+                  {t("ConfigWizard.Device.SevenSegment.AdvancedOptions.Brightness.Summary", {
                     name: brightnessReference.Name,
                   })}
                 </Badge>
