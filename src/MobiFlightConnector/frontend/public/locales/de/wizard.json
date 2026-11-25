@@ -121,15 +121,26 @@
         "AdvancedOptions": {
           "Title": "Erweiterte Optionen",
           "Description": "Konfiguriere erweiterte Anzeigeoptionen für das 7-Segment-Modul.",
-          "Padding": "Auffüllen mit",
-          "PaddingSpace": "Leerzeichen",
-          "ReverseDigits": "Stellen umkehren"
-        },
-        "Brightness": {
-          "Label": "Helligkeit",
-          "Description": "Verwende den Wert einer anderen Ausgabe-Konfiguration, um die Helligkeit der Anzeige festzulegen.",
-          "None": "Keine",
-          "Summary": "Helligkeit: {{name}}"
+          "Padding": {
+            "Label": "Rechtsbündig",
+            "Description": "Wenn aktiviert, werden deine Werte auf der Anzeige rechtsbündig ausgerichtet."
+          },
+          "PaddingCharacter": {
+            "Label": "Füllzeichen",
+            "Description": "Wähle das Zeichen, mit dem die Anzeige aufgefüllt wird.",
+            "Space": "Leerzeichen",
+            "Zero": "0 (Null)"
+          },
+          "ReverseDigits": {
+            "Label": "Reihenfolge der Stellen umkehren",
+            "Description": "Kehrt die Reihenfolge der Stellen auf der Anzeige um. Das ist manchmal bei selbstgebauten 7-Segment-Anzeigen nötig."
+          },
+          "Brightness": {
+            "Label": "Helligkeit",
+            "Description": "Verwende den Wert einer anderen Ausgabe-Konfiguration, um die Helligkeit der Anzeige festzulegen.",
+            "None": "Keine",
+            "Summary": "Helligkeit: {{name}}"
+          }
         }
       },
       "LcdDisplay": {
