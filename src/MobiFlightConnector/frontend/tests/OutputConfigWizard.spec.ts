@@ -1996,8 +1996,9 @@ test.describe("Output Config Wizard - 7-Segment Device", () => {
     const payload = await applyChangesAndReturnPayload(configListPage, page)
     expect(payload.item.Device).toMatchObject({
       Type: "LedModule",
-      DisplayLedDigits: ["0"],
-      DisplayLedDecimalPoints: ["2"],
+      // Digits currently are indexed like a MSBF
+      DisplayLedDigits: ["7"],
+      DisplayLedDecimalPoints: ["5"],
     })
   })
 
