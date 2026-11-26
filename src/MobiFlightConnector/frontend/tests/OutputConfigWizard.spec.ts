@@ -2002,6 +2002,72 @@ test.describe("Output Config Wizard - 7-Segment Device", () => {
     })
   })
 
+  for (const digits of [4, 8]) {
+    test(`New 7-Segment config on a ${digits}-digit module has all ${digits} digits enabled`, async ({
+      configListPage,
+      page,
+    }) => {
+      await createEmptyOutputConfigAndOpenWizard(configListPage, page)
+
+      // 8 digits is also the fallback, so 4 shows that the device's digit count is used
+      const controllers = structuredClone(outputConnectedControllers)
+      const sevenSegment = controllers[0].Devices.find(
+        (device) => device.Name === "7-Segment",
+      )!
+      sevenSegment.Capabilities = { Digits: digits }
+      await configListPage.mobiFlightPage.publishMessage({
+        key: "ConnectedControllers",
+        payload: { Controllers: controllers },
+      })
+
+      await openOutputDevicePanel(page)
+      const deviceEditor = page.getByTestId("output-device-editor")
+      await selectComboBoxOption(
+        page,
+        deviceEditor.getByRole("combobox").first(),
+        "ProtoBoard-v2",
+      )
+      await selectComboBoxOption(
+        page,
+        deviceEditor.getByRole("combobox").nth(1),
+        "7-Segment Display",
+      )
+
+      const positions = Array.from({ length: digits }, (_, i) => i + 1)
+
+      await test.step(`All ${digits} digits are shown and enabled, no decimal points`, async () => {
+        const useDigits = deviceEditor.getByRole("group", { name: "Use digits" })
+        await expect(useDigits.getByRole("checkbox")).toHaveCount(digits * 2)
+        for (const position of positions) {
+          await expect(
+            useDigits.getByRole("checkbox", {
+              name: `Digit ${position}`,
+              exact: true,
+            }),
+          ).toBeChecked()
+          await expect(
+            useDigits.getByRole("checkbox", {
+              name: `Decimal point ${position}`,
+              exact: true,
+            }),
+          ).not.toBeChecked()
+        }
+      })
+
+      await closeDrawer(page)
+      await expect(deviceEditor).not.toBeVisible()
+
+      const payload = await applyChangesAndReturnPayload(configListPage, page)
+      expect(payload.item.Device).toMatchObject({
+        Type: "LedModule",
+        Name: "7-Segment",
+        DisplayLedModuleSize: digits,
+        DisplayLedDigits: positions.map((position) => `${position - 1}`),
+        DisplayLedDecimalPoints: [],
+      })
+    })
+  }
+
   test("Brightness can be controlled by another output config", async ({
     configListPage,
     page,
