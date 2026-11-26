@@ -40,10 +40,11 @@ namespace MobiFlight.ConfigListUndo
                 return false;
             }
 
+            int activeIndexBeforeUndo = context.ActiveConfigIndex;
             project.ConfigFiles.RemoveAt(actualIndex);
 
             context.ActiveConfigIndex = Math.Clamp(
-                context.ActiveConfigIndex,
+                activeIndexBeforeUndo,
                 0,
                 Math.Max(0, project.ConfigFiles.Count - 1));
 

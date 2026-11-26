@@ -82,10 +82,11 @@ namespace MobiFlight.ConfigListUndo
                 return false;
             }
 
+            int activeIndexBeforeUndo = context.ActiveConfigIndex;
             RestoreOriginalState(project);
 
             context.ActiveConfigIndex = Math.Min(
-                context.ActiveConfigIndex,
+                activeIndexBeforeUndo,
                 Math.Max(0, project.ConfigFiles.Count - 1));
 
             reason = null;

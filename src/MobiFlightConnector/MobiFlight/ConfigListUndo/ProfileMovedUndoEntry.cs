@@ -85,16 +85,24 @@ namespace MobiFlight.ConfigListUndo
 
             // Preserve the original adjacent-swap
             // restoration behavior.
+            int activeIndexBeforeUndo = context.ActiveConfigIndex;
+            int restoredActiveIndex = activeIndexBeforeUndo;
+
+            if (activeIndexBeforeUndo == _originalIndex)
+            {
+                restoredActiveIndex = _targetIndex;
+            }
+            else if (activeIndexBeforeUndo == _targetIndex)
+            {
+                restoredActiveIndex = _originalIndex;
+            }
+
+            // Moving a profile triggers ProjectChanged,
+            // which resets ActiveConfigIndex.
             files.Move(_originalIndex, _targetIndex);
 
-            if (context.ActiveConfigIndex == _originalIndex)
-            {
-                context.ActiveConfigIndex = _targetIndex;
-            }
-            else if (context.ActiveConfigIndex == _targetIndex)
-            {
-                context.ActiveConfigIndex = _originalIndex;
-            }
+            // Restore the calculated index after ProjectChanged.
+            context.ActiveConfigIndex = restoredActiveIndex;
 
             reason = null;
             return true;

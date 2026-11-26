@@ -43,10 +43,11 @@ namespace MobiFlight.ConfigListUndo
             }
 
             // Restore the original profile object.
+            int activeIndexBeforeUndo = context.ActiveConfigIndex;
             project.ConfigFiles.Insert(_originalIndex, _file);
 
             context.ActiveConfigIndex = Math.Min(
-                context.ActiveConfigIndex,
+                activeIndexBeforeUndo,
                 project.ConfigFiles.Count - 1);
 
             reason = null;
