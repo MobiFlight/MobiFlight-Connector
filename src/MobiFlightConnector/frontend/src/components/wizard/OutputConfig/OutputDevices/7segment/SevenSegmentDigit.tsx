@@ -29,19 +29,51 @@ type SevenSegmentDigitProps = {
   value: string
   digitActive: boolean
   dpActive: boolean
+  digitHighlighted: boolean
+  dpHighlighted: boolean
 }
 
 const colorVariants = {
-  active:
-    "bg-red-600 fill-red-600 group-hover:fill-red-500 group-hover:bg-red-500 shadow-md [filter:drop-shadow(0_0_4px_var(--color-red-500))_drop-shadow(0_0_24px_var(--color-red-500))]",
-  inactive:
-    "bg-red-950 fill-red-950 group-hover:fill-red-800/70 group-hover:bg-red-800/70",
+  active: {
+    default: "bg-red-600 fill-red-600 shadow-md",
+    highlighted: "fill-red-500 bg-red-500",
+    blur: {
+      segment:
+        "[filter:drop-shadow(0_0_2px_var(--color-red-500))_drop-shadow(0_0_10px_var(--color-red-500))]",
+      dp: "[filter:drop-shadow(0_0_2px_var(--color-red-500))_drop-shadow(0_0_3px_var(--color-red-500))]",
+    },
+  },
+  inactive: {
+    default: "bg-red-950 fill-red-950 ",
+    highlighted: "fill-red-800/70 bg-red-800/70",
+  },
+}
+
+const segmentColor = (
+  active: boolean,
+  highlighted: boolean,
+  mode: "segment" | "dp",
+) => {
+  if (active) {
+    return cn(
+      colorVariants["active"]["default"],
+      highlighted && colorVariants["active"]["highlighted"],
+      mode && colorVariants["active"]["blur"][mode],
+    )
+  } else {
+    return cn(
+      colorVariants["inactive"]["default"],
+      highlighted && colorVariants["inactive"]["highlighted"],
+    )
+  }
 }
 
 const SevenSegmentDigit = ({
   value,
   digitActive,
-  dpActive
+  dpActive,
+  digitHighlighted,
+  dpHighlighted,
 }: SevenSegmentDigitProps) => {
   const activeSegments = valueToSegments[value] || []
   const isSegmentActive = (segment: string) => activeSegments.includes(segment)
@@ -53,7 +85,13 @@ const SevenSegmentDigit = ({
           {digitSegments.map((segment) => (
             <polygon
               key={segment}
-              className={`${isSegmentActive(segment) && digitActive ? colorVariants["active"] : colorVariants["inactive"]}`}
+              className={cn(
+                segmentColor(
+                  isSegmentActive(segment) && digitActive,
+                  digitHighlighted,
+                  "segment",
+                ),
+              )}
               data-s={segment}
               points={digitSegmentsPolygonPoints[segment]}
             ></polygon>
@@ -62,8 +100,8 @@ const SevenSegmentDigit = ({
       </svg>
       <div
         className={cn(
-          "absolute right-0 bottom-0 h-1 w-1 rounded-full",
-          dpActive ? colorVariants["active"] : colorVariants["inactive"],
+          "absolute right-0 bottom-0 h-1.5 w-1.5 rounded-full",
+          segmentColor(dpActive, dpHighlighted, "dp"),
         )}
       ></div>
     </div>
