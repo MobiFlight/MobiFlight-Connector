@@ -107,6 +107,10 @@ const LedModulePanel = ({
       (_, index) => `${index}`,
     )
 
+    const allDigitsActive = digitIndexes.every((digit) =>
+      config.DisplayLedDigits.includes(digit),
+    )
+
     const toggle = (list: string[], digit: string, checked: boolean) =>
       checked ? [...list, digit] : list.filter((item) => item !== digit)
 
@@ -214,12 +218,11 @@ const LedModulePanel = ({
                 onClick={() =>
                   onChange?.({
                     ...config,
-                    DisplayLedDigits:
-                      config.DisplayLedDigits.length > 0 ? [] : digitIndexes,
+                    DisplayLedDigits: allDigitsActive ? [] : digitIndexes,
                   })
                 }
               >
-                Toggle digits
+                {t("ConfigWizard.Device.SevenSegment.ToggleAllDigits")}
               </Button>
               <Button
                 size={"sm"}

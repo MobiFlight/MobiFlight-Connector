@@ -116,6 +116,7 @@
         "DecimalPoints": "Dezimalpunkte",
         "Digit": "Ziffer {{position}}",
         "ToggleDigit": "Ziffer {{position}} umschalten",
+        "ToggleAllDigits": "Ziffern umschalten",
         "DecimalPoint": "Dezimalpunkt {{position}}",
         "ToggleDecimalPoint": "Dezimalpunkt {{position}} umschalten",
         "AdvancedOptions": {

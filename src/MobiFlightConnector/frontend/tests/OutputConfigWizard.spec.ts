@@ -2002,6 +2002,60 @@ test.describe("Output Config Wizard - 7-Segment Device", () => {
     })
   })
 
+  test("Toggle all digits turns all digits on unless all are already on", async ({
+    configListPage,
+    page,
+  }) => {
+    await openWizardForRow(configListPage, page, ROW.SevenSegment)
+
+    const actionPanel = page.getByTestId("action-panel")
+    await actionPanel.getByRole("button").last().click()
+    const deviceEditor = page.getByTestId("output-device-editor")
+    await expect(deviceEditor).toBeVisible()
+
+    const useDigits = deviceEditor.getByRole("group", { name: "Use digits" })
+    const digitCheckboxes = useDigits.getByRole("checkbox", { name: /^Digit / })
+    const toggleAll = deviceEditor.getByRole("button", {
+      name: "Toggle all digits",
+    })
+
+    const expectAllDigits = async (checked: boolean) => {
+      // module size of the test data is 8
+      await expect(digitCheckboxes).toHaveCount(8)
+      for (const checkbox of await digitCheckboxes.all()) {
+        await expect(checkbox).toBeChecked({ checked })
+      }
+    }
+
+    await test.step("No digits on: all digits are turned on", async () => {
+      await expectAllDigits(false)
+      await toggleAll.click()
+      await expectAllDigits(true)
+    })
+
+    await test.step("All digits on: all digits are turned off", async () => {
+      await toggleAll.click()
+      await expectAllDigits(false)
+    })
+
+    await test.step("Some digits on: all digits are turned on", async () => {
+      await useDigits
+        .getByRole("checkbox", { name: "Digit 1", exact: true })
+        .click()
+      await toggleAll.click()
+      await expectAllDigits(true)
+    })
+
+    await closeDrawer(page)
+    await expect(deviceEditor).not.toBeVisible()
+
+    const payload = await applyChangesAndReturnPayload(configListPage, page)
+    expect(payload.item.Device).toMatchObject({
+      Type: "LedModule",
+      DisplayLedDigits: ["0", "1", "2", "3", "4", "5", "6", "7"],
+    })
+  })
+
   for (const digits of [4, 8]) {
     test(`New 7-Segment config on a ${digits}-digit module has all ${digits} digits enabled`, async ({
       configListPage,
