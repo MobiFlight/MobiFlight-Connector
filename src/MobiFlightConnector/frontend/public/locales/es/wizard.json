@@ -119,6 +119,7 @@
         "ToggleAllDigits": "Alternar dígitos",
         "DecimalPoint": "Punto decimal {{position}}",
         "ToggleDecimalPoint": "Alternar punto decimal {{position}}",
+        "ClearDecimalPoints": "Quitar puntos decimales",
         "AdvancedOptions": {
           "Title": "Opciones avanzadas",
           "Description": "Configura opciones avanzadas de pantalla para el módulo 7-Segment.",

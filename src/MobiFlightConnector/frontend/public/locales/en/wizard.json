@@ -119,6 +119,7 @@
         "ToggleAllDigits": "Toggle all digits",
         "DecimalPoint": "Decimal point {{position}}",
         "ToggleDecimalPoint": "Toggle decimal point {{position}}",
+        "ClearDecimalPoints": "Clear decimal points",
         "AdvancedOptions": {
           "Title": "Advanced options",
           "Description": "Configure advanced display options for the 7-segment module.",

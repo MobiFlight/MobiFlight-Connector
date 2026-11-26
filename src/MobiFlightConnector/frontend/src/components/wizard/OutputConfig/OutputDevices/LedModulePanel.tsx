@@ -227,6 +227,7 @@ const LedModulePanel = ({
               <Button
                 size={"sm"}
                 variant="outline"
+                disabled={config.DisplayLedDecimalPoints.length === 0}
                 onClick={() =>
                   onChange?.({
                     ...config,
@@ -234,7 +235,7 @@ const LedModulePanel = ({
                   })
                 }
               >
-                Clear decimal points
+                {t("ConfigWizard.Device.SevenSegment.ClearDecimalPoints")}
               </Button>
             </div>
           </div>

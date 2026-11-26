@@ -119,6 +119,7 @@
         "ToggleAllDigits": "Ziffern umschalten",
         "DecimalPoint": "Dezimalpunkt {{position}}",
         "ToggleDecimalPoint": "Dezimalpunkt {{position}} umschalten",
+        "ClearDecimalPoints": "Dezimalpunkte entfernen",
         "AdvancedOptions": {
           "Title": "Erweiterte Optionen",
           "Description": "Konfiguriere erweiterte Anzeigeoptionen für das 7-Segment-Modul.",

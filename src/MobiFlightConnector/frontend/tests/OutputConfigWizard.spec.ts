@@ -2056,6 +2056,52 @@ test.describe("Output Config Wizard - 7-Segment Device", () => {
     })
   })
 
+  test("Clear decimal points removes all decimal points and keeps the digits", async ({
+    configListPage,
+    page,
+  }) => {
+    await openWizardForRow(configListPage, page, ROW.SevenSegment)
+
+    const actionPanel = page.getByTestId("action-panel")
+    await actionPanel.getByRole("button").last().click()
+    const deviceEditor = page.getByTestId("output-device-editor")
+    await expect(deviceEditor).toBeVisible()
+
+    const useDigits = deviceEditor.getByRole("group", { name: "Use digits" })
+    const checkbox = (name: string) =>
+      useDigits.getByRole("checkbox", { name, exact: true })
+    const clearDecimalPoints = deviceEditor.getByRole("button", {
+      name: "Clear decimal points",
+    })
+
+    await test.step("Disabled without decimal points", async () => {
+      await expect(clearDecimalPoints).toBeDisabled()
+    })
+
+    await test.step("Removes all decimal points, digits stay on", async () => {
+      await checkbox("Digit 1").click()
+      await checkbox("Decimal point 1").click()
+      await checkbox("Decimal point 3").click()
+      await expect(clearDecimalPoints).toBeEnabled()
+
+      await clearDecimalPoints.click()
+      await expect(checkbox("Decimal point 1")).not.toBeChecked()
+      await expect(checkbox("Decimal point 3")).not.toBeChecked()
+      await expect(checkbox("Digit 1")).toBeChecked()
+      await expect(clearDecimalPoints).toBeDisabled()
+    })
+
+    await closeDrawer(page)
+    await expect(deviceEditor).not.toBeVisible()
+
+    const payload = await applyChangesAndReturnPayload(configListPage, page)
+    expect(payload.item.Device).toMatchObject({
+      Type: "LedModule",
+      DisplayLedDigits: ["7"],
+      DisplayLedDecimalPoints: [],
+    })
+  })
+
   for (const digits of [4, 8]) {
     test(`New 7-Segment config on a ${digits}-digit module has all ${digits} digits enabled`, async ({
       configListPage,
