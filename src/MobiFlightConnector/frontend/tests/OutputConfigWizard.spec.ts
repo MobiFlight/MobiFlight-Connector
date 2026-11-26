@@ -1389,7 +1389,7 @@ test.describe("Output Config Wizard - Device Test Panel", () => {
 
     const testPanel = deviceEditor.getByTestId("configwizard-test-panel")
     await expect(testPanel).toBeVisible()
-    
+
     const testValueInput = testPanel.getByPlaceholder("Enter raw value")
     await testValueInput.clear()
     // typed key by key, so the intermediate "1." must not lose its dot
@@ -2248,6 +2248,42 @@ test.describe("Output Config Wizard - LCD Display Device", () => {
       await expect(cell(1, 15)).toHaveText("t")
     })
 
+    await test.step("Backspace on the first column clears it and stays", async () => {
+      await cell(1, 0).click()
+      await page.keyboard.type("A")
+      await expect(cell(1, 0)).toHaveText("A")
+      await cell(1, 0).click()
+      await page.keyboard.press("Backspace")
+      await expect(cell(1, 0)).toHaveText("")
+      await page.keyboard.type("H")
+      await expect(cell(1, 0)).toHaveText("H")
+    })
+
+    await test.step("Backspace on the last column with value first clears it and stays", async () => {
+      await cell(1, 0).click()
+      await page.keyboard.type("Hello MobiFlight")
+      await expect(cell(1, 15)).toHaveText("t")
+      await page.keyboard.press("Backspace")
+      await expect(cell(1, 15)).toHaveText("")
+      await page.keyboard.type("t")
+      await expect(cell(1, 15)).toHaveText("t")
+    })
+
+    await test.step("Backspace on the last column with empty cell moves cursor and clears that cell", async () => {
+      await cell(1, 0).click()
+      await page.keyboard.type("Hello MobiFlight")
+      await page.keyboard.press("Backspace")
+      await cell(1, 15).click()
+      await page.keyboard.press("Backspace")
+      await expect(cell(1, 14)).toHaveText("")
+      await page.keyboard.type("h")
+      await expect(cell(1, 14)).toHaveText("h")
+
+      // reset the test value in 2nd row back to "Hello MobiFlight"
+      await cell(1, 0).click()
+      await page.keyboard.type("Hello MobiFlight")
+    })
+
     await test.step("Selected cells get the placeholder of a value", async () => {
       await cell(2, 0).click()
       for (let i = 0; i < 4; i++) await page.keyboard.press("Shift+ArrowRight")
@@ -2305,6 +2341,57 @@ test.describe("Output Config Wizard - LCD Display Device", () => {
         "******Test******",
       ],
     })
+  })
+
+  test("Lcd Display Editor shows for MobiFlight Controller", async ({
+    configListPage,
+    page,
+  }) => {
+    await createEmptyOutputConfigAndOpenWizard(configListPage, page)
+    await openOutputDevicePanel(page)
+
+    const deviceEditor = page.getByTestId("output-device-editor")
+    await selectComboBoxOption(
+      page,
+      deviceEditor.getByRole("combobox").first(),
+      "ProtoBoard-v2",
+    )
+    await selectComboBoxOption(
+      page,
+      deviceEditor.getByRole("combobox").nth(1),
+      "LCD Display",
+    )
+
+    const lcdEditor = page.getByTestId("lcd-editor")
+    await expect(lcdEditor).toBeVisible()
+  })
+
+  test("Lcd Display Editor should not show for Hid Controller", async ({
+    configListPage,
+    page,
+  }) => {
+    await createEmptyOutputConfigAndOpenWizard(configListPage, page)
+    await openOutputDevicePanel(page)
+
+    const deviceEditor = page.getByTestId("output-device-editor")
+    await selectComboBoxOption(
+      page,
+      deviceEditor.getByRole("combobox").first(),
+      "Bravo Throttle Quadrant",
+    )
+    await selectComboBoxOption(
+      page,
+      deviceEditor.getByRole("combobox").nth(1),
+      "LCD Display",
+    )
+
+    const lcdDisplayComboBox = deviceEditor
+      .getByRole("combobox")
+      .filter({ hasText: /^AP Display - HDG$/ })
+    await expect(lcdDisplayComboBox).toBeVisible()
+
+    const lcdEditor = page.getByTestId("lcd-editor")
+    await expect(lcdEditor).not.toBeVisible()
   })
 })
 

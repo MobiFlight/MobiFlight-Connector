@@ -4,15 +4,26 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    groups:
+      # Packages shipped with the .NET runtime (monthly servicing releases)
+      dotnet-runtime:
+        patterns:
+          - "System.*"
+          - "Microsoft.Extensions.*"
+        exclude-patterns:
+          - "System.Reactive"
+        update-types:
+          - "minor"
+          - "patch"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "daily"
   - package-ecosystem: "devcontainers"
-    directory: "/frontend/.devcontainer"
+    directory: "/src/MobiFlightConnector/frontend/.devcontainer"
     schedule:
       interval: "daily"
   - package-ecosystem: "npm"
-    directory: "/frontend"
+    directory: "/src/MobiFlightConnector/frontend"
     schedule:
       interval: "daily"
