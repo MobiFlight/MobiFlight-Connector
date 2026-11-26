@@ -108,14 +108,14 @@
       },
       "SevenSegment": {
         "Title": "Schritt 2 - 7-Segment-Einstellungen",
-        "Description": "Wähle das Modul aus und lege fest, welche Stellen den Wert anzeigen.",
+        "Description": "Wähle das Modul aus und lege fest, welche Ziffern den Wert anzeigen.",
         "Label": "7-Segment",
         "Display": "Anzeige",
-        "Digits": "Stellen",
-        "UseDigits": "Stellen verwenden",
+        "Digits": "Ziffern",
+        "UseDigits": "Ziffern verwenden",
         "DecimalPoints": "Dezimalpunkte",
-        "Digit": "Stelle {{position}}",
-        "ToggleDigit": "Stelle {{position}} umschalten",
+        "Digit": "Ziffer {{position}}",
+        "ToggleDigit": "Ziffer {{position}} umschalten",
         "DecimalPoint": "Dezimalpunkt {{position}}",
         "ToggleDecimalPoint": "Dezimalpunkt {{position}} umschalten",
         "AdvancedOptions": {
@@ -132,8 +132,8 @@
             "Zero": "0 (Null)"
           },
           "ReverseDigits": {
-            "Label": "Reihenfolge der Stellen umkehren",
-            "Description": "Kehrt die Reihenfolge der Stellen auf der Anzeige um. Das ist manchmal bei selbstgebauten 7-Segment-Anzeigen nötig."
+            "Label": "Reihenfolge der Ziffern umkehren",
+            "Description": "Kehrt die Reihenfolge der Ziffern auf der Anzeige um. Das ist manchmal bei selbstgebauten 7-Segment-Anzeigen nötig."
           },
           "Brightness": {
             "Label": "Helligkeit",
