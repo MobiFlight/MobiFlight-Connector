@@ -105,7 +105,6 @@ namespace MobiFlight
                     Project,
                     Project.ConfigFiles[ActiveConfigIndex],
                     ActiveConfigIndex,
-                    ConfigItems,
                     affectedItems));
         }
 
@@ -140,14 +139,7 @@ namespace MobiFlight
 
         internal bool RecordProfileMoved(ConfigFile file, int originalIndex, int targetIndex)
         {
-            if (Project == null ||
-                file == null ||
-                originalIndex < 0 ||
-                originalIndex >= Project.ConfigFiles.Count ||
-                targetIndex < 0 ||
-                targetIndex >= Project.ConfigFiles.Count ||
-                Math.Abs(originalIndex - targetIndex) != 1 ||
-                !ReferenceEquals(Project.ConfigFiles[originalIndex], file))
+            if (ProfileMovedUndoEntry.SkipRecording(Project, file, originalIndex, targetIndex))
             {
                 return false;
             }
@@ -160,11 +152,16 @@ namespace MobiFlight
 
         internal bool RecordConfigListItemEditUndo(IConfigItem originalItem, ConfigFile file, int itemIndex, string change = null)
         {
-            bool isLatestCreation = change == null &&
-                _listUndoHistory.LastOrDefault() is ItemCreatedUndoEntry created &&
-                created.MatchesCreation(Project, file, ActiveConfigIndex, originalItem.GUID);
-
-            if (isLatestCreation) return true;
+            if (ItemUpdatedUndoEntry.ShouldMergeWithCreation(
+                Project,
+                file,
+                ActiveConfigIndex,
+                originalItem,
+                change,
+                _listUndoHistory.LastOrDefault()))
+            {
+                return true;
+            }
 
             PushConfigListUndo(new ItemUpdatedUndoEntry(
                 Project, file, ActiveConfigIndex, originalItem, change));

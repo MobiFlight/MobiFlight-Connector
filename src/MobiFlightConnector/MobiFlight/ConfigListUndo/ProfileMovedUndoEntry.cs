@@ -28,6 +28,32 @@ namespace MobiFlight.ConfigListUndo
             _targetIndex = targetIndex;
         }
 
+        internal static bool SkipRecording(Project project, ConfigFile file, int originalIndex, int targetIndex)
+        {
+            bool isProjectMissing = project == null;
+            bool isFileMissing = file == null;
+
+            if (isProjectMissing || isFileMissing)
+            {
+                return true;
+            }
+
+            bool isOriginalIndexInvalid = originalIndex < 0 || originalIndex >= project.ConfigFiles.Count;
+
+            bool isTargetIndexInvalid = targetIndex < 0 || targetIndex >= project.ConfigFiles.Count;
+
+            if (isOriginalIndexInvalid || isTargetIndexInvalid)
+            {
+                return true;
+            }
+
+            bool isNotAdjacent = Math.Abs(originalIndex - targetIndex) != 1;
+
+            bool isProfileMismatch = !ReferenceEquals(project.ConfigFiles[originalIndex], file);
+
+            return isNotAdjacent || isProfileMismatch;
+        }
+
         public override string HistoryAction => "ProfileMoved";
 
         protected override bool TryUndoCore(ConfigListUndoContext context, out string reason)
