@@ -3637,6 +3637,131 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
     await expect(countLabel).toHaveText("5 preset(s) found")
   })
 
+  test("Preset list shows the presets by vendor, aircraft and name", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionDialog = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      1,
+    )
+    await actionDialog
+      .getByRole("button", { name: "Edit On Press Action" })
+      .click()
+
+    const actionEditor = page.getByTestId("action-editor")
+    await actionEditor.getByRole("button", { name: "Reset filters" }).click()
+    await expect(actionEditor.getByRole("status")).toHaveText(
+      "5 preset(s) found",
+    )
+
+    // the test data has a different order
+    await expect(actionEditor.getByRole("listitem")).toContainText([
+      "AS1000_PFD_VOL_2_DEC", // Microsoft, C172
+      "AP_PANEL_HEADING_HOLD_TEST", // Microsoft, Generic
+      "AS1000_PFD_VOL_1_DEC",
+      "AS1000_PFD_VOL_2_INC",
+      "Axis Elevator Set", // Other than Microsoft, Generic
+    ])
+  })
+
+  test("Preset filter finds all words in any order, also in the system", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionDialog = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      1,
+    )
+    await actionDialog
+      .getByRole("button", { name: "Edit On Press Action" })
+      .click()
+
+    const actionEditor = page.getByTestId("action-editor")
+    const filterInput = actionEditor.getByPlaceholder("Filter presets")
+    const countLabel = actionEditor.getByRole("status")
+    await actionEditor.getByRole("button", { name: "Reset filters" }).click()
+
+    // "Autopilot" is the system, "heading" is in the label
+    await filterInput.fill("autopilot heading")
+    await expect(countLabel).toHaveText("1 preset(s) found")
+    await filterInput.fill("heading autopilot")
+    await expect(countLabel).toHaveText("1 preset(s) found")
+
+    // partial words count
+    await filterInput.fill("head auto")
+    await expect(countLabel).toHaveText("1 preset(s) found")
+
+    // every word has to match
+    await filterInput.fill("heading avionics")
+    await expect(countLabel).toHaveText("0 preset(s) found")
+
+    // "Avionics" is the system, "G1000" is in the description
+    await filterInput.fill("avionics g1000")
+    await expect(countLabel).toHaveText("2 preset(s) found")
+    // same relevance, so they keep the default order
+    await expect(actionEditor.getByRole("listitem")).toContainText([
+      "AS1000_PFD_VOL_2_DEC",
+      "AS1000_PFD_VOL_1_DEC",
+    ])
+  })
+
+  test("Preset filter sorts the results by relevance", async ({
+    configListPage,
+    page,
+  }) => {
+    const headingHoldPreset = {
+      ...msfsPresetsResponse[3],
+      id: "4f6b1a2e-6c1d-4d8a-9a51-0d7c3e2b9f10",
+      vendor: "Asobo",
+      label: "AP_HDG_HOLD_ON",
+      description: "Heading hold on",
+      code: "(>K:AP_HDG_HOLD_ON)",
+    }
+    const actionDialog = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      1,
+      async () => {
+        // first in the presets, but last in the search results
+        await page.route(
+          "*/**/presets/msfs2020_hubhop_presets.json",
+          async (route) => {
+            await route.fulfill({
+              json: [headingHoldPreset, ...msfsPresetsResponse],
+            })
+          },
+        )
+      },
+    )
+    await actionDialog
+      .getByRole("button", { name: "Edit On Press Action" })
+      .click()
+
+    const actionEditor = page.getByTestId("action-editor")
+    const filterInput = actionEditor.getByPlaceholder("Filter presets")
+    const countLabel = actionEditor.getByRole("status")
+    const presetList = actionEditor.getByRole("listitem")
+    await actionEditor.getByRole("button", { name: "Reset filters" }).click()
+    await expect(countLabel).toHaveText("6 preset(s) found")
+    await expect(presetList.first()).toContainText("AP_HDG_HOLD_ON")
+
+    // "heading" is in the label of one preset and in the description of the other
+    await filterInput.fill("heading")
+    await expect(countLabel).toHaveText("2 preset(s) found")
+    await expect(presetList).toContainText([
+      "AP_PANEL_HEADING_HOLD_TEST",
+      "AP_HDG_HOLD_ON",
+    ])
+
+    // without a search the default order is back
+    await filterInput.fill("")
+    await expect(countLabel).toHaveText("6 preset(s) found")
+    await expect(presetList.first()).toContainText("AP_HDG_HOLD_ON")
+  })
+
   test("Selecting a preset updates the code field", async ({
     configListPage,
     page,

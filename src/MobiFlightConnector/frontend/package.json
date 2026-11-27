@@ -33,7 +33,7 @@
     "@radix-ui/react-scroll-area": "^1.2.10",
     "@radix-ui/react-separator": "^1.1.8",
     "@radix-ui/react-slider": "^1.2.3",
-    "@radix-ui/react-slot": "^1.2.4",
+    "@radix-ui/react-slot": "^1.5.0",
     "@radix-ui/react-switch": "^1.1.2",
     "@radix-ui/react-tabs": "^1.1.2",
     "@radix-ui/react-tooltip": "^1.1.8",
@@ -88,7 +88,7 @@
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.72.2",
     "vite": "^8.3.5",
-    "vitest": "^4.1.12"
+    "vitest": "^5.1.1"
   },
   "optionalDependencies": {
     "@rolldown/binding-win32-x64-msvc": "^1.2.8"

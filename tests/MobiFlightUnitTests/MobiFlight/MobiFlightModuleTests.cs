@@ -858,6 +858,64 @@ namespace MobiFlight.Tests
 
         #endregion
 
+        #region GetControllerDevices Tests
+
+        [TestMethod()]
+        public void GetControllerDevices_ShouldKeepConfigOrder_WhenNamesAreNotAlphabetical()
+        {
+            // Arrange
+            var module = CreateModuleWithDevices(
+                new Firmware.Output() { Name = "Gear LED", Pin = "2" },
+                new Firmware.Button() { Name = "AP Button", Pin = "3" },
+                new Firmware.Output() { Name = "Flaps LED", Pin = "4" });
+
+            // Act
+            var names = module.GetControllerDevices().Select(device => device.Name).ToList();
+
+            // Assert
+            CollectionAssert.AreEqual(
+                new List<string> { "Gear LED", "AP Button", "Flaps LED" },
+                names,
+                "Devices should come in config order; display order is up to the UI.");
+        }
+
+        // Issue 3519: sorting the names as text put "Panel:10" before "Panel:2".
+        [TestMethod()]
+        [DataRow(DeviceType.InputShiftRegister)]
+        [DataRow(DeviceType.InputMultiplexer)]
+        public void GetControllerDevices_ShouldListPinsInNumericOrder_WhenDeviceHasMoreThanTenPins(DeviceType deviceType)
+        {
+            // Arrange
+            Firmware.BaseDevice device = deviceType == DeviceType.InputShiftRegister
+                ? new Firmware.InputShiftRegister() { Name = "Panel", NumModules = "2" }
+                : new Firmware.InputMultiplexer() { Name = "Panel", NumBytes = "2" };
+            var module = CreateModuleWithDevices(device);
+            var expected = Enumerable.Range(0, 16).Select(pin => $"Panel:{pin}").ToList();
+
+            // Act
+            var names = module.GetControllerDevices().Select(d => d.Name).ToList();
+
+            // Assert
+            CollectionAssert.AreEqual(expected, names, "Pins should be listed 0, 1, 2 ... 15.");
+        }
+
+        // Builds an unconnected module whose config holds the given devices in the given order.
+        private static MobiFlightModule CreateModuleWithDevices(params Firmware.BaseDevice[] devices)
+        {
+            BoardDefinitions.LoadDefinitions();
+
+            var board = BoardDefinitions.GetBoardByMobiFlightType("MobiFlight Mega");
+            Assert.IsNotNull(board, "Board not found.");
+
+            var module = new MobiFlightModule("COM1", board);
+            module.Config = new Firmware.Config();
+            module.Config.Items.AddRange(devices);
+
+            return module;
+        }
+
+        #endregion
+
         /// <summary>
         /// Test double that records when Stop() reaches it without sending commands.
         /// </summary>
