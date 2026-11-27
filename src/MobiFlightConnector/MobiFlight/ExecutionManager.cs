@@ -781,15 +781,16 @@ namespace MobiFlight
                         int targetIndex = message.Action == CommandFileContextMenuAction.moveLeft
                             ? message.Index - 1
                             : message.Index + 1;
-                        if (targetIndex < 0 || targetIndex >= Project.ConfigFiles.Count) {
-                            return;
-                        }
 
-                        if (!_configListUndoManager.RecordProfileMoved(file, message.Index, targetIndex))
+                        bool isTargetIndexInvalid = targetIndex < 0 || targetIndex >= Project.ConfigFiles.Count;
+
+                        if (isTargetIndexInvalid)
                         {
                             return;
 
                         }
+
+                        _configListUndoManager.RecordProfileMoved(file, message.Index, targetIndex);
                         Project.ConfigFiles.Move(message.Index, targetIndex);
                         MessageExchange.Instance.Publish(Project);
                         return;

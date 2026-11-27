@@ -39,13 +39,13 @@ namespace MobiFlight.Tests.ConfigListUndo
         }
 
         [TestMethod]
-        public void TryUndo_ProfileContainsItems_ReturnsFalse()
+        public void TryUndo_RemovesAddedProfileContainingItems()
         {
             // Arrange
-            var addedFile = new ConfigFile
-            {
-                Label = "Added Profile"
-            };
+            var originalItem = CreateItem("Original Item");
+            TestFile.ConfigItems.Add(originalItem);
+
+            var addedFile = new ConfigFile { Label = "Added Profile" };
 
             TestProject.ConfigFiles.Add(addedFile);
 
@@ -60,17 +60,23 @@ namespace MobiFlight.Tests.ConfigListUndo
             bool result = entry.TryUndo(Context, out string reason);
 
             // Assert
-            Assert.IsFalse(result);
-            Assert.IsFalse(string.IsNullOrWhiteSpace(reason));
+            Assert.IsTrue(result, reason);
+            Assert.IsNull(reason);
 
-            Assert.HasCount(2, TestProject.ConfigFiles);
+            Assert.AreEqual("ProfileAdded", entry.HistoryAction);
 
-            Assert.AreSame(addedFile, TestProject.ConfigFiles[1]);
+            Assert.HasCount(1, TestProject.ConfigFiles);
 
-            Assert.HasCount(1, addedFile.ConfigItems);
-            Assert.AreSame(item, addedFile.ConfigItems[0]);
+            Assert.AreSame(TestFile, TestProject.ConfigFiles[0]);
 
-            Assert.AreEqual(1, Context.ActiveConfigIndex);
+            Assert.IsFalse(TestProject.ConfigFiles.Contains(addedFile));
+
+            Assert.HasCount(1, TestFile.ConfigItems);
+            Assert.AreSame(originalItem, TestFile.ConfigItems[0]);
+
+            Assert.AreEqual(0, Context.ActiveConfigIndex);
+
+            AssertProjectPublished(entry);
         }
 
         [TestMethod]

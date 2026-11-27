@@ -32,14 +32,6 @@ namespace MobiFlight.ConfigListUndo
                 return false;
             }
 
-            // A newly added profile can only be removed
-            // if it does not contain configuration items.
-            if (_file.ConfigItems.Count > 0)
-            {
-                reason = "Added profile contains ConfigItems.";
-                return false;
-            }
-
             int activeIndexBeforeUndo = context.ActiveConfigIndex;
             project.ConfigFiles.RemoveAt(currentIndex);
 

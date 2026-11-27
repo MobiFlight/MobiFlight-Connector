@@ -137,17 +137,10 @@ namespace MobiFlight
                 Project, file, index));
         }
 
-        internal bool RecordProfileMoved(ConfigFile file, int originalIndex, int targetIndex)
+        internal void RecordProfileMoved(ConfigFile file, int originalIndex, int targetIndex)
         {
-            if (ProfileMovedUndoEntry.SkipRecording(Project, file, originalIndex, targetIndex))
-            {
-                return false;
-            }
-
             PushConfigListUndo(new ProfileMovedUndoEntry(
                 Project, file, originalIndex, targetIndex, Project.ConfigFiles[targetIndex]));
-
-            return true;
         }
 
         internal bool RecordConfigListItemEditUndo(IConfigItem originalItem, ConfigFile file, int itemIndex, string change = null)

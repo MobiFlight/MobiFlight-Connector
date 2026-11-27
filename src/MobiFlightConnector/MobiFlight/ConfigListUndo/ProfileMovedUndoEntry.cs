@@ -1,5 +1,4 @@
 ﻿using MobiFlight.Base;
-using MobiFlight.ConfigListUndo;
 using System;
 using System.Linq;
 
@@ -28,84 +27,62 @@ namespace MobiFlight.ConfigListUndo
             _targetIndex = targetIndex;
         }
 
-        internal static bool SkipRecording(Project project, ConfigFile file, int originalIndex, int targetIndex)
-        {
-            bool isProjectMissing = project == null;
-            bool isFileMissing = file == null;
-
-            if (isProjectMissing || isFileMissing)
-            {
-                return true;
-            }
-
-            bool isOriginalIndexInvalid = originalIndex < 0 || originalIndex >= project.ConfigFiles.Count;
-
-            bool isTargetIndexInvalid = targetIndex < 0 || targetIndex >= project.ConfigFiles.Count;
-
-            if (isOriginalIndexInvalid || isTargetIndexInvalid)
-            {
-                return true;
-            }
-
-            bool isNotAdjacent = Math.Abs(originalIndex - targetIndex) != 1;
-
-            bool isProfileMismatch = !ReferenceEquals(project.ConfigFiles[originalIndex], file);
-
-            return isNotAdjacent || isProfileMismatch;
-        }
-
         public override string HistoryAction => "ProfileMoved";
 
         protected override bool TryUndoCore(ConfigListUndoContext context, out string reason)
         {
-            var project = context.Project;
-            var files = project.ConfigFiles;
+            var files = context.Project.ConfigFiles;
 
-            int currentIndex = files
-                .ToList()
-                .FindIndex(file => ReferenceEquals(file, _file));
+            bool isOriginalIndexInvalid = _originalIndex < 0 || _originalIndex >= files.Count;
+            bool isTargetIndexInvalid = _targetIndex < 0 || _targetIndex >= files.Count;
+            bool isSmaeIndex = _originalIndex == _targetIndex;
 
-            bool validIndex =
-                _originalIndex >= 0 &&
-                _originalIndex < files.Count &&
-                _targetIndex >= 0 &&
-                _targetIndex < files.Count &&
-                Math.Abs(_originalIndex - _targetIndex) == 1;
+            bool invalidIndex = isOriginalIndexInvalid || isTargetIndexInvalid || isSmaeIndex;
 
-            bool validState =
-                validIndex &&
-                currentIndex == _targetIndex &&
-                ReferenceEquals(files[_originalIndex], _targetFile);
-
-            if (!validState)
+            if (invalidIndex)
             {
-                reason = "Project/profile mismatch.";
+                reason = "Invalid profile move indices.";
                 return false;
             }
 
-            // Preserve the original adjacent-swap
-            // restoration behavior.
-            int activeIndexBeforeUndo = context.ActiveConfigIndex;
-            int restoredActiveIndex = activeIndexBeforeUndo;
+            // The original target profile shifts by one position.
+            int shiftedTargetIndex = _originalIndex < _targetIndex
+                ? _targetIndex - 1
+                : _targetIndex + 1;
 
-            if (activeIndexBeforeUndo == _originalIndex)
+            bool isMovedProfileMismatch = !ReferenceEquals(files[_targetIndex], _file);
+            bool isTargetProfileMismatch = !ReferenceEquals(files[shiftedTargetIndex], _targetFile);
+
+            if (isMovedProfileMismatch || isTargetProfileMismatch)
             {
-                restoredActiveIndex = _targetIndex;
-            }
-            else if (activeIndexBeforeUndo == _targetIndex)
-            {
-                restoredActiveIndex = _originalIndex;
+                reason = "Project/profile mismatch";
+                return false;
             }
 
-            // Moving a profile triggers ProjectChanged,
-            // which resets ActiveConfigIndex.
-            files.Move(_originalIndex, _targetIndex);
+            int restoredActiveIndex = GetActiveIndexAfterMove(
+                context.ActiveConfigIndex, _targetIndex, _originalIndex);
 
-            // Restore the calculated index after ProjectChanged.
+            files.Move(_targetIndex, _originalIndex);
+
             context.ActiveConfigIndex = restoredActiveIndex;
 
             reason = null;
             return true;
+        }
+
+        private static int GetActiveIndexAfterMove(int activeIndex, int fromIndex, int toIndex)
+        {
+            if (activeIndex == fromIndex) return toIndex;
+
+            bool shiftsLeft = fromIndex < toIndex && activeIndex > fromIndex && activeIndex <= toIndex;
+
+            if (shiftsLeft) return activeIndex -  1;
+
+            bool shiftsRight = fromIndex > toIndex && activeIndex >= toIndex && activeIndex < fromIndex;
+
+            if (shiftsRight) return activeIndex + 1;
+
+            return activeIndex;
         }
 
         public override void PublishChanges(ConfigListUndoContext context)

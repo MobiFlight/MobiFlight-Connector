@@ -91,8 +91,26 @@ export const useBackendStateAppMessages = () => {
 
     if (activeConfigFileIndex === FromIndex) {
       setActiveConfigFileIndex(ToIndex)
-    } else if (activeConfigFileIndex === ToIndex) {
-      setActiveConfigFileIndex(FromIndex)
+      return
+    }
+
+    const shiftsLeft =
+      FromIndex < ToIndex &&
+      activeConfigFileIndex > FromIndex &&
+      activeConfigFileIndex <= ToIndex
+
+    if (shiftsLeft) {
+      setActiveConfigFileIndex(activeConfigFileIndex - 1)
+      return
+    }
+
+    const shifsRight =
+      FromIndex > ToIndex &&
+      activeConfigFileIndex >= ToIndex &&
+      activeConfigFileIndex < FromIndex
+
+    if (shifsRight) {
+      setActiveConfigFileIndex(activeConfigFileIndex + 1)
     }
   })
 
