@@ -1,0 +1,27 @@
+name: npm install with cache
+description: Sets up Node and installs the npm dependencies, restoring node_modules from the cache when package-lock.json is unchanged
+
+inputs:
+  working_directory:
+    description: The folder with package.json and package-lock.json
+    required: false
+    default: src/MobiFlightConnector/frontend
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v7
+      id: setup-node
+      with:
+        node-version: lts/*
+    - name: Cache node_modules
+      id: node-modules-cache
+      uses: actions/cache@v6
+      with:
+        path: ${{ inputs.working_directory }}/node_modules
+        key: node-modules-${{ runner.os }}-node-${{ steps.setup-node.outputs.node-version }}-${{ hashFiles(format('{0}/package-lock.json', inputs.working_directory)) }}
+    - name: Install dependencies
+      if: steps.node-modules-cache.outputs.cache-hit != 'true'
+      shell: bash
+      working-directory: ${{ inputs.working_directory }}
+      run: npm ci

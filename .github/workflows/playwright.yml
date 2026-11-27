@@ -6,6 +6,7 @@ on:
       # Trigger when workflow file or 
       # files in frontend folder change
       - ".github/workflows/playwright.yml"
+      - ".github/actions/npm-install-with-cache/**"
       - "src/MobiFlightConnector/frontend/**"
 
   workflow_dispatch:
@@ -25,19 +26,7 @@ jobs:
         working-directory: src/MobiFlightConnector/frontend
     steps:
     - uses: actions/checkout@v7
-    - uses: actions/setup-node@v7
-      id: setup-node
-      with:
-        node-version: lts/*
-    - name: Cache node_modules
-      id: node-modules-cache
-      uses: actions/cache@v6
-      with:
-        path: src/MobiFlightConnector/frontend/node_modules
-        key: node-modules-${{ runner.os }}-node-${{ steps.setup-node.outputs.node-version }}-${{ hashFiles('src/MobiFlightConnector/frontend/package-lock.json') }}
-    - name: Install dependencies
-      if: steps.node-modules-cache.outputs.cache-hit != 'true'
-      run: npm ci
+    - uses: ./.github/actions/npm-install-with-cache
     - name: Run linter
       run: npm run lint
     - name: Run unit tests
@@ -55,19 +44,7 @@ jobs:
         working-directory: src/MobiFlightConnector/frontend
     steps:
     - uses: actions/checkout@v7
-    - uses: actions/setup-node@v7
-      id: setup-node
-      with:
-        node-version: lts/*
-    - name: Cache node_modules
-      id: node-modules-cache
-      uses: actions/cache@v6
-      with:
-        path: src/MobiFlightConnector/frontend/node_modules
-        key: node-modules-${{ runner.os }}-node-${{ steps.setup-node.outputs.node-version }}-${{ hashFiles('src/MobiFlightConnector/frontend/package-lock.json') }}
-    - name: Install dependencies
-      if: steps.node-modules-cache.outputs.cache-hit != 'true'
-      run: npm ci
+    - uses: ./.github/actions/npm-install-with-cache
     - name: Get Playwright version
       id: playwright-version
       run: echo "version=$(npx playwright --version | cut -d' ' -f2)" >> "$GITHUB_OUTPUT"
