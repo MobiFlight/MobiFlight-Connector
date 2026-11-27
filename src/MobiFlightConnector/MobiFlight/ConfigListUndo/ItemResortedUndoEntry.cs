@@ -18,14 +18,12 @@ namespace MobiFlight.ConfigListUndo
         private readonly List<string> _targetOrderBefore;
 
         internal ItemResortedUndoEntry(
-            Project project,
             ConfigFile sourceFile,
             int sourceIndex,
             ConfigFile targetFile,
             int targetIndex,
             List<IConfigItem> sourceBefore,
             List<IConfigItem> targetBefore)
-            : base(project)
         {
             _sourceFile = sourceFile ?? throw new ArgumentNullException(nameof(sourceFile));
 

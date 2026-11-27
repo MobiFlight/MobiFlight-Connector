@@ -26,12 +26,10 @@ namespace MobiFlight.ConfigListUndo
         private readonly List<DeletedItemState> _items;
 
         internal ItemDeletedUndoEntry(
-            Project project,
             ConfigFile file,
             int configIndex,
             List<IConfigItem> sourceItems,
             List<IConfigItem> affectedItems)
-            : base(project)
         {
             _file = file ?? throw new ArgumentNullException(nameof(file));
 

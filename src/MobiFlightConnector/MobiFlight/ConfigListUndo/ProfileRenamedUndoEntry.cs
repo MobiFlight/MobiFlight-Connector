@@ -10,11 +10,7 @@ namespace MobiFlight.ConfigListUndo
         private readonly int _configIndex;
         private readonly string _originalLabel;
 
-        internal ProfileRenamedUndoEntry(
-            Project project,
-            ConfigFile file,
-            int configIndex)
-            : base(project)
+        internal ProfileRenamedUndoEntry(ConfigFile file, int configIndex)
         {
             _file = file ?? throw new ArgumentNullException(nameof(file));
 

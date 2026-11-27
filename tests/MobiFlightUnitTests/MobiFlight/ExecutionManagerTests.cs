@@ -2817,5 +2817,152 @@ namespace MobiFlight.Tests
             Assert.HasCount(0, history.History);
         }
 
+        [TestMethod]
+        public void ProjectChange_ClearsUndoHistory()
+        {
+            // Arrange
+            var originalItem = new InputConfigItem
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Name = "Original Item",
+                Active = true
+            };
+
+            var originalProfile = new ConfigFile
+            {
+                Label = "Original Profile",
+                ConfigItems = { originalItem }
+            };
+
+            var originalProject = new Project();
+            originalProject.ConfigFiles.Add(originalProfile);
+
+            _executionManager.Project = originalProject;
+
+            // Record an Undo Entry.
+            MessageExchange.Instance.Publish(
+                new CommandConfigBulkAction
+                {
+                    Action = "toggle",
+                    Items = new List<ConfigItem> { originalItem }
+                });
+
+            Assert.IsFalse(originalProfile.ConfigItems[0].Active);
+
+            var history = GetPublishedMessages<ConfigListUndoState>().Last();
+
+            Assert.IsTrue(history.CanUndo);
+
+            CollectionAssert.AreEqual(new[] { "Toggle" }, history.History);
+
+            // Create a different project with the same item GUID.
+            var newItem = new InputConfigItem
+            {
+                GUID = originalItem.GUID,
+                Name = "New Project Item",
+                Active = false
+            };
+
+            var newProfile = new ConfigFile{ Label = "New Profile", ConfigItems = { newItem } };
+
+            var newProject = new Project();
+            newProject.ConfigFiles.Add(newProfile);
+
+            // Act
+            _executionManager.Project = newProject;
+
+            // Assert
+            history = GetPublishedMessages<ConfigListUndoState>().Last();
+
+            Assert.IsFalse(history.CanUndo);
+            Assert.HasCount(0, history.History);
+            Assert.AreEqual(0L, history.HistoryStart);
+
+            // Undo must not restore anything from the previous project.
+            MessageExchange.Instance.Publish(new CommandUndoConfigList{ Steps = 1 });
+
+            Assert.AreSame(newProject, _executionManager.Project);
+
+            Assert.HasCount(1, newProfile.ConfigItems);
+            Assert.AreSame(newItem, newProfile.ConfigItems[0]);
+
+            Assert.AreEqual("New Project Item", newProfile.ConfigItems[0].Name);
+
+            Assert.IsFalse(newProfile.ConfigItems[0].Active);
+
+            // The previous project must also remain unchanged.
+            Assert.IsFalse(originalProfile.ConfigItems[0].Active);
+        }
+
+        [TestMethod]
+        public void CancelLastProfileMerge_AfterProjectChange_DoesNotModifyProject()
+        {
+            // Arrange
+            var originalProfile = new ConfigFile{ Label = "Original Profile" };
+
+            var originalProject = new Project();
+            originalProject.ConfigFiles.Add(originalProfile);
+
+            _executionManager.Project = originalProject;
+
+            var mergedProfile = new ConfigFile{ Label = "Merged Profile" };
+
+            _executionManager.RecordProfileMerged(new List<ConfigFile> { mergedProfile });
+
+            originalProject.ConfigFiles.Add(mergedProfile);
+
+            var history = GetPublishedMessages<ConfigListUndoState>().Last();
+
+            CollectionAssert.AreEqual(new[] { "ProfileMerged" }, history.History);
+
+            var newItem = new InputConfigItem
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Name = "New Item",
+                Active = true
+            };
+
+            var newProfile = new ConfigFile
+            {
+                Label = "New Profile",
+                ConfigItems = { newItem }
+            };
+
+            var secondProfile = new ConfigFile{ Label = "Second Profile" };
+
+            var newProject = new Project();
+
+            newProject.ConfigFiles.Add(newProfile);
+            newProject.ConfigFiles.Add(secondProfile);
+
+            _executionManager.Project = newProject;
+
+            // Act
+            _executionManager.CancelLastProfileMerge();
+
+            // Assert
+            Assert.AreSame(newProject, _executionManager.Project);
+
+            Assert.HasCount(2, newProject.ConfigFiles);
+
+            Assert.AreSame(newProfile, newProject.ConfigFiles[0]);
+            Assert.AreSame(secondProfile, newProject.ConfigFiles[1]);
+
+            Assert.HasCount(1, newProfile.ConfigItems);
+            Assert.AreSame(newItem, newProfile.ConfigItems[0]);
+
+            Assert.AreEqual("New Item", newItem.Name);
+            Assert.IsTrue(newItem.Active);
+
+            // The previous project must remain unchanged.
+            Assert.HasCount(2, originalProject.ConfigFiles);
+
+            Assert.AreSame(mergedProfile, originalProject.ConfigFiles[1]);
+
+            history = GetPublishedMessages<ConfigListUndoState>().Last();
+
+            Assert.IsFalse(history.CanUndo);
+            Assert.HasCount(0, history.History);
+        }
     }
 }

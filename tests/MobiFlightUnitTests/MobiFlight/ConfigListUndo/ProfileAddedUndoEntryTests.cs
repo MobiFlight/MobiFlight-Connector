@@ -19,7 +19,7 @@ namespace MobiFlight.Tests.ConfigListUndo
             TestProject.ConfigFiles.Add(addedFile);
             Context.ActiveConfigIndex = 1;
 
-            var entry = new ProfileAddedUndoEntry(TestProject, addedFile);
+            var entry = new ProfileAddedUndoEntry(addedFile);
 
             // Act
             bool result = entry.TryUndo(Context, out string reason);
@@ -49,7 +49,7 @@ namespace MobiFlight.Tests.ConfigListUndo
 
             TestProject.ConfigFiles.Add(addedFile);
 
-            var entry = new ProfileAddedUndoEntry(TestProject, addedFile);
+            var entry = new ProfileAddedUndoEntry(addedFile);
 
             var item = CreateItem("New Item");
             addedFile.ConfigItems.Add(item);
@@ -90,7 +90,7 @@ namespace MobiFlight.Tests.ConfigListUndo
 
             TestProject.ConfigFiles.Add(addedFile);
 
-            var entry = new ProfileAddedUndoEntry(TestProject, addedFile);
+            var entry = new ProfileAddedUndoEntry(addedFile);
 
             TestProject.ConfigFiles.RemoveAt(1);
 

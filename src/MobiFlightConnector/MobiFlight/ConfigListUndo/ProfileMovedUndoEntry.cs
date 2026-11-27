@@ -12,12 +12,10 @@ namespace MobiFlight.ConfigListUndo
         private readonly int _targetIndex;
 
         internal ProfileMovedUndoEntry(
-            Project project,
             ConfigFile file,
             int originalIndex,
             int targetIndex,
             ConfigFile targetFile)
-            : base(project)
         {
             _file = file ?? throw new ArgumentNullException(nameof(file));
 

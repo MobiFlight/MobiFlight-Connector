@@ -18,7 +18,6 @@ namespace MobiFlight.Tests.ConfigListUndo
             TestFile.ConfigItems.AddRange(new IConfigItem[] { first, deleted, last });
 
             var entry = new ItemDeletedUndoEntry(
-                TestProject,
                 TestFile,
                 0,
                 TestFile.ConfigItems,
@@ -72,7 +71,6 @@ namespace MobiFlight.Tests.ConfigListUndo
                 .ToArray();
 
             var entry = new ItemDeletedUndoEntry(
-                TestProject,
                 TestFile,
                 0,
                 TestFile.ConfigItems,
@@ -106,7 +104,6 @@ namespace MobiFlight.Tests.ConfigListUndo
             TestFile.ConfigItems.AddRange(new IConfigItem[] { first, second });
 
             var entry = new ItemDeletedUndoEntry(
-                TestProject,
                 TestFile,
                 0,
                 TestFile.ConfigItems,

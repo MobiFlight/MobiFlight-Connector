@@ -15,7 +15,6 @@ namespace MobiFlight.Tests.ConfigListUndo
             TestFile.ConfigItems.Add(item);
 
             var entry = new ItemUpdatedUndoEntry(
-                TestProject,
                 TestFile,
                 0,
                 item);
@@ -52,7 +51,6 @@ namespace MobiFlight.Tests.ConfigListUndo
             var item = CreateItem("Original");
 
             var entry = new ItemUpdatedUndoEntry(
-                TestProject,
                 TestFile,
                 0,
                 item,
@@ -71,7 +69,6 @@ namespace MobiFlight.Tests.ConfigListUndo
             TestFile.ConfigItems.Add(item);
 
             var entry = new ItemUpdatedUndoEntry(
-                TestProject,
                 TestFile,
                 0,
                 item);
@@ -97,7 +94,6 @@ namespace MobiFlight.Tests.ConfigListUndo
             var item = CreateItem("Created");
 
             var creation = new ItemCreatedUndoEntry(
-                TestProject,
                 TestFile,
                 0,
                 item.GUID,
@@ -106,7 +102,6 @@ namespace MobiFlight.Tests.ConfigListUndo
             // Act
             bool result =
                 ItemUpdatedUndoEntry.ShouldMergeWithCreation(
-                    TestProject,
                     TestFile,
                     0,
                     item,
@@ -124,7 +119,6 @@ namespace MobiFlight.Tests.ConfigListUndo
             var item = CreateItem("Created");
 
             var creation = new ItemCreatedUndoEntry(
-                TestProject,
                 TestFile,
                 0,
                 item.GUID,
@@ -133,7 +127,6 @@ namespace MobiFlight.Tests.ConfigListUndo
             // Act
             bool result =
                 ItemUpdatedUndoEntry.ShouldMergeWithCreation(
-                    TestProject,
                     TestFile,
                     0,
                     item,
@@ -152,7 +145,6 @@ namespace MobiFlight.Tests.ConfigListUndo
             var edited = CreateItem("Edited");
 
             var creation = new ItemCreatedUndoEntry(
-                TestProject,
                 TestFile,
                 0,
                 created.GUID,
@@ -161,7 +153,6 @@ namespace MobiFlight.Tests.ConfigListUndo
             // Act
             bool result =
                 ItemUpdatedUndoEntry.ShouldMergeWithCreation(
-                    TestProject,
                     TestFile,
                     0,
                     edited,
@@ -181,7 +172,6 @@ namespace MobiFlight.Tests.ConfigListUndo
             // Act
             bool result =
                 ItemUpdatedUndoEntry.ShouldMergeWithCreation(
-                    TestProject,
                     TestFile,
                     0,
                     item,
@@ -199,7 +189,6 @@ namespace MobiFlight.Tests.ConfigListUndo
             var item = CreateItem("Edited");
 
             var previousEntry = new ItemUpdatedUndoEntry(
-                TestProject,
                 TestFile,
                 0,
                 item);
@@ -207,7 +196,6 @@ namespace MobiFlight.Tests.ConfigListUndo
             // Act
             bool result =
                 ItemUpdatedUndoEntry.ShouldMergeWithCreation(
-                    TestProject,
                     TestFile,
                     0,
                     item,

@@ -66,7 +66,6 @@ namespace MobiFlight
         {
             PushConfigListUndo(
                 new ItemCreatedUndoEntry(
-                    Project,
                     Project.ConfigFiles[ActiveConfigIndex],
                     ActiveConfigIndex,
                     item.GUID,
@@ -76,7 +75,6 @@ namespace MobiFlight
         {
             PushConfigListUndo(
                 new ItemCreatedUndoEntry(
-                    Project,
                     Project.ConfigFiles[ActiveConfigIndex],
                     ActiveConfigIndex,
                     item.GUID,
@@ -89,7 +87,6 @@ namespace MobiFlight
 
             PushConfigListUndo(
                 new ItemDeletedUndoEntry(
-                    Project,
                     Project.ConfigFiles[ActiveConfigIndex],
                     ActiveConfigIndex,
                     ConfigItems,
@@ -102,7 +99,6 @@ namespace MobiFlight
 
             PushConfigListUndo(
                 new ItemToggledUndoEntry(
-                    Project,
                     Project.ConfigFiles[ActiveConfigIndex],
                     ActiveConfigIndex,
                     affectedItems));
@@ -116,7 +112,6 @@ namespace MobiFlight
         {
             PushConfigListUndo(
                 new ItemResortedUndoEntry(
-                    Project,
                     Project.ConfigFiles[sourceIndex],
                     sourceIndex,
                     Project.ConfigFiles[targetIndex],
@@ -127,26 +122,23 @@ namespace MobiFlight
 
         internal void RecordProfileDeleted(ConfigFile file, int index)
         {
-            PushConfigListUndo(new ProfileDeletedUndoEntry(
-                Project, file, index));
+            PushConfigListUndo(new ProfileDeletedUndoEntry(file, index));
         }
 
         internal void RecordProfileRename(ConfigFile file, int index)
         {
-            PushConfigListUndo(new ProfileRenamedUndoEntry(
-                Project, file, index));
+            PushConfigListUndo(new ProfileRenamedUndoEntry(file, index));
         }
 
         internal void RecordProfileMoved(ConfigFile file, int originalIndex, int targetIndex)
         {
             PushConfigListUndo(new ProfileMovedUndoEntry(
-                Project, file, originalIndex, targetIndex, Project.ConfigFiles[targetIndex]));
+                file, originalIndex, targetIndex, Project.ConfigFiles[targetIndex]));
         }
 
         internal bool RecordConfigListItemEditUndo(IConfigItem originalItem, ConfigFile file, int itemIndex, string change = null)
         {
             if (ItemUpdatedUndoEntry.ShouldMergeWithCreation(
-                Project,
                 file,
                 ActiveConfigIndex,
                 originalItem,
@@ -156,8 +148,7 @@ namespace MobiFlight
                 return true;
             }
 
-            PushConfigListUndo(new ItemUpdatedUndoEntry(
-                Project, file, ActiveConfigIndex, originalItem, change));
+            PushConfigListUndo(new ItemUpdatedUndoEntry(file, ActiveConfigIndex, originalItem, change));
 
             return false;
         }
@@ -166,7 +157,7 @@ namespace MobiFlight
         {
             if (file == null || Project == null) return;
 
-            PushConfigListUndo(new ProfileAddedUndoEntry(Project, file));
+            PushConfigListUndo(new ProfileAddedUndoEntry(file));
         }
 
         public void RecordProfileMerged(List<ConfigFile> mergedFiles)

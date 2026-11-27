@@ -28,7 +28,7 @@ namespace MobiFlight.Tests.ConfigListUndo
             TestProject.ConfigFiles.Add(deletedFile);
             TestProject.ConfigFiles.Add(lastFile);
 
-            var entry = new ProfileDeletedUndoEntry(TestProject, deletedFile, 1);
+            var entry = new ProfileDeletedUndoEntry(deletedFile, 1);
 
             TestProject.ConfigFiles.RemoveAt(1);
 
@@ -69,7 +69,7 @@ namespace MobiFlight.Tests.ConfigListUndo
 
             TestProject.ConfigFiles.Add(deletedFile);
 
-            var entry = new ProfileDeletedUndoEntry(TestProject, deletedFile, 1);
+            var entry = new ProfileDeletedUndoEntry(deletedFile, 1);
 
             TestProject.ConfigFiles.RemoveAt(1);
 
@@ -95,7 +95,7 @@ namespace MobiFlight.Tests.ConfigListUndo
 
             TestProject.ConfigFiles.Add(deletedFile);
 
-            var entry = new ProfileDeletedUndoEntry(TestProject, deletedFile, 1);
+            var entry = new ProfileDeletedUndoEntry(deletedFile, 1);
 
             // Simulate the profile already being restored.
 
@@ -124,7 +124,6 @@ namespace MobiFlight.Tests.ConfigListUndo
             };
 
             var entry = new ProfileDeletedUndoEntry(
-                TestProject,
                 deletedFile,
                 originalIndex);
 

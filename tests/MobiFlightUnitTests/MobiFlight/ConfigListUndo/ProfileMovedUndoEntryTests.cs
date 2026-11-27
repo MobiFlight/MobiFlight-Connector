@@ -52,7 +52,6 @@ namespace MobiFlight.Tests.ConfigListUndo
             var targetFile = TestProject.ConfigFiles[targetIndex];
 
             var entry = new ProfileMovedUndoEntry(
-                TestProject,
                 movedFile,
                 originalIndex,
                 targetIndex,
@@ -117,7 +116,6 @@ namespace MobiFlight.Tests.ConfigListUndo
             var targetFile = TestProject.ConfigFiles[targetIndex];
 
             var entry = new ProfileMovedUndoEntry(
-                TestProject,
                 movedFile,
                 originalIndex,
                 targetIndex,

@@ -23,13 +23,11 @@ namespace MobiFlight.ConfigListUndo
         private readonly string _changeAnnotation;
 
         internal ItemUpdatedUndoEntry(
-            Project project,
             ConfigFile file,
             int configIndex,
             IConfigItem originalItem,
             string changeAnnotation = null)
             : this(
-                  project,
                   file,
                   configIndex,
                   new[] 
@@ -40,12 +38,10 @@ namespace MobiFlight.ConfigListUndo
         {
         }
         protected ItemUpdatedUndoEntry(
-            Project project,
             ConfigFile file,
             int configIndex,
             IEnumerable<IConfigItem> originalItems,
             string changeAnnotation = null)
-            : base(project)
         {
             _file = file ?? throw new ArgumentNullException(nameof(file));
 
@@ -60,7 +56,6 @@ namespace MobiFlight.ConfigListUndo
         }
 
         internal static bool ShouldMergeWithCreation(
-            Project project,
             ConfigFile file,
             int configIndex,
             IConfigItem originalItem,
@@ -79,7 +74,7 @@ namespace MobiFlight.ConfigListUndo
                 return false;
             }
 
-            return created.IsCreatedItem(project, file, configIndex, originalItem.GUID);
+            return created.IsCreatedItem(file, configIndex, originalItem.GUID);
         }
 
         public override string HistoryAction =>

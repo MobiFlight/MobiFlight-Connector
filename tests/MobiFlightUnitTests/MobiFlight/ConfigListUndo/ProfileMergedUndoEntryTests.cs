@@ -1,6 +1,7 @@
 ﻿using MobiFlight.Base;
 using MobiFlight.ConfigListUndo;
 using MobiFlight.Controllers;
+using SharpDX;
 
 namespace MobiFlight.Tests.ConfigListUndo
 {
@@ -272,25 +273,21 @@ namespace MobiFlight.Tests.ConfigListUndo
         public void RollbackPendingMerge_InvalidContext_ReturnsFalse()
         {
             // Arrange
-            var differentProject = new Project();
+            var originalItem = CreateItem("Original Item");
+
+            TestFile.ConfigItems.Add(originalItem);
 
             var mergedFile = new ConfigFile
             {
                 Label = "Merged Profile"
             };
 
-            var entry = new ProfileMergedUndoEntry(
-                differentProject,
-                new List<ConfigFile> { mergedFile });
+            var entry = new ProfileMergedUndoEntry(TestProject, new List<ConfigFile> { mergedFile });
 
-            var originalItem = CreateItem("Original Item");
-
-            TestFile.ConfigItems.Add(originalItem);
+            bool result = entry.RollbackPendingMerge(null);
 
             // Act & Assert
-            Assert.IsFalse(entry.RollbackPendingMerge(null));
-
-            Assert.IsFalse(entry.RollbackPendingMerge(Context));
+            Assert.IsFalse(result);
 
             Assert.HasCount(1, TestProject.ConfigFiles);
 

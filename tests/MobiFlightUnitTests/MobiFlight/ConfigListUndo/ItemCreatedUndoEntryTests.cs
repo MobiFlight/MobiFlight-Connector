@@ -20,7 +20,6 @@ namespace MobiFlight.Tests.ConfigListUndo
             TestFile.ConfigItems.Add(created);
 
             var entry = new ItemCreatedUndoEntry(
-                TestProject,
                 TestFile,
                 0,
                 created.GUID,
@@ -52,7 +51,6 @@ namespace MobiFlight.Tests.ConfigListUndo
             TestFile.ConfigItems.Add(original);
 
             var entry = new ItemCreatedUndoEntry(
-                TestProject,
                 TestFile,
                 0,
                 created.GUID,
@@ -71,58 +69,25 @@ namespace MobiFlight.Tests.ConfigListUndo
         }
 
         [TestMethod]
-        public void TryUndo_DifferentProject_ReturnsFalse()
-        {
-            // Arrange
-            var item = CreateItem("Created");
-
-            TestFile.ConfigItems.Add(item);
-
-            var differentProject = new Project();
-
-            var entry = new ItemCreatedUndoEntry(
-                differentProject,
-                TestFile,
-                0,
-                item.GUID,
-                false);
-
-            // Act
-            bool result = entry.TryUndo(Context, out string reason);
-
-            // Assert
-            Assert.IsFalse(result);
-
-            Assert.AreEqual("Project mismatch.", reason);
-
-            Assert.HasCount(1, TestFile.ConfigItems);
-
-            Assert.AreSame(item, TestFile.ConfigItems[0]);
-        }
-
-        [TestMethod]
-        public void MatchesCreation_ValidatesRecordedIdentity()
+        public void IsCreatedItem_ValidatesRecordedIdentity()
         {
             // Arrange
             var item = CreateItem("Created");
 
             var entry = new ItemCreatedUndoEntry(
-                TestProject,
                 TestFile,
                 0,
                 item.GUID,
                 false);
 
             // Assert
-            Assert.IsTrue(entry.IsCreatedItem(TestProject, TestFile, 0, item.GUID));
+            Assert.IsTrue(entry.IsCreatedItem(TestFile, 0, item.GUID));
 
-            Assert.IsFalse(entry.IsCreatedItem(new Project(), TestFile, 0, item.GUID));
+            Assert.IsFalse(entry.IsCreatedItem(new ConfigFile(), 0, item.GUID));
 
-            Assert.IsFalse(entry.IsCreatedItem(TestProject, new ConfigFile(), 0, item.GUID));
+            Assert.IsFalse(entry.IsCreatedItem(TestFile, 1, item.GUID));
 
-            Assert.IsFalse(entry.IsCreatedItem(TestProject, TestFile, 1, item.GUID));
-
-            Assert.IsFalse(entry.IsCreatedItem(TestProject, TestFile, 0, "different-guid"));
+            Assert.IsFalse(entry.IsCreatedItem(TestFile, 0, "different-guid"));
         }
     }
 }

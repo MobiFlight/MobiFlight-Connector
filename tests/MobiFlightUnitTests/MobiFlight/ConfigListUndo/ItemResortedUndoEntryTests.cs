@@ -18,7 +18,6 @@ namespace MobiFlight.Tests.ConfigListUndo
             TestFile.ConfigItems.AddRange(new IConfigItem[] { first, second, third });
 
             var entry = new ItemResortedUndoEntry(
-                TestProject,
                 TestFile,
                 0,
                 TestFile,
@@ -67,7 +66,6 @@ namespace MobiFlight.Tests.ConfigListUndo
             targetFile.ConfigItems.Add(targetItem);
 
             var entry = new ItemResortedUndoEntry(
-                TestProject,
                 TestFile,
                 0,
                 targetFile,
@@ -103,7 +101,6 @@ namespace MobiFlight.Tests.ConfigListUndo
             TestFile.ConfigItems.AddRange(new IConfigItem[] { first, second });
 
             var entry = new ItemResortedUndoEntry(
-                TestProject,
                 TestFile,
                 0,
                 TestFile,
@@ -151,7 +148,6 @@ namespace MobiFlight.Tests.ConfigListUndo
             TestProject.ConfigFiles.Add(targetFile);
 
             var entry = new ItemResortedUndoEntry(
-                TestProject,
                 TestFile,
                 0,
                 targetFile,

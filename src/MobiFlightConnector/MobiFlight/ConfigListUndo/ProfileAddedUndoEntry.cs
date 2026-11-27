@@ -8,10 +8,7 @@ namespace MobiFlight.ConfigListUndo
     {
         private readonly ConfigFile _file;
 
-        internal ProfileAddedUndoEntry(
-            Project project,
-            ConfigFile file)
-            : base(project)
+        internal ProfileAddedUndoEntry(ConfigFile file)
         {
             _file = file ?? throw new ArgumentNullException(nameof(file));
         }

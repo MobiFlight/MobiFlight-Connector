@@ -31,8 +31,8 @@ namespace MobiFlight.ConfigListUndo
         internal ProfileMergedUndoEntry(
             Project project,
             List<ConfigFile> mergedFiles)
-            : base(project)
         {
+            if (project == null) throw new AccessViolationException(nameof(project));
             if (mergedFiles == null)
                 throw new ArgumentNullException(nameof(mergedFiles));
 
@@ -97,7 +97,7 @@ namespace MobiFlight.ConfigListUndo
         // a failure during the merge process.
         internal bool RollbackPendingMerge(ConfigListUndoContext context)
         {
-            if (context == null || !ReferenceEquals(RecordedProject, context.Project))
+            if (context == null)
             {
                 return false;
             }

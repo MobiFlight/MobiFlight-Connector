@@ -11,12 +11,10 @@ namespace MobiFlight.ConfigListUndo
         private readonly string _historyAction;
 
         internal ItemCreatedUndoEntry(
-            Project project,
             ConfigFile file,
             int configIndex,
             string guid,
             bool isDuplicate)
-            : base(project)
         {
             _file = file ?? throw new ArgumentNullException(nameof(file));
 
@@ -29,14 +27,9 @@ namespace MobiFlight.ConfigListUndo
 
         public override string HistoryAction => _historyAction;
 
-        internal bool IsCreatedItem(
-            Project project,
-            ConfigFile file,
-            int configIndex,
-            string guid)
+        internal bool IsCreatedItem(ConfigFile file, int configIndex, string guid)
         {
-            return ReferenceEquals(RecordedProject, project)
-                && ReferenceEquals(_file, file)
+            return ReferenceEquals(_file, file)
                 && _configIndex == configIndex
                 && _guid == guid;
         }

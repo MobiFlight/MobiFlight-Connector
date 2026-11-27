@@ -16,7 +16,7 @@ namespace MobiFlight.Tests.ConfigListUndo
             var item = CreateItem("Original Item");
             TestFile.ConfigItems.Add(item);
 
-            var entry = new ProfileRenamedUndoEntry(TestProject, TestFile, 0);
+            var entry = new ProfileRenamedUndoEntry(TestFile, 0);
 
             TestFile.Label = "Renamed Profile";
             item.Name = "Changed Item";
@@ -49,7 +49,7 @@ namespace MobiFlight.Tests.ConfigListUndo
             // Arrange
             TestFile.Label = "Original Profile";
 
-            var entry = new ProfileRenamedUndoEntry(TestProject, TestFile, 0);
+            var entry = new ProfileRenamedUndoEntry(TestFile, 0);
 
             TestFile.Label = "Renamed Profile";
 
@@ -81,7 +81,6 @@ namespace MobiFlight.Tests.ConfigListUndo
             TestProject.ConfigFiles.Add(otherFile);
 
             var entry = new ProfileRenamedUndoEntry(
-                TestProject,
                 TestFile,
                 0);
 
