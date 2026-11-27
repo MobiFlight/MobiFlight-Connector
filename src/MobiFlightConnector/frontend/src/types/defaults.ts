@@ -14,7 +14,11 @@ import {
   VariableSource,
   XplaneSource,
 } from "@/types/config"
-import { DeviceCapability, OutputDeviceType, StepperProfilePreset } from "@/types/controller"
+import {
+  DeviceCapability,
+  OutputDeviceType,
+  StepperProfilePreset,
+} from "@/types/controller"
 
 export const FsuipcDefaults = {
   createOffset: (): FsuipcOffset => ({
@@ -63,14 +67,21 @@ export const SourceDefaults = {
 }
 
 export const OutputDeviceConfigDefaults = {
-  createByType: (type: OutputDeviceType, name: string, capability?: DeviceCapability): OutputDeviceConfig => {
+  createByType: (
+    type: OutputDeviceType,
+    name: string,
+    capability?: DeviceCapability,
+  ): OutputDeviceConfig => {
     switch (type) {
       case "Output":
         return OutputDeviceConfigDefaults.createOutputConfig(name)
       case "LedModule":
-        return OutputDeviceConfigDefaults.createLedModuleConfig(name)
+        return OutputDeviceConfigDefaults.createLedModuleConfig(name, capability!)
       case "LcdDisplay":
-        return OutputDeviceConfigDefaults.createLcdDisplayConfig(name, capability)
+        return OutputDeviceConfigDefaults.createLcdDisplayConfig(
+          name,
+          capability,
+        )
       case "Servo":
         return OutputDeviceConfigDefaults.createServoConfig(name)
       case "Stepper":
@@ -88,27 +99,39 @@ export const OutputDeviceConfigDefaults = {
     Name: name,
     Brightness: 255,
     PwmMode: false,
-    Pin: name
+    Pin: name,
   }),
   createShiftRegisterConfig: (name: string): ShiftRegisterConfig => ({
     Type: "ShiftRegister",
     Name: name,
     Address: name,
-    Pin: "Output 0"
+    Pin: "Output 0",
   }),
-  createLedModuleConfig: (name: string): LedModuleConfig => ({
-    Type: "LedModule",
-    Name: name,
-    DisplayLedAddress: name,
-    DisplayLedModuleSize: 8,
-    DisplayLedPadding: false,
-    DisplayLedPaddingChar: "0",
-    DisplayLedDigits: [],
-    DisplayLedDecimalPoints: [],
-    DisplayLedReverseDigits: false,
-    DisplayLedBrightnessReference: "",
-  }),
-  createLcdDisplayConfig: (name: string, capability?: DeviceCapability): LcdDisplayConfig => ({
+  createLedModuleConfig: (
+    name: string,
+    capability: DeviceCapability,
+  ): LedModuleConfig => {
+    const moduleSize = capability.Digits ?? 8
+    const activeDigits = Array.from({ length: moduleSize }, (_, i) =>
+      i.toString(),
+    )
+    return {
+      Type: "LedModule",
+      Name: name,
+      DisplayLedAddress: name,
+      DisplayLedModuleSize: moduleSize,
+      DisplayLedPadding: false,
+      DisplayLedPaddingChar: "0",
+      DisplayLedDigits: activeDigits,
+      DisplayLedDecimalPoints: [],
+      DisplayLedReverseDigits: false,
+      DisplayLedBrightnessReference: "",
+    }
+  },
+  createLcdDisplayConfig: (
+    name: string,
+    capability?: DeviceCapability,
+  ): LcdDisplayConfig => ({
     Type: "LcdDisplay",
     Name: name,
     Address: name,
@@ -125,19 +148,23 @@ export const OutputDeviceConfigDefaults = {
     Max: "255",
     MaxRotationPercent: "100",
   }),
-  createStepperConfig: (name: string, capability: DeviceCapability): StepperConfig => {
-    const stepperProfile = capability.Profile ?? {} as StepperProfilePreset
+  createStepperConfig: (
+    name: string,
+    capability: DeviceCapability,
+  ): StepperConfig => {
+    const stepperProfile = capability.Profile ?? ({} as StepperProfilePreset)
     return {
-    Type: "Stepper",
-    Name: name,
-    Address: name,
-    InputRev: 1000,
-    OutputRev: stepperProfile.StepsPerRevolution,
-    TestValue: 500,
-    CompassMode: false,
-    Acceleration: stepperProfile.Acceleration,
-    Speed: stepperProfile.Speed,
-  }},
+      Type: "Stepper",
+      Name: name,
+      Address: name,
+      InputRev: 1000,
+      OutputRev: stepperProfile.StepsPerRevolution,
+      TestValue: 500,
+      CompassMode: false,
+      Acceleration: stepperProfile.Acceleration,
+      Speed: stepperProfile.Speed,
+    }
+  },
   createCustomDeviceConfig: (name: string): CustomDeviceConfig => ({
     Type: "CustomDevice",
     Name: name,

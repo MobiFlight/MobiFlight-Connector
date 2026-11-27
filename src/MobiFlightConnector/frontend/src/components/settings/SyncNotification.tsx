@@ -45,10 +45,10 @@ export const showSyncNotification = (type: SyncNotificationType) => {
     title: (
       <span className="flex items-center gap-2">
         {renderIcon(type)}
-        <span>{i18n.t(`Settings.Sync.Notifications.${type}.Title`)}</span>
+        <span>{i18n.t(`Settings.Sync.Notifications.${type}.Title`, { ns: "settings" })}</span>
       </span>
     ),
-    description: i18n.t(`Settings.Sync.Notifications.${type}.Description`),
+    description: i18n.t(`Settings.Sync.Notifications.${type}.Description`, { ns: "settings" }),
   })
 }
 

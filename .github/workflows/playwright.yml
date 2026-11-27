@@ -6,6 +6,7 @@ on:
       # Trigger when workflow file or 
       # files in frontend folder change
       - ".github/workflows/playwright.yml"
+      - ".github/actions/npm-install-with-cache/**"
       - "src/MobiFlightConnector/frontend/**"
 
   workflow_dispatch:
@@ -18,7 +19,21 @@ env:
   DEFAULT_CI_WORKERS: 2
 
 jobs:
+  checks:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src/MobiFlightConnector/frontend
+    steps:
+    - uses: actions/checkout@v7
+    - uses: ./.github/actions/npm-install-with-cache
+    - name: Run linter
+      run: npm run lint
+    - name: Run unit tests
+      run: npm run test
+
   test:
+    needs: checks
     timeout-minutes: 60
     runs-on: ubuntu-latest
     strategy:
@@ -29,15 +44,22 @@ jobs:
         working-directory: src/MobiFlightConnector/frontend
     steps:
     - uses: actions/checkout@v7
-    - uses: actions/setup-node@v7
+    - uses: ./.github/actions/npm-install-with-cache
+    - name: Get Playwright version
+      id: playwright-version
+      run: echo "version=$(npx playwright --version | cut -d' ' -f2)" >> "$GITHUB_OUTPUT"
+    - name: Cache Playwright browsers
+      id: playwright-cache
+      uses: actions/cache@v6
       with:
-        node-version: lts/*
-    - name: Install dependencies
-      run: npm ci
+        path: ~/.cache/ms-playwright
+        key: playwright-${{ runner.os }}-${{ steps.playwright-version.outputs.version }}
     - name: Install Playwright Browsers
+      if: steps.playwright-cache.outputs.cache-hit != 'true'
       run: npx playwright install --with-deps chromium
-    - name: Run linter
-      run: npm run lint
+    - name: Install Playwright system dependencies
+      if: steps.playwright-cache.outputs.cache-hit == 'true'
+      run: npx playwright install-deps chromium
     - name: Run Playwright tests
       env:
         CI_WORKERS: ${{ inputs.workers || vars.CI_PLAYWRIGHT_WORKERS || env.DEFAULT_CI_WORKERS }}

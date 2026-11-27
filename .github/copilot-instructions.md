@@ -24,4 +24,4 @@ Always check for the following items before marking a PR as ready to merge, if a
 - Test files follow testing guidelines (group related tests with #region; structure methods with // Arrange, // Act, // Assert; use descriptive names; avoid decorative divider comments)
 - All existing and new tests pass successfully
 - Always use i18n for user-facing strings
-- Add label `docs` if documentation updates are required
+- Add label `documentation` if documentation updates are required

@@ -45,7 +45,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
-    "i18next": "^25.10.10",
+    "i18next": "^27.2.7",
     "i18next-browser-languagedetector": "^8.2.1",
     "i18next-http-backend": "^4.0.4",
     "lodash-es": "^4.18.1",
@@ -54,7 +54,7 @@
     "radix-ui": "^1.4.3",
     "react": "^19.1.0",
     "react-dom": "^19.2.4",
-    "react-error-boundary": "^6.1.1",
+    "react-error-boundary": "^6.1.6",
     "react-i18next": "^16.6.6",
     "react-markdown": "^10.1.0",
     "react-oidc-context": "^3.3.0",
@@ -65,11 +65,11 @@
     "tailwind-merge": "^3.5.0",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^1.1.2",
-    "zustand": "^5.0.11"
+    "zustand": "^5.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
-    "@playwright/test": "^1.65.0",
+    "@playwright/test": "^1.65.1",
     "@tailwindcss/postcss": "^4.2.1",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^25.4.0",
@@ -77,7 +77,7 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.2.0",
     "babel-plugin-react-compiler": "^1.0.0",
-    "dotenv": "^17.3.1",
+    "dotenv": "^18.0.10",
     "eslint": "^9.39.2",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.2",
@@ -89,7 +89,7 @@
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.72.2",
     "vite": "^8.3.5",
-    "vitest": "^4.1.12"
+    "vitest": "^5.1.1"
   },
   "optionalDependencies": {
     "@rolldown/binding-win32-x64-msvc": "^1.2.8"

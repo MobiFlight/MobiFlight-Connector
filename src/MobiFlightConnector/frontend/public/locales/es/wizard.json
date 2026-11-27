@@ -114,18 +114,35 @@
         "Digits": "Dígitos",
         "UseDigits": "Usar dígitos",
         "DecimalPoints": "Puntos decimales",
+        "Digit": "Dígito {{position}}",
+        "ToggleDigit": "Alternar dígito {{position}}",
+        "ToggleAllDigits": "Alternar dígitos",
+        "DecimalPoint": "Punto decimal {{position}}",
+        "ToggleDecimalPoint": "Alternar punto decimal {{position}}",
+        "ClearDecimalPoints": "Quitar puntos decimales",
         "AdvancedOptions": {
           "Title": "Opciones avanzadas",
           "Description": "Configura opciones avanzadas de pantalla para el módulo 7-Segment.",
-          "Padding": "Rellenar con",
-          "PaddingSpace": "Espacio",
-          "ReverseDigits": "Invertir dígitos"
-        },
-        "Brightness": {
-          "Label": "Brillo",
-          "Description": "Usa el valor de otra configuración de salida para establecer el brillo de la pantalla.",
-          "None": "Ninguno",
-          "Summary": "Brillo: {{name}}"
+          "Padding": {
+            "Label": "Alinear a la derecha",
+            "Description": "Si está activado, tus valores se alinearán a la derecha en la pantalla."
+          },
+          "PaddingCharacter": {
+            "Label": "Carácter de relleno",
+            "Description": "Selecciona el carácter usado para rellenar la pantalla.",
+            "Space": "Espacio",
+            "Zero": "0 (Cero)"
+          },
+          "ReverseDigits": {
+            "Label": "Invertir orden de dígitos",
+            "Description": "Invierte el orden de los dígitos en la pantalla. A veces es necesario para pantallas 7-Segment construidas a medida."
+          },
+          "Brightness": {
+            "Label": "Brillo",
+            "Description": "Usa el valor de otra configuración de salida para establecer el brillo de la pantalla.",
+            "None": "Ninguno",
+            "Summary": "Brillo: {{name}}"
+          }
         }
       },
       "LcdDisplay": {

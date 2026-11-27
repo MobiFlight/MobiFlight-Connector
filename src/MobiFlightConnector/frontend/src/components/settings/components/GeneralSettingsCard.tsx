@@ -21,7 +21,7 @@ export default function GeneralSettingsCard({
   values,
   onChange,
 }: GeneralSettingsCardProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslation("settings")
 
   const logEnabled = values.LogEnabled ?? true
   const logLevel = values.LogLevel ?? "info"
