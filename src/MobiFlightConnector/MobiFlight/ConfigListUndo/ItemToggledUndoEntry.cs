@@ -1,7 +1,5 @@
 ﻿using MobiFlight.Base;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace MobiFlight.ConfigListUndo
 {
@@ -19,16 +17,6 @@ namespace MobiFlight.ConfigListUndo
                 affectedItems,
                 "Toggle")
         {
-        }
-
-        protected override void RestoreItem(List<IConfigItem> items, int itemIndex, IConfigItem snapshot)
-        {
-            items[itemIndex].Active = snapshot.Active;
-        }
-
-        protected override string GetRestoreFailureReason(string guid)
-        {
-            return "Toggle restore failed: one or more ConfigItems are missing.";
         }
     }
 }

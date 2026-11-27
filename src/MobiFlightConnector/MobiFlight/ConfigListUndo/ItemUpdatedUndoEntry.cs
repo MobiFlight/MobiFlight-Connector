@@ -125,22 +125,16 @@ namespace MobiFlight.ConfigListUndo
                 itemIndices.Add(itemIndex);
             }
 
-            // Restore each affected item.
             for (int i = 0; i < _items.Count; i++)
             {
-                RestoreItem(items, itemIndices[i], _items[i].Snapshot);
+                items[itemIndices[i]] = _items[i].Snapshot;
             }
 
             reason = null;
             return true;
         }
 
-        protected virtual void RestoreItem(List<IConfigItem> items, int itemIndex, IConfigItem snapshot)
-        {
-            items[itemIndex] = snapshot;
-        }
-
-        protected virtual string GetRestoreFailureReason(string guid)
+        private static string GetRestoreFailureReason(string guid)
         {
             return $"ConfigItem not found or snapshot missing: {guid}";
         }

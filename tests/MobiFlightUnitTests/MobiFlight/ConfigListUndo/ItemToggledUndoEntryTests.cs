@@ -24,7 +24,6 @@ namespace MobiFlight.Tests.ConfigListUndo
                 new List<IConfigItem> { item });
 
             item.Active = !originalActive;
-            item.Name = "Changed Name";
 
             // Act
             bool result = entry.TryUndo(Context, out string reason);
@@ -35,13 +34,15 @@ namespace MobiFlight.Tests.ConfigListUndo
 
             Assert.AreEqual("Toggle", entry.HistoryAction);
 
-            Assert.AreEqual(originalActive, item.Active);
+            Assert.HasCount(1, TestFile.ConfigItems);
 
-            // Other properties must not be restored.
-            Assert.AreEqual("Changed Name", item.Name);
+            var restored = TestFile.ConfigItems[0];
 
-            // The original object must remain in the list.
-            Assert.AreSame(item, TestFile.ConfigItems[0]);
+            Assert.AreEqual(originalActive, restored.Active);
+            Assert.AreEqual("Original", restored.Name);
+            Assert.AreEqual(item.GUID, restored.GUID);
+
+            Assert.AreNotSame(item, restored);
 
             AssertConfigItemsPublished(entry, TestFile, 0);
         }
@@ -71,10 +72,17 @@ namespace MobiFlight.Tests.ConfigListUndo
 
             // Assert
             Assert.IsTrue(result, reason);
+            Assert.IsNull(reason);
 
-            Assert.IsTrue(first.Active);
-            Assert.IsFalse(second.Active);
-            Assert.IsTrue(third.Active);
+            Assert.HasCount(3, TestFile.ConfigItems);
+
+            Assert.IsTrue(TestFile.ConfigItems[0].Active);
+            Assert.IsFalse(TestFile.ConfigItems[1].Active);
+            Assert.IsTrue(TestFile.ConfigItems[2].Active);
+
+            Assert.AreEqual(first.GUID, TestFile.ConfigItems[0].GUID);
+            Assert.AreEqual(second.GUID, TestFile.ConfigItems[1].GUID);
+            Assert.AreEqual(third.GUID, TestFile.ConfigItems[2].GUID);
         }
 
         [TestMethod]
@@ -107,7 +115,7 @@ namespace MobiFlight.Tests.ConfigListUndo
             Assert.HasCount(1, TestFile.ConfigItems);
 
             // No partial restoration is allowed.
-            Assert.IsFalse(first.Active);
+            Assert.IsFalse(TestFile.ConfigItems[0].Active);
 
             Assert.AreSame(first, TestFile.ConfigItems[0]);
         }
