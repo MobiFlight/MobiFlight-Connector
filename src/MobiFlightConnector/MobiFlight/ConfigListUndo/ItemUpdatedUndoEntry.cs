@@ -137,7 +137,7 @@ namespace MobiFlight.ConfigListUndo
 
         protected virtual void RestoreItem(List<IConfigItem> items, int itemIndex, IConfigItem snapshot)
         {
-            items[itemIndex] = (IConfigItem)snapshot.Clone();
+            items[itemIndex] = snapshot;
         }
 
         protected virtual string GetRestoreFailureReason(string guid)

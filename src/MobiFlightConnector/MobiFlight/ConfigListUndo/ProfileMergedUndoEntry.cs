@@ -95,8 +95,7 @@ namespace MobiFlight.ConfigListUndo
 
         // Used when a merge must be rolled back after
         // a failure during the merge process.
-        internal bool RollbackPendingMerge(
-            ConfigListUndoContext context)
+        internal bool RollbackPendingMerge(ConfigListUndoContext context)
         {
             if (context == null || !ReferenceEquals(RecordedProject, context.Project))
             {
@@ -114,12 +113,10 @@ namespace MobiFlight.ConfigListUndo
         {
             foreach (var snapshot in _originalProfiles)
             {
-                snapshot.File.ConfigItems = snapshot.Items
-                    .Select(item => (IConfigItem)item.Clone())
-                    .ToList();
+                snapshot.File.ConfigItems = snapshot.Items;
             }
 
-            project.ControllerBindings = _originalControllerBindings?.ToList();
+            project.ControllerBindings = _originalControllerBindings;
 
             project.ConfigFiles =
                 new ObservableCollection<ConfigFile>(

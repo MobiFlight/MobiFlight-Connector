@@ -63,7 +63,6 @@ namespace MobiFlight.ConfigListUndo
                 !isConfigIndexInvalid &&
                 !ReferenceEquals(project.ConfigFiles[_configIndex], _file);
 
-            // Validate the recorded profile.
             if (isConfigIndexInvalid || isProfileMismatch)
             {
                 reason = "Project/profile mismatch.";
@@ -72,7 +71,6 @@ namespace MobiFlight.ConfigListUndo
 
             var items = _file.ConfigItems;
 
-            // Validate all items before changing the list.
             bool hasConflict =
                 _items.Count == 0 ||
                 _items.Any(state =>
@@ -92,7 +90,7 @@ namespace MobiFlight.ConfigListUndo
             {
                 int restoreIndex = Math.Min(Math.Max(state.OriginalIndex, 0), items.Count);
 
-                items.Insert(restoreIndex, (IConfigItem)state.Snapshot.Clone());
+                items.Insert(restoreIndex, state.Snapshot);
             }
 
             reason = null;
