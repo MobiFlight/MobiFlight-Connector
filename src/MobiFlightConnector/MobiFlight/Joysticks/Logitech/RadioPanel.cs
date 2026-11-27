@@ -229,6 +229,22 @@ namespace MobiFlight.Joysticks.Logitech
             }
         }
 
+        /// <summary>
+        /// Called when MobiFlight stops running the configs. Forgets the cached values, so a display
+        /// that no config writes to anymore (e.g. after moving a config to another display) blanks
+        /// instead of showing its last value until MobiFlight restarts.
+        /// </summary>
+        protected override void OnStop()
+        {
+            lock (OutputLock)
+            {
+                DisplayState.ClearValues();
+                RequiresOutputUpdate = true;
+            }
+
+            UpdateOutputDeviceStates();
+        }
+
         private void OnReadError(Exception exception)
         {
             Log.Instance.log($"{Name} read failed, disconnecting {Serial}: {exception.Message}", LogSeverity.Error);

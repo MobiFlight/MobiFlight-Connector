@@ -328,6 +328,26 @@ namespace MobiFlight.Joysticks.Logitech.Tests
         }
 
         [TestMethod]
+        public void ClearValues_BlanksDisplaysButKeepsModes()
+        {
+            // Arrange
+            var state = CreateComState(RadioPanelMode.Com1, RadioPanelMode.Com2);
+
+            // Act
+            state.ClearValues();
+            var report = state.ToFeatureReport();
+
+            // Assert
+            for (var i = 1; i <= 20; i++)
+            {
+                Assert.AreEqual(RadioPanelDisplayState.Blank, report[i], $"Byte {i}");
+            }
+            Assert.AreEqual(RadioPanelMode.Com1, state.UpperMode);
+            Assert.AreEqual(RadioPanelMode.Com2, state.LowerMode);
+            Assert.IsTrue(state.SetValue(RadioPanelMode.Com1, RadioPanelDisplaySlot.Active, "123450"), "Same value as before counts as new after clearing");
+        }
+
+        [TestMethod]
         public void SetModes_ReportsWhetherModesChanged()
         {
             // Arrange

@@ -68,6 +68,12 @@ namespace MobiFlight.Joysticks.Logitech
             return true;
         }
 
+        /// <summary>Forgets all cached values, the selected modes are kept.</summary>
+        public void ClearValues()
+        {
+            Array.Clear(Values);
+        }
+
         /// <summary>Sets the mode each row displays. Returns true if either changed.</summary>
         public bool SetModes(RadioPanelMode upper, RadioPanelMode lower)
         {
