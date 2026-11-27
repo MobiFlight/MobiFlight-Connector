@@ -7,7 +7,9 @@ import { isOverTable } from "./is-over-table"
 export class RestrictToVerticalAxisInsideTable extends Modifier<DragDropManager> {
   public apply(operation: DragOperation): Coordinates {
     const { transform } = operation
-    if (this.disabled || !isOverTable(this.manager)) return transform
+    const enabledAndInsideTable = !this.disabled && isOverTable(this.manager)
+
+    if (!enabledAndInsideTable) return transform
     return { ...transform, x: 0 }
   }
 }

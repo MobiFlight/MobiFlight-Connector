@@ -45,14 +45,13 @@ export class RestrictToBottomOfParentElement extends Modifier<
     const { transform, shape } = operation
     const element = this.options?.element
 
-    if (
-      this.disabled ||
-      !isOverTable(this.manager) ||
-      !shape ||
-      !element?.isConnected
-    ) {
-      return transform
-    }
+    const elementValidAndInsideTable =
+      !this.disabled &&
+      isOverTable(this.manager) &&
+      shape &&
+      element?.isConnected
+
+    if (!elementValidAndInsideTable) return transform
 
     // The preview at its starting place (initial centre), with its current
     // size, because the preview changes size during the drag.
