@@ -9,8 +9,10 @@ import xml.etree.ElementTree as ET
 from gql import Client, gql
 from gql.transport.websockets import WebsocketsTransport
 
-# Connection settings for ProSim GraphQL
-GRAPHQL_URL = "ws://localhost:5000/graphql"
+# Connection settings for ProSim GraphQL, passed in by MobiFlight from its ProSim settings
+PROSIM_HOST: str = os.environ.get("PROSIM_HOST", "localhost")
+PROSIM_PORT: str = os.environ.get("PROSIM_PORT", "5000")
+GRAPHQL_URL = f"ws://{PROSIM_HOST}:{PROSIM_PORT}/graphql"
 
 subs = {'#': '\u2610',    # ballot box
         '¤': '\u2191',    # up arrow

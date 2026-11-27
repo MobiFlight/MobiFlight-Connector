@@ -6,6 +6,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -23,6 +24,8 @@ namespace MobiFlight.Scripts
         private const int STARTUP_DELAY_MS = 2000;
         private const int PROCESS_POLLING_DELAY_MS = 300;
         private const int PROCESS_KILL_TIMEOUT_MS = 1000;
+        internal const string PROSIM_HOST_VARIABLE = "PROSIM_HOST";
+        internal const string PROSIM_PORT_VARIABLE = "PROSIM_PORT";
 
         private JoystickManager JsManager;
         private SimConnectCacheInterface MsfsCache;
@@ -108,6 +111,16 @@ namespace MobiFlight.Scripts
                 Log.Instance.log($"ScriptRunner - Hardware ID value overflow: {ex.Message}", LogSeverity.Error);
                 return string.Empty;
             }
+        }
+
+        /// <summary>
+        /// Passes the configured ProSim connection to scripts so they reach a ProSim instance on another PC.
+        /// </summary>
+        internal static void ApplyProSimEnvironment(IDictionary<string, string> environment, string host, int port)
+        {
+            // Same fallback as ProSimCache.Connect
+            environment[PROSIM_HOST_VARIABLE] = string.IsNullOrWhiteSpace(host) ? "localhost" : host;
+            environment[PROSIM_PORT_VARIABLE] = port.ToString(CultureInfo.InvariantCulture);
         }
 
         private void ReadConfiguration()
@@ -204,6 +217,7 @@ namespace MobiFlight.Scripts
                 LogSeverity severity = LogSeverity.Info;
                 Enum.TryParse(Properties.Settings.Default.LogLevel, /*ignoreCase=*/ true, out severity);
                 psi.EnvironmentVariables["LOGLEVEL"] = severity.PythonLogLevel();
+                ApplyProSimEnvironment(psi.Environment, Properties.Settings.Default.ProSimHost, Properties.Settings.Default.ProSimPort);
 
                 Process process = new Process
                 {
