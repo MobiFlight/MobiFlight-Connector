@@ -108,24 +108,41 @@
       },
       "SevenSegment": {
         "Title": "Schritt 2 - 7-Segment-Einstellungen",
-        "Description": "Wähle das Modul aus und lege fest, welche Stellen den Wert anzeigen.",
+        "Description": "Wähle das Modul aus und lege fest, welche Ziffern den Wert anzeigen.",
         "Label": "7-Segment",
         "Display": "Anzeige",
-        "Digits": "Stellen",
-        "UseDigits": "Stellen verwenden",
+        "Digits": "Ziffern",
+        "UseDigits": "Ziffern verwenden",
         "DecimalPoints": "Dezimalpunkte",
+        "Digit": "Ziffer {{position}}",
+        "ToggleDigit": "Ziffer {{position}} umschalten",
+        "ToggleAllDigits": "Ziffern umschalten",
+        "DecimalPoint": "Dezimalpunkt {{position}}",
+        "ToggleDecimalPoint": "Dezimalpunkt {{position}} umschalten",
+        "ClearDecimalPoints": "Dezimalpunkte entfernen",
         "AdvancedOptions": {
           "Title": "Erweiterte Optionen",
           "Description": "Konfiguriere erweiterte Anzeigeoptionen für das 7-Segment-Modul.",
-          "Padding": "Auffüllen mit",
-          "PaddingSpace": "Leerzeichen",
-          "ReverseDigits": "Stellen umkehren"
-        },
-        "Brightness": {
-          "Label": "Helligkeit",
-          "Description": "Verwende den Wert einer anderen Ausgabe-Konfiguration, um die Helligkeit der Anzeige festzulegen.",
-          "None": "Keine",
-          "Summary": "Helligkeit: {{name}}"
+          "Padding": {
+            "Label": "Rechtsbündig",
+            "Description": "Wenn aktiviert, werden deine Werte auf der Anzeige rechtsbündig ausgerichtet."
+          },
+          "PaddingCharacter": {
+            "Label": "Füllzeichen",
+            "Description": "Wähle das Zeichen, mit dem die Anzeige aufgefüllt wird.",
+            "Space": "Leerzeichen",
+            "Zero": "0 (Null)"
+          },
+          "ReverseDigits": {
+            "Label": "Reihenfolge der Ziffern umkehren",
+            "Description": "Kehrt die Reihenfolge der Ziffern auf der Anzeige um. Das ist manchmal bei selbstgebauten 7-Segment-Anzeigen nötig."
+          },
+          "Brightness": {
+            "Label": "Helligkeit",
+            "Description": "Verwende den Wert einer anderen Ausgabe-Konfiguration, um die Helligkeit der Anzeige festzulegen.",
+            "None": "Keine",
+            "Summary": "Helligkeit: {{name}}"
+          }
         }
       },
       "LcdDisplay": {
