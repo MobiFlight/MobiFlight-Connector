@@ -88,7 +88,7 @@
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.72.2",
     "vite": "^8.3.5",
-    "vitest": "^4.1.12"
+    "vitest": "^5.1.1"
   },
   "optionalDependencies": {
     "@rolldown/binding-win32-x64-msvc": "^1.2.8"
