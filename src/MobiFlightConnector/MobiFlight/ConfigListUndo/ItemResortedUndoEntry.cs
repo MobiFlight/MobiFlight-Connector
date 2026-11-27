@@ -58,25 +58,13 @@ namespace MobiFlight.ConfigListUndo
         {
             var project = context.Project;
 
-            bool isSourceIndexInvalid = _sourceIndex < 0 || _sourceIndex >= project.ConfigFiles.Count;
-
-            bool isSourceProfileMismatch =
-                !isSourceIndexInvalid &&
-                !ReferenceEquals(project.ConfigFiles[_sourceIndex], _sourceFile);
-
-            if (isSourceIndexInvalid || isSourceProfileMismatch)
+            if (!IsProfileValid(project, _sourceFile, _sourceIndex))
             {
                 reason = "Project/profile mismatch.";
                 return false;
             }
 
-            bool isTargetIndexInvalid = _targetIndex < 0 || _targetIndex >= project.ConfigFiles.Count;
-
-            bool isTargetProfileMismatch =
-                !isTargetIndexInvalid &&
-                !ReferenceEquals(project.ConfigFiles[_targetIndex], _targetFile);
-
-            if (isTargetIndexInvalid || isTargetProfileMismatch)
+            if (!IsProfileValid(project, _targetFile, _targetIndex))
             {
                 reason =
                     "Resort target profile mismatch. " +

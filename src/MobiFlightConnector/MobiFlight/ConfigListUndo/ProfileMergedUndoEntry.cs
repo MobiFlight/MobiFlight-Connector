@@ -62,8 +62,7 @@ namespace MobiFlight.ConfigListUndo
             // Preserve the existing first-profile check.
             bool validOriginalProfile =
                 _originalCount == 0 ||
-                (files.Count > 0 &&
-                 ReferenceEquals(files[0], _originalProfiles[0].File));
+                IsProfileValid(project, _originalProfiles[0].File, 0);
 
             // The recorded merged profiles must still be
             // appended in the expected order.
@@ -71,7 +70,7 @@ namespace MobiFlight.ConfigListUndo
                 validOriginalProfile &&
                 files.Count == _originalCount + _mergedFiles.Count &&
                 Enumerable.Range(0, _mergedFiles.Count)
-                    .All(i => ReferenceEquals(files[_originalCount + i], _mergedFiles[i]));
+                    .All(i => IsProfileValid(project, _mergedFiles[i], _originalCount + i));
 
             if (!validMerge)
             {

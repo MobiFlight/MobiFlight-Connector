@@ -1,6 +1,5 @@
 ﻿using MobiFlight.Base;
 using System;
-using System.Linq;
 
 namespace MobiFlight.ConfigListUndo
 {
@@ -29,13 +28,13 @@ namespace MobiFlight.ConfigListUndo
 
         protected override bool TryUndoCore(ConfigListUndoContext context, out string reason)
         {
-            var files = context.Project.ConfigFiles;
+            var project = context.Project;
+            var files = project.ConfigFiles;
+            bool isOriginalIndexInvalid = !IsProfileIndexValid(project, _originalIndex);
+            bool isTargetIndexInvalid = !IsProfileIndexValid(project, _targetIndex);
+            bool isSameIndex = _originalIndex == _targetIndex;
 
-            bool isOriginalIndexInvalid = _originalIndex < 0 || _originalIndex >= files.Count;
-            bool isTargetIndexInvalid = _targetIndex < 0 || _targetIndex >= files.Count;
-            bool isSmaeIndex = _originalIndex == _targetIndex;
-
-            bool invalidIndex = isOriginalIndexInvalid || isTargetIndexInvalid || isSmaeIndex;
+            bool invalidIndex = isOriginalIndexInvalid || isTargetIndexInvalid || isSameIndex;
 
             if (invalidIndex)
             {
@@ -48,8 +47,8 @@ namespace MobiFlight.ConfigListUndo
                 ? _targetIndex - 1
                 : _targetIndex + 1;
 
-            bool isMovedProfileMismatch = !ReferenceEquals(files[_targetIndex], _file);
-            bool isTargetProfileMismatch = !ReferenceEquals(files[shiftedTargetIndex], _targetFile);
+            bool isMovedProfileMismatch = !IsProfileValid(project, _file, _targetIndex);
+            bool isTargetProfileMismatch = !IsProfileValid(project, _targetFile, shiftedTargetIndex);
 
             if (isMovedProfileMismatch || isTargetProfileMismatch)
             {

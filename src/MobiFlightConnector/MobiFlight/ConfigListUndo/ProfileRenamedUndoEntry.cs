@@ -1,6 +1,5 @@
 ﻿using MobiFlight.Base;
 using System;
-using System.Linq;
 
 namespace MobiFlight.ConfigListUndo
 {
@@ -23,13 +22,7 @@ namespace MobiFlight.ConfigListUndo
 
         protected override bool TryUndoCore(ConfigListUndoContext context, out string reason)
         {
-            var project = context.Project;
-
-            int currentIndex = project.ConfigFiles
-                .ToList()
-                .FindIndex(file => ReferenceEquals(file, _file));
-
-            if (currentIndex != _configIndex)
+            if (!IsProfileValid(context.Project, _file, _configIndex))
             {
                 reason = "Project/profile mismatch.";
                 return false;
