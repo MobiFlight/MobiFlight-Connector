@@ -101,13 +101,9 @@ namespace MobiFlight.Joysticks.Octavi
                 }
 
                 // DCT, MENU, CLR, ENT, CDI, OBS, MSG, FLP, VNAV, PROC
-                if (context.state == OctaviReport.OctaviState.STATE_FMS1 ||
-                    context.state == OctaviReport.OctaviState.STATE_FMS2)
+                if (IsFmsContext(context))
                 {
-                    buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_DCT), ToButton($"Button_{context.name}_DCT"));
-                    buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_MENU), ToButton($"Button_{context.name}_MENU"));
-                    buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_CLR), ToButton($"Button_{context.name}_CLR"));
-                    buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_ENT), ToButton($"Button_{context.name}_ENT"));
+                    AddRightColumnButtonMappings(context);
                     buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_AP), ToButton($"Button_{context.name}_CDI"));
                     buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_AP_HDG), ToButton($"Button_{context.name}_OBS"));
                     buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_AP_NAV), ToButton($"Button_{context.name}_MSG"));
@@ -115,9 +111,6 @@ namespace MobiFlight.Joysticks.Octavi
                     buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_AP_ALT), ToButton($"Button_{context.name}_VNAV"));
                     buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_AP_VS), ToButton($"Button_{context.name}_PROC"));
                 }
-                /* else: why can't we use these buttons out of FMS-States?
-                 * e.g. Context COM1 Button -D-> could be used to set the radio to VATSIM Unicom "122.800"
-                 */
 
                 // AP, HDG, NAV, APR, ALT, VS (AP context only for now to not mess up the ordering of buttons)
                 if (context.state == OctaviReport.OctaviState.STATE_AP)
@@ -129,15 +122,33 @@ namespace MobiFlight.Joysticks.Octavi
             // AP, HDG, NAV, APR, ALT, VS (remaining Autopilot-enabled contexts)
             foreach (var context in contexts)
             {
-                if (context.state != OctaviReport.OctaviState.STATE_FMS1 &&
-                    context.state != OctaviReport.OctaviState.STATE_FMS2 &&
-                    context.state != OctaviReport.OctaviState.STATE_AP)
+                if (!IsFmsContext(context) && context.state != OctaviReport.OctaviState.STATE_AP)
                 {
                     AddAutopilotButtonMappings(context);
                 }
             }
 
+            // DCT, MENU, CLR, ENT (remaining contexts, added last to keep the order of all earlier buttons)
+            foreach (var context in contexts.Where(c => !IsFmsContext(c)))
+            {
+                AddRightColumnButtonMappings(context);
+            }
+
             JoystickButtonNames = buttons.AsReadOnly();
+        }
+
+        private static bool IsFmsContext(Context context)
+        {
+            return context.state == OctaviReport.OctaviState.STATE_FMS1 ||
+                   context.state == OctaviReport.OctaviState.STATE_FMS2;
+        }
+
+        private void AddRightColumnButtonMappings(Context context)
+        {
+            buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_DCT), ToButton($"Button_{context.name}_DCT"));
+            buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_MENU), ToButton($"Button_{context.name}_MENU"));
+            buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_CLR), ToButton($"Button_{context.name}_CLR"));
+            buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_ENT), ToButton($"Button_{context.name}_ENT"));
         }
 
         private void AddAutopilotButtonMappings(Context context)

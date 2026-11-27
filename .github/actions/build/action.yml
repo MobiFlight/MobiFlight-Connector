@@ -73,7 +73,7 @@ runs:
       shell: pwsh
       run: >
         dotnet test
-        "${{ inputs.test_projects }}"
+        --solution "${{ inputs.test_projects }}"
         -c "${{ inputs.build_configuration }}"
         --no-build
 

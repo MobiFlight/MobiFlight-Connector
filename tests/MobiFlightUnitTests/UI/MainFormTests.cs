@@ -29,6 +29,12 @@ namespace MobiFlight.UI.Tests
             public IMessagePublisher OriginalPublisher { get; private set; }
             protected override bool LogIsEnabled => false;
 
+            public TestableMainForm()
+            {
+                // Creating the form installs a WinForms sync context on this unpumped test thread; drop it so async tests don't hang
+                System.Threading.SynchronizationContext.SetSynchronizationContext(null);
+            }
+
             // Skip capturing a UI SynchronizationContext and starting a real WebSocket server:
             // this constructor typically runs on a test worker thread with no message loop, so
             // capturing "the UI context" here would bind MessageExchange.Instance's global
