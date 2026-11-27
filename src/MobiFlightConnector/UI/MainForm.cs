@@ -2027,17 +2027,31 @@ namespace MobiFlight.UI
             OpenFileDialog fd = new OpenFileDialog();
             fd.Filter = fileExtensionLoadFilter;
 
+            SaveUnsavedChangesIfConfirmed();
+
+            if (DialogResult.OK == fd.ShowDialog())
+            {
+                LoadConfig(fd.FileName);
+            }
+        }
+
+        /// <summary>
+        /// Opens the given project file the same way as File > Open, e.g. when a project file is dropped onto the window.
+        /// </summary>
+        public void OpenProjectFile(string fileName)
+        {
+            SaveUnsavedChangesIfConfirmed();
+            LoadConfig(fileName);
+        }
+
+        private void SaveUnsavedChangesIfConfirmed()
+        {
             if (ProjectHasUnsavedChanges && MessageBox.Show(
                        i18n._tr("uiMessageConfirmDiscardUnsaved"),
                        i18n._tr("uiMessageConfirmDiscardUnsavedTitle"),
                        MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 saveToolStripButton_Click(this, new EventArgs());
-            }
-
-            if (DialogResult.OK == fd.ShowDialog())
-            {
-                LoadConfig(fd.FileName);
             }
         }
 
