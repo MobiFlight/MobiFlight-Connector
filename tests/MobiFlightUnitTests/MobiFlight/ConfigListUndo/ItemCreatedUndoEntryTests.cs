@@ -114,15 +114,15 @@ namespace MobiFlight.Tests.ConfigListUndo
                 false);
 
             // Assert
-            Assert.IsTrue(entry.MatchesCreation(TestProject, TestFile, 0, item.GUID));
+            Assert.IsTrue(entry.IsCreatedItem(TestProject, TestFile, 0, item.GUID));
 
-            Assert.IsFalse(entry.MatchesCreation(new Project(), TestFile, 0, item.GUID));
+            Assert.IsFalse(entry.IsCreatedItem(new Project(), TestFile, 0, item.GUID));
 
-            Assert.IsFalse(entry.MatchesCreation(TestProject, new ConfigFile(), 0, item.GUID));
+            Assert.IsFalse(entry.IsCreatedItem(TestProject, new ConfigFile(), 0, item.GUID));
 
-            Assert.IsFalse(entry.MatchesCreation(TestProject, TestFile, 1, item.GUID));
+            Assert.IsFalse(entry.IsCreatedItem(TestProject, TestFile, 1, item.GUID));
 
-            Assert.IsFalse(entry.MatchesCreation(TestProject, TestFile, 0, "different-guid"));
+            Assert.IsFalse(entry.IsCreatedItem(TestProject, TestFile, 0, "different-guid"));
         }
     }
 }

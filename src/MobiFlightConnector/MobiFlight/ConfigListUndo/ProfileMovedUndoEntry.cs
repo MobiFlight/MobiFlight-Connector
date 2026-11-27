@@ -61,7 +61,7 @@ namespace MobiFlight.ConfigListUndo
             var project = context.Project;
             var files = project.ConfigFiles;
 
-            int actualIndex = files
+            int currentIndex = files
                 .ToList()
                 .FindIndex(file => ReferenceEquals(file, _file));
 
@@ -74,7 +74,7 @@ namespace MobiFlight.ConfigListUndo
 
             bool validState =
                 validIndex &&
-                actualIndex == _targetIndex &&
+                currentIndex == _targetIndex &&
                 ReferenceEquals(files[_originalIndex], _targetFile);
 
             if (!validState)

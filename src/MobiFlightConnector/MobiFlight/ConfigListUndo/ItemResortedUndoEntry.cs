@@ -60,19 +60,25 @@ namespace MobiFlight.ConfigListUndo
         {
             var project = context.Project;
 
-            // Validate the source profile.
-            if (_sourceIndex < 0 ||
-                _sourceIndex >= project.ConfigFiles.Count ||
-                !ReferenceEquals(project.ConfigFiles[_sourceIndex], _sourceFile))
+            bool isSourceIndexInvalid = _sourceIndex < 0 || _sourceIndex >= project.ConfigFiles.Count;
+
+            bool isSourceProfileMismatch =
+                !isSourceIndexInvalid &&
+                !ReferenceEquals(project.ConfigFiles[_sourceIndex], _sourceFile);
+
+            if (isSourceIndexInvalid || isSourceProfileMismatch)
             {
                 reason = "Project/profile mismatch.";
                 return false;
             }
 
-            // Validate the target profile.
-            if (_targetIndex < 0 ||
-                _targetIndex >= project.ConfigFiles.Count ||
-                !ReferenceEquals(project.ConfigFiles[_targetIndex], _targetFile))
+            bool isTargetIndexInvalid = _targetIndex < 0 || _targetIndex >= project.ConfigFiles.Count;
+
+            bool isTargetProfileMismatch =
+                !isTargetIndexInvalid &&
+                !ReferenceEquals(project.ConfigFiles[_targetIndex], _targetFile);
+
+            if (isTargetIndexInvalid || isTargetProfileMismatch)
             {
                 reason =
                     "Resort target profile mismatch. " +
@@ -103,15 +109,21 @@ namespace MobiFlight.ConfigListUndo
                 .Select(item => item.GUID)
                 .ToList();
 
-            // The same items must still be present.
-            // Duplicate GUIDs are not allowed.
-            bool hasConflict =
-                currentGuids.Count != expectedGuids.Count ||
-                currentGuids.Distinct().Count() !=
-                    currentGuids.Count ||
-                expectedGuids.Distinct().Count() !=
-                    expectedGuids.Count ||
+            bool hasDifferentItemCount = currentGuids.Count != expectedGuids.Count;
+
+            bool hasDuplicateCurrentGuids = currentGuids.Distinct().Count() != currentGuids.Count;
+
+            bool hasDuplicateExpectedGuids =
+                expectedGuids.Distinct().Count() != expectedGuids.Count;
+
+            bool hasDifferentGuidSet =
                 !new HashSet<string>(currentGuids).SetEquals(expectedGuids);
+
+            bool hasConflict =
+                hasDifferentItemCount ||
+                hasDuplicateCurrentGuids ||
+                hasDuplicateExpectedGuids ||
+                hasDifferentGuidSet;
 
             if (hasConflict)
             {

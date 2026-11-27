@@ -22,11 +22,11 @@ namespace MobiFlight.ConfigListUndo
         {
             var project = context.Project;
 
-            int actualIndex = project.ConfigFiles
+            int currentIndex = project.ConfigFiles
                 .ToList()
                 .FindIndex(file => ReferenceEquals(file, _file));
 
-            if (actualIndex < 0)
+            if (currentIndex < 0)
             {
                 reason = "Project/profile mismatch.";
                 return false;
@@ -41,7 +41,7 @@ namespace MobiFlight.ConfigListUndo
             }
 
             int activeIndexBeforeUndo = context.ActiveConfigIndex;
-            project.ConfigFiles.RemoveAt(actualIndex);
+            project.ConfigFiles.RemoveAt(currentIndex);
 
             context.ActiveConfigIndex = Math.Clamp(
                 activeIndexBeforeUndo,

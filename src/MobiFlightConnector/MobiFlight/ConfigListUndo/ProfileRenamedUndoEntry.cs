@@ -29,11 +29,11 @@ namespace MobiFlight.ConfigListUndo
         {
             var project = context.Project;
 
-            int actualIndex = project.ConfigFiles
+            int currentIndex = project.ConfigFiles
                 .ToList()
                 .FindIndex(file => ReferenceEquals(file, _file));
 
-            if (actualIndex != _configIndex)
+            if (currentIndex != _configIndex)
             {
                 reason = "Project/profile mismatch.";
                 return false;

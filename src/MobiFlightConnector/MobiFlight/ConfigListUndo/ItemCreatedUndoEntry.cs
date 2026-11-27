@@ -29,7 +29,7 @@ namespace MobiFlight.ConfigListUndo
 
         public override string HistoryAction => _historyAction;
 
-        internal bool MatchesCreation(
+        internal bool IsCreatedItem(
             Project project,
             ConfigFile file,
             int configIndex,
@@ -44,11 +44,14 @@ namespace MobiFlight.ConfigListUndo
         protected override bool TryUndoCore(ConfigListUndoContext context, out string reason)
         {
             var project = context.Project;
-            // The original profile must still exist
-            // at its recorded index.
-            if (_configIndex < 0 ||
-                _configIndex >= project.ConfigFiles.Count ||
-                !ReferenceEquals(project.ConfigFiles[_configIndex], _file))
+
+            bool isConfigIndexInvalid = _configIndex < 0 || _configIndex >= project.ConfigFiles.Count;
+
+            bool isProfileMismatch =
+                !isConfigIndexInvalid &&
+                !ReferenceEquals(project.ConfigFiles[_configIndex], _file);
+
+            if (isConfigIndexInvalid || isProfileMismatch)
             {
                 reason = "Project/profile mismatch.";
                 return false;
