@@ -16,4 +16,6 @@ export const ConfigItemDragVisualContext =
   createContext<ConfigItemDragVisualContextType>({
     draggedItemIds: new Set<string>(),
     isInsideTable: true,
+    dragItemId: null,
+    overItemId: null,
   })

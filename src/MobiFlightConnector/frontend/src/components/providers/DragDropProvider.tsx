@@ -1,18 +1,8 @@
-import React, { useCallback, useMemo, useState } from "react"
-import {
-  DndContext,
-  DragStartEvent,
-  DragEndEvent,
-  useSensors,
-  useSensor,
-  TouchSensor,
-  DragMoveEvent,
-  pointerWithin,
-  Modifier,
-  closestCorners,
-} from "@dnd-kit/core"
-import { restrictToVerticalAxis } from "@dnd-kit/modifiers"
-import { snapToCursor } from "@/lib/dnd-kit/snap-to-cursor"
+import React, { useCallback, useEffect, useMemo, useState } from "react"
+import { flushSync } from "react-dom"
+// Note: the library's DragDropProvider is not this file's ConfigItemDragProvider
+import { DragDropProvider } from "@dnd-kit/react"
+import type { DragStartEvent, DragEndEvent, DragOverEvent } from "@dnd-kit/dom"
 import { IConfigItem } from "@/types"
 import { Table } from "@tanstack/react-table"
 import { ConfigItemDragOverlay } from "@/components/dnd/ConfigItemDragOverlay"
@@ -21,15 +11,17 @@ import {
   ConfigItemDragVisualContext,
 } from "./ConfigItemContext"
 import { useProjectStoreActions } from "@/stores/projectStore"
-import { restrictToBottomOfParentElement } from "../dnd/modifiers/restrictToBottomOfParentElement"
 import {
   calculateInsertionIndex,
   executeDrop,
   extractDropContext,
   validateDragEnd,
 } from "@/lib/dnd/utilities"
-import { CustomMouseSensor } from "@/lib/dnd-kit/CustomMouseSensor"
-
+import { CustomPointerSensor } from "@/lib/dnd-kit/CustomPointerSensor"
+import { SnapToCursor } from "@/lib/dnd-kit/snap-to-cursor"
+import { RestrictToBottomOfParentElement } from "@/components/dnd/modifiers/restrictToBottomOfParentElement"
+import { RestrictToVerticalAxisInsideTable } from "@/lib/dnd-kit/restrict-to-vertical-axis-inside-table"
+import { configure } from "@dnd-kit/abstract"
 /**
  * The drag state that persists throughout the entire drag operation
  * This data survives tab switches and component re-renders
@@ -51,6 +43,7 @@ export interface DragState {
     isDragging: boolean // Whether a drag is currently active
     isInsideTable: boolean // Whether the drag is currently over a valid table
     hoveredTabIndex: number // If dragging over a tab, which tab index
+    overItemId: string | null
     activeTabIndex?: number // If drag ended over a tab, which tab index
   }
 }
@@ -68,10 +61,18 @@ export interface ConfigItemDragContextType {
 export interface ConfigItemDragVisualContextType {
   draggedItemIds: ReadonlySet<string>
   isInsideTable: boolean
+  dragItemId: string | null
+  overItemId: string | null
 }
 
 const EMPTY_DRAGGED_ITEM_IDS: ReadonlySet<string> = new Set()
 
+// How long a drag must rest on a tab before that tab opens
+const TAB_HOVER_DELAY_MS = 600
+
+// One pointer sensor covers mouse, touch and pen.
+// Defined once so the provider receives a stable array.
+const SENSORS = [CustomPointerSensor]
 /**
  * Props for the drag provider component
  */
@@ -104,18 +105,23 @@ export function ConfigItemDragProvider({
   const [tableContainerRef, setTableContainerRefInternal] =
     useState<Element | null>(null)
 
-  // Configure what input methods can trigger drag operations
-  const sensors = useSensors(
-    useSensor(CustomMouseSensor, { activationConstraint: { distance: 10 } }), // Mouse drag support
-    useSensor(TouchSensor, {}), // Touch drag support for mobile
-  )
-
   const setTableContainerRef = useCallback((element: Element | null) => {
     setTableContainerRefInternal(element)
   }, [])
 
   const { moveItemsBetweenConfigs, restoreItemsToOriginalPositions } =
     useProjectStoreActions()
+
+  const modifiers = useMemo(
+    () => [
+      SnapToCursor,
+      RestrictToVerticalAxisInsideTable,
+      configure(RestrictToBottomOfParentElement, {
+        element: tableContainerRef,
+      }),
+    ],
+    [tableContainerRef],
+  )
 
   /**
    * Called when user starts dragging an item
@@ -137,12 +143,13 @@ export function ConfigItemDragProvider({
 
       // Special case: If the dragged item isn't already selected, select it
       // This allows single-click-drag without requiring pre-selection
+      const sourceId = event.operation.source?.id
       const draggedRow = table
         .getRowModel()
-        .rows.find((row) => row.id === event.active.id)
+        .rows.find((row) => row.id === sourceId)
       if (draggedRow && !draggedRow.getIsSelected()) {
         // Select the dragged item
-        table.setRowSelection({ [event.active.id]: true })
+        table.setRowSelection({ [draggedRow.id]: true })
         // Use just this item as the dragged items
         draggedItems = [draggedRow.original]
       }
@@ -174,6 +181,7 @@ export function ConfigItemDragProvider({
           isDragging: true,
           isInsideTable: true,
           hoveredTabIndex: -1,
+          overItemId: null,
           activeTabIndex: initialConfigIndex,
         },
       }
@@ -191,30 +199,56 @@ export function ConfigItemDragProvider({
     [table, initialConfigIndex],
   )
 
-  const moveItemsToHoveredTab = useCallback((hoveredTabIndex: number) => {
-    if (!dragState) return;
-    moveItemsBetweenConfigs(
-      dragState.items.draggedItems,
-      dragState.configs.current,
-      hoveredTabIndex,
-      0
-    );
-    setDragState((prev) =>
-      prev
-        ? {
-            ...prev,
-            configs: {
-              ...prev.configs,
-              current: hoveredTabIndex,
-            },
-            ui: {
-              ...prev.ui,
-              hoveredTabIndex,
-            },
-          }
-        : null
-    );
-  }, [dragState, moveItemsBetweenConfigs]);
+  const moveItemsToHoveredTab = useCallback(
+    (hoveredTabIndex: number) => {
+      if (!dragState) return
+      moveItemsBetweenConfigs(
+        dragState.items.draggedItems,
+        dragState.configs.current,
+        hoveredTabIndex,
+        0,
+      )
+      setDragState((prev) =>
+        prev
+          ? {
+              ...prev,
+              configs: {
+                ...prev.configs,
+                current: hoveredTabIndex,
+              },
+              ui: {
+                ...prev.ui,
+                hoveredTabIndex,
+                isInsideTable: false,
+                overItemId: null,
+              },
+            }
+          : null,
+      )
+    },
+    [dragState, moveItemsBetweenConfigs],
+  )
+
+  const hoveredTabIndex = dragState?.ui.hoveredTabIndex ?? -1
+  const currentConfigIndex = dragState?.configs.current ?? -1
+
+  // Move the items and open the tab together, so the items are never in a tab
+  // the user cannot see. Leaving the tab or ending the drag clears the timer.
+  useEffect(() => {
+    if (hoveredTabIndex === -1 || hoveredTabIndex === currentConfigIndex) return
+
+    const timeout = setTimeout(() => {
+      moveItemsToHoveredTab(hoveredTabIndex)
+      selectActiveFile(hoveredTabIndex)
+    }, TAB_HOVER_DELAY_MS)
+
+    return () => clearTimeout(timeout)
+  }, [
+    hoveredTabIndex,
+    currentConfigIndex,
+    moveItemsToHoveredTab,
+    selectActiveFile,
+  ])
 
   /**
    * Simplified drag cancellation - restore items to initial config
@@ -252,78 +286,71 @@ export function ConfigItemDragProvider({
    */
   const handleDragEnd = useCallback(
     (event: DragEndEvent) => {
-      const { active, over } = event
+      const { source, target } = event.operation
 
       console.log("🎯 Drag end:", {
-        activeId: active.id,
-        overId: over?.id,
+        sourceId: source?.id,
+        targetId: target?.id,
+        canceled: event.canceled,
         dragState,
       })
 
-      // Clean up: Always clear drag state when drag ends
-      const currentDragState = dragState
-      setDragState(null)
-
-      // Validate the drag operation
-      const validation = validateDragEnd(event, currentDragState)
-      if (!validation.isValid) {
-        console.log(`❌ ${validation.reason}`)
-        if (validation.reason === "Dropped outside valid zone") {
+      flushSync(() => {
+        // Escape (or any other cancel) arrives here with the canceled flag
+        if (event.canceled) {
           handleDragCancel()
+          return
         }
-        return
-      }
 
-      // Extract drop context and config information
-      const { dropContext, sourceConfigIndex, targetConfigIndex } =
-        extractDropContext(event, currentDragState!, getConfigItems)
+        // Clean up: Always clear drag state when drag ends
+        const currentDragState = dragState
+        setDragState(null)
 
-      // Calculate where to insert the items
-      const insertionIndex = calculateInsertionIndex(dropContext)
+        // Validate the drag operation
+        const validation = validateDragEnd(event, currentDragState)
+        if (!validation.isValid) {
+          console.log(`❌ ${validation.reason}`)
+          if (validation.reason === "Dropped outside valid zone") {
+            handleDragCancel()
+          }
+          return
+        }
 
-      console.log("📍 Insertion calculation:", {
-        hoveringOverTab: dropContext.hoveringOverTab,
-        dropOnPlaceholder: dropContext.dropOnPlaceholder,
-        itemsWithoutDraggedLength: dropContext.itemsWithoutDragged.length,
-        insertionIndex,
+        // Extract drop context and config information
+        const { dropContext, sourceConfigIndex, targetConfigIndex } =
+          extractDropContext(event, currentDragState!, getConfigItems)
+
+        // Calculate where to insert the items
+        const insertionIndex = calculateInsertionIndex(dropContext)
+
+        console.log("📍 Insertion calculation:", {
+          hoveringOverTab: dropContext.hoveringOverTab,
+          dropOnPlaceholder: dropContext.dropOnPlaceholder,
+          itemsWithoutDraggedLength: dropContext.itemsWithoutDragged.length,
+          insertionIndex,
+        })
+
+        // Execute the drop operation
+        executeDrop(
+          currentDragState!,
+          { sourceConfigIndex, targetConfigIndex, insertionIndex },
+          moveItemsBetweenConfigs,
+        )
       })
-
-      // Execute the drop operation
-      executeDrop(
-        currentDragState!,
-        { sourceConfigIndex, targetConfigIndex, insertionIndex },
-        moveItemsBetweenConfigs,
-      )
     },
     [dragState, getConfigItems, handleDragCancel, moveItemsBetweenConfigs],
   )
 
-  const handleDragMove = useCallback(
-    (event: DragMoveEvent) => {
+  const handleDragOver = useCallback(
+    (event: DragOverEvent) => {
       if (!dragState || !tableContainerRef) return
 
       // Collect all state changes first
       const stateUpdates: Partial<DragState> = {}
 
-      const hoveringOverTab = event.over?.data?.current?.type === "tab"
-      const hoveredTabIndex = event.over?.data?.current?.index
-
-      // Move items if hovering over a different tab
-      if (
-        hoveringOverTab &&
-        hoveredTabIndex !== undefined &&
-        hoveredTabIndex !== dragState.configs.current
-      ) {
-        moveItemsToHoveredTab(hoveredTabIndex)
-        return
-      }
-
-      const defaultType =
-        event.over?.data?.current?.type ??
-        (Math.abs(event.delta.y) < 15 && "row")
-      const hoveringOverTable = ["table", "row"].includes(
-        event.over?.data?.current?.type ?? defaultType,
-      )
+      const target = event.operation.target
+      const hoveringOverTab = target?.data?.type === "tab"
+      const hoveringOverTable = ["table", "row"].includes(target?.data?.type)
 
       if (hoveringOverTable && !dragState.ui.isInsideTable) {
         console.log("➡️ Entered table area")
@@ -341,12 +368,12 @@ export function ConfigItemDragProvider({
 
       // Only update UI state - no store operations here
       if (hoveringOverTab) {
-        const hoveredTabIndex = event.over?.data?.current?.index
+        const hoveredTabIndex = target?.data?.index
 
         if (hoveredTabIndex !== dragState.ui.hoveredTabIndex) {
           console.log("🎯 Tab hover detected:", hoveredTabIndex)
           stateUpdates.ui = {
-            ...dragState.ui,
+            ...(stateUpdates.ui ?? dragState.ui),
             hoveredTabIndex,
           }
         }
@@ -355,9 +382,18 @@ export function ConfigItemDragProvider({
         if (dragState.ui.hoveredTabIndex !== -1) {
           console.log("⬅️ Left tab area")
           stateUpdates.ui = {
-            ...dragState.ui,
+            ...(stateUpdates.ui ?? dragState.ui),
             hoveredTabIndex: -1,
           }
+        }
+      }
+
+      const overItemId =
+        target?.data?.type === "row" ? String(target.id) : null
+      if (overItemId !== dragState.ui.overItemId) {
+        stateUpdates.ui = {
+          ...(stateUpdates.ui ?? dragState.ui),
+          overItemId,
         }
       }
 
@@ -373,7 +409,7 @@ export function ConfigItemDragProvider({
         )
       }
     },
-    [dragState, tableContainerRef, moveItemsToHoveredTab],
+    [dragState, tableContainerRef],
   )
 
   // Context value that child components can access
@@ -386,63 +422,33 @@ export function ConfigItemDragProvider({
 
   const draggedItemIds =
     dragState?.items.draggedItemIds ?? EMPTY_DRAGGED_ITEM_IDS
+  const dragItemId = dragState?.items.dragItem?.GUID ?? null
+  const overItemId = dragState?.ui.overItemId ?? null
   const dragVisualContextValue = useMemo(
     () => ({
       draggedItemIds,
       isInsideTable: dragState?.ui.isInsideTable ?? true,
+      dragItemId,
+      overItemId,
     }),
-    [draggedItemIds, dragState?.ui.isInsideTable],
+    [draggedItemIds, dragState?.ui.isInsideTable, dragItemId, overItemId],
   )
-
-  const createDynamicModifier = useCallback(
-    (dragState: DragState | null): Modifier => {
-      return (args) => {
-        const isInsideTable = dragState?.ui.isInsideTable ?? true
-
-        let transform = snapToCursor(args)
-
-        if (isInsideTable) {
-          transform = restrictToVerticalAxis({ ...args, transform })
-          transform = restrictToBottomOfParentElement({ ...args, transform })
-        }
-
-        return transform
-      }
-    },
-    [],
-  )
-
-  const modifiers = useMemo(
-    () => [createDynamicModifier(dragState)],
-    [dragState, createDynamicModifier],
-  )
-
-  const collisionDetection = useMemo(() => {
-    return dragState?.ui.isInsideTable
-      ? // makes the rows snap to center of other rows
-        closestCorners
-      : // allows to detect when the pointer is over a tab
-        pointerWithin
-  }, [dragState])
 
   return (
     // Provide context to child components
     <ConfigItemDragContext.Provider value={contextValue}>
       <ConfigItemDragVisualContext.Provider value={dragVisualContextValue}>
         {/* The actual DnD functionality wrapper */}
-        <DndContext
-          sensors={sensors}
-          // pointer within is needed for tab hover detection
-          collisionDetection={collisionDetection}
+        <DragDropProvider
+          sensors={SENSORS}
           modifiers={modifiers}
           onDragStart={handleDragStart}
-          onDragMove={handleDragMove}
+          onDragOver={handleDragOver}
           onDragEnd={handleDragEnd}
-          onDragCancel={handleDragCancel}
         >
           {children}
           <ConfigItemDragOverlay />
-        </DndContext>
+        </DragDropProvider>
       </ConfigItemDragVisualContext.Provider>
     </ConfigItemDragContext.Provider>
   )
