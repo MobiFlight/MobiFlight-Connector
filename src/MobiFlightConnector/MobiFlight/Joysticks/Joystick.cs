@@ -457,9 +457,19 @@ namespace MobiFlight
 
         protected void UpdateButtons(JoystickState newState)
         {
+            UpdateButtons(newState, Enumerable.Range(0, newState.Buttons.Length));
+        }
+
+        /// <summary>
+        /// Same as <see cref="UpdateButtons(JoystickState)"/>, but raises the button events in the
+        /// given order. Input detection in the config wizard takes the first press it sees, so a
+        /// controller can list the buttons it wants to be detected first.
+        /// </summary>
+        protected void UpdateButtons(JoystickState newState, IEnumerable<int> buttonOrder)
+        {
             if (Buttons.Count == 0) return;
 
-            for (int i = 0; i < newState.Buttons.Length; i++)
+            foreach (var i in buttonOrder)
             {
                 var valueDoesntExistInState = !StateExists() || State.Buttons.Length <= i;
                 var valueChanged = valueDoesntExistInState || State.Buttons[i] != newState.Buttons[i];

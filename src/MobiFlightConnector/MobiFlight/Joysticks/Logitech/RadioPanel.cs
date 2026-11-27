@@ -2,32 +2,42 @@ using HidSharp;
 using MobiFlight.Firmware;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MobiFlight.Joysticks.Logitech
 {
     /// <summary>
     /// Native raw HID controller for the Logitech Radio Panel.
-    /// Aircraft-specific mapping stays in the MobiFlight configs. The LCDs show
-    /// COM1/COM2 values; the other selector positions are input-only.
+    /// Aircraft-specific mapping stays in the MobiFlight configs. Each row shows the
+    /// active/standby values of the mode selected on its rotary, and the encoders and
+    /// ACT/STBY buttons are additionally reported as mode-specific inputs.
     /// </summary>
     internal sealed class RadioPanel : Joystick
     {
         private const int UpperSelectorFirstButton = 0;
         private const int LowerSelectorFirstButton = 7;
-        private const int SelectorPositionCount = 7;
+
+        // Mode buttons first: input detection in the config wizard takes the first press,
+        // and the mode button is the one a user wants in almost every case.
+        private static readonly int[] ButtonEventOrder = Enumerable
+            .Range(RadioPanelModeInputs.FirstButton, RadioPanelModeInputs.ButtonCount)
+            .Concat(Enumerable.Range(0, RadioPanelReport.ButtonCount))
+            .ToArray();
 
         private readonly HidReportReceiver Receiver = new HidReportReceiver();
         private readonly object ConnectionLock = new object();
         private readonly object OutputLock = new object();
-        private readonly RadioPanelDisplayState DisplayState = new RadioPanelDisplayState();
         private string CachedSerialNumber;
         private bool Disconnected;
         private bool OpenFailureLogged;
 
-        // Guarded by OutputLock: bands and cached values are read together when the LCDs are redrawn.
-        private RadioPanelBand UpperBand = RadioPanelBand.None;
-        private RadioPanelBand LowerBand = RadioPanelBand.None;
-        private string Com1Active, Com1Standby, Com2Active, Com2Standby;
+        // Guarded by OutputLock: the selected modes and cached values are read together when the LCDs are redrawn.
+        private readonly RadioPanelDisplayState DisplayState = new RadioPanelDisplayState();
+
+        // Only used on the HID reader thread.
+        private readonly RadioPanelModeInputs ModeInputs = new RadioPanelModeInputs();
+        private RadioPanelMode UpperMode = RadioPanelMode.None;
+        private RadioPanelMode LowerMode = RadioPanelMode.None;
 
         public override string Name => Definition?.InstanceName ?? "Logitech Radio Panel";
 
@@ -144,8 +154,8 @@ namespace MobiFlight.Joysticks.Logitech
         }
 
         /// <summary>
-        /// Converts a raw Radio Panel HID report into MobiFlight button state and
-        /// follows the COM1/COM2 selector of each row to pick what the LCDs show.
+        /// Converts a raw Radio Panel HID report into MobiFlight button state, adds the
+        /// mode-specific buttons and follows the selector of each row to pick what the LCDs show.
         /// </summary>
         private void OnReportReceived(HidReport inputReport)
         {
@@ -166,76 +176,56 @@ namespace MobiFlight.Joysticks.Logitech
                 return;
             }
 
-            UpdateButtons(newState);
-            UpdateBandsFromState(newState);
+            // No bit set is a transitional read while the rotary moves, keep the previous mode.
+            UpperMode = GetMode(newState, UpperSelectorFirstButton) ?? UpperMode;
+            LowerMode = GetMode(newState, LowerSelectorFirstButton) ?? LowerMode;
+
+            ModeInputs.Apply(newState, UpperMode, LowerMode);
+            // Skip mode buttons a custom definition without them does not declare.
+            UpdateButtons(newState, ButtonEventOrder.Where(index => index < Buttons.Count));
+
+            lock (OutputLock)
+            {
+                if (DisplayState.SetModes(UpperMode, LowerMode))
+                {
+                    RequiresOutputUpdate = true;
+                }
+            }
+
             State = newState;
         }
 
         /// <summary>
         /// Each row has a 7-position rotary selector reported as mutually exclusive buttons.
-        /// Only COM1 and COM2 have an LCD source, any other position blanks the row.
         /// </summary>
-        private void UpdateBandsFromState(JoystickState newState)
+        private static RadioPanelMode? GetMode(JoystickState state, int firstButton)
         {
-            // No bit set is a transitional read while the rotary moves, keep the previous band.
-            var upper = GetBand(newState, UpperSelectorFirstButton) ?? UpperBand;
-            var lower = GetBand(newState, LowerSelectorFirstButton) ?? LowerBand;
-
-            lock (OutputLock)
+            for (var position = 0; position < RadioPanelModes.Count; position++)
             {
-                if (upper == UpperBand && lower == LowerBand) return;
-
-                UpperBand = upper;
-                LowerBand = lower;
-                RequiresOutputUpdate = true;
-            }
-        }
-
-        private static RadioPanelBand? GetBand(JoystickState state, int firstButton)
-        {
-            if (state.Buttons[firstButton]) return RadioPanelBand.Com1;
-            if (state.Buttons[firstButton + 1]) return RadioPanelBand.Com2;
-
-            for (var position = 2; position < SelectorPositionCount; position++)
-            {
-                if (state.Buttons[firstButton + position]) return RadioPanelBand.None;
+                if (state.Buttons[firstButton + position]) return (RadioPanelMode)position;
             }
 
             return null;
         }
 
         /// <summary>
-        /// Receives a frequency from a MobiFlight output config (address matches
-        /// the JSON output Id, e.g. "LCD COM1 ACTIVE") and caches it for the next refresh.
+        /// Receives a value from a MobiFlight output config (address matches the JSON
+        /// output Id, e.g. "LCD COM1 ACTIVE" or "LCD XPDR STBY") and caches it for the next refresh.
         /// </summary>
         protected override void OnSetLcdDisplay(string address, string value)
         {
+            if (!RadioPanelDisplayState.TryParseAddress(address, out var mode, out var slot))
+            {
+                Log.Instance.log($"{Name} received LCD value for unknown address '{address}'", LogSeverity.Warn);
+                return;
+            }
+
             lock (OutputLock)
             {
-                switch (address)
+                if (DisplayState.SetValue(mode, slot, value))
                 {
-                    case "LCD COM1 ACTIVE":
-                        if (Com1Active == value) return;
-                        Com1Active = value;
-                        break;
-                    case "LCD COM1 STBY":
-                        if (Com1Standby == value) return;
-                        Com1Standby = value;
-                        break;
-                    case "LCD COM2 ACTIVE":
-                        if (Com2Active == value) return;
-                        Com2Active = value;
-                        break;
-                    case "LCD COM2 STBY":
-                        if (Com2Standby == value) return;
-                        Com2Standby = value;
-                        break;
-                    default:
-                        Log.Instance.log($"{Name} received LCD value for unknown address '{address}'", LogSeverity.Warn);
-                        return;
+                    RequiresOutputUpdate = true;
                 }
-
-                RequiresOutputUpdate = true;
             }
         }
 
@@ -266,7 +256,6 @@ namespace MobiFlight.Joysticks.Logitech
                 if (!RequiresOutputUpdate || Disconnected) return;
                 if (Stream == null && !ConnectHid()) return;
 
-                DisplayState.SetValues(Com1Active, Com1Standby, Com2Active, Com2Standby, UpperBand, LowerBand);
                 var featureReport = DisplayState.ToFeatureReport();
 
                 try
