@@ -1263,6 +1263,7 @@ namespace MobiFlight
             return result;
         }
 
+        /// <summary>Returns the devices in configuration order; display order is up to the UI.</summary>
         public List<DeviceReference> GetControllerDevices()
         {
             var result = new List<DeviceReference>();
@@ -1273,7 +1274,6 @@ namespace MobiFlight
                 result.AddRange(range);
             }
 
-            result.Sort((a, b) => { return a.Name.CompareTo(b.Name); });
             return result;
         }
 
