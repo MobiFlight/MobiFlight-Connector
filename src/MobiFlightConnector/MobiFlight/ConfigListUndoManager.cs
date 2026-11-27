@@ -83,8 +83,6 @@ namespace MobiFlight
 
         internal void RecordConfigListDeleteUndo(List<IConfigItem> affectedItems)
         {
-            if (affectedItems == null || affectedItems.Count == 0) return;
-
             PushConfigListUndo(
                 new ItemDeletedUndoEntry(
                     Project.ConfigFiles[ActiveConfigIndex],
@@ -95,8 +93,6 @@ namespace MobiFlight
 
         internal void RecordConfigListToggleUndo(List<IConfigItem> affectedItems)
         {
-            if (affectedItems == null || affectedItems.Count == 0) return; ;
-
             PushConfigListUndo(
                 new ItemToggledUndoEntry(
                     Project.ConfigFiles[ActiveConfigIndex],

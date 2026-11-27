@@ -69,17 +69,13 @@ namespace MobiFlight.ConfigListUndo
 
             var items = _file.ConfigItems;
 
-            bool hasConflict =
-                _items.Count == 0 ||
-                _items.Any(state =>
-                    state.Snapshot == null ||
-                    items.Any(item => item.GUID == state.Guid));
+            bool hasConflictingGuid = _items.Any(state => items.Any(item => item.GUID == state.Guid));
 
-            if (hasConflict)
+            if (hasConflictingGuid)
             {
                 reason =
-                    "Delete restore failed: missing snapshot " +
-                    "or conflicting ConfigItem GUID.";
+                    "Delete restore failed: conflicting ConfigItem GUID.";
+
                 return false;
             }
 

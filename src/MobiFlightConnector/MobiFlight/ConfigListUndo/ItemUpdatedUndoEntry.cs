@@ -97,13 +97,6 @@ namespace MobiFlight.ConfigListUndo
             }
 
             var items = _file.ConfigItems;
-
-            if (_items.Count == 0)
-            {
-                reason = GetRestoreFailureReason(null);
-                return false;
-            }
-
             var itemIndices = new List<int>();
 
             // Validate all affected items before restoring any.
@@ -111,9 +104,9 @@ namespace MobiFlight.ConfigListUndo
             {
                 int itemIndex = items.FindIndex(item => item.GUID == state.Guid);
 
-                if (itemIndex < 0 || state.Snapshot == null)
+                if (itemIndex < 0)
                 {
-                    reason = GetRestoreFailureReason(state.Guid);
+                    reason = $"ConfigItem not found: {state.Guid}";
                     return false;
                 }
 
@@ -127,11 +120,6 @@ namespace MobiFlight.ConfigListUndo
 
             reason = null;
             return true;
-        }
-
-        private static string GetRestoreFailureReason(string guid)
-        {
-            return $"ConfigItem not found or snapshot missing: {guid}";
         }
 
         public override void PublishChanges(ConfigListUndoContext context)

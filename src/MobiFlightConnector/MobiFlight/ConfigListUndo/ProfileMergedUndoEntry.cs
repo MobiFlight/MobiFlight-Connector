@@ -32,7 +32,7 @@ namespace MobiFlight.ConfigListUndo
             Project project,
             List<ConfigFile> mergedFiles)
         {
-            if (project == null) throw new AccessViolationException(nameof(project));
+            if (project == null) throw new ArgumentNullException(nameof(project));
             if (mergedFiles == null)
                 throw new ArgumentNullException(nameof(mergedFiles));
 
@@ -68,7 +68,6 @@ namespace MobiFlight.ConfigListUndo
             // The recorded merged profiles must still be
             // appended in the expected order.
             bool validMerge =
-                _mergedFiles.Count > 0 &&
                 validOriginalProfile &&
                 files.Count == _originalCount + _mergedFiles.Count &&
                 Enumerable.Range(0, _mergedFiles.Count)
