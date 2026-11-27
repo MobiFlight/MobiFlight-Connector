@@ -20,10 +20,7 @@ import {
 import { CustomPointerSensor } from "@/lib/dnd-kit/CustomPointerSensor"
 import { SnapToCursor } from "@/lib/dnd-kit/snap-to-cursor"
 import { RestrictToBottomOfParentElement } from "@/components/dnd/modifiers/restrictToBottomOfParentElement"
-import {
-  AxisModifier,
-  RestrictToVerticalAxis,
-} from "@dnd-kit/abstract/modifiers"
+import { RestrictToVerticalAxisInsideTable } from "@/lib/dnd-kit/restrict-to-vertical-axis-inside-table"
 import { configure } from "@dnd-kit/abstract"
 /**
  * The drag state that persists throughout the entire drag operation
@@ -76,11 +73,6 @@ const TAB_HOVER_DELAY_MS = 600
 // One pointer sensor covers mouse, touch and pen.
 // Defined once so the provider receives a stable array.
 const SENSORS = [CustomPointerSensor]
-const OUTSIDE_TABLE_MODIFIERS = [
-  SnapToCursor,
-  AxisModifier,
-  configure(RestrictToBottomOfParentElement, { element: null }),
-]
 /**
  * Props for the drag provider component
  */
@@ -120,10 +112,10 @@ export function ConfigItemDragProvider({
   const { moveItemsBetweenConfigs, restoreItemsToOriginalPositions } =
     useProjectStoreActions()
 
-  const insideTableModifiers = useMemo(
+  const modifiers = useMemo(
     () => [
       SnapToCursor,
-      RestrictToVerticalAxis,
+      RestrictToVerticalAxisInsideTable,
       configure(RestrictToBottomOfParentElement, {
         element: tableContainerRef,
       }),
@@ -427,10 +419,6 @@ export function ConfigItemDragProvider({
     setTable, // Function for table to register itself,
     setTableContainerRef, // Function for table to register its container element
   }
-  const modifiers =
-  (dragState?.ui.isInsideTable ?? true)
-    ? insideTableModifiers
-    : OUTSIDE_TABLE_MODIFIERS
 
   const draggedItemIds =
     dragState?.items.draggedItemIds ?? EMPTY_DRAGGED_ITEM_IDS

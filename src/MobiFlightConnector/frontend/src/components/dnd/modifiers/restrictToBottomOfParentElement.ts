@@ -1,6 +1,7 @@
 import { Modifier, DragOperation } from "@dnd-kit/abstract"
 import { DragDropManager } from "@dnd-kit/dom"
 import { Coordinates, BoundingRectangle } from "@dnd-kit/geometry"
+import { isOverTable } from "@/lib/dnd-kit/is-over-table"
 
 function restrictToBoundingRect(
   transform: Coordinates,
@@ -44,7 +45,12 @@ export class RestrictToBottomOfParentElement extends Modifier<
     const { transform, shape } = operation
     const element = this.options?.element
 
-    if (this.disabled || !shape || !element?.isConnected) {
+    if (
+      this.disabled ||
+      !isOverTable(this.manager) ||
+      !shape ||
+      !element?.isConnected
+    ) {
       return transform
     }
 

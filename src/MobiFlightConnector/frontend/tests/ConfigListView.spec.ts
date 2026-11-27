@@ -807,6 +807,66 @@ test.describe("Drag and drop tests", () => {
     expect(lastCommand.payload.sourceFileIndex).toEqual(0)
     expect(lastCommand.payload.targetFileIndex).toEqual(2)
   })
+
+  test("Confirm the drag overlay follows the pointer right after crossing the table edge", async ({
+    configListPage,
+    page,
+  }) => {
+    // Arrange
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+
+    const tableHeader = page.getByRole("rowgroup").nth(0)
+    const firstRow = page.getByRole("row").nth(1)
+    const dragHandle = page.getByRole("row").nth(3).getByRole("button").first()
+    const insideOverlay = page.getByTestId(
+      "config-item-drag-overlay-inside-table",
+    )
+    const outsideOverlay = page.getByTestId(
+      "config-item-drag-overlay-outside-table",
+    )
+
+    const headerBox = (await tableHeader.boundingBox())!
+    const rowBox = (await firstRow.boundingBox())!
+    const handleBox = (await dragHandle.boundingBox())!
+    const outsideX = 500
+    const outsideY = headerBox.y - 25
+    const insideX = 300
+    const insideY = rowBox.y + rowBox.height / 2
+
+    // each check waits for the overlay without moving the pointer again
+    const overlayLeft = async (overlay: typeof insideOverlay) =>
+      (await overlay.boundingBox())?.x ?? -1
+
+    // Act
+    await test.step("Start dragging a row", async () => {
+      await page.mouse.move(handleBox.x + 5, handleBox.y + 5)
+      await page.mouse.down()
+      await page.mouse.move(handleBox.x + 5, handleBox.y + 20, { steps: 3 })
+      await expect(insideOverlay).toBeVisible()
+    })
+
+    // Assert
+    await test.step("Leave the table in one move and stop", async () => {
+      await page.mouse.move(outsideX, outsideY)
+      await expect(outsideOverlay).toBeVisible()
+      // the overlay must not stay stuck at the left edge of the table
+      await expect
+        .poll(() => overlayLeft(outsideOverlay))
+        .toBeCloseTo(outsideX, 0)
+    })
+
+    await test.step("Enter the table in one move and stop", async () => {
+      await page.mouse.move(insideX, insideY)
+      await expect(insideOverlay).toBeVisible()
+      // inside the table the overlay is aligned with the rows again
+      await expect
+        .poll(() => overlayLeft(insideOverlay))
+        .toBeCloseTo(rowBox.x, 0)
+    })
+
+    await page.mouse.up()
+  })
 })
 
 test("Confirm dark mode is working", async ({ configListPage, page }) => {
