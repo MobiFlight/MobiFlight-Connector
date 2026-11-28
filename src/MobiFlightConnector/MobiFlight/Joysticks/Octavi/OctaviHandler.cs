@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace MobiFlight.Joysticks.Octavi
 {
@@ -10,8 +11,12 @@ namespace MobiFlight.Joysticks.Octavi
         private const string Unshift_VButton_Name = "Button_UNSHIFT_SW";
 
         public bool IsInShiftMode { get; private set; } = false;
-        private OctaviReport lastReport = new OctaviReport();
+        // null until the first report, which counts as a context change
+        private OctaviReport lastReport = null;
+        // 1 when the next report has to press the current context's selection button again; set from other threads
+        private int isContextReportRequested = 0;
         private readonly List<string> buttons = new List<string>();
+        private readonly Dictionary<OctaviReport.OctaviState, int> contextMappings;
         private readonly Dictionary<(OctaviReport.OctaviState state, bool isShifted, OctaviEncoder encoder), int> encoderMappings;
         private readonly Dictionary<(OctaviReport.OctaviState state, bool isShifted, OctaviReport.OctaviButtons button), int> buttonMappings;
 
@@ -40,6 +45,7 @@ namespace MobiFlight.Joysticks.Octavi
             this.definition = definition;
             encoderMappings = new Dictionary<(OctaviReport.OctaviState state, bool isShifted, OctaviEncoder encoder), int>();
             buttonMappings = new Dictionary<(OctaviReport.OctaviState state, bool isShifted, OctaviReport.OctaviButtons button), int>();
+            contextMappings = new Dictionary<OctaviReport.OctaviState, int>();
 
             this.contexts = new List<Context>();
             var octaviStateType = typeof(OctaviReport.OctaviState);
@@ -134,6 +140,13 @@ namespace MobiFlight.Joysticks.Octavi
                 AddRightColumnButtonMappings(context);
             }
 
+            // Context selection buttons, added last to keep the order of earlier buttons. AP..VS share one button
+            // outside FMS1/FMS2, so a profile can keep the context in a variable to use them per context.
+            foreach (var context in contexts.Where(c => !c.isShifted))
+            {
+                contextMappings.Add(context.state, ToButton($"Button_CONTEXT_{context.name}"));
+            }
+
             JoystickButtonNames = buttons.AsReadOnly();
         }
 
@@ -161,6 +174,22 @@ namespace MobiFlight.Joysticks.Octavi
             buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_AP_VS), ToButton("Button_AP_VS"));
         }
 
+        /// <summary>
+        /// Presses the current context's selection button again with the next report, for a retrigger or after a stop:
+        /// MobiFlight clears the profile's variables on Stop and drops input events while it is stopped.
+        /// Only the selection button is sent, not Button_SHIFT_SW or Button_UNSHIFT_SW, so bindings of those don't fire.
+        /// Safe to call from any thread; the events are sent on the reader thread, after the current report's events.
+        /// </summary>
+        public void RequestContextReport()
+        {
+            Interlocked.Exchange(ref isContextReportRequested, 1);
+        }
+
+        private static (int buttonIndex, MobiFlightButton.InputEvent inputEvent)[] Tapped(int buttonIndex)
+        {
+            return [(buttonIndex, MobiFlightButton.InputEvent.PRESS), (buttonIndex, MobiFlightButton.InputEvent.RELEASE)];
+        }
+
         private int ToButton(string buttonName)
         {
             if (!buttons.Contains(buttonName))
@@ -174,13 +203,15 @@ namespace MobiFlight.Joysticks.Octavi
         {
             var buttonEvents = new List<(int buttonIndex, MobiFlightButton.InputEvent inputEvent)>();
 
-            OctaviReport.OctaviButtons pressed = (OctaviReport.OctaviButtons)((uint)report.buttonState & ~(uint)lastReport.buttonState); // rising edges
-            OctaviReport.OctaviButtons released = (OctaviReport.OctaviButtons)((uint)lastReport.buttonState & ~(uint)report.buttonState); // falling edges
+            var lastButtonState = lastReport?.buttonState ?? 0;
+            OctaviReport.OctaviButtons pressed = (OctaviReport.OctaviButtons)((uint)report.buttonState & ~(uint)lastButtonState); // rising edges
+            OctaviReport.OctaviButtons released = (OctaviReport.OctaviButtons)((uint)lastButtonState & ~(uint)report.buttonState); // falling edges
 
             // "Shift Mode" for supported contexts
-            if (report.contextState != lastReport.contextState)
+            var isContextChange = lastReport == null || report.contextState != lastReport.contextState;
+            if (isContextChange)
             {
-                // reset shift mode on context changes (and synthesize unshift press/release)
+                // reset shift mode on context changes, including the first report (and synthesize unshift press/release)
                 int unshift_vButton = buttons.IndexOf(Unshift_VButton_Name);
 
                 if (unshift_vButton >= 0)
@@ -191,29 +222,27 @@ namespace MobiFlight.Joysticks.Octavi
 
                 this.IsInShiftMode = false;
             }
-            else if (pressed.HasFlag(OctaviReport.OctaviButtons.HID_ENC_SW) && this.definition.Inputs.Any(JoystickInput => JoystickInput.Id == (int)report.contextState))
+
+            // toggle shift mode on a knob push, after a context change in the same report, so it shifts the new context
+            if (pressed.HasFlag(OctaviReport.OctaviButtons.HID_ENC_SW) && this.definition.Inputs.Any(JoystickInput => JoystickInput.Id == (int)report.contextState))
             {
                 /* Button events will be generated by finding the corresponding ButtonMapping in the loop at the end. */
                 this.IsInShiftMode = !this.IsInShiftMode;
             }
 
+            // Context selection button: on every context change and when requested; a request waits for a known context
+            if (contextMappings.TryGetValue(report.contextState, out int contextButton))
+            {
+                var isContextReportDue = Interlocked.Exchange(ref isContextReportRequested, 0) == 1;
+                if (isContextChange || isContextReportDue)
+                {
+                    buttonEvents.AddRange(Tapped(contextButton));
+                }
+            }
+
             // Encoders (Note: No RELEASE events required for encoders)
-            for (int i = 0; i < report.outerEncoderDelta; i++)
-            {
-                buttonEvents.Add((encoderMappings[(report.contextState, this.IsInShiftMode, OctaviEncoder.OUTER_INC)], MobiFlightButton.InputEvent.PRESS));
-            }
-            for (int i = 0; i > report.outerEncoderDelta; i--)
-            {
-                buttonEvents.Add((encoderMappings[(report.contextState, this.IsInShiftMode, OctaviEncoder.OUTER_DEC)], MobiFlightButton.InputEvent.PRESS));
-            }
-            for (int i = 0; i < report.innerEncoderDelta; i++)
-            {
-                buttonEvents.Add((encoderMappings[(report.contextState, this.IsInShiftMode, OctaviEncoder.INNER_INC)], MobiFlightButton.InputEvent.PRESS));
-            }
-            for (int i = 0; i > report.innerEncoderDelta; i--)
-            {
-                buttonEvents.Add((encoderMappings[(report.contextState, this.IsInShiftMode, OctaviEncoder.INNER_DEC)], MobiFlightButton.InputEvent.PRESS));
-            }
+            AddEncoderEvents(buttonEvents, report.contextState, report.outerEncoderDelta, OctaviEncoder.OUTER_INC, OctaviEncoder.OUTER_DEC);
+            AddEncoderEvents(buttonEvents, report.contextState, report.innerEncoderDelta, OctaviEncoder.INNER_INC, OctaviEncoder.INNER_DEC);
 
             // Buttons
             foreach (OctaviReport.OctaviButtons button in Enum.GetValues(typeof(OctaviReport.OctaviButtons)))
@@ -230,6 +259,21 @@ namespace MobiFlight.Joysticks.Octavi
 
             lastReport = report;
             return buttonEvents;
+        }
+
+        private void AddEncoderEvents(List<(int buttonIndex, MobiFlightButton.InputEvent inputEvent)> buttonEvents,
+            OctaviReport.OctaviState state, sbyte delta, OctaviEncoder increment, OctaviEncoder decrement)
+        {
+            // an unknown context has no encoder buttons
+            if (delta == 0 || !encoderMappings.TryGetValue((state, this.IsInShiftMode, delta > 0 ? increment : decrement), out int buttonIndex))
+            {
+                return;
+            }
+
+            for (int i = 0; i < Math.Abs((int)delta); i++)
+            {
+                buttonEvents.Add((buttonIndex, MobiFlightButton.InputEvent.PRESS));
+            }
         }
     }
 }

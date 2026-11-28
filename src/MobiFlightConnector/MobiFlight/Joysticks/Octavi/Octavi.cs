@@ -81,8 +81,13 @@ namespace MobiFlight.Joysticks.Octavi
             {
                 Connect();
             };
+
+            // not connected (again) yet: keep the update for the next call
+            var stream = Stream;
+            if (stream == null) return;
+
             data[0] = 11;
-            Stream.Write(data, 0, 2);
+            stream.Write(data, 0, 2);
             RequiresOutputUpdate = false;
         }
 
@@ -110,6 +115,23 @@ namespace MobiFlight.Joysticks.Octavi
         {
             /* this will set nothing if the Output device label is not found - disable auto blinking by renaming the output in joystick.json */
             this.SetOutputDeviceState("Auto Blink Context", (byte)(octaviHandler.IsInShiftMode ? 1 : 0));
+        }
+
+        public override void Retrigger()
+        {
+            base.Retrigger();
+
+            // Sent with the next report on the reader thread, as the WinCtrl devices do
+            octaviHandler.RequestContextReport();
+        }
+
+        protected override void OnStop()
+        {
+            // MobiFlight clears the profile's variables on Stop, so report the context again even without a retrigger;
+            // requested first, so a failure to clear the outputs doesn't skip it
+            octaviHandler.RequestContextReport();
+
+            base.OnStop();
         }
 
         public override void Update()

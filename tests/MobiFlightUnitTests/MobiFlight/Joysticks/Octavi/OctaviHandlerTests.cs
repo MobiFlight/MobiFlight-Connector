@@ -8,6 +8,8 @@ namespace MobiFlight.Joysticks.Octavi.Tests
     public class OctaviHandlerTests
     {
         private const int ButtonCountBeforeRightColumnInEveryContext = 96;
+        private const int ButtonCountBeforeContextSelectionButtons = 140;
+        private static readonly string[] ContextNames = ["COM1", "COM2", "NAV1", "NAV2", "FMS1", "FMS2", "AP", "XPDR"];
 
         private static OctaviHandler CreateHandler()
         {
@@ -21,7 +23,7 @@ namespace MobiFlight.Joysticks.Octavi.Tests
             return new OctaviHandler(definition);
         }
 
-        private static OctaviReport Report(OctaviReport.OctaviState context, OctaviReport.OctaviButtons buttons = 0)
+        private static OctaviReport Report(OctaviReport.OctaviState context, OctaviReport.OctaviButtons buttons = 0, sbyte outerEncoderDelta = 0)
         {
             var value = (uint)buttons;
             var report = new OctaviReport();
@@ -29,7 +31,7 @@ namespace MobiFlight.Joysticks.Octavi.Tests
             {
                 0x01,
                 (byte)value, (byte)(value >> 8), (byte)(value >> 16), (byte)(value >> 24),
-                0x00, 0x00,
+                (byte)outerEncoderDelta, 0x00,
                 (byte)context
             });
             return report;
@@ -39,6 +41,18 @@ namespace MobiFlight.Joysticks.Octavi.Tests
             OctaviHandler handler, OctaviReport.OctaviState context, OctaviReport.OctaviButtons button)
         {
             return handler.DetectButtonEvents(Report(context, button)).ToList();
+        }
+
+        private static (int buttonIndex, MobiFlightButton.InputEvent inputEvent)[] Tapped(OctaviHandler handler, string name)
+        {
+            var index = handler.JoystickButtonNames.ToList().IndexOf(name);
+            return [(index, MobiFlightButton.InputEvent.PRESS), (index, MobiFlightButton.InputEvent.RELEASE)];
+        }
+
+        private static List<string> EventNames(OctaviHandler handler, IEnumerable<(int buttonIndex, MobiFlightButton.InputEvent inputEvent)> events)
+        {
+            var names = handler.JoystickButtonNames.ToList();
+            return [.. events.Select(e => names[e.buttonIndex])];
         }
 
         #region Button list
@@ -72,7 +86,7 @@ namespace MobiFlight.Joysticks.Octavi.Tests
             var names = handler.JoystickButtonNames.ToList();
 
             // Assert
-            Assert.HasCount(ButtonCountBeforeRightColumnInEveryContext + contexts.Length * keys.Length, names);
+            Assert.HasCount(ButtonCountBeforeRightColumnInEveryContext + contexts.Length * keys.Length + ContextNames.Length, names);
             foreach (var context in contexts)
             {
                 foreach (var key in keys)
@@ -81,6 +95,23 @@ namespace MobiFlight.Joysticks.Octavi.Tests
                 }
             }
             Assert.DoesNotContain("Button_FMS1^_DCT", names);
+        }
+
+        [TestMethod]
+        public void JoystickButtonNames_ShouldAddOneContextSelectionButtonPerContextAfterAllEarlierButtons()
+        {
+            // Arrange
+            var handler = CreateHandler();
+
+            // Act
+            var names = handler.JoystickButtonNames.ToList();
+
+            // Assert
+            Assert.AreEqual("Button_XPDR^_ENT", names[ButtonCountBeforeContextSelectionButtons - 1]);
+            CollectionAssert.AreEqual(
+                ContextNames.Select(name => $"Button_CONTEXT_{name}").ToList(),
+                names.GetRange(ButtonCountBeforeContextSelectionButtons, ContextNames.Length));
+            Assert.DoesNotContain("Button_CONTEXT_COM1^", names);
         }
 
         #endregion
@@ -140,6 +171,232 @@ namespace MobiFlight.Joysticks.Octavi.Tests
             // Assert
             Assert.IsTrue(handler.IsInShiftMode);
             Assert.Contains((expectedIndex, MobiFlightButton.InputEvent.PRESS), events);
+        }
+
+        #endregion
+
+        #region Context selection buttons
+
+        // The enum is internal, so the public test method takes its raw value
+        [TestMethod]
+        [DataRow((byte)OctaviReport.OctaviState.STATE_COM1, "Button_CONTEXT_COM1")]
+        [DataRow((byte)OctaviReport.OctaviState.STATE_FMS2, "Button_CONTEXT_FMS2")]
+        public void DetectButtonEvents_ShouldPressContextSelectionButtonAfterUnshift_WhenFirstReportArrives(byte context, string expectedName)
+        {
+            // Arrange
+            var handler = CreateHandler();
+            var expected = Tapped(handler, "Button_UNSHIFT_SW").Concat(Tapped(handler, expectedName)).ToList();
+
+            // Act
+            var events = handler.DetectButtonEvents(Report((OctaviReport.OctaviState)context)).ToList();
+
+            // Assert
+            CollectionAssert.AreEqual(expected, events);
+        }
+
+        [TestMethod]
+        public void DetectButtonEvents_ShouldUnshiftAndPressContextSelectionButton_WhenContextChangesInShiftMode()
+        {
+            // Arrange
+            var handler = CreateHandler();
+            handler.DetectButtonEvents(Report(OctaviReport.OctaviState.STATE_COM1));
+            Press(handler, OctaviReport.OctaviState.STATE_COM1, OctaviReport.OctaviButtons.HID_ENC_SW);
+            handler.DetectButtonEvents(Report(OctaviReport.OctaviState.STATE_COM1));
+            var expected = Tapped(handler, "Button_UNSHIFT_SW").Concat(Tapped(handler, "Button_CONTEXT_NAV1")).ToList();
+
+            // Act
+            var events = handler.DetectButtonEvents(Report(OctaviReport.OctaviState.STATE_NAV1)).ToList();
+
+            // Assert
+            Assert.IsFalse(handler.IsInShiftMode);
+            CollectionAssert.AreEqual(expected, events);
+        }
+
+        [TestMethod]
+        public void DetectButtonEvents_ShouldPressContextSelectionButtonAfterUnshift_WhenContextChanges()
+        {
+            // Arrange
+            var handler = CreateHandler();
+            handler.DetectButtonEvents(Report(OctaviReport.OctaviState.STATE_COM1));
+            var expected = Tapped(handler, "Button_UNSHIFT_SW").Concat(Tapped(handler, "Button_CONTEXT_AP")).ToList();
+
+            // Act
+            var events = handler.DetectButtonEvents(Report(OctaviReport.OctaviState.STATE_AP)).ToList();
+
+            // Assert
+            CollectionAssert.AreEqual(expected, events);
+        }
+
+        [TestMethod]
+        public void DetectButtonEvents_ShouldPressContextSelectionButtonBeforeTheReportsKeys_WhenContextChangesWithAKeyDown()
+        {
+            // Arrange
+            var handler = CreateHandler();
+            handler.DetectButtonEvents(Report(OctaviReport.OctaviState.STATE_COM1));
+            var names = handler.JoystickButtonNames.ToList();
+
+            // Act
+            var events = Press(handler, OctaviReport.OctaviState.STATE_NAV1, OctaviReport.OctaviButtons.HID_BTN_AP_HDG);
+
+            // Assert
+            var context = events.IndexOf((names.IndexOf("Button_CONTEXT_NAV1"), MobiFlightButton.InputEvent.PRESS));
+            var key = events.IndexOf((names.IndexOf("Button_AP_HDG"), MobiFlightButton.InputEvent.PRESS));
+            Assert.IsGreaterThanOrEqualTo(0, context);
+            Assert.IsGreaterThan(context, key);
+        }
+
+        [TestMethod]
+        public void DetectButtonEvents_ShouldNotPressContextSelectionButton_WhenContextStaysTheSame()
+        {
+            // Arrange
+            var handler = CreateHandler();
+            handler.DetectButtonEvents(Report(OctaviReport.OctaviState.STATE_COM1));
+
+            // Act
+            var events = Press(handler, OctaviReport.OctaviState.STATE_COM1, OctaviReport.OctaviButtons.HID_BTN_AP_VS);
+
+            // Assert
+            Assert.DoesNotContain(name => name.StartsWith("Button_CONTEXT_"), EventNames(handler, events));
+        }
+
+        [TestMethod]
+        public void DetectButtonEvents_ShouldNotPressContextSelectionButton_WhenShiftModeToggles()
+        {
+            // Arrange
+            var handler = CreateHandler();
+            handler.DetectButtonEvents(Report(OctaviReport.OctaviState.STATE_NAV2));
+
+            // Act
+            var events = Press(handler, OctaviReport.OctaviState.STATE_NAV2, OctaviReport.OctaviButtons.HID_ENC_SW);
+
+            // Assert
+            Assert.IsTrue(handler.IsInShiftMode);
+            Assert.DoesNotContain(name => name.StartsWith("Button_CONTEXT_"), EventNames(handler, events));
+        }
+
+        [TestMethod]
+        public void DetectButtonEvents_ShouldNotPressContextSelectionButton_WhenContextIsUnknown()
+        {
+            // Arrange
+            var handler = CreateHandler();
+
+            // Act
+            var events = handler.DetectButtonEvents(Report((OctaviReport.OctaviState)9)).ToList();
+
+            // Assert
+            Assert.DoesNotContain(name => name.StartsWith("Button_CONTEXT_"), EventNames(handler, events));
+        }
+
+        [TestMethod]
+        public void DetectButtonEvents_ShouldIgnoreEncoderAndKeepTrackOfKeys_WhenContextIsUnknown()
+        {
+            // Arrange
+            var handler = CreateHandler();
+            handler.DetectButtonEvents(Report(OctaviReport.OctaviState.STATE_COM1));
+            var unknown = (OctaviReport.OctaviState)9;
+
+            // Act
+            var events = handler.DetectButtonEvents(Report(unknown, OctaviReport.OctaviButtons.HID_BTN_AP, outerEncoderDelta: 1)).ToList();
+            var afterwards = handler.DetectButtonEvents(Report(OctaviReport.OctaviState.STATE_COM1, OctaviReport.OctaviButtons.HID_BTN_AP)).ToList();
+
+            // Assert
+            CollectionAssert.AreEqual(Tapped(handler, "Button_UNSHIFT_SW").ToList(), events);
+            CollectionAssert.AreEqual(
+                Tapped(handler, "Button_UNSHIFT_SW").Concat(Tapped(handler, "Button_CONTEXT_COM1")).ToList(),
+                afterwards);
+        }
+
+        [TestMethod]
+        public void DetectButtonEvents_ShouldShiftTheNewContext_WhenKnobIsPushedWhileContextChanges()
+        {
+            // Arrange
+            var handler = CreateHandler();
+            handler.DetectButtonEvents(Report(OctaviReport.OctaviState.STATE_COM1));
+            var names = handler.JoystickButtonNames.ToList();
+            var expected = Tapped(handler, "Button_UNSHIFT_SW")
+                .Concat(Tapped(handler, "Button_CONTEXT_NAV1"))
+                .Append((names.IndexOf("Button_SHIFT_SW"), MobiFlightButton.InputEvent.PRESS))
+                .ToList();
+
+            // Act
+            var events = Press(handler, OctaviReport.OctaviState.STATE_NAV1, OctaviReport.OctaviButtons.HID_ENC_SW);
+
+            // Assert
+            Assert.IsTrue(handler.IsInShiftMode);
+            CollectionAssert.AreEqual(expected, events);
+        }
+
+        [TestMethod]
+        public void DetectButtonEvents_ShouldPressTheEncoderButtonForTheFullDelta_WhenEncoderTurnsFast()
+        {
+            // Arrange
+            var handler = CreateHandler();
+            handler.DetectButtonEvents(Report(OctaviReport.OctaviState.STATE_COM1));
+            var decrement = handler.JoystickButtonNames.ToList().IndexOf("Button_COM1_OD");
+
+            // Act
+            var events = handler.DetectButtonEvents(Report(OctaviReport.OctaviState.STATE_COM1, outerEncoderDelta: sbyte.MinValue)).ToList();
+
+            // Assert
+            Assert.HasCount(128, events);
+            Assert.IsTrue(events.All(e => e == (decrement, MobiFlightButton.InputEvent.PRESS)));
+        }
+
+        #endregion
+
+        #region Context report request
+
+        [TestMethod]
+        public void DetectButtonEvents_ShouldPressOnlyTheContextSelectionButton_WhenContextReportIsRequestedInShiftMode()
+        {
+            // Arrange
+            var handler = CreateHandler();
+            handler.DetectButtonEvents(Report(OctaviReport.OctaviState.STATE_NAV2));
+            Press(handler, OctaviReport.OctaviState.STATE_NAV2, OctaviReport.OctaviButtons.HID_ENC_SW);
+            handler.DetectButtonEvents(Report(OctaviReport.OctaviState.STATE_NAV2));
+            handler.RequestContextReport();
+
+            // Act
+            var events = handler.DetectButtonEvents(Report(OctaviReport.OctaviState.STATE_NAV2)).ToList();
+
+            // Assert
+            Assert.IsTrue(handler.IsInShiftMode);
+            CollectionAssert.AreEqual(Tapped(handler, "Button_CONTEXT_NAV2").ToList(), events);
+        }
+
+        [TestMethod]
+        public void DetectButtonEvents_ShouldPressContextSelectionButtonBeforeTheReportsKeys_WhenContextReportIsRequested()
+        {
+            // Arrange
+            var handler = CreateHandler();
+            handler.DetectButtonEvents(Report(OctaviReport.OctaviState.STATE_COM2));
+            handler.RequestContextReport();
+            var names = handler.JoystickButtonNames.ToList();
+            var expected = Tapped(handler, "Button_CONTEXT_COM2")
+                .Append((names.IndexOf("Button_AP_AP"), MobiFlightButton.InputEvent.PRESS))
+                .ToList();
+
+            // Act
+            var events = Press(handler, OctaviReport.OctaviState.STATE_COM2, OctaviReport.OctaviButtons.HID_BTN_AP);
+
+            // Assert
+            CollectionAssert.AreEqual(expected, events);
+        }
+
+        [TestMethod]
+        public void DetectButtonEvents_ShouldPressContextSelectionButtonOnce_WhenContextReportIsRequested()
+        {
+            // Arrange
+            var handler = CreateHandler();
+            handler.DetectButtonEvents(Report(OctaviReport.OctaviState.STATE_XPDR));
+            handler.RequestContextReport();
+            handler.DetectButtonEvents(Report(OctaviReport.OctaviState.STATE_XPDR));
+
+            // Act
+            var events = handler.DetectButtonEvents(Report(OctaviReport.OctaviState.STATE_XPDR)).ToList();
+
+            // Assert
+            Assert.IsEmpty(events);
         }
 
         #endregion
