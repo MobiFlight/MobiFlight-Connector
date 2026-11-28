@@ -86,32 +86,7 @@ export const useBackendStateAppMessages = () => {
 
   useAppMessage("ProfileMoveUndone", (message) => {
     const { FromIndex, ToIndex } = message.payload as ProfileMoveUndone
-    const { activeConfigFileIndex, setActiveConfigFileIndex } =
-      useProjectStore.getState()
-
-    if (activeConfigFileIndex === FromIndex) {
-      setActiveConfigFileIndex(ToIndex)
-      return
-    }
-
-    const shiftsLeft =
-      FromIndex < ToIndex &&
-      activeConfigFileIndex > FromIndex &&
-      activeConfigFileIndex <= ToIndex
-
-    if (shiftsLeft) {
-      setActiveConfigFileIndex(activeConfigFileIndex - 1)
-      return
-    }
-
-    const shifsRight =
-      FromIndex > ToIndex &&
-      activeConfigFileIndex >= ToIndex &&
-      activeConfigFileIndex < FromIndex
-
-    if (shifsRight) {
-      setActiveConfigFileIndex(activeConfigFileIndex + 1)
-    }
+    useProjectStore.getState().updateActiveIndexAfterMove(FromIndex, ToIndex)
   })
 
   useAppMessage("RecentProjects", (message) => {

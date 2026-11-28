@@ -41,7 +41,7 @@ const ProfileTabContextMenu = ({
 }: ProfileTabContextMenuProps) => {
   const { t } = useTranslation()
   const { publish } = messageExchange
-  const { project, activeConfigFileIndex, setActiveConfigFileIndex } =
+  const { project, updateActiveIndexAfterMove } =
     useProjectStore()
   const profileCount = project?.ConfigFiles?.length ?? 0
 
@@ -56,10 +56,7 @@ const ProfileTabContextMenu = ({
       },
     } as CommandFileContextMenu)
 
-    // Keep the same profile active after it swaps places with its neighbour
-    if (activeConfigFileIndex === index) setActiveConfigFileIndex(targetIndex)
-    else if (activeConfigFileIndex === targetIndex)
-      setActiveConfigFileIndex(index)
+    updateActiveIndexAfterMove(index, targetIndex)
   }
 
   return (
