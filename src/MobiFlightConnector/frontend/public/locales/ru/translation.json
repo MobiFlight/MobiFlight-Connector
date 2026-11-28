@@ -44,6 +44,10 @@
       "RecentProjects.None": "Проекты отсутствуют",
       "Exit": "Выход"
     },
+    "Edit": {
+      "Label": "Правка",
+      "Undo": "Отменить"
+    },
     "View": {
       "Label": "Вид",
       "Zoom": {
@@ -319,6 +323,24 @@
         "Description": "Ваша конфигурация не соответствует текущим настройкам фильтра, поэтому она не отображается в списке.",
         "Action": "Сброс фильтров"
       }
+    },
+    "History": {
+      "Item": {
+        "Added": "Добавлено",
+        "Duplicated": "Дублировано",
+        "Deleted": "Удалено",
+        "Renamed": "Переименовано",
+        "Edited": "Изменено",
+        "Toggled": "Состояние активности изменено",
+        "Moved": "Перемещено"
+      },
+      "Profile": {
+        "Added": "Профиль добавлен",
+        "Rename": "Профиль переименован",
+        "Deleted": "Профиль удалён",
+        "Merged": "Профили объединены",
+        "Moved": "Профиль перемещён"
+      }
     }
   },
   "Notifications": {
@@ -346,6 +368,11 @@
     "ProjectFileLoadError": {
       "Title": "Не удалось загрузить проект",
       "Description": "Произошла ошибка при загрузке {{fileName}} - {{errorMessage}}"
+    },
+    "ConfigListUndoFailed": {
+      "Title": "Не удалось отменить действие",
+      "Description": "Не удалось отменить действие {{action}}. История сохранена. Подробности см. в журнале.",
+      "UnknownAction": "Неизвестное действие"
     }
   },
   "Startup": {
@@ -403,6 +430,42 @@
       "SelectController": "Выберите контроллер",
       "SearchController": "Поиск контроллера...",
       "NoControllerFound": "Контроллер не найден."
+    },
+    "History": {
+      "Undo": "Отменить",
+      "Title": "История",
+      "Original": "Исходная конфигурация",
+      "ConfigurationChanged": "Конфигурация изменена",
+      "Oldest": "Самое раннее состояние",
+      "Current": "Текущее состояние",
+      "NameChanged": "Имя изменено",
+      "TriggerChanged": "Триггер изменён",
+      "Precondition": {
+        "Added": "Добавлено",
+        "Removed": "Удалено",
+        "Changed": "Изменено",
+        "Enabled": "Включено",
+        "Disabled": "Выключено"
+      },
+      "Modifier": {
+        "Added": "Добавлено",
+        "Removed": "Удалено",
+        "Enabled": "Включено",
+        "Disabled": "Выключено",
+        "ExpressionChanged": "Выражение изменено",
+        "Changed": "Изменено"
+      },
+      "Reference": {
+        "Added": "Добавлено",
+        "Removed": "Удалено",
+        "Enabled": "Включено",
+        "Disabled": "Выключено",
+        "Changed": "Изменено"
+      },
+      "Action": {
+        "TypeChanged": "Тип действия изменён",
+        "Changed": "Действие изменено"
+      }
     },
     "UnsavedChanges": {
       "Title": "Отменить изменения?",

@@ -7,6 +7,7 @@ import DrawerBreadcrumb from "@/components/wizard/common/DrawerTitle"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import { configReferenceVariants } from "@/components/wizard/variants"
 import { ConfigItemType, ConfigReference, IConfigItem } from "@/types/config"
+import { HistoryAction } from "@/types/history"
 import { IconPlus, IconTrash } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 
@@ -15,7 +16,10 @@ export interface ConfigReferenceEditorProps {
   configName: string
   outputConfigs: IConfigItem[]
   configReferences: ConfigReference[]
-  onConfigReferencesChange: (configReferences: ConfigReference[]) => void
+  onConfigReferencesChange: (
+    configReferences: ConfigReference[],
+    actionLabel?: HistoryAction,
+  ) => void
 }
 
 const SUGGESTED_PLACEHOLDERS = [
@@ -41,7 +45,7 @@ const SUGGESTED_PLACEHOLDERS = [
 type ConfigReferenceItemRowProps = {
   configReference: ConfigReference
   outputConfigs: IConfigItem[]
-  onChange: (updated: ConfigReference) => void
+  onChange: (updated: ConfigReference, actionLabel?: HistoryAction) => void
   onDelete: () => void
 }
 
@@ -66,7 +70,12 @@ const ConfigReferenceItemRow = ({
         <Switch
           checked={configReference.Active}
           onCheckedChange={(checked) =>
-            onChange({ ...configReference, Active: !!checked })
+            onChange(
+              { ...configReference, Active: !!checked },
+              checked
+                ? "Dialog.History.Reference.Enabled"
+                : "Dialog.History.Reference.Disabled",
+            )
           }
         />
       </div>
@@ -80,9 +89,7 @@ const ConfigReferenceItemRow = ({
         setSelected={(c) =>
           onChange({ ...configReference, Ref: c?.GUID ?? "" })
         }
-        placeholder={t(
-          "ConfigWizard.ConfigReferenceEditor.SelectConfig",
-        )}
+        placeholder={t("ConfigWizard.ConfigReferenceEditor.SelectConfig")}
         widthClass="flex-1"
       />
 
@@ -111,9 +118,7 @@ const ConfigReferenceItemRow = ({
         onClick={onDelete}
       >
         <div className="sr-only">
-          {t(
-            "ConfigWizard.ConfigReferenceEditor.DeleteConfigReference",
-          )}
+          {t("ConfigWizard.ConfigReferenceEditor.DeleteConfigReference")}
         </div>
         <IconTrash className="h-4 w-4" />
       </Button>
@@ -137,25 +142,36 @@ const ConfigReferenceEditor = ({
   onConfigReferencesChange,
 }: ConfigReferenceEditorProps) => {
   const { t } = useTranslation("wizard")
-  const handleChange = (index: number, updated: ConfigReference) => {
+  const handleChange = (
+    index: number,
+    updated: ConfigReference,
+    actionLabel?: HistoryAction,
+  ) => {
     onConfigReferencesChange(
       configReferences.map((c, i) => (i === index ? updated : c)),
+      actionLabel ?? "Dialog.History.Reference.Changed",
     )
   }
 
   const handleDelete = (index: number) => {
-    onConfigReferencesChange(configReferences.filter((_, i) => i !== index))
+    onConfigReferencesChange(
+      configReferences.filter((_, i) => i !== index),
+      "Dialog.History.Reference.Removed",
+    )
   }
 
   const handleAdd = () => {
     const suggestedPlaceholder =
       SUGGESTED_PLACEHOLDERS[
-        configReferences.length % SUGGESTED_PLACEHOLDERS.length
+      configReferences.length % SUGGESTED_PLACEHOLDERS.length
       ]
-    onConfigReferencesChange([
-      ...configReferences,
-      { ...EMPTY_CONFIG_REFERENCE, Placeholder: suggestedPlaceholder },
-    ])
+    onConfigReferencesChange(
+      [
+        ...configReferences,
+        { ...EMPTY_CONFIG_REFERENCE, Placeholder: suggestedPlaceholder },
+      ],
+      "Dialog.History.Reference.Added",
+    )
   }
 
   return (
@@ -168,15 +184,10 @@ const ConfigReferenceEditor = ({
           title={
             <DrawerBreadcrumb
               mode={mode}
-              crumbs={[
-                configName,
-                t("ConfigWizard.ConfigReferences.Title"),
-              ]}
+              crumbs={[configName, t("ConfigWizard.ConfigReferences.Title")]}
             />
           }
-          description={t(
-            "ConfigWizard.ConfigReferenceEditor.Description",
-          )}
+          description={t("ConfigWizard.ConfigReferenceEditor.Description")}
         />
         <Button
           variant="default"
@@ -185,17 +196,13 @@ const ConfigReferenceEditor = ({
           size={"sm"}
         >
           <IconPlus className="h-4 w-4" />
-          {t(
-            "ConfigWizard.ConfigReferenceEditor.AddConfigReference",
-          )}
+          {t("ConfigWizard.ConfigReferenceEditor.AddConfigReference")}
         </Button>
       </div>
 
       {configReferences.length === 0 ? (
         <div className="text-muted-foreground rounded border p-4 text-center text-sm">
-          {t(
-            "ConfigWizard.ConfigReferenceEditor.NoConfigReferences",
-          )}
+          {t("ConfigWizard.ConfigReferenceEditor.NoConfigReferences")}
         </div>
       ) : (
         <ScrollArea className="grow">
@@ -205,7 +212,9 @@ const ConfigReferenceEditor = ({
                 key={index}
                 configReference={configReference}
                 outputConfigs={outputConfigs}
-                onChange={(updated) => handleChange(index, updated)}
+                onChange={(updated, actionLabel) =>
+                  handleChange(index, updated, actionLabel)
+                }
                 onDelete={() => handleDelete(index)}
               />
             ))}

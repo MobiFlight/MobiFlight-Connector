@@ -44,6 +44,10 @@
       "RecentProjects.None": "Nenhum projeto",
       "Exit": "Sair"
     },
+    "Edit": {
+      "Label": "Editar",
+      "Undo": "Desfazer"
+    },
     "View": {
       "Label": "Visualizar",
       "Zoom": {
@@ -319,6 +323,24 @@
         "Description": "Sua configuração não corresponde aos filtros atuais e por isso não aparece na lista.",
         "Action": "Redefinir filtros"
       }
+    },
+    "History": {
+      "Item": {
+        "Added": "Adicionado",
+        "Duplicated": "Duplicado",
+        "Deleted": "Excluído",
+        "Renamed": "Renomeado",
+        "Edited": "Editado",
+        "Toggled": "Estado de ativação alterado",
+        "Moved": "Movido"
+      },
+      "Profile": {
+        "Added": "Perfil adicionado",
+        "Rename": "Perfil renomeado",
+        "Deleted": "Perfil excluído",
+        "Merged": "Perfis mesclados",
+        "Moved": "Perfil movido"
+      }
     }
   },
   "Notifications": {
@@ -346,6 +368,11 @@
     "ProjectFileLoadError": {
       "Title": "O projeto não pôde ser caregado",
       "Description": "Um erro ocorreu ao carregar {{fileName}} - {{errorMessage}}"
+    },
+    "ConfigListUndoFailed": {
+      "Title": "Falha ao desfazer",
+      "Description": "Não foi possível desfazer a ação {{action}}. O histórico foi preservado. Consulte os registos para mais informações.",
+      "UnknownAction": "Ação desconhecida"
     }
   },
   "Startup": {
@@ -403,6 +430,42 @@
       "SelectController": "Selecionar um controlador",
       "SearchController": "Pesquisar controlador...",
       "NoControllerFound": "Nenhum controlador encontrado."
+    },
+    "History": {
+      "Undo": "Desfazer",
+      "Title": "Histórico",
+      "Original": "Configuração original",
+      "ConfigurationChanged": "Configuração alterada",
+      "Oldest": "Estado mais antigo",
+      "Current": "Estado atual",
+      "NameChanged": "Nome alterado",
+      "TriggerChanged": "Acionador alterado",
+      "Precondition": {
+        "Added": "Adicionado",
+        "Removed": "Removido",
+        "Changed": "Alterado",
+        "Enabled": "Ativado",
+        "Disabled": "Desativado"
+      },
+      "Modifier": {
+        "Added": "Adicionado",
+        "Removed": "Removido",
+        "Enabled": "Ativado",
+        "Disabled": "Desativado",
+        "ExpressionChanged": "Expressão alterada",
+        "Changed": "Alterado"
+      },
+      "Reference": {
+        "Added": "Adicionado",
+        "Removed": "Removido",
+        "Enabled": "Ativado",
+        "Disabled": "Desativado",
+        "Changed": "Alterado"
+      },
+      "Action": {
+        "TypeChanged": "Tipo de ação alterado",
+        "Changed": "Ação alterada"
+      }
     },
     "UnsavedChanges": {
       "Title": "Descartar alterações?",

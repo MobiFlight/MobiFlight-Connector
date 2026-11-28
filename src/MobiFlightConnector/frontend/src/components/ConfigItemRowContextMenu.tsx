@@ -12,7 +12,10 @@ import {
 } from "@/components/ui/dropdown-menu"
 import messageExchange from "@/lib/messageExchange"
 import { IConfigItem } from "@/types"
-import { CommandConfigContextMenu } from "@/types/commands"
+import {
+  CommandConfigContextMenu,
+  CommandConfigBulkAction,
+} from "@/types/commands"
 import {
   IconEdit,
   IconPencil,
@@ -54,9 +57,9 @@ function MenuItems({
         </div>
       </Item>
       <Separator />
-      {/* 
-          using setTimeout makes sure the context menu closes before starting the edit, 
-          otherwise the input won't receive focus sometimes 
+      {/*
+          using setTimeout makes sure the context menu closes before starting the edit,
+          otherwise the input won't receive focus sometimes
        */}
       <Item
         onClick={() => setTimeout(() => context?.startNameEdit(item.GUID), 0)}
@@ -69,9 +72,9 @@ function MenuItems({
       <Item
         onClick={() =>
           publish({
-            key: "CommandConfigContextMenu",
-            payload: { action: "delete", item },
-          } as CommandConfigContextMenu)
+            key: "CommandConfigBulkAction",
+            payload: { action: "delete", items: [item] },
+          } as CommandConfigBulkAction)
         }
       >
         <div className="flex items-center gap-2 [&_svg]:size-4">

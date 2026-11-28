@@ -22,6 +22,7 @@ export type CommandMessageKey =
   | "CommandRefreshPresets"
   | "CommandShutdown"
   | "CommandUpdateSettings"
+  | "CommandUndoConfigList"
   | "CommandStepperCalibration"
   | "CommandLcdDisplayPreview"
 
@@ -45,6 +46,7 @@ export type CommandMessage =
   | CommandRefreshPresets
   | CommandShutdown
   | CommandUpdateSettings
+  | CommandUndoConfigList
   | CommandStepperCalibration
   | CommandLcdDisplayPreview
 
@@ -58,7 +60,7 @@ export interface CommandMessageBase {
 export interface CommandConfigContextMenu extends CommandMessageBase {
   key: "CommandConfigContextMenu"
   payload: {
-    action: "delete" | "duplicate" | "test" | "settings" | "toggle" | "testStart" | "testStop"
+    action: "delete" | "duplicate" | "test" | "settings" | "testStart" | "testStop"
     item: IConfigItem
   }
 }
@@ -81,6 +83,7 @@ export interface CommandUpdateConfigItem extends CommandMessageBase {
   key: "CommandUpdateConfigItem"
   payload: {
     item: IConfigItem
+    change?: "rename" | "toggle"
   }
 }
 
@@ -261,6 +264,13 @@ export interface CommandStepperCalibration extends CommandMessageBase {
     controller: Partial<Controller>
     stepper: Partial<StepperConfig>
     action: "move" | "home"
+    steps?: number
+  }
+}
+
+export interface CommandUndoConfigList extends CommandMessageBase {
+  key: "CommandUndoConfigList"
+  payload: {
     steps?: number
   }
 }

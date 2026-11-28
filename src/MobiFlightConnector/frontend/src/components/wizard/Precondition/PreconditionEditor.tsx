@@ -20,6 +20,7 @@ import {
   Precondition,
   PreconditionType,
 } from "@/types/config"
+import { HistoryAction } from "@/types/history"
 import { PRECONDITION_TYPES } from "@/types/typesOptions"
 import { IconPlus, IconTrash } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
@@ -30,7 +31,10 @@ export interface PreconditionEditorProps {
   variables: MobiFlightVariable[]
   outputConfigs: IConfigItem[]
   preconditions: Precondition[]
-  onPreconditionsChange: (preconditions: Precondition[]) => void
+  onPreconditionsChange: (
+    preconditions: Precondition[],
+    actionLabel?: HistoryAction,
+  ) => void
 }
 
 const OPERAND_OPTIONS: Precondition["Operand"][] = [
@@ -58,7 +62,7 @@ type PreconditionItemRowProps = {
   precondition: Precondition
   variables: MobiFlightVariable[]
   outputConfigs: IConfigItem[]
-  onChange: (updated: Precondition) => void
+  onChange: (updated: Precondition, actionLabel?: HistoryAction) => void
   onDelete: () => void
   showLogic: boolean
   onMoveUp: () => void
@@ -123,14 +127,17 @@ const PreconditionItemRow = ({
       <Switch
         checked={precondition.Active}
         onCheckedChange={(checked) =>
-          onChange({ ...precondition, Active: !!checked })
+          onChange(
+            { ...precondition, Active: !!checked },
+            checked
+              ? "Dialog.History.Precondition.Enabled"
+              : "Dialog.History.Precondition.Disabled",
+          )
         }
       />
 
       <div className={"w-24 text-center text-sm"}>
-        {t(
-          `ConfigWizard.PreconditionEditor.Types.${precondition.Type}`,
-        )}
+        {t(`ConfigWizard.PreconditionEditor.Types.${precondition.Type}`)}
       </div>
 
       {precondition.Type === "config" && (
@@ -141,9 +148,7 @@ const PreconditionItemRow = ({
           getLabel={(c) => c.Name}
           isSelected={(c, s) => c.GUID === s?.GUID}
           setSelected={(c) => onChange({ ...precondition, Ref: c?.GUID ?? "" })}
-          placeholder={t(
-            "ConfigWizard.PreconditionEditor.SelectConfig",
-          )}
+          placeholder={t("ConfigWizard.PreconditionEditor.SelectConfig")}
           widthClass="w-58"
         />
       )}
@@ -156,9 +161,7 @@ const PreconditionItemRow = ({
           getLabel={(v) => v.Name}
           isSelected={(v, s) => v.Name === s?.Name}
           setSelected={(v) => onChange({ ...precondition, Ref: v?.Name ?? "" })}
-          placeholder={t(
-            "ConfigWizard.PreconditionEditor.SelectVariable",
-          )}
+          placeholder={t("ConfigWizard.PreconditionEditor.SelectVariable")}
           widthClass="w-58"
         />
       )}
@@ -178,9 +181,7 @@ const PreconditionItemRow = ({
               }
               onChange(updated)
             }}
-            placeholder={t(
-              "ConfigWizard.PreconditionEditor.SelectPort",
-            )}
+            placeholder={t("ConfigWizard.PreconditionEditor.SelectPort")}
             widthClass="w-28"
             variant="nofilter"
           />
@@ -196,9 +197,7 @@ const PreconditionItemRow = ({
                 Pin: `${preconditionPin.Port}${p?.value ?? ""}`,
               })
             }
-            placeholder={t(
-              "ConfigWizard.PreconditionEditor.SelectPin",
-            )}
+            placeholder={t("ConfigWizard.PreconditionEditor.SelectPin")}
             widthClass="w-28"
             variant="nofilter"
           />
@@ -218,9 +217,7 @@ const PreconditionItemRow = ({
       <Input
         value={precondition.Value}
         onChange={(e) => onChange({ ...precondition, Value: e.target.value })}
-        placeholder={t(
-          "ConfigWizard.PreconditionEditor.ValuePlaceholder",
-        )}
+        placeholder={t("ConfigWizard.PreconditionEditor.ValuePlaceholder")}
         className="w-18"
       />
       {showLogic && (
@@ -269,20 +266,31 @@ const PreconditionEditor = ({
   onPreconditionsChange,
 }: PreconditionEditorProps) => {
   const { t } = useTranslation("wizard")
-  const handleChange = (index: number, updated: Precondition) => {
+  const handleChange = (
+    index: number,
+    updated: Precondition,
+    actionLabel?: HistoryAction,
+  ) => {
     onPreconditionsChange(
       preconditions.map((p, i) => (i === index ? updated : p)),
+      actionLabel ?? "Dialog.History.Precondition.Changed",
     )
   }
 
   const handleDelete = (index: number) => {
-    onPreconditionsChange(preconditions.filter((_, i) => i !== index))
+    onPreconditionsChange(
+      preconditions.filter((_, i) => i !== index),
+      "Dialog.History.Precondition.Removed",
+    )
   }
 
   const handleAdd = (preconditionType: PreconditionType) => {
     // create the right precondition type
     const newPrecondition = { ...EMPTY_PRECONDITION, Type: preconditionType }
-    onPreconditionsChange([...preconditions, newPrecondition])
+    onPreconditionsChange(
+      [...preconditions, newPrecondition],
+      "Dialog.History.Precondition.Added",
+    )
   }
 
   const preconditionTypes = PRECONDITION_TYPES as PreconditionType[]
@@ -294,7 +302,10 @@ const PreconditionEditor = ({
     const temp = newPreconditions[index - 1]
     newPreconditions[index - 1] = newPreconditions[index]
     newPreconditions[index] = temp
-    onPreconditionsChange(newPreconditions)
+    onPreconditionsChange(
+      newPreconditions,
+      "Dialog.History.Precondition.Changed",
+    )
   }
 
   const onMoveDown = (index: number) => {
@@ -304,7 +315,10 @@ const PreconditionEditor = ({
     const temp = newPreconditions[index + 1]
     newPreconditions[index + 1] = newPreconditions[index]
     newPreconditions[index] = temp
-    onPreconditionsChange(newPreconditions)
+    onPreconditionsChange(
+      newPreconditions,
+      "Dialog.History.Precondition.Changed",
+    )
   }
 
   return (
@@ -314,15 +328,10 @@ const PreconditionEditor = ({
           title={
             <DrawerBreadcrumb
               mode={variant}
-              crumbs={[
-                configName,
-                t("ConfigWizard.Preconditions.Title"),
-              ]}
+              crumbs={[configName, t("ConfigWizard.Preconditions.Title")]}
             />
           }
-          description={t(
-            "ConfigWizard.PreconditionEditor.Description",
-          )}
+          description={t("ConfigWizard.PreconditionEditor.Description")}
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild className="self-center">
@@ -337,9 +346,7 @@ const PreconditionEditor = ({
                 key={preconditionType}
                 onClick={() => handleAdd(preconditionType)}
               >
-                {t(
-                  `ConfigWizard.PreconditionEditor.Types.${preconditionType}`,
-                )}
+                {t(`ConfigWizard.PreconditionEditor.Types.${preconditionType}`)}
               </DropdownMenuItem>
             ))}
           </DropdownMenuContent>
@@ -359,7 +366,9 @@ const PreconditionEditor = ({
                 precondition={precondition}
                 variables={variables}
                 outputConfigs={outputConfigs}
-                onChange={(updated) => handleChange(index, updated)}
+                onChange={(updated, actionLabel) =>
+                  handleChange(index, updated, actionLabel)
+                }
                 onDelete={() => handleDelete(index)}
                 showLogic={index < preconditions.length - 1}
                 isFirst={index === 0}

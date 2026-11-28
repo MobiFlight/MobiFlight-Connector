@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label"
 import DeviceIcon from "@/components/icons/DeviceIcon"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import WizardSection from "@/components/wizard/common/WizardSection"
+import { areConfigItemsEquivalent } from "@/lib/configItemComparison"
 
 export interface ConfigWizardTestPanelProps {
   configItem: IConfigItem | null
@@ -42,7 +43,7 @@ const ConfigWizardTestPanel = ({
   configItem,
   title,
   description,
-  onTestValueChange
+  onTestValueChange,
 }: ConfigWizardTestPanelProps) => {
   const { t } = useTranslation("wizard")
   const { publish } = messageExchange
@@ -60,27 +61,43 @@ const ConfigWizardTestPanel = ({
     latest.current = { isTesting, configItem, testValue }
   })
 
+  const lastStartedConfigRef = useRef<IConfigItem | null>(null)
+
   // A running test always shows the current draft,
   // so changes to the config restart the test with the new settings.
   // The delay avoids sending a command on every keystroke.
   useEffect(() => {
-    const isTestRunning = latest.current.isTesting
-    const hasConfig = !!configItem
-    if (!isTestRunning || !hasConfig) return
-    const timeout = setTimeout(
-      () =>
-        publish({
-          key: "CommandConfigContextMenu",
-          payload: {
-            action: "testStart",
-            item: {
-              ...configItem,
-              TestValue: toConnectorValue(latest.current.testValue),
-            },
-          },
-        } as CommandConfigContextMenu),
-      CONFIG_CHANGE_TEST_DELAY,
-    )
+    if (!latest.current.isTesting || !configItem) return
+
+    const testConfig = {
+      ...configItem,
+      TestValue: toConnectorValue(latest.current.testValue),
+    }
+
+    // Do not restart the test if the effective config is unchanged.
+    if (
+      areConfigItemsEquivalent(
+        lastStartedConfigRef.current ?? undefined,
+        testConfig,
+      )
+    ) {
+      return
+    }
+
+    const timeout = setTimeout(() => {
+      if (!latest.current.isTesting) return
+
+      lastStartedConfigRef.current = structuredClone(testConfig)
+
+      publish({
+        key: "CommandConfigContextMenu",
+        payload: {
+          action: "testStart",
+          item: testConfig,
+        },
+      } as CommandConfigContextMenu)
+    }, CONFIG_CHANGE_TEST_DELAY)
+
     return () => clearTimeout(timeout)
   }, [configItem, publish])
 
@@ -96,14 +113,24 @@ const ConfigWizardTestPanel = ({
     [publish],
   )
 
-  const publishTestStart = (value: string) =>
+  const publishTestStart = (value: string) => {
+    if (!configItem) return
+
+    const testConfig = {
+      ...configItem,
+      TestValue: toConnectorValue(value),
+    }
+
+    lastStartedConfigRef.current = structuredClone(testConfig)
+
     publish({
       key: "CommandConfigContextMenu",
       payload: {
         action: "testStart",
-        item: { ...configItem, TestValue: toConnectorValue(value) },
+        item: testConfig,
       },
     } as CommandConfigContextMenu)
+  }
 
   const handleValueChange = (value: string) => {
     setTestValue(value)

@@ -14,6 +14,7 @@ import {
   ButtonTrigger,
   EncoderTrigger,
 } from "@/types/config"
+import { HistoryAction } from "@/types/history"
 import { IconInfoCircle, IconPlus, IconTrash } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 export type ActionTrigger = ButtonTrigger | EncoderTrigger | AnalogTrigger
@@ -30,7 +31,7 @@ export type ActionBindingPanelProps = {
         Partial<ButtonLongReleaseOptions>,
     ) => void,
   ) => void
-  onTriggerChange: (trigger: ActionTrigger) => void
+  onTriggerChange: (trigger: ActionTrigger, actionLabel?: HistoryAction) => void
   // shows a button to remove the whole trigger, e.g. to switch to another kind
   onRemove?: () => void
 }
@@ -86,7 +87,7 @@ const ActionBindingPanel = ({
       ...current,
       [event]: null,
     }
-    onTriggerChange(updatedTrigger)
+    onTriggerChange(updatedTrigger, "Dialog.History.Action.TypeChanged")
   }
 
   return (
@@ -136,7 +137,7 @@ const ActionBindingPanel = ({
                     )
                   }
                 >
-                  <div className="flex flex-row grow">
+                  <div className="flex grow flex-row">
                     <div className="flex w-1/4 flex-col gap-1">
                       <Label>Event</Label>
                       <Badge className="w-fit" variant={"secondary"}>

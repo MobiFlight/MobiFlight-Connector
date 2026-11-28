@@ -44,6 +44,10 @@
       "RecentProjects.None": "プロジェクトがありません",
       "Exit": "終了"
     },
+    "Edit": {
+      "Label": "編集",
+      "Undo": "元に戻す"
+    },
     "View": {
       "Label": "表示",
       "Zoom": {
@@ -319,6 +323,24 @@
         "Description": "現在のフィルター設定に一致しないため、この設定は一覧に表示されていません。",
         "Action": "フィルターをリセット"
       }
+    },
+    "History": {
+      "Item": {
+        "Added": "追加",
+        "Duplicated": "複製",
+        "Deleted": "削除",
+        "Renamed": "名前変更",
+        "Edited": "編集",
+        "Toggled": "有効・無効の切り替え",
+        "Moved": "移動"
+      },
+      "Profile": {
+        "Added": "プロファイル追加",
+        "Rename": "プロファイル名変更",
+        "Deleted": "プロファイル削除",
+        "Merged": "プロファイル統合",
+        "Moved": "プロファイル移動"
+      }
     }
   },
   "Notifications": {
@@ -346,6 +368,11 @@
     "ProjectFileLoadError": {
       "Title": "プロジェクトを読み込めませんでした",
       "Description": "{{fileName}} の読み込み中にエラーが発生しました - {{errorMessage}}"
+    },
+    "ConfigListUndoFailed": {
+      "Title": "復元失敗",
+      "Description": "操作「{{action}}」を元に戻せませんでした。履歴は保持されています。詳しくはログを確認してください。",
+      "UnknownAction": "不明な操作"
     }
   },
   "Startup": {
@@ -403,6 +430,42 @@
       "SelectController": "コントローラーを選択",
       "SearchController": "コントローラーを検索...",
       "NoControllerFound": "コントローラーが見つかりません。"
+    },
+    "History": {
+      "Undo": "戻す",
+      "Title": "履歴",
+      "Original": "元設定",
+      "ConfigurationChanged": "設定変更",
+      "Oldest": "最古の状態",
+      "Current": "現在の状態",
+      "NameChanged": "名前変更",
+      "TriggerChanged": "トリガー変更",
+      "Precondition": {
+        "Added": "追加",
+        "Removed": "削除",
+        "Changed": "変更",
+        "Enabled": "有効化",
+        "Disabled": "無効化"
+      },
+      "Modifier": {
+        "Added": "追加",
+        "Removed": "削除",
+        "Enabled": "有効化",
+        "Disabled": "無効化",
+        "ExpressionChanged": "式変更",
+        "Changed": "変更"
+      },
+      "Reference": {
+        "Added": "追加",
+        "Removed": "削除",
+        "Enabled": "有効化",
+        "Disabled": "無効化",
+        "Changed": "変更"
+      },
+      "Action": {
+        "TypeChanged": "アクション種類変更",
+        "Changed": "アクション変更"
+      }
     },
     "UnsavedChanges": {
       "Title": "変更事項を削除しますか?",

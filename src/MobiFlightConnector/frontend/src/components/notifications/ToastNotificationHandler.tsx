@@ -5,6 +5,7 @@ import { toast } from "@/components/ui/ToastWrapper"
 import { CommandMainMenu } from "@/types/commands"
 import HubHopUpdateToast from "./HubHopUpdateToast"
 import { useTranslation } from "react-i18next"
+import { getConfigListHistoryTranslationKey } from "@/lib/configListHistory"
 
 export const ToastNotificationHandler = () => {
   const { publish } = messageExchange
@@ -12,7 +13,7 @@ export const ToastNotificationHandler = () => {
 
   useAppMessage("Notification", (message) => {
     const notification = message.payload as Notification
-    
+
     switch (notification.Event) {
       case "ControllerAutoBindSuccessful": {
         const controllerName =
@@ -20,7 +21,10 @@ export const ToastNotificationHandler = () => {
         toast({
           id: "autobind-controllers-successful",
           title: t("Notifications.ControllerAutoBindSuccessful.Title"),
-          description: t("Notifications.ControllerAutoBindSuccessful.Description", { controllerName }),
+          description: t(
+            "Notifications.ControllerAutoBindSuccessful.Description",
+            { controllerName },
+          ),
         })
         break
       }
@@ -31,7 +35,10 @@ export const ToastNotificationHandler = () => {
         toast({
           id: "manual-binding-required",
           title: t("Notifications.ControllerManualBindRequired.Title"),
-          description: t("Notifications.ControllerManualBindRequired.Description", { controllerName }),
+          description: t(
+            "Notifications.ControllerManualBindRequired.Description",
+            { controllerName },
+          ),
           button: {
             label: t("Notifications.ControllerManualBindRequired.Action"),
             onClick: () => {
@@ -58,7 +65,9 @@ export const ToastNotificationHandler = () => {
         toast({
           id: "sim-connection-lost",
           title: t("Notifications.SimConnectionLost.Title"),
-          description: t("Notifications.SimConnectionLost.Description", { simType }),
+          description: t("Notifications.SimConnectionLost.Description", {
+            simType,
+          }),
         })
         break
       }
@@ -72,23 +81,51 @@ export const ToastNotificationHandler = () => {
         break
 
       case "TestModeException": {
-        const errorMessage = notification?.Context?.ErrorMessage ?? "An error occurred"
+        const errorMessage =
+          notification?.Context?.ErrorMessage ?? "An error occurred"
         toast({
           id: "test-mode-exception",
           title: t("Notifications.TestModeException.Title"),
-          description: t("Notifications.TestModeException.Description", { errorMessage }),
+          description: t("Notifications.TestModeException.Description", {
+            errorMessage,
+          }),
         })
         break
       }
 
       case "ProjectFileLoadError": {
-        const errorMessage = notification?.Context?.ErrorMessage ?? "An error occurred while loading the project file."
+        const errorMessage =
+          notification?.Context?.ErrorMessage ??
+          "An error occurred while loading the project file."
         const fileName = notification?.Context?.FileName ?? "<<Unknown file>>"
         toast({
           id: "project-file-load-error",
           title: t("Notifications.ProjectFileLoadError.Title"),
-          description: t("Notifications.ProjectFileLoadError.Description", { fileName, errorMessage }),
+          description: t("Notifications.ProjectFileLoadError.Description", {
+            fileName,
+            errorMessage,
+          }),
         })
+        break
+      }
+
+      case "ConfigListUndoFailed": {
+        const actionType = notification.Context?.Action
+
+        const action = actionType
+          ? t(getConfigListHistoryTranslationKey(actionType), {
+            defaultValue: actionType,
+          })
+          : t("Notifications.ConfigListUndoFailed.UnknownAction")
+
+        toast({
+          id: "config-list-undo-failed",
+          title: t("Notifications.ConfigListUndoFailed.Title"),
+          description: t("Notifications.ConfigListUndoFailed.Description", {
+            action,
+          }),
+        })
+
         break
       }
 
@@ -100,7 +137,11 @@ export const ToastNotificationHandler = () => {
 
   useAppMessage("HubHopState", (message) => {
     const status = message.payload
-    if (status.ShouldUpdate && status.Result === "Pending" && status.UpdateProgress === 0) {
+    if (
+      status.ShouldUpdate &&
+      status.Result === "Pending" &&
+      status.UpdateProgress === 0
+    ) {
       toast({
         id: "hubhop-auto-update",
         title: t("General.HubHopUpdate.Title"),
@@ -116,14 +157,11 @@ export const ToastNotificationHandler = () => {
         },
         // The toast uses onCancel to enable the built-in click-to-dismiss behavior.
         // No cancellation action is needed here; the toast wrapper handles dismissal.
-        onCancel: () => {},
+        onCancel: () => { },
       })
     }
 
-    if (
-      status.Result === "InProgress" &&
-      status.UpdateProgress === 0
-    ) {
+    if (status.Result === "InProgress" && status.UpdateProgress === 0) {
       toast({
         id: "hubhop-auto-update",
         title: t("General.HubHopUpdate.Title.Downloading"),

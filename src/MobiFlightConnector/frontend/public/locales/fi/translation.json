@@ -44,6 +44,10 @@
       "RecentProjects.None": "Ei projekteja",
       "Exit": "Lopeta"
     },
+    "Edit": {
+      "Label": "Muokkaa",
+      "Undo": "Kumoa"
+    },
     "View": {
       "Label": "Näytä",
       "Zoom": {
@@ -319,6 +323,24 @@
         "Description": "Määrityksesi ei vastaa nykyisiä suodatinasetuksia, joten se ei näy luettelossa.",
         "Action": "Nollaa suodattimet"
       }
+    },
+    "History": {
+      "Item": {
+        "Added": "Lisätty",
+        "Duplicated": "Monistettu",
+        "Deleted": "Poistettu",
+        "Renamed": "Nimetty uudelleen",
+        "Edited": "Muokattu",
+        "Toggled": "Aktiivisuustila vaihdettu",
+        "Moved": "Siirretty"
+      },
+      "Profile": {
+        "Added": "Profiili lisätty",
+        "Rename": "Profiili nimetty uudelleen",
+        "Deleted": "Profiili poistettu",
+        "Merged": "Profiilit yhdistetty",
+        "Moved": "Profiili siirretty"
+      }
     }
   },
   "Notifications": {
@@ -346,6 +368,11 @@
     "ProjectFileLoadError": {
       "Title": "Projektin lataaminen epäonnistui",
       "Description": "Virhe avattaessa tiedostoa {{fileName}} - {{errorMessage}}"
+    },
+    "ConfigListUndoFailed": {
+      "Title": "Kumoaminen epäonnistui",
+      "Description": "Toiminnon {{action}} kumoaminen epäonnistui. Historia säilytettiin. Katso lisätietoja lokista.",
+      "UnknownAction": "Tuntematon toiminto"
     }
   },
   "Startup": {
@@ -403,6 +430,45 @@
       "SelectController": "Valitse ohjain",
       "SearchController": "Etsi ohjainta...",
       "NoControllerFound": "Ohjaimia ei löytynyt."
+    },
+    "History": {
+      "Undo": "Kumoa",
+      "Title": "Historia",
+      "Original": "Alkuperäinen määritys",
+      "ConfigurationChanged": "Määritystä muutettu",
+      "Oldest": "Vanhin tila",
+      "Current": "Nykyinen tila",
+      "NameChanged": "Nimi muutettu",
+      "TriggerChanged": "Laukaisin muutettu",
+      "Precondition": {
+        "Added": "Lisätty",
+        "Removed": "Poistettu",
+        "Changed": "Muutettu",
+        "Enabled": "Otettu käyttöön",
+        "Disabled": "Poistettu käytöstä"
+      },
+      "Modifier": {
+        "Added": "Lisätty",
+        "Removed": "Poistettu",
+        "Enabled": "Otettu käyttöön",
+        "Disabled": "Poistettu käytöstä",
+        "ExpressionChanged": "Lauseke muutettu",
+        "Changed": "Muutettu"
+      },
+      "Reference": {
+        "Added": "Lisätty",
+        "Removed": "Poistettu",
+        "Enabled": "Otettu käyttöön",
+        "Disabled": "Poistettu käytöstä",
+        "Changed": "Muutettu"
+      },
+      "Action": {
+        "TypeChanged": "Toiminnon tyyppi muutettu",
+        "CodeChanged": "Koodi muutettu",
+        "Changed": "Toimintoa muutettu",
+        "PresetChanged": "Esiasetus muutettu",
+        "ExpressionChanged": "Lauseke muutettu"
+      }
     },
     "UnsavedChanges": {
       "Title": "Hylätäänkö muutokset?",

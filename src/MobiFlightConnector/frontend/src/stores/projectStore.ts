@@ -16,6 +16,7 @@ interface ProjectState {
   setProject: (project: Project | null) => void
   setConfigItems: (index: number, items: IConfigItem[]) => void
   setActiveConfigFileIndex: (index: number) => void // Add this
+  updateActiveIndexAfterMove: (fromIndex: number, toIndex: number) => void
   updateConfigItems: (index: number, items: IConfigItem[]) => void // Add this
   updateConfigItem: (index: number, item: IConfigItem, upsert: boolean) => void // Add this
   clearProject: () => void
@@ -53,6 +54,25 @@ export const useProjectStore = create<ProjectState>((set) => ({
     set({ hasChanged: HasChanged, saveStatus: SaveStatus }),
 
   setActiveConfigFileIndex: (index) => set({ activeConfigFileIndex: index }),
+
+  updateActiveIndexAfterMove: (fromIndex, toIndex) =>
+    set((state) => {
+      const activeIndex = state.activeConfigFileIndex
+      if (activeIndex === fromIndex) {
+        return { activeConfigFileIndex: toIndex }
+      }
+
+      const isWithinMovedRange =
+        activeIndex >= Math.min(fromIndex, toIndex) &&
+        activeIndex <= Math.max(fromIndex, toIndex)
+
+      if (isWithinMovedRange) {
+        return {
+          activeConfigFileIndex: activeIndex + Math.sign(fromIndex - toIndex),
+        }
+      }
+      return state
+    }),
 
   setConfigItems: (index, items) =>
     set((state) => {
@@ -138,7 +158,6 @@ export const useProjectStore = create<ProjectState>((set) => ({
       return { project: { ...state.project, ControllerBindings: bindings } }
     })
   },
-
   actions: {
     moveItemsBetweenConfigs: (
       draggedItems: IConfigItem[],

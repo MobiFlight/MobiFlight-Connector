@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import WizardSection from "@/components/wizard/common/WizardSection"
+import { type ActionTypeOption } from "@/components/wizard/InputConfig/ActionTypeComboBox"
 import ActionTypeComboBox from "@/components/wizard/InputConfig/ActionTypeComboBox"
 import CopyPasteActionPanel from "@/components/wizard/InputConfig/CopyPasteActionPanel"
 import EventIdInputActionPanel from "@/components/wizard/InputConfig/InputActions/EventIdInputActionPanel"
@@ -34,6 +35,7 @@ import {
   VJoyInputAction,
   XplaneInputAction,
 } from "@/types/config"
+import { HistoryAction } from "@/types/history"
 import { useTranslation } from "react-i18next"
 import {
   msfsInputActionAdapter,
@@ -51,6 +53,7 @@ export interface ActionEditorProps {
     item: Action | null,
     buttonOptions?: Partial<ButtonHoldOptions> &
       Partial<ButtonLongReleaseOptions>,
+    actionLabel?: HistoryAction,
   ) => void
 }
 export interface ActionSummaryProps {
@@ -80,9 +83,7 @@ export const ActionSummary = ({ action }: ActionSummaryProps) => {
             `ConfigWizard.Input.ActionType.Options.${actionTypeLabel}.label`,
           )}
         >
-          {t(
-            `ConfigWizard.Input.ActionType.Options.${actionTypeLabel}.short`,
-          )}
+          {t(`ConfigWizard.Input.ActionType.Options.${actionTypeLabel}.short`)}
         </Badge>
       </div>
       <div className="flex w-1/2 flex-col">
@@ -181,7 +182,7 @@ const ActionPanel = ({
   onActionChange,
 }: {
   action: Action | null
-  onActionChange: (action: Action) => void
+  onActionChange: (action: Action, actionLabel?: HistoryAction) => void
 }) => {
   if (!action) return null
 
@@ -192,7 +193,9 @@ const ActionPanel = ({
           variant="details"
           adapter={msfsInputActionAdapter}
           config={action as MsfsInputAction}
-          onConfigChange={onActionChange}
+          onConfigChange={(config) =>
+            onActionChange(config, "Dialog.History.Action.Changed")
+          }
         />
       )
     case "XplaneInputAction":
@@ -213,10 +216,13 @@ const ActionPanel = ({
             action ? (action as MobiFlightVariableAction).Variable : undefined
           }
           onVariableChange={(variable) =>
-            onActionChange({
-              ...(action as MobiFlightVariableAction),
-              Variable: variable,
-            } as MobiFlightVariableAction)
+            onActionChange(
+              {
+                ...(action as MobiFlightVariableAction),
+                Variable: variable,
+              } as MobiFlightVariableAction,
+              "Dialog.History.Action.Changed",
+            )
           }
         />
       )
@@ -357,10 +363,14 @@ const ButtonOnHoldOptions = ({
           value={buttonOptions?.HoldDelay}
           onChange={(e) => {
             const value = e.target.value
-            onActionChange(action, {
-              HoldDelay: value ? parseInt(value) : undefined,
-              RepeatDelay: buttonOptions?.RepeatDelay,
-            })
+            onActionChange(
+              action,
+              {
+                HoldDelay: value ? parseInt(value) : undefined,
+                RepeatDelay: buttonOptions?.RepeatDelay,
+              },
+              "Dialog.History.TriggerChanged",
+            )
           }}
         />
         <span
@@ -380,10 +390,14 @@ const ButtonOnHoldOptions = ({
           value={buttonOptions?.RepeatDelay}
           onChange={(e) => {
             const value = e.target.value
-            onActionChange(action, {
-              HoldDelay: buttonOptions?.HoldDelay,
-              RepeatDelay: value ? parseInt(value) : undefined,
-            })
+            onActionChange(
+              action,
+              {
+                HoldDelay: buttonOptions?.HoldDelay,
+                RepeatDelay: value ? parseInt(value) : undefined,
+              },
+              "Dialog.History.TriggerChanged",
+            )
           }}
         />
         <span>ms</span>
@@ -418,9 +432,13 @@ const ButtonOnLongReleaseOptions = ({
           className="w-16"
           onChange={(e) => {
             const value = e.target.value
-            onActionChange(action, {
-              LongReleaseDelay: value ? parseInt(value) : undefined,
-            })
+            onActionChange(
+              action,
+              {
+                LongReleaseDelay: value ? parseInt(value) : undefined,
+              },
+              "Dialog.History.TriggerChanged",
+            )
           }}
           value={buttonOptions?.LongReleaseDelay}
         />
@@ -442,6 +460,44 @@ const ActionEditor = ({
   const selectedActionType = action
     ? ActionTypeOptions.find((option) => option.value === action.Type)
     : undefined
+  const handleActionTypeChange = (option: ActionTypeOption | null) => {
+    const actionLabel = "Dialog.History.Action.TypeChanged"
+
+    if (!option) {
+      onActionChange(null, undefined, actionLabel)
+      return
+    }
+
+    if (action?.Type === option.value) {
+      return
+    }
+
+    if (option.value === "VariableInputAction") {
+      onActionChange(
+        {
+          Type: "VariableInputAction",
+          Variable: {
+            TYPE: "number",
+            Name: "New Variable",
+            Number: 0,
+            Text: "",
+            Expression: "$",
+          },
+        } as MobiFlightVariableAction,
+        undefined,
+        actionLabel,
+      )
+      return
+    }
+
+    onActionChange(
+      {
+        Type: option.value,
+      },
+      undefined,
+      actionLabel,
+    )
+  }
 
   const isButton = event.variant === "button"
   const hasExtraOptions =
@@ -453,7 +509,13 @@ const ActionEditor = ({
           title={
             <DrawerBreadcrumb
               mode={mode}
-              crumbs={[configName, t("ConfigWizard.Input.Action.Title"), t(`ConfigWizard.Input.${event.variant}.Event.${event.event}.label`)]}
+              crumbs={[
+                configName,
+                t("ConfigWizard.Input.Action.Title"),
+                t(
+                  `ConfigWizard.Input.${event.variant}.Event.${event.event}.label`,
+                ),
+              ]}
             />
           }
           description={t(
@@ -486,22 +548,31 @@ const ActionEditor = ({
           <div className="flex flex-row items-end justify-between">
             <ActionTypeComboBox
               selectedActionType={selectedActionType}
-              setSelectedActionType={(option) => {
-                onActionChange(
-                  option ? { ...action, Type: option.value } : null,
-                )
-              }}
+              setSelectedActionType={handleActionTypeChange}
             />
             <CopyPasteActionPanel
               action={action}
               onActionChange={(newAction) => {
-                onActionChange(newAction)
+                const actionLabel =
+                  action?.Type !== newAction?.Type
+                    ? "Dialog.History.Action.TypeChanged"
+                    : "Dialog.History.Action.Changed"
+                onActionChange(newAction, undefined, actionLabel)
               }}
             />
           </div>
         </div>
       </WizardSection>
-      <ActionPanel onActionChange={onActionChange} action={action} />
+      <ActionPanel
+        action={action}
+        onActionChange={(updatedAction, actionLabel) => {
+          onActionChange(
+            updatedAction,
+            undefined,
+            actionLabel ?? "Dialog.History.Action.Changed",
+          )
+        }}
+      />
     </div>
   )
 }
