@@ -129,5 +129,58 @@ namespace MobiFlight.Scripts.Tests
             Assert.AreEqual("pmdg_737_winwing_cdu.py", definitions.Mappings[0].ScriptName);
             Assert.AreEqual("pmdg 777", definitions.Mappings[1].AircraftMatchPattern);
         }
+
+        #region ApplyProSimEnvironment
+
+        [TestMethod()]
+        public void ApplyProSimEnvironment_ShouldPassConfiguredHostAndPort_WhenHostIsSet()
+        {
+            // Arrange
+            var environment = new Dictionary<string, string>();
+
+            // Act
+            ScriptRunner.ApplyProSimEnvironment(environment, "192.168.1.50", 5123);
+
+            // Assert
+            Assert.AreEqual("192.168.1.50", environment[ScriptRunner.PROSIM_HOST_VARIABLE]);
+            Assert.AreEqual("5123", environment[ScriptRunner.PROSIM_PORT_VARIABLE]);
+        }
+
+        [TestMethod()]
+        [DataRow(null)]
+        [DataRow("")]
+        [DataRow("   ")]
+        public void ApplyProSimEnvironment_ShouldFallBackToLocalhost_WhenHostIsEmpty(string host)
+        {
+            // Arrange
+            var environment = new Dictionary<string, string>();
+
+            // Act
+            ScriptRunner.ApplyProSimEnvironment(environment, host, 5000);
+
+            // Assert
+            Assert.AreEqual("localhost", environment[ScriptRunner.PROSIM_HOST_VARIABLE]);
+            Assert.AreEqual("5000", environment[ScriptRunner.PROSIM_PORT_VARIABLE]);
+        }
+
+        [TestMethod()]
+        public void ApplyProSimEnvironment_ShouldOverwriteInheritedValues_WhenVariablesAlreadyExist()
+        {
+            // Arrange
+            var environment = new Dictionary<string, string>
+            {
+                [ScriptRunner.PROSIM_HOST_VARIABLE] = "stale-host",
+                [ScriptRunner.PROSIM_PORT_VARIABLE] = "1"
+            };
+
+            // Act
+            ScriptRunner.ApplyProSimEnvironment(environment, "prosim-pc", 5000);
+
+            // Assert
+            Assert.AreEqual("prosim-pc", environment[ScriptRunner.PROSIM_HOST_VARIABLE]);
+            Assert.AreEqual("5000", environment[ScriptRunner.PROSIM_PORT_VARIABLE]);
+        }
+
+        #endregion
     }
 }
