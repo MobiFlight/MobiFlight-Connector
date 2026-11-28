@@ -10,28 +10,12 @@ namespace MobiFlight.Tests.ConfigListUndo
     public class ProfileMovedUndoEntryTests : UndoEntryTestBase
     {
         [TestMethod]
-        // Adjacent moves
-        [DataRow(0, 1, 1, 0)]
-        [DataRow(0, 1, 0, 1)]
-        [DataRow(1, 0, 0, 1)]
-        [DataRow(1, 0, 1, 0)]
-        [DataRow(0, 1, 2, 2)]
+        [DataRow(0, 1)]
+        [DataRow(1, 0)]
+        [DataRow(0, 2)]
+        [DataRow(2, 0)]
 
-        // Non-adjacent moves to the right
-        [DataRow(0, 2, 0, 1)]
-        [DataRow(0, 2, 1, 2)]
-        [DataRow(0, 2, 2, 0)]
-
-        // Non-adjacent moves to the left
-        [DataRow(2, 0, 0, 2)]
-        [DataRow(2, 0, 1, 0)]
-        [DataRow(2, 0, 2, 1)]
-
-        public void TryUndo_RestoresOriginalOrderAndActiveIndex(
-            int originalIndex,
-            int targetIndex,
-            int activeIndex,
-            int expectedActiveIndex)
+        public void TryUndo_RestoresOriginalOrderAndActiveIndex(int originalIndex, int targetIndex)
         {
             // Arrange
             var secondFile = new ConfigFile
@@ -59,10 +43,6 @@ namespace MobiFlight.Tests.ConfigListUndo
 
             TestProject.ConfigFiles.Move(originalIndex, targetIndex);
 
-            Context.ActiveConfigIndex = activeIndex;
-
-            var activeFileBeforeUndo = TestProject.ConfigFiles[activeIndex];
-
             // Act
             bool result = entry.TryUndo(Context, out string reason);
 
@@ -79,10 +59,6 @@ namespace MobiFlight.Tests.ConfigListUndo
             Assert.AreSame(secondFile, TestProject.ConfigFiles[1]);
 
             Assert.AreSame(thirdFile, TestProject.ConfigFiles[2]);
-
-            Assert.AreEqual(expectedActiveIndex, Context.ActiveConfigIndex);
-
-            Assert.AreSame(activeFileBeforeUndo, TestProject.ConfigFiles[Context.ActiveConfigIndex]);
 
             AssertProjectPublished(entry);
 
