@@ -198,9 +198,9 @@ namespace MobiFlight
         // Not const so that tests can shorten the wait instead of running into the real timeout.
         public int CommandTimeout = 2500;
         // A running board answers GetInfo in well under 100 ms; the margin covers USB latency and a busy PC.
-        public int GetInfoTimeout = 500;
+        public int GetInfoTimeout = 2500;
         // Issue 3321: a single attempt, since Connect() now flushes both ends. Raise again if logs show late replies.
-        public int GetInfoMaxAttempts = 1;
+        public int GetInfoMaxAttempts = 2;
         public const int MessageSizeReductionValue = 10;
         internal int StopDelayInMs = 20;
 
