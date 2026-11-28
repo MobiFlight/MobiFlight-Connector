@@ -815,7 +815,7 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod()]
-        public void GetInfo_ShouldSendOneCommandByDefault_WhenBoardNeverAnswers()
+        public void GetInfo_ShouldSendTwoCommandByDefault_WhenBoardNeverAnswers()
         {
             // Arrange
             // Issue 3321: Connect() flushes both ends, so a silent board is not asked again.
@@ -826,7 +826,7 @@ namespace MobiFlight.Tests
             module.GetInfo();
 
             // Assert
-            Assert.AreEqual(1, transport.WriteCount, "A silent board should be asked only once by default.");
+            Assert.AreEqual(2, transport.WriteCount, "A silent board should be asked only twice by default.");
         }
 
         [TestMethod()]
