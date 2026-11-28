@@ -222,6 +222,37 @@ namespace MobiFlight.Tests
 
             Assert.IsNull(result.Device, "Device should remain null when DeviceType is TYPE_NOTSET");
         }
+
+        [TestMethod()]
+        public void Serialize_WithoutTestValue_OmitsTestValue()
+        {
+            // Arrange
+            var cfg = new InputConfigItem() { GUID = "test-guid" };
+
+            // Act
+            var json = Newtonsoft.Json.JsonConvert.SerializeObject(cfg);
+
+            // Assert
+            Assert.DoesNotContain("TestValue", json, "A config without test value should not store one");
+        }
+
+        [TestMethod()]
+        public void SerializeAndDeserialize_WithTestValue_KeepsTestValue()
+        {
+            // Arrange
+            var cfg = new InputConfigItem()
+            {
+                GUID = "test-guid",
+                TestValue = new ConnectorValue() { type = FSUIPCOffsetType.Float, Float64 = 512 }
+            };
+
+            // Act
+            var json = Newtonsoft.Json.JsonConvert.SerializeObject(cfg);
+            var result = Newtonsoft.Json.JsonConvert.DeserializeObject<InputConfigItem>(json);
+
+            // Assert
+            Assert.AreEqual(cfg.TestValue, result.TestValue);
+        }
         #endregion
 
         [TestMethod()]
@@ -240,6 +271,8 @@ namespace MobiFlight.Tests
             Assert.AreEqual(o.Device.Type, c.Device.Type, "DeviceType not the same");
             Assert.IsNotNull(c.Device, "Device should not be null after Clone");
             Assert.AreEqual(o.Device, c.Device, "Devices should be the same");
+            Assert.AreEqual(o.TestValue, c.TestValue, "TestValue not the same");
+            Assert.AreNotSame(o.TestValue, c.TestValue, "TestValue should be a copy");
         }
 
         private InputConfigItem generateTestObject()
@@ -266,6 +299,7 @@ namespace MobiFlight.Tests
             result.Controller = new Controller() { Serial = "TestSerial" };
 
             result.Device = new MobiFlight.InputConfig.Button() { Name = "TestName" };
+            result.TestValue = new ConnectorValue() { type = FSUIPCOffsetType.Float, Float64 = 1 };
 
             result.Preconditions.Add(new Precondition() { Serial = "PreConTestSerial" });
             result.ConfigRefs.Add(new Base.ConfigRef() { Active = true, Placeholder = "@", Ref = "0b1c877f-baf3-4c69-99e6-6c31429fe3bd" });
@@ -288,6 +322,14 @@ namespace MobiFlight.Tests
 
             o2 = generateTestObject();
             Assert.IsTrue(o1.Equals(o2));
+
+            o2.TestValue = new ConnectorValue() { type = FSUIPCOffsetType.Float, Float64 = 2 };
+            Assert.IsFalse(o1.Equals(o2), "Configs with different test values should not be equal");
+
+            o2.TestValue = null;
+            Assert.IsFalse(o1.Equals(o2), "A config without test value should not equal one with test value");
+
+            o2 = generateTestObject();
 
             var list1 = new List<IConfigItem>() { o1, o2 };
             var list2 = new List<IConfigItem>() { o1, o2 };

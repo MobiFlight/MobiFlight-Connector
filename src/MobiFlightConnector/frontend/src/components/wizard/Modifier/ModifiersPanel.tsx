@@ -85,19 +85,17 @@ const ModifiersPanel = ({
         )
         }
       />
-      {configItem.Type === "OutputConfigItem" && (
-        <ConfigWizardTestPanel
-          configItem={configItem}
-          title={t("ConfigWizard.Modifiers.Editor.TestPanel.Title")}
-          description={t("ConfigWizard.Modifiers.Editor.TestPanel.Description")}
-          onTestValueChange={(value) => {
-            onConfigChange({
-              ...configItem,
-              TestValue: value
-            })
-          }}
-        />
-      )}
+      <ConfigWizardTestPanel
+        configItem={configItem}
+        title={t("ConfigWizard.Modifiers.Editor.TestPanel.Title")}
+        description={t("ConfigWizard.Modifiers.Editor.TestPanel.Description")}
+        onTestValueChange={(value) => {
+          onConfigChange({
+            ...configItem,
+            TestValue: value,
+          })
+        }}
+      />
     </div>
   )
 }

@@ -38,7 +38,7 @@ export interface IConfigItem extends IConfigValueOnlyItem {
   analog?: AnalogTrigger
   ConfigRefs?: ConfigReference[]
   Modifiers?: ModifierList
-  // output configs only
+  // the raw value used by the test panels of the config wizard
   TestValue?: ConnectorValue
 }
 

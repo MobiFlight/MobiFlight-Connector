@@ -2613,6 +2613,132 @@ namespace MobiFlight.Tests
             Assert.AreEqual("1", cfg.Value);
         }
 
+        [TestMethod]
+        public void ExecuteTestOn_InputConfig_AppliesActiveModifiersToTestValue()
+        {
+            // Arrange
+            var cfg = new InputConfigItem
+            {
+                TestValue = new ConnectorValue { type = FSUIPCOffsetType.Float, Float64 = 512 }
+            };
+            cfg.Modifiers.Items.Add(new Modifier.Transformation { Active = true, Expression = "$*2" });
+            cfg.Modifiers.Items.Add(new Modifier.Transformation { Active = false, Expression = "$+5" });
+            cfg.Modifiers.Items.Add(new Modifier.Transformation { Active = true, Expression = "$-24" });
+
+            // Act
+            _executionManager.ExecuteTestOn(cfg);
+
+            // Assert
+            Assert.AreEqual("512", cfg.RawValue, "RawValue should be the unmodified test value");
+            Assert.AreEqual("1000", cfg.Value, "Value should have only the active modifiers applied, in order");
+            Assert.AreEqual("TEST_EXECUTION", cfg.Status[ConfigItemStatusType.Test]);
+        }
+
+        [TestMethod]
+        public void ExecuteTestOn_InputConfig_UsesTestValueOfConfigReferences()
+        {
+            // Arrange
+            var referenced = new OutputConfigItem { GUID = "guid-ref", Active = true, Value = "1000" };
+            var cfg = new InputConfigItem
+            {
+                GUID = "guid-test",
+                TestValue = new ConnectorValue { type = FSUIPCOffsetType.Float, Float64 = 1 }
+            };
+            cfg.ConfigRefs.Add(new ConfigRef { Active = true, Ref = referenced.GUID, Placeholder = "#", TestValue = "5" });
+            cfg.Modifiers.Items.Add(new Modifier.Transformation { Active = true, Expression = "$+#" });
+
+            var project = new Project();
+            project.ConfigFiles.Add(new ConfigFile() { ConfigItems = { referenced, cfg } });
+            _executionManager.Project = project;
+
+            // Act
+            _executionManager.ExecuteTestOn(cfg);
+
+            // Assert
+            Assert.AreEqual("6", cfg.Value, "The reference should use its test value, not its current value");
+            Assert.AreEqual("1000", referenced.Value, "The referenced config itself should not change");
+        }
+
+        [TestMethod]
+        public void ExecuteTestOn_InputConfig_ShowsModifierErrorInStatus()
+        {
+            // Arrange
+            var cfg = new InputConfigItem
+            {
+                TestValue = new ConnectorValue { type = FSUIPCOffsetType.Float, Float64 = 1 }
+            };
+            cfg.Modifiers.Items.Add(new Modifier.Transformation { Active = true, Expression = "$+" });
+
+            // Act
+            _executionManager.ExecuteTestOn(cfg);
+
+            // Assert
+            Assert.AreEqual("1", cfg.Value, "Value should stay unmodified if a modifier fails");
+            Assert.IsTrue(cfg.Status.ContainsKey(ConfigItemStatusType.Modifier));
+
+            // Act - the test runs again after the modifier was fixed
+            cfg.Modifiers.Items[0] = new Modifier.Transformation { Active = true, Expression = "$+1" };
+            _executionManager.ExecuteTestOn(cfg);
+
+            // Assert
+            Assert.AreEqual("2", cfg.Value);
+            Assert.IsFalse(cfg.Status.ContainsKey(ConfigItemStatusType.Modifier), "The error should be removed once the modifiers work");
+        }
+
+        [TestMethod]
+        public void CommandConfigContextMenu_TestStartAndTestStop_InputConfig_PublishesTestResult()
+        {
+            // Arrange
+            var publishedItems = new List<IConfigValueOnlyItem>();
+            _mockMessagePublisher
+                .Setup(publisher => publisher.Publish(It.IsAny<object>()))
+                .Callback<object>(publishedMessage =>
+                {
+                    if (publishedMessage is ConfigValueRawAndFinalUpdate update)
+                    {
+                        publishedItems.AddRange(update.ConfigItems);
+                    }
+
+                    var jsonMessage = JsonConvert.SerializeObject(new Message<object>(publishedMessage.GetType().Name, publishedMessage));
+                    _OnMessageReceivedCallback?.Invoke(jsonMessage);
+                });
+
+            var cfg = new InputConfigItem
+            {
+                GUID = "guid-input",
+                TestValue = new ConnectorValue { type = FSUIPCOffsetType.Float, Float64 = 2 }
+            };
+            cfg.Modifiers.Items.Add(new Modifier.Transformation { Active = true, Expression = "$*10" });
+
+            // Act
+            MessageExchange.Instance.Publish(new CommandConfigContextMenu
+            {
+                Action = CommandConfigContextMenuAction.testStart,
+                Item = cfg
+            });
+
+            // Assert
+            Assert.IsNotEmpty(publishedItems, "Starting the test should publish the result");
+            var testResult = publishedItems.Last();
+            Assert.AreEqual("guid-input", testResult.GUID);
+            Assert.AreEqual("2", testResult.RawValue);
+            Assert.AreEqual("20", testResult.Value);
+            Assert.IsTrue(testResult.Status.ContainsKey(ConfigItemStatusType.Test));
+
+            // Act
+            publishedItems.Clear();
+            MessageExchange.Instance.Publish(new CommandConfigContextMenu
+            {
+                Action = CommandConfigContextMenuAction.testStop,
+                Item = cfg
+            });
+
+            // Assert
+            Assert.HasCount(1, publishedItems, "Stopping the test should publish the config once");
+            Assert.AreEqual("guid-input", publishedItems[0].GUID);
+            Assert.IsFalse(publishedItems[0].Status.ContainsKey(ConfigItemStatusType.Test), "The test status should be removed");
+        }
+
             private static OutputConfigItem CreateTestTarget(IDeviceConfig device, string serial = "SN-1", string guid = "guid-1")
         {
             return new OutputConfigItem

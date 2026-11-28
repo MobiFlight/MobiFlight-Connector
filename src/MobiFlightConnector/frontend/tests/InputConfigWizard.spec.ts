@@ -2031,7 +2031,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(modifierEditor).toBeVisible()
   })
 
-  test("Input modifiers don't show a test panel (yet)", async ({
+  test("Test panel tests the modifiers of an input config", async ({
     configListPage,
     page,
   }) => {
@@ -2039,18 +2039,115 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
 
     // Bring up the modifier editor by clicking the "Add modifier" button
     const dialog = page.getByTestId("configwizard-dialog")
-    const addModifierButton = dialog.getByRole("button", {
-      name: "Add modifier",
-    })
-    await expect(dialog).toBeVisible()
-    await expect(addModifierButton).toBeVisible()
-    await addModifierButton.click()
-
-    const modifierEditor = page.getByTestId("modifier-editor")
-    await expect(modifierEditor).toBeVisible()
+    await dialog.getByRole("button", { name: "Add modifier" }).click()
 
     const testPanel = page.getByTestId("configwizard-test-panel")
+    await expect(testPanel).toBeVisible()
+    await expect(testPanel.getByText("Test modifiers")).toBeVisible()
+
+    await configListPage.mobiFlightPage.trackCommand("CommandConfigContextMenu")
+
+    let guid = ""
+    await test.step("Start test with a custom value", async () => {
+      // the value is committed when the input loses focus
+      await testPanel.getByPlaceholder("Enter raw value").fill("42")
+      await testPanel.getByPlaceholder("Enter raw value").blur()
+      await testPanel.getByRole("button", { name: "Test" }).click()
+      await expect(
+        testPanel.getByRole("button", { name: "Stop" }),
+      ).toBeVisible()
+
+      const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+      const payload = commands?.pop()?.payload
+      expect(payload.action).toBe("testStart")
+      expect(payload.item.Type).toBe("InputConfigItem")
+      expect(payload.item.TestValue).toMatchObject({ Float64: 42 })
+      guid = payload.item.GUID
+    })
+
+    await test.step("Final value shows the result of the test", async () => {
+      await configListPage.mobiFlightPage.publishMessage({
+        key: "ConfigValueRawAndFinalUpdate",
+        payload: {
+          ConfigItems: [
+            {
+              GUID: guid,
+              RawValue: "42",
+              Value: "84",
+              Status: { Test: "TEST_EXECUTION" },
+            },
+          ],
+        },
+      })
+      await expect(testPanel.getByText("84")).toBeVisible()
+    })
+
+    await test.step("Stop test", async () => {
+      await testPanel.getByRole("button", { name: "Stop" }).click()
+      await expect(
+        testPanel.getByRole("button", { name: "Test" }),
+      ).toBeVisible()
+      await expect(testPanel.getByText("84")).not.toBeVisible()
+
+      const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+      const payload = commands?.pop()?.payload
+      expect(payload.action).toBe("testStop")
+      expect(payload.item.GUID).toBe(guid)
+    })
+  })
+
+  test("Test panel - Closing the modifier editor stops a running test", async ({
+    configListPage,
+    page,
+  }) => {
+    await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
+
+    const dialog = page.getByTestId("configwizard-dialog")
+    await dialog.getByRole("button", { name: "Add modifier" }).click()
+
+    const testPanel = page.getByTestId("configwizard-test-panel")
+    await configListPage.mobiFlightPage.trackCommand("CommandConfigContextMenu")
+    await testPanel.getByRole("button", { name: "Test" }).click()
+    await expect(testPanel.getByRole("button", { name: "Stop" })).toBeVisible()
+
+    await page.getByRole("button", { name: "Done" }).click()
     await expect(testPanel).not.toBeVisible()
+
+    await expect
+      .poll(async () => {
+        const commands =
+          await configListPage.mobiFlightPage.getTrackedCommands()
+        return commands?.map((command) => command.payload.action)
+      })
+      .toEqual(["testStart", "testStop"])
+  })
+
+  test("Test panel - Test value is saved with the input config", async ({
+    configListPage,
+    page,
+  }) => {
+    await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
+
+    const dialog = page.getByTestId("configwizard-dialog")
+    await dialog.getByRole("button", { name: "Add modifier" }).click()
+
+    const testPanel = page.getByTestId("configwizard-test-panel")
+    const testValueInput = testPanel.getByPlaceholder("Enter raw value")
+    // typed key by key, so the intermediate "1." must not lose its dot
+    await testValueInput.pressSequentially("1.5")
+    await expect(testValueInput).toHaveValue("1.5")
+
+    // Close the drawer
+    await page.getByRole("button", { name: "Done" }).click()
+    await expect(testPanel).not.toBeVisible()
+
+    // Save the config
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+    await page.getByRole("button", { name: "Apply changes" }).click()
+
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    const payload = commands?.pop()?.payload
+    expect(payload.item.TestValue).toMatchObject({ Float64: 1.5 })
   })
 
   test("Modifiers are sorted alphabetically in the add modifier dropdown", async ({

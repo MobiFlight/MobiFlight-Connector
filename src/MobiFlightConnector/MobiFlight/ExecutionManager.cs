@@ -113,7 +113,7 @@ namespace MobiFlight
 
         // test run started from the config wizard, evaluated on every tick
         private readonly Timer wizardTestTimer = new Timer();
-        private OutputConfigItem wizardTestConfig;
+        private IConfigItem wizardTestConfig;
 
         /// <summary>
         /// This list contains preparsed information and cached values for the supervised FSUIPC offsets
@@ -532,10 +532,11 @@ namespace MobiFlight
 
                     case CommandConfigContextMenuAction.testStart:
                         cfg = message.Item;
-                        if (cfg == null || !(cfg is OutputConfigItem)) break;
+                        if (!(cfg is OutputConfigItem || cfg is InputConfigItem)) break;
 
-                        // a value change on the same config keeps the device on
-                        if (!IsSameTestTarget(ConfigItemInTestMode, cfg as OutputConfigItem))
+                        // a value change on the same config keeps the device on,
+                        // an input config has no device to turn off
+                        if (cfg is OutputConfigItem outputTestConfig && !IsSameTestTarget(ConfigItemInTestMode, outputTestConfig))
                         {
                             try
                             {
@@ -547,7 +548,7 @@ namespace MobiFlight
                             }
                         }
 
-                        wizardTestConfig = cfg as OutputConfigItem;
+                        wizardTestConfig = cfg;
                         ExecuteWizardTest();
                         // modifiers like Blink need continuous evaluation
                         wizardTestTimer.Interval = Properties.Settings.Default.TestTimerInterval;
@@ -557,10 +558,16 @@ namespace MobiFlight
 
                     case CommandConfigContextMenuAction.testStop:
                         cfg = message.Item;
-                        if (cfg == null || !(cfg is OutputConfigItem)) break;
+                        if (!(cfg is OutputConfigItem || cfg is InputConfigItem)) break;
 
                         wizardTestTimer.Stop();
                         wizardTestConfig = null;
+
+                        if (cfg is InputConfigItem inputTestConfig)
+                        {
+                            ExecuteTestOff(inputTestConfig);
+                            return;
+                        }
 
                         try
                         {
@@ -1824,7 +1831,16 @@ namespace MobiFlight
 
             try
             {
-                ExecuteTestOn(cfg);
+                switch (cfg)
+                {
+                    case OutputConfigItem outputConfig:
+                        ExecuteTestOn(outputConfig);
+                        break;
+
+                    case InputConfigItem inputConfig:
+                        ExecuteTestOn(inputConfig);
+                        break;
+                }
             }
             catch (Exception e)
             {
@@ -1901,6 +1917,54 @@ namespace MobiFlight
 
             // the test panel and the LCD preview show the values of the test
             cfg.Status[ConfigItemStatusType.Test] = "TEST_EXECUTION";
+            MessageExchange.Instance.Publish(new ConfigValueRawAndFinalUpdate(new ConfigValueOnlyItem(cfg)));
+        }
+
+        /// <summary>
+        /// Applies the active modifiers of an input config to its test value, the same way an input event does,
+        /// and publishes the result for the test panel of the config wizard.
+        /// The input actions are not executed.
+        /// </summary>
+        public void ExecuteTestOn(InputConfigItem cfg)
+        {
+            // like the output test, the references use their test values
+            var configRefs = cfg.ConfigRefs
+                .Where(r => r.Active && !string.IsNullOrEmpty(r.TestValue))
+                // a reference can point to a config that was deleted or is disabled
+                .Where(r => ConfigItems.Find(i => i.GUID == r.Ref)?.Active ?? false)
+                .Select(r => new ConfigRefValue(r, r.TestValue))
+                .ToList();
+
+            var value = cfg.TestValue?.Clone() as ConnectorValue ?? new ConnectorValue() { type = FSUIPCOffsetType.Float };
+            cfg.RawValue = value.ToString();
+            cfg.Value = value.ToString();
+            cfg.Status.Remove(ConfigItemStatusType.Modifier);
+
+            try
+            {
+                foreach (var modifier in cfg.Modifiers.Items.Where(m => m.Active))
+                {
+                    value = modifier.Apply(value, configRefs);
+                }
+
+                cfg.Value = value.ToString();
+            }
+            catch (Exception ex)
+            {
+                // the timer evaluates the test continuously, so the status shows the error instead of the log
+                cfg.Status[ConfigItemStatusType.Modifier] = ex.Message;
+            }
+
+            cfg.Status[ConfigItemStatusType.Test] = "TEST_EXECUTION";
+            MessageExchange.Instance.Publish(new ConfigValueRawAndFinalUpdate(new ConfigValueOnlyItem(cfg)));
+        }
+
+        /// <summary>
+        /// Ends the modifier test of an input config and publishes it without the test status.
+        /// </summary>
+        public void ExecuteTestOff(InputConfigItem cfg)
+        {
+            cfg.Status.Remove(ConfigItemStatusType.Test);
             MessageExchange.Instance.Publish(new ConfigValueRawAndFinalUpdate(new ConfigValueOnlyItem(cfg)));
         }
 
