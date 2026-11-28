@@ -37,7 +37,7 @@ const OutputDeviceComboBox = ({
       getValue={(device) => device.Name}
       isSelected={(device, selected) => device.Name === selected?.Name}
       selected={selectedDevice}
-      setSelected={(device) => onChange(device?.Name ?? "")}
+      setSelected={(device) => device && onChange(device.Name)}
     />
   )
 }
