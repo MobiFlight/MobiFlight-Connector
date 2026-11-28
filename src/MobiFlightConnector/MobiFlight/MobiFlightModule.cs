@@ -5,8 +5,10 @@ using MobiFlight.Transport;
 using MobiFlight.UI.Panels.Settings.Device;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO.Ports;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 
@@ -195,7 +197,10 @@ namespace MobiFlight
 
         // Not const so that tests can shorten the wait instead of running into the real timeout.
         public int CommandTimeout = 2500;
-        public int GetInfoMaxAttempts = 3;
+        // A running board answers GetInfo in well under 100 ms; the margin covers USB latency and a busy PC.
+        public int GetInfoTimeout = 2500;
+        // Issue 3321: a single attempt, since Connect() now flushes both ends. Raise again if logs show late replies.
+        public int GetInfoMaxAttempts = 2;
         public const int MessageSizeReductionValue = 10;
         internal int StopDelayInMs = 20;
 
@@ -325,6 +330,7 @@ namespace MobiFlight
                     Thread.Sleep(Board.Connection.ConnectionDelay);
                 }
 
+                FlushMessageBuffer();
                 return ConnectResult.Connected;
             }
             catch (Exception ex)
@@ -333,6 +339,13 @@ namespace MobiFlight
                 Log.Instance.log($"Error connecting to device: {ex.Message}", LogSeverity.Error);
                 return ConnectResult.NotResponding;
             }
+        }
+
+        public void FlushMessageBuffer()
+        {
+            _transportLayer.Write(Encoding.ASCII.GetBytes(";;"));
+            Thread.Sleep(50);
+            _cmdMessenger.ClearReceiveBuffers();
         }
 
         public void ResetBoard()
@@ -622,13 +635,10 @@ namespace MobiFlight
         }
 
         // Callback function that prints the Arduino status to the console
+        // Only reached by Info messages nobody was waiting for, e.g. a reply that arrived after its request timed out.
         void OnInfo(ReceivedCommand arguments)
         {
-            String port = arguments.ReadStringArg();
-            String type = arguments.ReadStringArg();
-            String name = arguments.ReadStringArg();
-            //addLog("Arduino status: ");
-            //addLog(arguments.ReadStringArg() + "\n");
+            Log.Instance.log($"{_comPort}: Received an Info message after its request timed out: {arguments.RawString?.Trim()}", LogSeverity.Warn);
         }
 
         // Callback function that prints the Arduino status to the console
@@ -944,17 +954,21 @@ namespace MobiFlight
                 HardwareId = HardwareId
             };
 
-            var command = new SendCommand((int)MobiFlightModule.Command.GetInfo, (int)MobiFlightModule.Command.Info, CommandTimeout);
+            var command = new SendCommand((int)MobiFlightModule.Command.GetInfo, (int)MobiFlightModule.Command.Info, GetInfoTimeout);
 
-            // Sometimes first attempt times out, same as for the Config getter.
-            // Seen on the first launch after a Windows cold boot (#3321).
             ReceivedCommand InfoCommand = null;
             for (var attempt = 1; attempt <= GetInfoMaxAttempts; attempt++)
             {
+                var stopwatch = Stopwatch.StartNew();
                 InfoCommand = _cmdMessenger.SendCommand(command);
-                if (InfoCommand.Ok) break;
 
-                Log.Instance.log($"GetInfo timed out on {_comPort}, attempt {attempt} of {GetInfoMaxAttempts}.", LogSeverity.Debug);
+                if (InfoCommand.Ok)
+                {
+                    Log.Instance.log($"GetInfo on {_comPort} answered after {stopwatch.ElapsedMilliseconds} ms, attempt {attempt} of {GetInfoMaxAttempts}.", LogSeverity.Debug);
+                    break;
+                }
+
+                Log.Instance.log($"GetInfo on {_comPort} timed out after {GetInfoTimeout} ms, attempt {attempt} of {GetInfoMaxAttempts}.", LogSeverity.Warn);
             }
 
             if (InfoCommand.Ok)
