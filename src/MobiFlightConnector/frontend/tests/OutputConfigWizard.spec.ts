@@ -2102,6 +2102,39 @@ test.describe("Output Config Wizard - 7-Segment Device", () => {
     })
   })
 
+  test("Selected display can't be deselected", async ({
+    configListPage,
+    page,
+  }) => {
+    await createEmptyOutputConfigAndOpenWizard(configListPage, page)
+    await openOutputDevicePanel(page)
+
+    const deviceEditor = page.getByTestId("output-device-editor")
+    await selectComboBoxOption(
+      page,
+      deviceEditor.getByRole("combobox").first(),
+      "ProtoBoard-v2",
+    )
+    await selectComboBoxOption(
+      page,
+      deviceEditor.getByRole("combobox").nth(1),
+      "7-Segment Display",
+    )
+
+    const displayComboBox = deviceEditor
+      .getByRole("combobox")
+      .filter({ hasText: /^7-Segment$/ })
+    await expect(displayComboBox).toBeVisible()
+
+    // clicking the selected option again would deselect it in other comboboxes
+    await selectComboBoxOption(page, displayComboBox, "7-Segment")
+
+    await expect(displayComboBox).toBeVisible()
+    await expect(
+      deviceEditor.getByRole("group", { name: "Use digits" }),
+    ).toBeVisible()
+  })
+
   for (const digits of [4, 8]) {
     test(`New 7-Segment config on a ${digits}-digit module has all ${digits} digits enabled`, async ({
       configListPage,
