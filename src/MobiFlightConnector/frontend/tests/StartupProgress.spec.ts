@@ -56,6 +56,55 @@ test("Go beyond progress bar", async ({ startupPage, page }) => {
   await expect(page).toHaveURL("http://localhost:5173/home")
 })
 
+test.describe("Show the last view after startup", () => {
+  test("Show the config list if it was the last view", async ({
+    startupPage,
+    page,
+  }) => {
+    await page.goto("http://localhost:5173/config", {
+      waitUntil: "networkidle",
+    })
+
+    await startupPage.gotoStartupPage()
+    await startupPage.mobiFlightPage.initWithTestData()
+    await startupPage.setStatusBarUpdate(100, "Finished!")
+
+    await expect(page).toHaveURL("http://localhost:5173/config")
+  })
+
+  test("Show the dashboard if it was the last view", async ({
+    startupPage,
+    page,
+  }) => {
+    await page.goto("http://localhost:5173/config", {
+      waitUntil: "networkidle",
+    })
+    await page.goto("http://localhost:5173/home", {
+      waitUntil: "networkidle",
+    })
+
+    await startupPage.gotoStartupPage()
+    await startupPage.mobiFlightPage.initWithTestData()
+    await startupPage.setStatusBarUpdate(100, "Finished!")
+
+    await expect(page).toHaveURL("http://localhost:5173/home")
+  })
+
+  test("Show the dashboard if no project got loaded", async ({
+    startupPage,
+    page,
+  }) => {
+    await page.goto("http://localhost:5173/config", {
+      waitUntil: "networkidle",
+    })
+
+    await startupPage.gotoStartupPage()
+    await startupPage.setStatusBarUpdate(100, "Finished!")
+
+    await expect(page).toHaveURL("http://localhost:5173/home")
+  })
+})
+
 test("Test that backend progress state is localized", async ({
   startupPage,
   page,

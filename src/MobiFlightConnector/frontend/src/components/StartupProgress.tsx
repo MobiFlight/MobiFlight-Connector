@@ -7,6 +7,8 @@ import { useAppMessage } from "@/lib/hooks/appMessage"
 import { useLocation, useNavigate, useSearchParams } from "react-router"
 import { useTranslation } from "react-i18next"
 import messageExchange from "@/lib/messageExchange"
+import { getStartupRoute, lastViewStorage } from "@/lib/lastView"
+import { useProjectStore } from "@/stores/projectStore"
 
 const StartupProgress = () => {
   const { t } = useTranslation()
@@ -42,10 +44,15 @@ const StartupProgress = () => {
   useEffect(() => {
     if (startupProgress.Value !== 100) return
 
-    console.log("Finished loading, navigating to home")
-
     const timeoutId = setTimeout(() => {
-      navigate("/home")
+      // The backend sends the project before it finishes the startup,
+      // so the store already contains the project that got loaded.
+      const route = getStartupRoute(
+        lastViewStorage.get(),
+        useProjectStore.getState().project,
+      )
+      console.log(`Finished loading, navigating to ${route}`)
+      navigate(route)
     }, 1000) // Add a small delay to allow users to see the completed progress bar
 
     return () => {

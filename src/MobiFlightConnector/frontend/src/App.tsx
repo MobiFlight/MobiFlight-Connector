@@ -24,9 +24,11 @@ import {
 import { useLogSettings } from "@/stores/settingsStore"
 import { ErrorBoundary } from "react-error-boundary"
 import ErrorFallback from "@/components/ErrorFallback"
+import { useRememberLastView } from "@/lib/hooks/useRememberLastView"
 
 function App() {
   useKeyAccelerators(GlobalKeyAccelerators, true)
+  useRememberLastView()
   const outlet = useOutlet()
   const [overlayVisible, setOverlayVisible] = useState(false)
   const { theme } = useTheme()
